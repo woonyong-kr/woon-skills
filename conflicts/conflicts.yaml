@@ -16,7 +16,3 @@ groups:
     mode: explicit-policy
     members: [vendor/ecc/tdd-workflow, vendor/ecc/ai-regression-testing]
     required_option: coverage_policy
-  - id: skill-installer
-    mode: exclusive
-    members: [personal/skill-syncer]
-    preferred: woon-core
