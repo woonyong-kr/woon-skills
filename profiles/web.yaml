@@ -1,0 +1,9 @@
+version: 1
+name: web
+extends: [core]
+max_active: 20
+skills:
+  - vendor/ecc/frontend-patterns
+  - vendor/ecc/frontend-design
+  - vendor/ecc/e2e-testing
+  - vendor/ecc/browser-qa

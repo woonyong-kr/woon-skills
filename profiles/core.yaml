@@ -1,0 +1,19 @@
+version: 1
+name: core
+max_active: 20
+skills:
+  - personal/commit-convention
+  - personal/github
+  - personal/karpathy-guidelines
+  - vendor/ecc/agent-harness-construction
+  - vendor/ecc/coding-standards
+  - vendor/ecc/context-budget
+  - vendor/ecc/documentation-lookup
+  - vendor/ecc/knowledge-ops
+  - vendor/ecc/repo-scan
+  - vendor/ecc/safety-guard
+  - vendor/ecc/search-first
+  - vendor/ecc/skill-comply
+  - vendor/ecc/skill-stocktake
+  - vendor/ecc/terminal-ops
+  - vendor/ecc/verification-loop

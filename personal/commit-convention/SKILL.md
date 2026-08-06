@@ -1,6 +1,6 @@
 ---
 name: commit-convention
-description: Git 커밋 메시지 작성, 브랜치 전략, PR 워크플로우, merge vs rebase 등 Git 협업 전반을 다루는 스킬. 커밋 메시지 제안이 필요하거나, 브랜치 전략을 결정하거나, PR 설명을 작성하거나, 충돌을 해결하거나, "커밋 메시지", "커밋 컨벤션", "브랜치 전략", "PR 작성"이 언급될 때 활성화.
+description: Git 커밋 메시지, 브랜치 전략, PR, merge와 rebase 등 Git 협업 판단이 필요할 때 사용한다.
 ---
 
 # Git 워크플로우 & 커밋 컨벤션

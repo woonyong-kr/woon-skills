@@ -1,0 +1,7 @@
+version: 1
+name: python
+extends: [core]
+max_active: 20
+skills:
+  - vendor/ecc/python-patterns
+  - vendor/ecc/python-testing

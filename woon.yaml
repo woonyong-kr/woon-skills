@@ -1,0 +1,5 @@
+id: skills
+profiles: [core, skills]
+required_policies: [safety, evidence, privacy, side-effects]
+required_standards: [repository-layout, documentation, code]
+required_checks: [schema, profile-resolution, conflict, effect, routing-eval]

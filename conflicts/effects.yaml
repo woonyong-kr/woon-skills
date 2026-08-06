@@ -1,0 +1,13 @@
+version: 1
+default: [read]
+skills:
+  personal/github: [read, write, commit, push, merge, release]
+  vendor/ecc/agent-harness-construction: [read, write]
+  vendor/ecc/documentation-lookup: [read, network]
+  vendor/ecc/knowledge-ops: [read, write, delete, network]
+  vendor/ecc/repo-scan: [read, write, process]
+  vendor/ecc/search-first: [read, network]
+  vendor/ecc/skill-comply: [read, write, process]
+  vendor/ecc/skill-stocktake: [read, write, process]
+  vendor/ecc/terminal-ops: [read, write, process, commit, push]
+  vendor/ecc/verification-loop: [read, process]
