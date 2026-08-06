@@ -14,7 +14,7 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: woon/woon-skills
       - name: Resolve locked woon release
@@ -30,15 +30,16 @@ jobs:
           fi
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "ref=$ref" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: woonyong-kr/woon-core
           ref: ${{ steps.toolchain.outputs.ref }}
           path: woon/woon-core
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v7
         with:
           go-version-file: woon/woon-core/go.mod
           cache: true
+          cache-dependency-path: woon/woon-core/go.sum
       - name: Build locked woon
         shell: bash
         working-directory: woon/woon-core
@@ -62,9 +63,9 @@ jobs:
   secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
+      - uses: gitleaks/gitleaks-action@v3
         env:
           GITLEAKS_CONFIG: .gitleaks.toml
