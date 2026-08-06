@@ -1,7 +1,9 @@
 version: 1
 default: [read]
 skills:
+  personal/career-docs: [read, write]
   personal/github: [read, write, commit, push, merge, release]
+  personal/tech-blog-writing: [read, write, network]
   vendor/ecc/agent-harness-construction: [read, write]
   vendor/ecc/documentation-lookup: [read, network]
   vendor/ecc/knowledge-ops: [read, write, delete, network]

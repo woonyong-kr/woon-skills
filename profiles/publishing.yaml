@@ -1,0 +1,7 @@
+version: 1
+name: publishing
+extends: [core]
+max_active: 20
+skills:
+  - personal/career-docs
+  - personal/tech-blog-writing
