@@ -35,6 +35,7 @@ jobs:
           go run ./cmd/woon --root .. skills validate --profile core,python
           go run ./cmd/woon --root .. skills validate --profile core,web
           go run ./cmd/woon --root .. skills validate --profile core,publishing
+          go run ./cmd/woon --root .. skills validate --profile core,knowledge
 
   secrets:
     runs-on: ubuntu-latest
