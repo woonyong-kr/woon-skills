@@ -41,7 +41,7 @@ evals/       routing 회귀 사례
 - profile에 넣기 전 description, trigger 충돌, side effect를 검토합니다.
 - `SKILL.md`는 절차 중심으로 유지하고 긴 설명과 예제는 `references/`로 분리합니다.
 - 사용자별 경로와 token은 저장소에 기록하지 않습니다.
-- `personal/skill-syncer`는 이전 방식의 보존본이며 새 설치 경로로 사용하지 않습니다.
+- 설치는 `woon skills`만 사용하며 별도 전체 복사 스크립트를 두지 않습니다.
 
 설계는 [architecture](docs/architecture.md), 유지보수 절차는 [operations](docs/operations.md)를 참고하세요.
 
