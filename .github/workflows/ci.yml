@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: woon/woon-skills
+      - uses: actions/checkout@v4
+        with:
+          repository: woonyong-kr/woon-core
+          ref: v0.3.0
+          path: woon/woon-core
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: woon/woon-core/go.mod
+          cache: true
+      - name: Validate core profile
+        working-directory: woon/woon-core
+        run: go run ./cmd/woon --root .. skills validate --profile core
+      - name: Validate composed profiles
+        working-directory: woon/woon-core
+        run: |
+          go run ./cmd/woon --root .. skills validate --profile core,python
+          go run ./cmd/woon --root .. skills validate --profile core,web
+
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITLEAKS_CONFIG: .gitleaks.toml
