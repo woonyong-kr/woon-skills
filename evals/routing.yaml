@@ -1,0 +1,38 @@
+version: 1
+cases:
+  - id: core-stays-small
+    profiles: [core]
+    expect_skills:
+      - personal/github
+      - vendor/ecc/safety-guard
+      - vendor/ecc/verification-loop
+    reject_skills:
+      - vendor/ecc/docker-mounted-workspace
+      - vendor/ecc/three-persona-multi-agent-review
+  - id: python-adds-language-tools
+    profiles: [python]
+    expect_skills:
+      - vendor/ecc/python-patterns
+      - vendor/ecc/python-testing
+    reject_skills:
+      - vendor/ecc/frontend-patterns
+  - id: web-adds-browser-tools
+    profiles: [web]
+    expect_skills:
+      - vendor/ecc/frontend-patterns
+      - vendor/ecc/e2e-testing
+      - vendor/ecc/browser-qa
+    reject_skills:
+      - vendor/ecc/python-testing
+  - id: container-is-opt-in
+    profiles: [container]
+    expect_skills:
+      - vendor/ecc/docker-mounted-workspace
+    reject_skills:
+      - vendor/ecc/three-persona-multi-agent-review
+  - id: persona-review-is-opt-in
+    profiles: [review]
+    expect_skills:
+      - vendor/ecc/three-persona-multi-agent-review
+    reject_skills:
+      - vendor/ecc/docker-mounted-workspace
