@@ -1,0 +1,8 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Documented placeholder API key"
+paths = ['''^api-design/SKILL\.md$''']
+regexTarget = "secret"
+regexes = ['''^sk_live_abc123$''']
