@@ -1,0 +1,4 @@
+interface:
+  display_name: "3-Persona Review"
+  short_description: "Parallel review with three coding personas"
+  default_prompt: "Use $three-persona-multi-agent-review to review this code or explanation in Korean with a senior coach, a junior supporter, and a beginner C student."

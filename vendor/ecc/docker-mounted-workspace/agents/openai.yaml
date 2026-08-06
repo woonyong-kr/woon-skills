@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docker Workspace"
+  short_description: "Run build and test commands in the mounted container"
+  default_prompt: "Use $docker-mounted-workspace to detect the running container for this workspace and execute the requested build, run, or test command inside it."

@@ -6,6 +6,6 @@ origins:
   ecc:
     path: vendor/ecc
     upstream: https://github.com/Jungle-12-303/skills.git
-    commit: 9af118ca25ea48d0ecc08d3f7201912a85499866
+    commit: 7d12022ddd708181633f50b92aafc1f6c6f05321
     license: per-skill-frontmatter
     update_policy: review-pr
