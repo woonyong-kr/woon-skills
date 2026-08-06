@@ -1,0 +1,6 @@
+version: 1
+name: review
+extends: [core]
+max_active: 20
+skills:
+  - vendor/ecc/three-persona-multi-agent-review

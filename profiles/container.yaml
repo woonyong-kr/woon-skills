@@ -1,0 +1,6 @@
+version: 1
+name: container
+extends: [core]
+max_active: 20
+skills:
+  - vendor/ecc/docker-mounted-workspace
