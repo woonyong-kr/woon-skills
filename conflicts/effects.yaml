@@ -4,6 +4,7 @@ skills:
   personal/career-docs: [read, write]
   personal/github: [read, write, commit, push, merge, release]
   personal/tech-blog-writing: [read, write, network]
+  personal/woon-knowledge-automation: [read, write, delete, network, process, commit, push]
   vendor/ecc/agent-harness-construction: [read, write]
   vendor/ecc/documentation-lookup: [read, network]
   vendor/ecc/docker-mounted-workspace: [read, process]

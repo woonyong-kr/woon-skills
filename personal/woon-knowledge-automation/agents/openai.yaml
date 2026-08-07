@@ -1,0 +1,4 @@
+interface:
+  display_name: "Woon Knowledge Automation"
+  short_description: "Run and verify the private one-shot knowledge pipeline"
+  default_prompt: "Use $woon-knowledge-automation to ingest, index, search, or diagnose my private woon-knowledge repository."
