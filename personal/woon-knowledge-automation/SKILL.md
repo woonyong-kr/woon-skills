@@ -45,6 +45,8 @@ woon knowledge stage
 
 `process` must wait for the configured whole-inbox stability receipt and run Codex with the configured model and output schema. `index` must use the configured embedding and vector-store adapters. `stage` is the only supported automatic staging path. Providers may run only for the duration of a command.
 
+For a source above `processing.streaming_threshold_mib` or `retrieval.read_full_document_under_tokens`, multiple Codex calls are expected: chunk map, bounded fan-in reductions, then one final candidate with the original source ID. Do not bypass this by loading the whole file into a prompt. Indexing must respect `retrieval.embedding_batch_size`; search must read candidate offsets first and stream only the selected document context.
+
 ## Interpret outputs
 
 - Keep raw files under `sources/imports/drop` as evidence until the workflow records their lineage.
@@ -52,6 +54,7 @@ woon knowledge stage
 - A `sanitized` source is available through its redacted derivative. Never send or stage its raw path. Confirm the raw copy exists under the ignored local quarantine and tell the user to rotate a real credential.
 - A `quarantined` source blocks only that file. Continue unrelated safe files.
 - Files above the configured regular-Git threshold must be Git LFS tracked before staging. If LFS is unavailable, leave only that large file unstaged and report it.
+- Keep `ingestion.whole_file_scan_max_mib`, `processing.streaming_threshold_mib`, `processing.map_reduce_fan_in`, `retrieval.embedding_batch_size`, and `retrieval.read_full_document_max_mib` in the repository config instead of hard-coding local overrides.
 - Treat `knowledge-ops/candidates` as normalized drafts for human inspection, not approved truth.
 - Treat `knowledge-ops/review` as exceptions only: conflicts, unsupported input, policy violations, or failed processing.
 - Search the active raw-source index for grounded answers. Do not automatically promote a candidate to canonical Wiki content.
