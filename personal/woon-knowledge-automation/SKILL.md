@@ -39,18 +39,24 @@ woon knowledge scan
 woon knowledge status
 woon knowledge process
 woon knowledge index
-woon knowledge search --query '<query>' --limit 5
+woon knowledge search '<query>' --limit 5
+woon knowledge stage
 ```
 
-`process` must run Codex with the configured model and output schema. `index` must use the configured embedding and vector-store adapters. Providers may run only for the duration of a command.
+`process` must wait for the configured whole-inbox stability receipt and run Codex with the configured model and output schema. `index` must use the configured embedding and vector-store adapters. `stage` is the only supported automatic staging path. Providers may run only for the duration of a command.
 
 ## Interpret outputs
 
 - Keep raw files under `sources/imports/drop` as evidence until the workflow records their lineage.
+- Apply `.knowledgeignore` independently from `.gitignore`; never assume an ignored Git path is excluded from ingestion.
+- A `sanitized` source is available through its redacted derivative. Never send or stage its raw path. Confirm the raw copy exists under the ignored local quarantine and tell the user to rotate a real credential.
+- A `quarantined` source blocks only that file. Continue unrelated safe files.
+- Files above the configured regular-Git threshold must be Git LFS tracked before staging. If LFS is unavailable, leave only that large file unstaged and report it.
 - Treat `knowledge-ops/candidates` as normalized drafts for human inspection, not approved truth.
 - Treat `knowledge-ops/review` as exceptions only: conflicts, unsupported input, policy violations, or failed processing.
 - Search the active raw-source index for grounded answers. Do not automatically promote a candidate to canonical Wiki content.
 - When a source is deleted, run the pipeline so the tombstone and stale-vector deletion are recorded before considering cleanup complete.
+- Never run `git add sources/imports/drop` or `git add -A` for automation output. Run `woon knowledge stage` and inspect the staged diff.
 
 ## Verify automation
 
