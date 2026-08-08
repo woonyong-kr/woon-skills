@@ -5,7 +5,7 @@ description: Run and diagnose the private woon-knowledge one-shot pipeline. Use 
 
 # Woon Knowledge Automation
 
-Use repository-owned commands and configuration. Do not invent a parallel watcher, daemon, database schema, or hidden source of truth.
+Use the `woon-core` CLI as the only executable implementation and `woon-knowledge` as the private configuration and data workspace. This skill is optional operating guidance for Codex, not a runtime dependency. Do not invent a parallel watcher, daemon, database schema, or hidden source of truth.
 
 ## Locate the workspace
 
@@ -26,10 +26,10 @@ Stop unless the result is `true`. Preserve unrelated or in-progress changes; nev
 
 ## Run the pipeline
 
-Use the one-shot runner for normal ingestion:
+Use the core-owned one-shot command for normal ingestion:
 
 ```bash
-<knowledge-repo>/scripts/run-knowledge-automation.sh
+woon knowledge automation run
 ```
 
 Use individual commands for diagnosis or explicit control:
@@ -66,11 +66,11 @@ For a source above `processing.streaming_threshold_mib` or `retrieval.read_full_
 Install or refresh the event-triggered job only when the user authorized automation:
 
 ```bash
-<knowledge-repo>/scripts/install-knowledge-automation-launchd.sh
-launchctl print "gui/${UID}/org.woonyong.knowledge-automation"
+woon knowledge automation install
+woon knowledge automation status
 ```
 
-Require `KeepAlive = false`. Confirm no Codex, FastEmbed, LanceDB, ONNX, or Woon process remains after a run. Inspect `~/Library/Logs/woon-knowledge/automation.out.log` and `automation.err.log` for the receipt.
+Use `woon knowledge automation disable`, `enable`, and `uninstall` instead of editing the generated plist. Require `keep_alive: false`. Confirm no Codex, FastEmbed, LanceDB, ONNX, or Woon process remains after a run. Inspect `~/Library/Logs/woon-knowledge/automation.out.log` and `automation.err.log` for the receipt.
 
 ## Change adapters
 
