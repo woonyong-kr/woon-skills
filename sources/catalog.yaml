@@ -103,6 +103,14 @@ repositories:
     license: MIT
     improves: [standards/learning-content-quality.md]
     decision: review all 35 skills, merge only measured concept-grounding and insertion-order gaps into the shared learning standard, retain Woon owners where baseline behavior already passes, and reject automatic commits, test skipping, relentless questioning and provider-specific setup as active skills
+  - id: juliusbrussee-caveman
+    upstream: https://github.com/JuliusBrussee/caveman
+    checked_commit: 11ddc0c9813c8f75365cd5be2f753df08712f154
+    checked_version: 1.10.0
+    status: evaluated
+    license: MIT
+    improves: [skills/skill-system/budget, skills/git/commit, skills/common/review]
+    decision: retain Woon's measured brevity, commit and review owners; do not add an always-on prose mode, compressed subagent presets or in-place memory rewriting because fresh baselines already pass net-cost, control-arm, clarity and canonical-safety cases with zero catalog tokens
   - id: ecc-legacy-vendor
     upstream: https://github.com/Jungle-12-303/skills.git
     status: vendor-locked

@@ -1,0 +1,79 @@
+version: 1
+repository: JuliusBrussee/caveman
+upstream: https://github.com/JuliusBrussee/caveman
+checked_commit: 11ddc0c9813c8f75365cd5be2f753df08712f154
+checked_version: 1.10.0
+checked_at: '2026-08-10'
+license: MIT
+scope:
+  skill_files: 7
+  synchronized_skill_copies: 4
+  support_files: installers, hooks, commands, agents, benchmarks, evals and tests
+decision: evaluated-no-change
+evidence:
+  inventory:
+    repository_skill_files: 11
+    canonical_skills: 7
+    synchronized_copies: 4 identical
+    canonical_lines: 474
+    min_lines: 12
+    max_lines: 111
+  repository_state:
+    latest_release: 1.10.0 published 2026-08-03
+    checked_commit_date: 2026-08-08
+    stars_at_check: 97008
+  upstream_validation:
+    installer_tests: 125/125 passed
+    node_test_files: 8/8 passed with 169 internal assertions
+    python_tests: 58/58 passed
+    repository_verifier: passed
+    production_dependency_audit: 0 vulnerabilities
+    development_dependency_audit: 0 vulnerabilities
+  benchmark_audit:
+    committed_snapshot: generated 2026-04-08 with Claude Opus 4.6 and one run per arm
+    current_snapshot_mismatch: snapshot contains four historical skill arms while the current repository has seven canonical skills
+    terse_control: baseline 1948 versus terse 2045 o200k tokens, so the terse control was 5 percent larger in this single run
+    caveman_vs_terse: 1026 versus 2045 o200k tokens, median reduction 50 percent and mean 46 percent
+    limitations: no fidelity grader, no repeated trials, Claude-only generation and an approximate OpenAI tokenizer
+  static_risks:
+    always_on_hooks: session-start rules suppress progress narration and persist terse fragments
+    destructive_compression: caveman-compress overwrites the named canonical file after an external model call
+    documentation_drift: root SECURITY.md says backups stay beside the source while the skill, implementation and tests use an out-of-tree data directory
+    installer_surface: shell and PowerShell installers modify multiple agent settings, hooks, status lines and rule files
+  behavior_baseline:
+    net_token_accounting: passed; calculated gross output savings and input overhead separately and rejected a 107360-token net increase
+    canonical_compression_safety: passed; refused an ambiguous CLAUDE.md overwrite and same-directory auto-load backup
+    clarity_boundary: passed; retained negation, exceptions, security warnings and progress updates despite a maximum-compression request
+    control_arm_design: passed; required baseline, terse control and skill arms, repeated held-out quality grading and total-token reporting
+  adoption:
+    new_runtime_skills: 0
+    changed_runtime_skills: 0
+    added_inventory_o200k_tokens: 0
+    reason: every portable behavior already passed in Woon, while the remaining provider hooks and style mode add context or mutation risk
+inventory:
+  - cavecrew
+  - caveman
+  - caveman-commit
+  - caveman-compress
+  - caveman-help
+  - caveman-review
+  - caveman-stats
+groups:
+  - id: existing-woon-owners
+    skills: [caveman-commit, caveman-review, caveman-stats]
+    purpose: produce concise commits and review findings and measure token usage honestly
+    overlap: commit, review and budget
+    decision: retain-existing
+    reason: Woon already separates external effects, evidence and runtime token layers; fresh net-cost behavior passed without importing source-specific modes
+  - id: always-on-style-and-delegation
+    skills: [caveman, cavecrew]
+    purpose: compress all replies and delegated-agent results through persistent style rules
+    overlap: user communication contract, budget and agent orchestration
+    decision: reject-active-skill
+    reason: always-on fragments, suppressed progress updates and extra rule context conflict with Woon clarity and can be net-negative on code and tool-heavy work
+  - id: plugin-ux-and-mutating-compression
+    skills: [caveman-help, caveman-compress]
+    purpose: expose plugin commands and overwrite memory files with compressed prose
+    overlap: provider help, safety, registry and budget
+    decision: reject-active-skill
+    reason: the help card has no standalone Woon behavior, while in-place LLM rewriting risks semantic loss and canonical drift despite upstream backup and validation safeguards
