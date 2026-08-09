@@ -134,7 +134,40 @@ def audit_sources(root: Path) -> list[str]:
             errors.append(f"sources/catalog.yaml: duplicate repository {source_id!r}")
         indexed[source_id] = item
 
-    for review_path in sorted(reviews_path.glob("*.yaml")):
+    review_paths = sorted(reviews_path.glob("*.yaml"))
+    review_ids = {path.stem for path in review_paths}
+    required_reviews = {
+        source_id
+        for source_id, item in indexed.items()
+        if item.get("review_required") is True
+    }
+    missing_reviews = sorted(required_reviews - review_ids)
+    if missing_reviews:
+        errors.append(
+            "sources/catalog.yaml: required reviews are missing: "
+            + ", ".join(missing_reviews)
+        )
+
+    for source_id in sorted(required_reviews):
+        catalog_item = indexed[source_id]
+        improves = catalog_item.get("improves")
+        if not isinstance(improves, list) or not improves:
+            errors.append(
+                f"sources/catalog.yaml: required review {source_id!r} needs improves"
+            )
+            continue
+        for target in improves:
+            if not isinstance(target, str) or not target.strip():
+                errors.append(
+                    f"sources/catalog.yaml: {source_id!r} has invalid improves target"
+                )
+            elif not (root / target).exists():
+                errors.append(
+                    f"sources/catalog.yaml: {source_id!r} improves target "
+                    f"does not exist: {target}"
+                )
+
+    for review_path in review_paths:
         review = load_mapping(review_path)
         source_id = review_path.stem
         catalog_item = indexed.get(source_id)
@@ -152,6 +185,9 @@ def audit_sources(root: Path) -> list[str]:
         ):
             if not isinstance(review.get(field), str) or not review[field].strip():
                 errors.append(f"{review_path}: missing string {field}")
+        evidence = review.get("evidence")
+        if not isinstance(evidence, dict) or not evidence:
+            errors.append(f"{review_path}: evidence must be a non-empty mapping")
 
         commit = review.get("checked_commit", "")
         if not isinstance(commit, str) or COMMIT.fullmatch(commit) is None:

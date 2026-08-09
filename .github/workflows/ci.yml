@@ -29,7 +29,9 @@ jobs:
       - name: Audit generated skill catalog
         shell: bash
         working-directory: woon/woon-skills
-        run: python scripts/audit_skills.py
+        run: |
+          python scripts/audit_skills.py
+          python -m pytest -q
       - name: Resolve locked woon revision
         id: toolchain
         shell: bash

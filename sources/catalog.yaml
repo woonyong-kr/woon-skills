@@ -45,6 +45,7 @@ repositories:
     improves: [skills/skill-system/comply]
     decision: adopt expected and forbidden outcomes plus iterative feedback while retaining Woon ownership and schema
   - id: kepano-obsidian-skills
+    review_required: true
     upstream: https://github.com/kepano/obsidian-skills
     checked_commit: a1dc48e68138490d522c04cbf5822214c6eb1202
     checked_version: unreleased
@@ -58,6 +59,7 @@ repositories:
     license: MPL-2.0
     decision: add a focused Terraform profile only when a Woon repository needs it
   - id: vercel-agent-skills
+    review_required: true
     upstream: https://github.com/vercel-labs/agent-skills
     checked_commit: 7c180d9044c9ae2b442b567aad4e42a28dd5ed62
     checked_version: unreleased
@@ -66,6 +68,7 @@ repositories:
     improves: [evals/behavior/react.yaml]
     decision: retain the single React owner and add measured regression cases; reject unsafe deployment automation and defer platform-specific Vercel tooling until an actual scoped project requires it
   - id: vercel-skills
+    review_required: true
     upstream: https://github.com/vercel-labs/skills
     checked_commit: 941a7bcfeca4bf07913b9fb6f8ed81f20ff5297c
     checked_version: 1.5.22
@@ -74,6 +77,7 @@ repositories:
     improves: [evals/behavior/skill-system.yaml]
     decision: retain Woon registry as the only canonical discovery owner; use marketplace results only as external candidates and do not import popularity-first installation behavior or a second package manager
   - id: volcengine-openviking
+    review_required: true
     upstream: https://github.com/volcengine/OpenViking
     checked_commit: 3087f943a2dd41f6d0bde4742832d368d021f47b
     checked_version: v0.4.13
@@ -82,6 +86,7 @@ repositories:
     improves: [evals/behavior/knowledge.yaml]
     decision: keep Woon knowledge and archive as the only private canonical owners; adopt retrieved-experience safety as offline regressions and reject automatic recall, duplicate stores, unsafe server operations and generic overlapping utilities
   - id: tencentcloud-tencentdb-agent-memory
+    review_required: true
     upstream: https://github.com/TencentCloud/TencentDB-Agent-Memory
     checked_commit: fe3230f176f1bf5832fee79d12494bbc2d19a8aa
     checked_version: v2.0.0
@@ -90,6 +95,7 @@ repositories:
     improves: [evals/behavior/knowledge.yaml, evals/behavior/skill-system.yaml, evals/behavior/safety.yaml]
     decision: retain Woon canonical owners and add provider-neutral provenance, extracted-skill review, diagnostic privacy and migration-secret regressions; do not import the duplicate memory stack or broken provider-specific operations
   - id: wasp-lang-open-saas
+    review_required: true
     upstream: https://github.com/wasp-lang/open-saas
     checked_commit: cbd30162b05d798b3a3f955ab5781940b67bec89
     checked_version: wasp-v0.25-template
@@ -98,6 +104,7 @@ repositories:
     improves: [evals/behavior/frontend.yaml]
     decision: retain one shared frontend quality chain and add framework-install, generated-output, versioned-docs and auth-flow regressions; do not install the Wasp-specific nested skill bundle or persistent generated AGENTS knowledge
   - id: millionco-react-doctor
+    review_required: true
     upstream: https://github.com/millionco/react-doctor
     checked_commit: c1611428d2afd7ca665219b101173ec90e54df5a
     checked_version: react-doctor@0.9.11
@@ -106,6 +113,7 @@ repositories:
     improves: [skills/web/react, evals/behavior/react.yaml]
     decision: keep one Woon React owner, add a short conditional static-analysis contract and cross-layer regressions, and do not copy the upstream skills or rule implementation because of routing overlap, mutable remote instructions and license restrictions
   - id: google-styleguide
+    review_required: true
     upstream: https://github.com/google/styleguide
     checked_commit: 1809c769de31ba388c755ad15dd057a9ba8531fd
     checked_version: gh-pages@2026-06-03
@@ -132,6 +140,7 @@ repositories:
     license: Apache-2.0
     decision: prefer over awslabs/mcp only when AWS becomes an active repository requirement
   - id: obra-superpowers
+    review_required: true
     upstream: https://github.com/obra/superpowers
     checked_commit: 44c9b2d6e889982ac18c27d05a19fefe335194e1
     checked_version: 6.2.0
@@ -140,6 +149,7 @@ repositories:
     improves: [skills/common/test, skills/skill-system/comply]
     decision: adopt test behavior and skill evaluation evidence; reject session hooks, mandatory approval gates and automatic subagent or worktree workflows that conflict with Woon autonomy, ownership and context budgets
   - id: affaan-ecc
+    review_required: true
     upstream: https://github.com/affaan-m/ECC
     checked_commit: 2d46e80e0925c7be0907f18c1812311ac212a6c5
     checked_version: 2.2.0
@@ -148,6 +158,7 @@ repositories:
     improves: [skills/ai/agent-audit]
     decision: audit all 284 canonical skills, adopt only the measured agent-wrapper diagnostic gap, retain Woon owners for equivalent behavior and reject always-on hooks, self-modifying memory and orchestration controllers
   - id: mattpocock-skills
+    review_required: true
     upstream: https://github.com/mattpocock/skills
     checked_commit: 84fdeffd12f2ee307994d1eb6feb48173b6e0502
     checked_version: 1.2.3
@@ -156,6 +167,7 @@ repositories:
     improves: [standards/learning-content-quality.md]
     decision: review all 35 skills, merge only measured concept-grounding and insertion-order gaps into the shared learning standard, retain Woon owners where baseline behavior already passes, and reject automatic commits, test skipping, relentless questioning and provider-specific setup as active skills
   - id: juliusbrussee-caveman
+    review_required: true
     upstream: https://github.com/JuliusBrussee/caveman
     checked_commit: 11ddc0c9813c8f75365cd5be2f753df08712f154
     checked_version: 1.10.0
@@ -164,6 +176,7 @@ repositories:
     improves: [skills/skill-system/budget, skills/git/commit, skills/common/review]
     decision: retain Woon's measured brevity, commit and review owners; do not add an always-on prose mode, compressed subagent presets or in-place memory rewriting because fresh baselines already pass net-cost, control-arm, clarity and canonical-safety cases with zero catalog tokens
   - id: mvanhorn-last30days
+    review_required: true
     upstream: https://github.com/mvanhorn/last30days-skill
     checked_commit: 1004324ad35a3ba656e6df0faabd54749e398455
     checked_version: 3.18.4
@@ -172,6 +185,7 @@ repositories:
     improves: [skills/research/research]
     decision: retain Woon research for ordinary current and historical windows; do not vendor a 54935-token, 18 MB engine when fresh date, source-failure and no-evidence baselines already pass, but reconsider the external plugin behind an explicit preflight when authenticated multi-platform engagement data is actually required
   - id: imbad0202-academic-research-skills
+    review_required: true
     upstream: https://github.com/Imbad0202/academic-research-skills
     checked_commit: 73ea4028dc85dec590df35705e2ab7c90ddda4de
     checked_version: 3.19.0
@@ -180,6 +194,7 @@ repositories:
     improves: [skills/research/research, evals/behavior/research.yaml]
     decision: preserve claim-entailment, experiment-provenance and systematic-coverage boundaries as provider-neutral regression cases; do not copy the 36404-token academic pipeline because Codex and Claude controls already pass and the noncommercial license plus provider-specific orchestration add cost without measured lift
   - id: allthingssmitty-css-protips
+    review_required: true
     upstream: https://github.com/AllThingsSmitty/css-protips
     checked_commit: e95123993037bbcd1bd97170cfa02087155c3690
     checked_version: unreleased

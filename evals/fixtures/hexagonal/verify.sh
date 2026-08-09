@@ -12,14 +12,8 @@ find "$fixture_dir/java/src" -name '*.java' -print0 \
   | xargs -0 javac -d "$build_dir/java"
 java -ea -cp "$build_dir/java" fixture.HexagonalFixtureTest
 
-if command -v tsc >/dev/null 2>&1; then
-  tsc -p "$fixture_dir/typescript/tsconfig.json" --outDir "$build_dir/typescript"
-elif [[ -n "${TSC_JS:-}" ]]; then
-  node "$TSC_JS" -p "$fixture_dir/typescript/tsconfig.json" --outDir "$build_dir/typescript"
-else
-  echo "TypeScript compiler not found: install tsc or set TSC_JS" >&2
-  exit 1
-fi
+npx --yes --package typescript@5.9.3 tsc \
+  -p "$fixture_dir/typescript/tsconfig.json" --outDir "$build_dir/typescript"
 node "$build_dir/typescript/test.js"
 
 if rg -n 'Vendor|adapter' \

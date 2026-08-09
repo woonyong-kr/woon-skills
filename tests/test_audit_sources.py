@@ -19,10 +19,12 @@ CATALOG = """\
 version: 1
 repositories:
   - id: example
+    review_required: true
     upstream: https://github.com/example/skills
     checked_commit: 0123456789abcdef0123456789abcdef01234567
     checked_version: 1.0.0
     license: MIT
+    improves: [skills/example]
 """
 
 REVIEW = """\
@@ -36,6 +38,8 @@ license: MIT
 scope:
   skill_files: 1
 decision: adopted-selectively
+evidence:
+  validation: passed
 skills:
   - name: example
     purpose: example purpose
@@ -55,6 +59,8 @@ license: MIT
 scope:
   skill_files: 2
 decision: adopted-selectively
+evidence:
+  validation: passed
 inventory: [alpha, beta]
 groups:
   - id: existing-owner
@@ -72,6 +78,7 @@ class AuditSourcesTest(unittest.TestCase):
         self.addCleanup(temporary.cleanup)
         root = Path(temporary.name)
         (root / "sources" / "reviews").mkdir(parents=True)
+        (root / "skills" / "example").mkdir(parents=True)
         (root / "sources" / "catalog.yaml").write_text(catalog, encoding="utf-8")
         (root / "sources" / "reviews" / "example.yaml").write_text(
             review, encoding="utf-8"
@@ -116,6 +123,36 @@ class AuditSourcesTest(unittest.TestCase):
         )
         self.assertTrue(
             any("checked_version" in error for error in audit_sources(root))
+        )
+
+    def test_rejects_missing_required_review(self) -> None:
+        root = self.make_root()
+        (root / "sources" / "reviews" / "example.yaml").unlink()
+        self.assertTrue(
+            any(
+                "required reviews are missing" in error for error in audit_sources(root)
+            )
+        )
+
+    def test_allows_catalog_entry_without_required_review(self) -> None:
+        catalog = CATALOG.replace("    review_required: true\n", "")
+        root = self.make_root(catalog=catalog)
+        (root / "sources" / "reviews" / "example.yaml").unlink()
+        self.assertEqual(audit_sources(root), [])
+
+    def test_rejects_missing_improves_target_for_required_review(self) -> None:
+        catalog = CATALOG.replace("skills/example", "skills/missing")
+        root = self.make_root(catalog=catalog)
+        self.assertTrue(any("does not exist" in error for error in audit_sources(root)))
+
+    def test_rejects_review_without_evidence(self) -> None:
+        review = REVIEW.replace("evidence:\n  validation: passed\n", "")
+        root = self.make_root(review)
+        self.assertTrue(
+            any(
+                "evidence must be a non-empty mapping" in error
+                for error in audit_sources(root)
+            )
         )
 
     def test_accepts_grouped_review_with_complete_inventory_coverage(self) -> None:
