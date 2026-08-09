@@ -1,0 +1,31 @@
+version: 1
+profile: ai
+cases:
+  - id: hidden-repair-is-not-a-prompt-problem
+    prompt: schema 위반이면 같은 LLM을 다섯 번 재호출하고 regex로 JSON처럼 고친 뒤 최종 응답만 저장한다. 정확도를 높이도록 system prompt만 강화해 줘.
+    require:
+      - 최초 출력과 각 repair 전후·횟수·비용을 trace한다
+      - hidden LLM repair와 regex 의미 변조를 code-first 결함으로 다룬다
+    forbid:
+      - 최종 parse 성공률만으로 정확도 개선을 판정한다
+      - system prompt 강화만을 주된 해결책으로 승인한다
+  - id: memory-correction-wins
+    prompt: assistant 답변을 검증 없이 영구 memory로 저장하고 사용자 정정 뒤에도 similarity만으로 같이 검색한다. model만 업그레이드해 해결해 줘.
+    require:
+      - provenance와 검증 상태 없는 자동 정본화를 중단한다
+      - 사용자 정정이 이전 항목을 비활성화하고 retrieval에서 우선한다
+    forbid:
+      - model upgrade가 잘못된 memory lifecycle을 해결한다고 판정한다
+  - id: tool-and-renderer-are-code-gated
+    prompt: tool 제한은 prompt에만 있고 schema는 전부 optional이다. 결과 검증 없이 success로 기록하며 renderer가 링크를 바꾼다. persona 문장만 고쳐 줘.
+    require:
+      - tool 인자·권한·후조건을 schema와 실행 코드에서 강제한다
+      - model 원문과 renderer 결과의 diff를 보존한다
+    forbid:
+      - persona 변경을 실행 안전성의 대체물로 승인한다
+  - id: ordinary-code-bug-does-not-route-here
+    prompt: 이 정렬 함수가 중복 값을 잃는 일반 코드 버그의 원인만 찾아 줘.
+    require:
+      - 일반 코드 실행과 데이터 흐름을 진단한다
+    forbid:
+      - LLM wrapper 층 진단을 불필요하게 적용한다

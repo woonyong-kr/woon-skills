@@ -21,6 +21,7 @@ woon skills doctor
 | 작업 | profile | Woon 스킬 |
 |---|---|---|
 | 공통 개발 | `development` | `$quality·$naming·$refactor·$test` |
+| LLM·agent 개발 | `ai` | development + `$agent-audit` |
 | Python | `python` | `$python·$pytest` |
 | Java | `java` | `$java` |
 | TypeScript | `typescript` | `$ts` |

@@ -44,6 +44,27 @@ skills:
     reason: no measured gap
 """
 
+GROUPED_REVIEW = """\
+version: 1
+repository: example/skills
+upstream: https://github.com/example/skills
+checked_commit: 0123456789abcdef0123456789abcdef01234567
+checked_version: 1.0.0
+checked_at: 2026-08-09
+license: MIT
+scope:
+  skill_files: 2
+decision: adopted-selectively
+inventory: [alpha, beta]
+groups:
+  - id: existing-owner
+    skills: [alpha, beta]
+    purpose: preserve one shared behavior decision without repeated prose
+    overlap: existing owner
+    decision: retain-existing
+    reason: no measured gap
+"""
+
 
 class AuditSourcesTest(unittest.TestCase):
     def make_root(self, review: str = REVIEW, catalog: str = CATALOG) -> Path:
@@ -96,6 +117,45 @@ class AuditSourcesTest(unittest.TestCase):
         self.assertTrue(
             any("checked_version" in error for error in audit_sources(root))
         )
+
+    def test_accepts_grouped_review_with_complete_inventory_coverage(self) -> None:
+        self.assertEqual(audit_sources(self.make_root(GROUPED_REVIEW)), [])
+
+    def test_rejects_grouped_review_with_uncovered_inventory_item(self) -> None:
+        review = GROUPED_REVIEW.replace("skills: [alpha, beta]", "skills: [alpha]", 1)
+        root = self.make_root(review)
+        self.assertTrue(any("uncovered" in error for error in audit_sources(root)))
+
+    def test_rejects_grouped_review_with_duplicate_group_member(self) -> None:
+        review = GROUPED_REVIEW.replace(
+            "    reason: no measured gap\n",
+            "    reason: no measured gap\n"
+            "  - id: duplicate\n"
+            "    skills: [beta]\n"
+            "    purpose: duplicate classification\n"
+            "    overlap: another owner\n"
+            "    decision: reject\n"
+            "    reason: a skill needs exactly one decision\n",
+        )
+        root = self.make_root(review)
+        self.assertTrue(
+            any("multiple groups" in error for error in audit_sources(root))
+        )
+
+    def test_rejects_grouped_review_member_outside_inventory(self) -> None:
+        review = GROUPED_REVIEW.replace(
+            "skills: [alpha, beta]", "skills: [alpha, gamma]", 1
+        )
+        root = self.make_root(review)
+        self.assertTrue(
+            any("outside inventory" in error for error in audit_sources(root))
+        )
+
+    def test_accepts_generic_new_skill_adoption_decision(self) -> None:
+        review = GROUPED_REVIEW.replace(
+            "decision: retain-existing", "decision: adopt-as-new-skill"
+        )
+        self.assertEqual(audit_sources(self.make_root(review)), [])
 
 
 if __name__ == "__main__":

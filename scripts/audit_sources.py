@@ -13,6 +13,7 @@ import yaml
 COMMIT = re.compile(r"^[0-9a-f]{40}$")
 DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 REVIEW_DECISIONS = {
+    "adopt-as-new-skill",
     "adopt-as-test",
     "evaluate-no-change",
     "merge-into-skill-system",
@@ -22,11 +23,93 @@ REVIEW_DECISIONS = {
     "retain-split-owners",
 }
 REQUIRED_SKILL_FIELDS = ("name", "purpose", "overlap", "decision", "reason")
+REQUIRED_GROUP_FIELDS = ("id", "purpose", "overlap", "decision", "reason")
 
 
 def load_mapping(path: Path) -> dict[str, Any]:
     value = yaml.safe_load(path.read_text(encoding="utf-8"))
     return value if isinstance(value, dict) else {}
+
+
+def reviewed_skill_names(review: dict[str, Any]) -> list[str]:
+    """Return the canonical reviewed names for either supported review shape."""
+    inventory = review.get("inventory")
+    if isinstance(inventory, list):
+        return [name for name in inventory if isinstance(name, str)]
+    skills = review.get("skills")
+    if not isinstance(skills, list):
+        return []
+    return [
+        item["name"]
+        for item in skills
+        if isinstance(item, dict) and isinstance(item.get("name"), str)
+    ]
+
+
+def audit_grouped_review(review_path: Path, review: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    inventory = review.get("inventory")
+    groups = review.get("groups")
+    if not isinstance(inventory, list):
+        return [f"{review_path}: inventory must be a list"]
+    if not isinstance(groups, list):
+        return [f"{review_path}: groups must be a list"]
+
+    inventory_names: set[str] = set()
+    for position, name in enumerate(inventory, start=1):
+        if not isinstance(name, str) or not name.strip():
+            errors.append(
+                f"{review_path}: inventory {position} must be a non-empty string"
+            )
+            continue
+        if name in inventory_names:
+            errors.append(f"{review_path}: duplicate inventory skill {name!r}")
+        inventory_names.add(name)
+
+    covered: set[str] = set()
+    group_ids: set[str] = set()
+    for position, group in enumerate(groups, start=1):
+        if not isinstance(group, dict):
+            errors.append(f"{review_path}: group {position} must be a mapping")
+            continue
+        for field in REQUIRED_GROUP_FIELDS:
+            if not isinstance(group.get(field), str) or not group[field].strip():
+                errors.append(f"{review_path}: group {position} missing {field}")
+        group_id = group.get("id")
+        if isinstance(group_id, str):
+            if group_id in group_ids:
+                errors.append(f"{review_path}: duplicate group {group_id!r}")
+            group_ids.add(group_id)
+        decision = group.get("decision")
+        if decision not in REVIEW_DECISIONS:
+            errors.append(f"{review_path}: unsupported decision {decision!r}")
+
+        members = group.get("skills")
+        if not isinstance(members, list) or not members:
+            errors.append(
+                f"{review_path}: group {position} skills must be a non-empty list"
+            )
+            continue
+        for member in members:
+            if not isinstance(member, str) or not member.strip():
+                errors.append(f"{review_path}: group {position} has invalid skill name")
+                continue
+            if member not in inventory_names:
+                errors.append(
+                    f"{review_path}: group skill {member!r} is outside inventory"
+                )
+            if member in covered:
+                errors.append(
+                    f"{review_path}: skill {member!r} appears in multiple groups"
+                )
+            covered.add(member)
+
+    uncovered = sorted(inventory_names - covered)
+    if uncovered:
+        errors.append(
+            f"{review_path}: inventory skills are uncovered: {', '.join(uncovered)}"
+        )
+    return errors
 
 
 def audit_sources(root: Path) -> list[str]:
@@ -86,6 +169,23 @@ def audit_sources(root: Path) -> list[str]:
             if review.get(field) != catalog_item.get(field):
                 errors.append(f"{review_path}: {field} differs from source catalog")
 
+        grouped = "inventory" in review or "groups" in review
+        if grouped and "skills" in review:
+            errors.append(
+                f"{review_path}: use either skills or inventory/groups, not both"
+            )
+            continue
+        if grouped:
+            errors.extend(audit_grouped_review(review_path, review))
+            reviewed = reviewed_skill_names(review)
+            scope = review.get("scope", {})
+            declared = scope.get("skill_files") if isinstance(scope, dict) else None
+            if declared != len(reviewed):
+                errors.append(
+                    f"{review_path}: scope.skill_files={declared!r}, reviewed={len(reviewed)}"
+                )
+            continue
+
         skills = review.get("skills", [])
         if not isinstance(skills, list):
             errors.append(f"{review_path}: skills must be a list")
@@ -124,7 +224,7 @@ def main() -> int:
         print("\n".join(f"error: {error}" for error in errors))
         return 1
     reviews = sorted((root / "sources" / "reviews").glob("*.yaml"))
-    skill_count = sum(len(load_mapping(path).get("skills", [])) for path in reviews)
+    skill_count = sum(len(reviewed_skill_names(load_mapping(path))) for path in reviews)
     print(f"source_reviews={len(reviews)} reviewed_skills={skill_count} catalog=ok")
     return 0
 

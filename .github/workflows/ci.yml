@@ -65,6 +65,7 @@ jobs:
           ../../woon-cli --root .. skills validate --profile core,knowledge
           ../../woon-cli --root .. skills validate --profile core,container
           ../../woon-cli --root .. skills validate --profile core,review
+          ../../woon-cli --root .. skills validate --profile core,ai
 
   secrets:
     runs-on: ubuntu-latest

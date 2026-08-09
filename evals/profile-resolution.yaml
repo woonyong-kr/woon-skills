@@ -1,5 +1,13 @@
 version: 1
 cases:
+  - id: ai-adds-agent-quality-on-demand
+    profiles: [ai]
+    expect_skills:
+      - skills/ai/agent-audit
+      - skills/common/naming
+      - skills/common/test
+    reject_skills:
+      - skills/knowledge/archive
   - id: core-is-five
     profiles: [core]
     expect_skills:

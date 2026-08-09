@@ -19,6 +19,12 @@
       "description": "Architecture Decision Record를 새로 작성하거나 대안·trade-off·결정 상태·후속 결과를 갱신할 때 사용한다."
     },
     {
+      "name": "agent-audit",
+      "domain": "ai",
+      "path": "skills/ai/agent-audit",
+      "description": "LLM·agent application의 prompt, context, memory, retrieval, tool, repair·retry, renderer와 persistence 층에서 정확도 저하·숨은 호출·출력 변조의 원인을 진단할 때 사용한다."
+    },
+    {
       "name": "api",
       "domain": "backend",
       "path": "skills/backend/api",
@@ -314,6 +320,11 @@
     }
   ],
   "profiles": [
+    {
+      "name": "ai",
+      "path": "profiles/ai.yaml",
+      "installable": true
+    },
     {
       "name": "backend",
       "path": "profiles/backend.yaml",

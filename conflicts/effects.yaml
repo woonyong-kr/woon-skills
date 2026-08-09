@@ -1,6 +1,7 @@
 version: 1
 default: [read]
 skills:
+  skills/ai/agent-audit: [read, write, process]
   skills/architecture/hexagonal: [read, write]
   skills/backend/api: [read, write, process]
   skills/common/naming: [read, write, process]

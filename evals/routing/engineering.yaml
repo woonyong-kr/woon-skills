@@ -1,5 +1,12 @@
 version: 1
 cases:
+  - id: agent-wrapper-audit
+    prompt: "LLM 앱이 direct API에서는 맞는데 memory와 hidden repair를 거치면 틀려. tool trace와 renderer 변조까지 진단해 줘"
+    profiles: [eval]
+    expect_primary: agent-audit
+    allow_support: [quality]
+    reject: [audit, comply]
+    max_selected: 2
   - id: api-contract
     prompt: "이 REST API의 request, error schema, pagination과 idempotency contract를 설계해 줘"
     profiles: [eval]

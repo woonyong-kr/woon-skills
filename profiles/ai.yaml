@@ -1,0 +1,6 @@
+version: 1
+name: ai
+extends: [development]
+max_active: 9
+skills:
+  - skills/ai/agent-audit

@@ -87,7 +87,15 @@ repositories:
     license: MIT
     improves: [skills/common/test, skills/skill-system/comply]
     decision: adopt test behavior and skill evaluation evidence; reject session hooks, mandatory approval gates and automatic subagent or worktree workflows that conflict with Woon autonomy, ownership and context budgets
-  - id: ecc
+  - id: affaan-ecc
+    upstream: https://github.com/affaan-m/ECC
+    checked_commit: 2d46e80e0925c7be0907f18c1812311ac212a6c5
+    checked_version: 2.2.0
+    status: adopted-selectively
+    license: MIT
+    improves: [skills/ai/agent-audit]
+    decision: audit all 284 canonical skills, adopt only the measured agent-wrapper diagnostic gap, retain Woon owners for equivalent behavior and reject always-on hooks, self-modifying memory and orchestration controllers
+  - id: ecc-legacy-vendor
     upstream: https://github.com/Jungle-12-303/skills.git
     status: vendor-locked
     license: per-skill

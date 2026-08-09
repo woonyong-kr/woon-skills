@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Audit"
+  short_description: "LLM wrapper와 memory·tool·repair 변조를 추적합니다"
+  default_prompt: "$agent-audit로 모델 자체보다 wrapper 각 층의 입력·행동·출력 변조를 먼저 진단해 줘."

@@ -1,8 +1,9 @@
 version: 1
 name: eval
 installable: false
-max_active: 60
+max_active: 61
 skills:
+  - skills/ai/agent-audit
   - skills/architecture/hexagonal
   - skills/backend/api
   - skills/common/naming
