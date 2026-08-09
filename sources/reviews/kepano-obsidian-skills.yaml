@@ -1,0 +1,74 @@
+version: 1
+repository: kepano/obsidian-skills
+upstream: https://github.com/kepano/obsidian-skills
+checked_commit: a1dc48e68138490d522c04cbf5822214c6eb1202
+checked_version: unreleased
+checked_at: '2026-08-10'
+license: MIT
+scope:
+  skill_files: 5
+  support_files: five Markdown references, README and plugin metadata
+decision: merged-into-skill-system
+evidence:
+  repository_state:
+    checked_commit_date: 2026-06-08
+    releases: none
+    stars_at_check: 44517
+  context_surface:
+    skill_files: 5
+    markdown_files_in_skill_tree: 10
+    total_o200k_tokens: 13868
+    largest_areas: obsidian-bases and json-canvas account for most conditional syntax
+  upstream_validation:
+    executable_tests: none
+    linked_local_references: all five references resolved
+    json_examples: 10 of 10 parsed
+    yaml_fences: 22 total; 11 are fragments, multi-document examples or intentionally invalid troubleshooting samples and do not parse as one standalone document
+  behavior_baseline:
+    public_private_link: passed; rejected a direct private source wikilink and unverified title-only canonical link
+    canvas_canonical: passed; retained Mermaid and allowed Canvas only as an optional checked local aid
+    unprofiled_archive_envelope: failed; duplicated frontmatter and H1 and proposed an unverified display name in related, showing that natural-language profile routing must be measured separately from body correctness
+  candidate_behavior:
+    codex_archive: 3 of 3 serial held-out variants returned corrected payloads, removed frontmatter and H1, emptied unverified relations and preserved opaque revision strings
+    codex_public_private: passed; kept private source links out of public output
+    codex_canvas: passed; retained Mermaid and required text or line semantics beyond color
+    claude_archive: explicit /archive execution returned the exact contract key set with placeholders, no body envelope duplication, empty unverified relations and unchanged revision string
+    plan_mode_note: Claude plan mode safely refused the malformed payload but did not return the requested corrected artifact, so artifact behavior was measured in non-mutating dontAsk mode with tools and MCP disabled
+  routing_validation:
+    codex: 54 cases times 3, primary recall 1.0000, forbidden selections 0, agreement 0.9444
+    claude: 54 cases times 3, primary recall 1.0000, forbidden selections 0, agreement 0.9815
+  token_budget:
+    generated_catalog_delta_o200k: 22
+    knowledge_profile_skill_body_tokens_o200k: 1709
+    conditional_obsidian_standard_o200k: 688
+    rejected_upstream_skill_tree_o200k: 13868
+  adoption:
+    new_runtime_skills: 0
+    changed_runtime_skills: 3
+    new_conditional_standards: 1
+    reason: one Woon-specific compatibility contract is smaller and safer than activating 13868 tokens of generic Obsidian syntax
+inventory:
+  - defuddle
+  - json-canvas
+  - obsidian-bases
+  - obsidian-cli
+  - obsidian-markdown
+groups:
+  - id: markdown-contract
+    skills: [obsidian-markdown]
+    purpose: render portable Markdown with wikilinks, callouts, properties and embeds
+    overlap: archive, publish, diagram and the Woon knowledge adapter already own metadata, privacy and canonical links
+    decision: merge-into-skill-system
+    reason: retain only the verified Obsidian and Quartz intersection, with envelope and visibility rules stronger than upstream defaults
+  - id: optional-local-views
+    skills: [json-canvas, obsidian-bases]
+    purpose: provide visual canvases and computed local note views
+    overlap: diagram owns explanatory Mermaid while the knowledge system owns canonical Markdown and generated indexes
+    decision: retain-split-owners
+    reason: Canvas and Bases remain explicit optional outputs and never replace portable Markdown, canonical relations or public rendering evidence
+  - id: external-processes
+    skills: [obsidian-cli, defuddle]
+    purpose: mutate or inspect a vault through Obsidian CLI and install a web extraction CLI
+    overlap: Woon MCP owns revision-safe knowledge access and existing web tools own retrieval
+    decision: reject-active-skill
+    reason: direct vault mutation and global CLI installation add process, network and canonical-drift risk without an observed behavior gap

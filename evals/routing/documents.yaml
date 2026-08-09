@@ -42,6 +42,13 @@ cases:
     allow_support: [knowledge]
     reject: [publish, tech]
     max_selected: 2
+  - id: obsidian-archive-body
+    prompt: "Obsidian 정본을 archive MCP에 병합하되 body의 frontmatter·H1과 related canonical ID를 올바르게 처리해 줘"
+    profiles: [eval]
+    expect_primary: archive
+    allow_support: [knowledge]
+    reject: [publish, docs]
+    max_selected: 2
   - id: knowledge-publish
     prompt: "승인한 정본만 개인정보를 검사해서 공개 WIKI에 발행해 줘"
     profiles: [eval]

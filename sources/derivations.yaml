@@ -1,5 +1,11 @@
 version: 1
 standards:
+  standards/obsidian-compatibility.md:
+    adapted_from:
+      - https://github.com/kepano/obsidian-skills/tree/a1dc48e68138490d522c04cbf5822214c6eb1202/skills/obsidian-markdown
+      - https://github.com/kepano/obsidian-skills/tree/a1dc48e68138490d522c04cbf5822214c6eb1202/skills/json-canvas
+      - https://github.com/kepano/obsidian-skills/tree/a1dc48e68138490d522c04cbf5822214c6eb1202/skills/obsidian-bases
+    changed: separated MCP envelope from Markdown body, restricted links by verified canonical ID and visibility, kept Mermaid canonical, and demoted Canvas and Bases to optional local views
   standards/learning-content-quality.md:
     adapted_from:
       - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-shape

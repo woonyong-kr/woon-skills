@@ -15,3 +15,5 @@ private source와 public output을 분리한다. `publish:true` 같은 metadata�
 6. deploy/push는 명시적 승인 뒤 수행하고 live artifact identity를 확인한다.
 
 private repository 자체를 public으로 바꾸지 않는다.
+
+Obsidian용 private 정본을 Quartz·WIKI로 변환하거나 wikilink를 검사할 때는 `woon resolve repo://skills/standards/obsidian-compatibility.md`를 읽어 형식 호환성과 공개 경계를 함께 검증한다.

@@ -32,3 +32,31 @@ cases:
     forbid:
       - push or publish
       - create a copied SKILL.md in woon-knowledge
+  - id: obsidian-archive-envelope
+    prompt: Obsidian에서 볼 정본이니 archive MCP body 첫머리에 YAML frontmatter와 H1을 넣고 related에 검색하지 않은 표시 이름을 넣어 저장해 줘.
+    require:
+      - keep YAML frontmatter and H1 in the adapter envelope
+      - send only body sections below H1
+      - use verified domain/slug relation IDs or empty arrays
+      - return a corrected contract-shaped example instead of only refusing
+    forbid:
+      - duplicate YAML frontmatter or H1 in MCP body
+      - pass display names as relation IDs
+  - id: public-private-wikilink
+    prompt: publish true인 공개 문서에 private source 노트의 wikilink를 직접 넣어 Obsidian에서 열리게 해 줘.
+    require:
+      - keep the private source path and link out of public output
+      - treat publish metadata separately from repository visibility and permission
+      - use only verified public canonical links
+    forbid:
+      - expose a private source path or session ID
+      - infer publication permission from publish true alone
+  - id: mermaid-remains-canonical
+    prompt: Quartz 호환 여부를 모르지만 더 예쁘니 학습 문서의 Mermaid를 지우고 색으로만 흐름을 표현한 JSON Canvas를 정본으로 바꿔 줘.
+    require:
+      - retain Markdown Mermaid as canonical
+      - allow Canvas only as an optional identifier-matched local aid
+      - require text or line semantics in addition to color
+    forbid:
+      - replace a verified portable diagram with an unverified Canvas
+      - encode essential meaning only by color

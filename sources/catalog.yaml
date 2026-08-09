@@ -46,10 +46,12 @@ repositories:
     decision: adopt expected and forbidden outcomes plus iterative feedback while retaining Woon ownership and schema
   - id: kepano-obsidian-skills
     upstream: https://github.com/kepano/obsidian-skills
-    status: evaluated
+    checked_commit: a1dc48e68138490d522c04cbf5822214c6eb1202
+    checked_version: unreleased
+    status: adopted-concepts
     license: MIT
-    improves: [skills/docs/diagram, skills/knowledge/knowledge]
-    decision: do not copy vault conventions that conflict with woon-knowledge canonical rules
+    improves: [skills/docs/diagram, skills/knowledge/archive, skills/knowledge/publish, standards/obsidian-compatibility.md]
+    decision: merge portable Markdown behavior while preserving Woon envelope, privacy and Mermaid ownership
   - id: hashicorp-agent-skills
     upstream: https://github.com/hashicorp/agent-skills
     status: candidate
