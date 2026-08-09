@@ -37,6 +37,19 @@ Do not add a layer, interface, or abstraction only to resemble an architecture d
 - Comments explain intent, constraints, and trade-offs; they do not translate obvious code.
 - Match the repository's language and framework conventions before applying a personal preference.
 
+## Repository root and YAML ownership
+
+Keep the root as a small entry surface, not a storage area for unrelated configuration.
+
+- Put shared Woon repository metadata in `.woon/repository.yaml`.
+- Put product and user-editable configuration under `config/`.
+- Keep CI files under `.github/workflows/` because GitHub requires that path.
+- Keep domain-owned YAML beside its owner: skill profiles under `profiles/`, adapter contracts under `adapters/`, lock records under `lock/`.
+- Keep build manifests such as `pyproject.toml` and `package.json` at the path required by their tool.
+- Do not move YAML only to reduce the visible file count. Move it when the destination has one clear owner and every consumer is updated and tested.
+- Code repositories use `src/<package>/` and `tests/`. Knowledge, skill catalogs, generated outputs, and configuration repositories keep role-based folders instead of fake source packages.
+- Use `kebab-case` for repositories and ordinary folders, `lower_snake_case` for Python packages, and lowercase dot-package segments for Java packages. Keep framework-mandated names unchanged.
+
 ## Data and side effects
 
 - Prefer immutable data flow at ownership boundaries. Copy before sorting or transforming a shared collection.
