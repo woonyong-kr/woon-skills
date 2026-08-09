@@ -73,7 +73,15 @@ def is_console_command_block(language: str, body: str) -> bool:
 
 
 def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(command, cwd=cwd, capture_output=True, text=True, check=False)
+    return subprocess.run(
+        command,
+        cwd=cwd,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
 
 
 def render_mermaid(diagram: str, position: int, work: Path) -> bool:
@@ -261,7 +269,16 @@ def score_artifact(
                 compile_detail = compiled.stderr.strip()
                 if compile_ok:
                     executed = run(
-                        ["java", "-cp", str(pair_work), class_name], pair_work
+                        [
+                            "java",
+                            "-Dfile.encoding=UTF-8",
+                            "-Dsun.stdout.encoding=UTF-8",
+                            "-Dsun.stderr.encoding=UTF-8",
+                            "-cp",
+                            str(pair_work),
+                            class_name,
+                        ],
+                        pair_work,
                     )
                     run_returncode = executed.returncode
                     compile_detail = executed.stderr.strip()
