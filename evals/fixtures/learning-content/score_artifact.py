@@ -10,7 +10,6 @@ import re
 import subprocess
 import sys
 import tempfile
-from itertools import pairwise
 from pathlib import Path
 
 VERIFY_PATH = Path(__file__).with_name("verify.py")
@@ -349,7 +348,8 @@ def score_artifact(
         and sum(1 for level, _ in headings if level == 1) == 1
     )
     heading_valid = heading_valid and all(
-        following[0] <= current[0] + 1 for current, following in pairwise(headings)
+        headings[index + 1][0] <= headings[index][0] + 1
+        for index in range(len(headings) - 1)
     )
     if heading_valid and rendered:
         scores["readability_and_theme"] = 2
