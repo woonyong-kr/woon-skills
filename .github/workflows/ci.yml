@@ -8,6 +8,21 @@ permissions:
   contents: read
 
 jobs:
+  python-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.9"
+          cache: pip
+          cache-dependency-path: requirements-ci.txt
+      - name: Run Python 3.9 audit tests
+        run: |
+          python -m pip install --requirement requirements-ci.txt
+          python scripts/audit_skills.py
+          python -m pytest -q
+
   validate:
     strategy:
       matrix:
