@@ -19,8 +19,13 @@ skills:
     adapted_from: vendor/ecc/skill-stocktake
     changed: Woon catalog, source, profile, and natural trigger checks
   skills/skill-system/comply:
-    adapted_from: vendor/ecc/skill-comply
-    changed: repeated observable behavior cases
+    adapted_from:
+      - vendor/ecc/skill-comply
+      - https://github.com/microsoft/waza
+      - https://github.com/microsoft/skills
+      - https://github.com/anthropics/skills
+      - https://github.com/addyosmani/agent-skills
+    changed: provider-neutral baseline comparison, deterministic-first evidence, adversarial held-out probes, hard failure gates and measured token trade-offs
   skills/skill-system/budget:
     adapted_from: vendor/ecc/context-budget
     changed: profile-level description and on-demand body accounting

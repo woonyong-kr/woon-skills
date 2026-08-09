@@ -1,3 +1,4 @@
 interface:
   display_name: "Comply"
-  short_description: "Help with Comply tasks and workflows"
+  short_description: "반복·대조 실험으로 스킬 행동 품질을 검증합니다"
+  default_prompt: "$comply로 이 스킬의 기준본 대비 행동 품질과 토큰 비용을 검증해 주세요."

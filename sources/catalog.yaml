@@ -18,10 +18,25 @@ repositories:
     decision: prefer focused CLI/browser workflows over an always-on browser MCP
   - id: addyosmani-agent-skills
     upstream: https://github.com/addyosmani/agent-skills
+    checked_commit: 7676817c12a1317454ae3898a0c5c1eacf5dd3d5
     status: adopted-concepts
     license: MIT
-    improves: [skills/common/review, skills/common/refactor, skills/common/verify]
-    decision: select review, testing, and performance concepts instead of bulk install
+    improves: [skills/common/review, skills/common/refactor, skills/common/verify, skills/skill-system/comply]
+    decision: select small, actionable, verifiable workflow concepts instead of bulk install
+  - id: microsoft-waza
+    upstream: https://github.com/microsoft/waza
+    checked_commit: 7c2e710290edc6e978e228f5949a2d1d3d26820c
+    status: adopted-concepts
+    license: MIT
+    improves: [skills/skill-system/comply, skills/skill-system/budget]
+    decision: adopt baseline, trials, deterministic graders, snapshots, adversarial cases and token comparison without locking Woon to the Copilot executor
+  - id: microsoft-skills
+    upstream: https://github.com/microsoft/skills
+    checked_commit: 757d0aaa5d6cfc020ebf43b778095ba047eba0b6
+    status: adopted-concepts
+    license: per-skill
+    improves: [skills/skill-system/comply]
+    decision: adopt expected and forbidden outcomes plus iterative feedback while retaining Woon ownership and schema
   - id: kepano-obsidian-skills
     upstream: https://github.com/kepano/obsidian-skills
     status: evaluated
@@ -41,9 +56,11 @@ repositories:
     decision: retain React performance guidance; deployment remains explicit
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
-    status: fallback
+    checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434
+    status: adopted-concepts
     license: per-skill
-    decision: use artifact format skills from installed plugins; do not duplicate them in Woon
+    improves: [skills/skill-system/comply]
+    decision: adopt blind baseline comparison, held-out trigger evaluation and artifact evidence; use artifact format skills as installed fallback without copying them into Woon
   - id: cloudflare-security-audit
     upstream: https://github.com/cloudflare/security-audit-skill
     status: evaluated
