@@ -1,5 +1,5 @@
 version: 1
 name: container
 extends: [ops]
-max_active: 7
+max_active: 9
 skills: []
