@@ -73,6 +73,14 @@ repositories:
     license: MIT
     improves: [evals/behavior/skill-system.yaml]
     decision: retain Woon registry as the only canonical discovery owner; use marketplace results only as external candidates and do not import popularity-first installation behavior or a second package manager
+  - id: volcengine-openviking
+    upstream: https://github.com/volcengine/OpenViking
+    checked_commit: 3087f943a2dd41f6d0bde4742832d368d021f47b
+    checked_version: v0.4.13
+    status: adopted-as-tests
+    license: AGPL-3.0; examples Apache-2.0; OpenClaw package metadata MIT without a local license file
+    improves: [evals/behavior/knowledge.yaml]
+    decision: keep Woon knowledge and archive as the only private canonical owners; adopt retrieved-experience safety as offline regressions and reject automatic recall, duplicate stores, unsafe server operations and generic overlapping utilities
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
     checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434

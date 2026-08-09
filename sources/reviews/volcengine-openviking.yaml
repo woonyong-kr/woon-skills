@@ -1,0 +1,108 @@
+version: 1
+repository: volcengine/OpenViking
+upstream: https://github.com/volcengine/OpenViking
+checked_commit: 3087f943a2dd41f6d0bde4742832d368d021f47b
+checked_version: v0.4.13
+checked_at: '2026-08-10'
+license: AGPL-3.0; examples Apache-2.0; OpenClaw package metadata MIT without a local license file
+scope:
+  skill_files: 20
+  skill_lines: 3139
+  repository_size_kb: 241362
+decision: adopted-as-tests
+evidence:
+  repository_state:
+    checked_commit_date: 2026-08-08
+    latest_release: v0.4.13 published 2026-08-06
+    stars_at_check: 28119
+    forks_at_check: 2218
+    open_issues_at_check: 456
+  source_shape:
+    skill_body_o200k_tokens: 31846
+    exact_duplicate_skills: three ov-experience-memory copies have the same SHA-256
+    main_product: context database with memory, resource, skill, archive and retrieval surfaces
+    overlapping_owners: Woon knowledge, archive, registry, research, terminal, safety, GitHub and automation
+  upstream_validation:
+    openclaw_tests: 750 of 754 passed; four architecture-boundary tests failed on the pinned clean commit
+    failed_boundaries: dead recall-trace exports, direct setup fetch, upload body ownership and memory URI classification
+    type_check: passed
+    build: passed
+    production_dependency_audit: zero known advisories
+    full_dependency_audit: one moderate and five high advisories through development dependencies
+  behavior_baseline:
+    codex: 12 of 12 decisions passed across three fresh trials
+    claude_sonnet: 4 of 4 decisions passed in one fresh trial
+    covered_boundaries: current evidence overrides retrieved history, exclusion gates application, subtask completion does not complete the whole request and ambiguous deletion requires exact selection
+  context:
+    new_runtime_skills: 0
+    generated_catalog_delta_o200k: 0
+    rejected_upstream_skill_body_o200k: 31846
+    codex_trial_input_tokens: 17667, 17875 and 17875 with 9984 cached tokens each; every trial warned that installed skill descriptions exceeded the 2 percent context budget
+    claude_trial_usage: 2 input, 11783 cache-creation and 557 output tokens for the main answer; provider token accounting is not directly comparable with Codex
+    rationale: the current owners already produce the desired behavior, so four provider-neutral regression cases preserve the useful distinction without adding a second memory system or an always-on retrieval surface
+inventory:
+  - benchmark/experience-loader
+  - bot/cron
+  - bot/github-proxy
+  - bot/github
+  - bot/opencode
+  - bot/skill-creator
+  - bot/summarize
+  - bot/tmux
+  - bot/weather
+  - codex/ov-experience-memory
+  - cursor/openviking-memory
+  - openclaw/install-openviking-memory
+  - openclaw/openviking-context-database
+  - openclaw/ov-experience-memory
+  - examples/ov-add-paper
+  - examples/ov-experience-memory
+  - examples/ov-resources
+  - examples/ov-server-operate
+  - examples/ov-skills
+  - examples/ov-dream
+groups:
+  - id: retrieval-memory-and-session
+    skills:
+      - benchmark/experience-loader
+      - codex/ov-experience-memory
+      - cursor/openviking-memory
+      - openclaw/openviking-context-database
+      - openclaw/ov-experience-memory
+      - examples/ov-experience-memory
+      - examples/ov-dream
+    purpose: retrieve prior experience, auto-capture sessions, inject memory and synchronize historical context
+    overlap: Woon knowledge and archive already own private canonical search, excerpt reading, revisioned merge, audit, history and restore through on-demand MCP
+    decision: adopt-as-test
+    reason: preserve current-evidence, applicability and partial-completion gates as offline cases; reject automatic every-turn recall, hard-coded default users, transcript synchronization and a second mutable canonical store
+  - id: installation-and-server-operations
+    skills:
+      - openclaw/install-openviking-memory
+      - examples/ov-server-operate
+    purpose: install, configure, restart, upgrade, clean and troubleshoot OpenViking or its OpenClaw plugin
+    overlap: terminal and safety own prerequisite inspection, configuration effects, service changes and destructive recovery
+    decision: reject-active-skill
+    reason: provider-specific installation is not required, while npx latest, curl-pipe-shell, force restart, pkill -9 and recursive data cleanup create unneeded supply-chain and data-loss risk
+  - id: resource-paper-and-skill-store
+    skills:
+      - examples/ov-add-paper
+      - examples/ov-resources
+      - examples/ov-skills
+    purpose: ingest papers and resources, manage skill content and replace or remove stored items
+    overlap: archive, research, registry and the PDF learning standard already separate evidence, canonical ownership, Obsidian Markdown and portable Mermaid diagrams
+    decision: retain-existing
+    reason: a parallel resource and skill store would break single ownership; mandatory PNG extraction also conflicts with the portable text and diagram standard, while in-place update and remove lack Woon revision guarantees
+  - id: generic-bot-utilities
+    skills:
+      - bot/cron
+      - bot/github-proxy
+      - bot/github
+      - bot/opencode
+      - bot/skill-creator
+      - bot/summarize
+      - bot/tmux
+      - bot/weather
+    purpose: scheduling, GitHub access, coding-agent delegation, summarization, terminal sessions, weather and skill authoring
+    overlap: existing Woon and installed owners already cover automation, GitHub, terminal, skill-system, research and verification with narrower authority
+    decision: retain-existing
+    reason: these generic utilities are shallower than current owners; the proxy weakens source integrity, summarization can send private files to external providers and tmux includes unsafe autonomous and destructive commands
