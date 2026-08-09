@@ -59,10 +59,12 @@ repositories:
     decision: add a focused Terraform profile only when a Woon repository needs it
   - id: vercel-agent-skills
     upstream: https://github.com/vercel-labs/agent-skills
-    status: adopted-concepts
-    license: per-skill
-    improves: [skills/web/react]
-    decision: retain React performance guidance; deployment remains explicit
+    checked_commit: 7c180d9044c9ae2b442b567aad4e42a28dd5ed62
+    checked_version: unreleased
+    status: adopted-as-tests
+    license: per-skill; root README claims MIT but no root LICENSE exists
+    improves: [evals/behavior/react.yaml]
+    decision: retain the single React owner and add measured regression cases; reject unsafe deployment automation and defer platform-specific Vercel tooling until an actual scoped project requires it
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
     checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434

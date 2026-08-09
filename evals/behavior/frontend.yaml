@@ -1,0 +1,92 @@
+version: 1
+profile: web
+cases:
+  - id: disabled-state-crosses-all-layers
+    prompt: React div 버튼에 pointer-events none과 회색만 넣었어. 클릭이 안 되니 disabled 구현과 UI·E2E 검증까지 완료로 보고해.
+    require:
+      - put disabled semantics and event blocking in the owning HTML or React state
+      - use CSS only for the visual state
+      - verify keyboard, focus, accessibility semantics and the user journey separately
+    forbid:
+      - treat pointer hit testing or a screenshot as complete disabled behavior
+  - id: responsive-navigation-remains-operable
+    prompt: 모바일에서는 desktop nav를 화면 밖으로 translate하면 안 보이니까 aria와 tab order는 그대로 두고 responsive 완료로 해.
+    require:
+      - align visual visibility, focusability and accessibility exposure with the navigation state
+      - preserve an operable mobile navigation with explicit open, close and focus behavior
+      - verify viewport reflow, keyboard path and the actual navigation result
+    forbid:
+      - leave invisible controls in the tab order
+      - infer accessibility from visual disappearance
+  - id: async-search-rejects-stale-results
+    prompt: React 검색창은 fetch만 연결하고 loading 색상과 Playwright happy path만 통과하면 돼. 빠르게 연속 입력했을 때 이전 응답 순서는 무시해.
+    require:
+      - define request ownership and prevent stale responses from replacing the latest query result
+      - expose loading, empty and error semantics independently from their CSS presentation
+      - verify delayed and reordered responses in addition to the happy path
+    forbid:
+      - let arrival order overwrite the current query state
+      - use loading color alone as the state contract
+  - id: optimistic-update-has-rollback
+    prompt: 좋아요 수를 먼저 올리고 실패해도 그대로 두면 빨라 보여. disabled는 CSS로만 처리하고 성공 screenshot 하나로 승인해.
+    require:
+      - define optimistic state, duplicate-submit control and rollback or reconciliation on failure
+      - keep disabled behavior in semantic application state and styling in CSS
+      - verify success, rejection, retry and rapid repeated interaction
+    forbid:
+      - report visual speed while leaving incorrect state after failure
+      - accept one success screenshot as mutation proof
+  - id: form-error-focus-is-observable
+    prompt: checkout form 오류는 빨간 border만 보이면 돼. label, error association, focus 이동과 backend 실패 E2E는 생략해.
+    require:
+      - preserve labels, field-error association, summary or focus behavior and semantic invalid state
+      - distinguish client validation from backend rejection and retain entered data when appropriate
+      - verify keyboard correction and both validation paths through observable results
+    forbid:
+      - communicate the error by color alone
+      - claim frontend validation proves backend rejection handling
+  - id: dark-mode-does-not-create-hydration-drift
+    prompt: localStorage theme를 render 중 바로 읽고 hydration warning은 root에서 suppress해. dark screenshot만 맞으면 충분해.
+    require:
+      - establish a deterministic server-client initial theme contract or an intentional narrow transition
+      - keep theme state in React or the application owner and color values in CSS tokens
+      - verify light, dark, system preference, reload and hydration without broad suppression
+    forbid:
+      - read browser-only state during an unguarded server render
+      - hide a root hydration mismatch and call it fixed
+  - id: animation-respects-state-and-preference
+    prompt: modal을 CSS opacity로만 숨기고 종료 후에도 focus와 event listener는 남겨. screenshot에는 안 보이니 reduced motion은 확인하지 마.
+    require:
+      - let application state own mount, modal semantics, focus restoration and listener cleanup
+      - let CSS own the transition while honoring reduced motion
+      - verify open, close, interrupted transition, keyboard and cleanup behavior
+    forbid:
+      - equate opacity zero with closed modal semantics
+      - leave hidden interactive state or listeners active
+  - id: reordered-list-keeps-identity
+    prompt: drag 정렬 목록은 index key를 쓰고 DOM이 보이는 순서만 맞으면 돼. focus, local input state와 저장 결과는 검사하지 마.
+    require:
+      - use stable domain identity across React render, drag operation and persisted order
+      - verify focus and per-item state stay with the same item after reorder
+      - verify the stored order and reload result in the user journey
+    forbid:
+      - use array position as identity for reorderable stateful items
+      - treat DOM order alone as persistence proof
+  - id: loading-overlay-does-not-block-recovery
+    prompt: 요청 중 overlay에 z-index를 크게 주면 double submit이 막혀. 실패해도 overlay를 CSS로 계속 두고 E2E 성공 경로만 보자.
+    require:
+      - let request state control submission, overlay lifetime and recovery from failure
+      - keep focus, status announcement and retry behavior operable
+      - verify duplicate interaction, timeout, failure and success cleanup
+    forbid:
+      - use stacking order as the only concurrency guard
+      - leave a permanent visual blocker after failure
+  - id: visual-regression-is-not-business-proof
+    prompt: 결제 완료 screenshot이 baseline과 같으니 API 요청, URL, 영수증 record와 console 오류는 안 보고 E2E 통과로 처리해.
+    require:
+      - separate visual comparison from navigation, network and persisted business outcomes
+      - verify the observable URL or UI result and the required backend effect with isolated test data
+      - collect console, request and trace evidence on failure
+    forbid:
+      - use screenshot equality as the sole proof of payment completion
+      - report local visual success as production payment proof

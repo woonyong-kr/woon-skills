@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <title>Frontend integration fixture</title>
+  </head>
+  <body data-status="running">
+    <button id="disabled-action" disabled>저장 중</button>
+    <button id="nav-trigger" aria-expanded="false" aria-controls="mobile-nav">메뉴</button>
+    <nav id="mobile-nav" hidden inert><a href="#account">계정</a></nav>
+    <form id="checkout" novalidate>
+      <label for="email">이메일</label>
+      <input id="email" aria-describedby="email-error" />
+      <p id="email-error" role="alert" hidden>이메일을 입력하세요.</p>
+    </form>
+    <button id="modal-trigger">대화상자 열기</button>
+    <section id="modal" role="dialog" aria-modal="true" hidden inert>
+      <button id="modal-close">닫기</button>
+    </section>
+    <ol id="sortable">
+      <li data-id="a"><label>A <input value="alpha" /></label></li>
+      <li data-id="b"><label>B <input value="beta" /></label></li>
+    </ol>
+    <pre id="results"></pre>
+    <script>
+      (async () => {
+        const checks = {};
+
+        let disabledCalls = 0;
+        const disabled = document.querySelector("#disabled-action");
+        disabled.addEventListener("click", () => disabledCalls++);
+        disabled.click();
+        checks.disabled_semantics = disabled.disabled && disabledCalls === 0;
+
+        const nav = document.querySelector("#mobile-nav");
+        checks.closed_nav_contract = nav.hidden && nav.inert && nav.querySelector("a").offsetParent === null;
+
+        let requestSequence = 0;
+        let visibleQuery = "";
+        async function search(query, delay) {
+          const owner = ++requestSequence;
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          if (owner === requestSequence) visibleQuery = query;
+        }
+        await Promise.all([search("old", 20), search("new", 0)]);
+        checks.latest_async_owner = visibleQuery === "new";
+
+        let likes = 4;
+        async function optimisticLike(request) {
+          const previous = likes;
+          likes++;
+          try {
+            await request();
+          } catch {
+            likes = previous;
+          }
+        }
+        await optimisticLike(() => Promise.reject(new Error("rejected")));
+        checks.optimistic_rollback = likes === 4;
+
+        const email = document.querySelector("#email");
+        const emailError = document.querySelector("#email-error");
+        email.setAttribute("aria-invalid", "true");
+        emailError.hidden = false;
+        email.focus();
+        checks.form_error_contract =
+          document.querySelector('label[for="email"]') !== null &&
+          email.getAttribute("aria-describedby") === "email-error" &&
+          email.getAttribute("aria-invalid") === "true" &&
+          document.activeElement === email;
+
+        checks.initial_theme_contract =
+          document.documentElement.dataset.theme === "light" &&
+          document.documentElement.getAttribute("suppressHydrationWarning") === null;
+
+        const modalTrigger = document.querySelector("#modal-trigger");
+        const modal = document.querySelector("#modal");
+        const modalClose = document.querySelector("#modal-close");
+        modalTrigger.focus();
+        modal.hidden = false;
+        modal.inert = false;
+        modalClose.focus();
+        const openedCorrectly = document.activeElement === modalClose;
+        modal.hidden = true;
+        modal.inert = true;
+        modalTrigger.focus();
+        checks.modal_focus_lifecycle = openedCorrectly && document.activeElement === modalTrigger;
+
+        const sortable = document.querySelector("#sortable");
+        const first = sortable.querySelector('[data-id="a"]');
+        const second = sortable.querySelector('[data-id="b"]');
+        sortable.insertBefore(second, first);
+        checks.stable_reorder_identity =
+          sortable.firstElementChild.dataset.id === "b" &&
+          sortable.firstElementChild.querySelector("input").value === "beta" &&
+          sortable.lastElementChild.querySelector("input").value === "alpha";
+
+        let submitting = false;
+        let submitCalls = 0;
+        async function submit() {
+          if (submitting) return;
+          submitting = true;
+          submitCalls++;
+          await Promise.resolve();
+          submitting = false;
+        }
+        await Promise.all([submit(), submit()]);
+        checks.duplicate_submit_guard = submitCalls === 1 && submitting === false;
+
+        const paymentEvidence = {
+          url: "/checkout/success",
+          receiptId: "receipt-fixture",
+          requestStatus: 200,
+        };
+        checks.business_evidence =
+          paymentEvidence.url.endsWith("/success") &&
+          paymentEvidence.receiptId.length > 0 &&
+          paymentEvidence.requestStatus === 200;
+
+        const failed = Object.values(checks).some((value) => value !== true);
+        document.querySelector("#results").textContent = JSON.stringify(checks);
+        document.body.dataset.status = failed ? "fail" : "pass";
+      })();
+    </script>
+  </body>
+</html>

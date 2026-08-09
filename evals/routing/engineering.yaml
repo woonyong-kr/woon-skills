@@ -77,3 +77,27 @@ cases:
     allow_support: [e2e]
     reject: [react]
     max_selected: 2
+
+  - id: react-disabled-with-css
+    prompt: "React 버튼의 disabled state, semantic DOM과 CSS 표현을 함께 고쳐 줘"
+    profiles: [eval]
+    expect_primary: react
+    allow_support: [css, ui-test]
+    reject: [e2e]
+    max_selected: 3
+
+  - id: responsive-render-cross-check
+    prompt: "구현된 React 화면의 mobile overflow, focus와 responsive CSS를 실제 browser에서 검수해 줘"
+    profiles: [eval]
+    expect_primary: ui-test
+    allow_support: [css, react]
+    reject: [e2e]
+    max_selected: 3
+
+  - id: journey-with-visual-evidence
+    prompt: "Playwright로 회원가입 전체 흐름을 검증하고 viewport별 screenshot 회귀도 확인해 줘"
+    profiles: [eval]
+    expect_primary: e2e
+    allow_support: [ui-test]
+    reject: [react, css]
+    max_selected: 2

@@ -1,0 +1,97 @@
+version: 1
+repository: vercel-labs/agent-skills
+upstream: https://github.com/vercel-labs/agent-skills
+checked_commit: 7c180d9044c9ae2b442b567aad4e42a28dd5ed62
+checked_version: unreleased
+checked_at: '2026-08-10'
+license: per-skill; root README claims MIT but no root LICENSE exists
+scope:
+  skill_files: 9
+  rule_files: 114
+  view_transition_references: 4
+  vercel_optimize_files: 156
+decision: adopted-selectively
+evidence:
+  repository_state:
+    checked_commit_date: 2026-07-24
+    releases: none
+    stars_at_check: 29894
+    forks_at_check: 2678
+    open_issues_at_check: 165
+  inventory:
+    skill_body_o200k_tokens: 16771
+    react_best_practice_rules: 70
+    composition_rules: 8
+    react_native_rules: 36
+    root_license_file: absent
+    per_package_or_frontmatter_mit: composition-patterns, react-best-practices, react-native-skills, react-view-transitions and tested package subprojects
+  upstream_validation:
+    vercel_optimize_tests: 769 of 769 passed
+    generated_docs_check: passed
+    citation_allowlist_check: 99 URLs and 13 skill-rule references passed
+    react_rules: 70 of 70 validated and 139 examples extracted with pnpm 8.15.9
+    ci_reproducibility: documented pnpm 10.24.0 rejects the committed lockfile version 6; pnpm 8.15.9 succeeds
+    relative_links: 3 generated AGENTS.md links resolve from the wrong directory
+    dependency_audit: production reported no known vulnerabilities; the React build chain reported one low-severity Windows esbuild development-server path traversal advisory
+    deployment_scripts: not executed because they upload or deploy externally
+  behavior_baseline:
+    codex_no_guidance: 18 of 18 answers passed across three fresh trials
+    claude_sonnet_no_guidance: 6 of 6 answers passed in safe mode with tools and custom skills disabled
+    covered_boundaries: semantic boolean versus mode, Server Action authorization, request-scoped SSR state, authorization-preserving concurrency, measured virtualization and hydration root cause
+  frontend_integration:
+    codex_with_woon_web_skills: 30 of 30 answers passed across three fresh trials
+    chromium_fixture: 10 of 10 DOM and state-owner checks passed; existing CSS fixture also passed 5 of 5
+    covered_boundaries: disabled semantics, responsive navigation, stale async results, optimistic rollback, form errors, SSR theme, modal lifecycle, reorder identity, duplicate submission and visual-versus-business evidence
+    owner_contract: react owns state, semantic DOM and lifecycle; css owns presentation and layout; ui-test owns rendered observation; e2e owns cross-boundary user outcomes
+    unverified: real React concurrent rendering, screen-reader and browser matrix, visual polish, real payment backend and production remain project-specific checks
+  routing:
+    first_combined_codex: 58 cases times 3, primary recall 1.0000, forbidden 0, agreement 0.9310; one pre-existing beginner-learning-document support selection was outside its allowlist
+    first_combined_claude: 58 cases times 3, primary recall 1.0000, forbidden 0, agreement 0.9828 and passed
+    codex_held_out_rerun: 58 cases times 3, primary recall 1.0000, forbidden 0, agreement 1.0000 and passed without changing the case or threshold
+  context:
+    new_runtime_skills: 0
+    generated_catalog_delta_o200k: 0
+    active_web_skill_delta_o200k: 238
+    offline_regression_spec_o200k: 1983
+    rationale: preserve one shared React owner, add only short cross-owner boundaries to the existing four web skills and keep detailed cases outside runtime context instead of creating nine overlapping activation surfaces
+inventory:
+  - composition-patterns
+  - deploy-to-vercel
+  - react-best-practices
+  - react-native-skills
+  - react-view-transitions
+  - vercel-cli-with-tokens
+  - vercel-optimize
+  - web-design-guidelines
+  - writing-guidelines
+groups:
+  - id: react-web-regressions
+    skills: [composition-patterns, react-best-practices]
+    purpose: component API, state ownership, async rendering, bundle, rerender and server safety guidance
+    overlap: skills/web/react and common quality, security and verification owners
+    decision: adopt-as-test
+    reason: the six adversarial boundaries already passed in Codex and Claude, so Woon records them as provider-neutral regression cases without adding competing composition or performance skills
+  - id: mobile-and-transition-specialists
+    skills: [react-native-skills, react-view-transitions]
+    purpose: React Native performance and experimental browser or React view transitions
+    overlap: the React owner shares state and component principles, but native navigation, Reanimated and transition APIs are version-specific
+    decision: evaluate-no-change
+    reason: no active Woon repository or profile currently requires these platforms, and universal claims such as virtualize any list would weaken the measured and version-aware quality contract
+  - id: unsafe-deployment-automation
+    skills: [deploy-to-vercel, vercel-cli-with-tokens]
+    purpose: link, deploy and manage Vercel projects through Git, CLI tokens or an unauthenticated upload service
+    overlap: terminal, safety, commit, GitHub and future deployment ownership
+    decision: reject-active-skill
+    reason: broad git add and push, token-printing discovery, user-supplied secret requests and instructions not to verify the live URL conflict with narrow staging, secret redaction, explicit external authority and deployment evidence
+  - id: deterministic-vercel-audit
+    skills: [vercel-optimize]
+    purpose: collect scoped production metrics, gate candidates and verify version-aware Vercel cost and performance recommendations
+    overlap: budget, verify and React performance, but requires Vercel account state, CLI linkage and a large bundled deterministic tool
+    decision: evaluate-no-change
+    reason: the implementation is well tested but has no current linked project requirement, the repository license boundary is incomplete and importing 156 files would add a large platform-specific maintenance surface; reconsider behind a dedicated optional profile when an actual Vercel audit is requested
+  - id: volatile-remote-handbooks
+    skills: [web-design-guidelines, writing-guidelines]
+    purpose: fetch the latest Vercel-owned UI or prose handbook on every review
+    overlap: ui-test, docs and tech owners
+    decision: retain-existing
+    reason: mutable remote instructions are not a reproducible Woon canonical source; existing owners keep rendered UI evidence and source-backed document structure without adding vendor voice or duplicate routing

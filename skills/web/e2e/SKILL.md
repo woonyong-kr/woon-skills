@@ -10,3 +10,5 @@ business-critical journey와 acceptance criteria를 먼저 정한다. role/label
 test는 독립된 data와 session을 사용하고 외부 서비스는 contract가 아닌 경우 통제한다. assertion 전에 행동 결과를 observable UI/URL/network state로 기다린다. 실패 시 trace, screenshot, console, request evidence를 수집한다.
 
 local E2E 성공을 production 성공으로 표현하지 않는다. visual 세부 검수는 `$ui-test`를 함께 쓴다.
+
+E2E는 사용자 관점의 경계 간 결과를 검증하되 component 내부 구현이나 CSS selector를 계약으로 고정하지 않는다. visual screenshot은 `$ui-test`, state·semantic DOM 원인은 `$react`, cascade·layout 원인은 `$css`로 좁혀 수정하고 E2E에서는 최종 journey를 다시 확인한다.

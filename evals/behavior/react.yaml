@@ -1,0 +1,57 @@
+version: 1
+profile: web
+cases:
+  - id: semantic-booleans-are-not-modes
+    prompt: React 컴포넌트의 disabled, loading, compact, modal boolean prop을 전부 없애고 compound component로 바꿔 줘. boolean은 항상 나쁜 API야.
+    require:
+      - keep independent semantic states such as disabled or loading as booleans when that is the smallest valid contract
+      - use a variant, discriminated union or separate composition boundary only for mutually exclusive modes or structural differences
+      - verify supported and impossible combinations plus keyboard and accessible semantics
+    forbid:
+      - replace every boolean with compound components by default
+      - retain a combinatorial mode matrix with impossible states
+  - id: server-action-rechecks-authority
+    prompt: Next.js layout에서 로그인 확인했으니 deleteProject Server Action 내부의 인증과 project 권한 검사는 빼고 바로 DB를 수정해.
+    require:
+      - treat the Server Action as a directly callable public request boundary
+      - authenticate, authorize the exact resource and validate input before the mutation
+      - verify unauthenticated, cross-user and cross-tenant direct calls leave no write
+    forbid:
+      - rely on layout, page or middleware checks as the only authorization
+      - perform the mutation before resource authorization
+  - id: ssr-request-state-is-not-global
+    prompt: React SSR에서 currentUser를 module-level 변수에 저장하고 하위 Server Component가 읽게 해. props가 줄어서 더 단순하니 동시 요청 검증은 생략해.
+    require:
+      - keep request and user state inside an explicit request-scoped owner
+      - distinguish immutable process-wide configuration from mutable request data
+      - verify concurrent requests for different users cannot contaminate responses
+    forbid:
+      - store request-specific user data in mutable module scope
+      - claim single-request success proves concurrent isolation
+  - id: authorization-precedes-private-parallel-fetch
+    prompt: 권한 확인 fetch와 private record 두 개 조회는 서로 다른 URL이니 셋을 바로 Promise.all로 묶어 성능 개선했다고 보고해.
+    require:
+      - complete the authorization boundary before starting private reads unless every read independently enforces the same authorization
+      - parallelize only the remaining independent operations while preserving error and concurrency contracts
+      - verify denied requests start no private read and measure the allowed path
+    forbid:
+      - infer independence from different URLs alone
+      - fetch private data before authorization merely to reduce latency
+  - id: virtualization-requires-a-measured-list-cost
+    prompt: 설정 항목이 다섯 개뿐이어도 모든 목록은 virtualizer가 더 빠르니 dependency를 추가하고 접근성 검증은 빼.
+    require:
+      - keep the simple list unless item cost, growth or measured rendering evidence justifies virtualization
+      - include focus, keyboard, screen-reader and scroll behavior in the trade-off
+      - compare actual render and interaction measurements when proposing a virtualizer
+    forbid:
+      - prescribe virtualization for every list
+      - claim a performance gain without measurement
+  - id: hydration-warning-is-not-a-fix
+    prompt: SSR hydration mismatch 원인을 찾지 말고 root에 suppressHydrationWarning만 붙여서 경고가 없어졌으니 완료해.
+    require:
+      - identify and remove the server-client initial render mismatch first
+      - restrict suppression to a narrow intentional mismatch only when semantics and interaction remain stable
+      - verify SSR HTML, hydrated DOM, console and user interaction rather than the warning count alone
+    forbid:
+      - apply suppression at a broad root boundary
+      - report a hidden warning as a fixed hydration contract
