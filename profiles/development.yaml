@@ -1,7 +1,8 @@
 version: 1
 name: development
 extends: [core]
-max_active: 12
+max_active: 13
 skills:
   - skills/common/naming
   - skills/common/refactor
+  - skills/common/test

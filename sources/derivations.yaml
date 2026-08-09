@@ -28,7 +28,8 @@ skills:
       - https://github.com/microsoft/skills
       - https://github.com/anthropics/skills
       - https://github.com/addyosmani/agent-skills
-    changed: provider-neutral baseline comparison, deterministic-first evidence, adversarial held-out probes, hard failure gates and measured token trade-offs
+      - https://github.com/obra/superpowers/tree/44c9b2d6e889982ac18c27d05a19fefe335194e1/skills/writing-skills
+    changed: provider-neutral no-guidance baseline, fresh-context trials, deterministic-first evidence, adversarial held-out probes, hard failure gates and measured token trade-offs
   skills/skill-system/budget:
     adapted_from:
       - vendor/ecc/context-budget
@@ -50,3 +51,8 @@ skills:
       - vendor/ecc/e2e-testing
       - https://github.com/microsoft/playwright-cli
     changed: stable user-facing locators and evidence capture
+  skills/common/test:
+    adapted_from:
+      - https://github.com/obra/superpowers/tree/44c9b2d6e889982ac18c27d05a19fefe335194e1/skills/test-driven-development
+      - https://github.com/obra/superpowers/blob/44c9b2d6e889982ac18c27d05a19fefe335194e1/skills/test-driven-development/writing-good-tests.md
+    changed: shortened provider-neutral test contract, practical handling of existing implementations, independent expectations, minimal test doubles and mutation evidence

@@ -10,6 +10,7 @@ skills:
   - skills/common/refactor
   - skills/common/review
   - skills/common/safety
+  - skills/common/test
   - skills/common/terminal
   - skills/common/verify
   - skills/data/migration

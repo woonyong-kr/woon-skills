@@ -1,7 +1,7 @@
 version: 1
 name: spring
 extends: [java]
-max_active: 12
+max_active: 13
 skills:
   - skills/language/java/jpa
   - skills/language/java/spring

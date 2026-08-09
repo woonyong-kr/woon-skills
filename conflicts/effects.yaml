@@ -8,6 +8,7 @@ skills:
   skills/common/refactor: [read, write, process]
   skills/common/review: [read, process]
   skills/common/safety: [read]
+  skills/common/test: [read, write, process]
   skills/common/terminal: [read, write, process]
   skills/common/verify: [read, process, network]
   skills/data/migration: [read, write, process]

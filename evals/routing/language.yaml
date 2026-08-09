@@ -11,7 +11,7 @@ cases:
     prompt: "pytest fixture와 parametrization으로 이 Python 오류의 회귀 테스트를 작성해 줘"
     profiles: [eval]
     expect_primary: pytest
-    allow_support: [python]
+    allow_support: [python, test]
     reject: [spring-test]
     max_selected: 2
   - id: java-layout
@@ -46,7 +46,7 @@ cases:
     prompt: "이 Spring controller를 @WebMvcTest와 MockMvc로 검증해 줘"
     profiles: [eval]
     expect_primary: spring-test
-    allow_support: [spring]
+    allow_support: [spring, test]
     reject: [pytest, spring-sec]
     max_selected: 2
   - id: spring-security

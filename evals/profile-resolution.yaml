@@ -15,6 +15,7 @@ cases:
     profiles: [python]
     expect_skills:
       - skills/common/naming
+      - skills/common/test
       - skills/language/python/python
       - skills/language/python/pytest
     reject_skills:
@@ -25,6 +26,7 @@ cases:
     expect_skills:
       - skills/common/quality
       - skills/common/naming
+      - skills/common/test
       - skills/language/typescript/ts
     reject_skills:
       - skills/language/python/python
@@ -34,6 +36,7 @@ cases:
     profiles: [spring]
     expect_skills:
       - skills/language/java/java
+      - skills/common/test
       - skills/language/java/spring
       - skills/language/java/spring-test
       - skills/language/java/spring-sec

@@ -1,0 +1,108 @@
+version: 1
+repository: obra/superpowers
+upstream: https://github.com/obra/superpowers
+checked_commit: 44c9b2d6e889982ac18c27d05a19fefe335194e1
+checked_version: 6.2.0
+checked_at: 2026-08-09
+license: MIT
+scope:
+  skill_files: 14
+  support_files: README, testing guide, skill references, prompts and executable tests
+decision: adopted-selectively
+evidence:
+  upstream_tests:
+    passed: brainstorm server 134 tests plus hook, sync and polluter suites
+    failed: Codex ZIP timestamp normalization expected UTC 00:00 but produced local 09:00 on macOS
+    impact: package and hook implementation not adopted; behavior concepts evaluated independently
+  baseline:
+    codex_low_reasoning: 0/1 safe release decisions for the high-risk untested calculation prompt
+    claude_safe_mode: 0/3 safe release decisions for the same prompt
+  candidate:
+    claude_after_two_single-cause_pivots: 3/3 safe release decisions
+    codex_held_out: 3/3 independent expectation, minimal mock and condition-wait cases passed
+  routing:
+    codex: 51 cases x 3, primary recall 1.0, forbidden 0, agreement 0.9608
+    claude: 51 cases x 3, primary recall 1.0, forbidden 0, agreement 1.0
+  context:
+    inventory_o200k_tokens: 1947 -> 2005
+    added_inventory_o200k_tokens: 58
+    test_main_o200k_tokens: 497
+    conditional_reference_o200k_tokens: 976
+    runtime_note: candidate main-body injection increased Claude input context by 958 tokens while changing the critical decision from 0/3 to 3/3
+skills:
+  - name: brainstorming
+    purpose: ambiguous ideas become an approved design before implementation
+    overlap: quality, adr and the user's request already govern material decisions
+    decision: retain-existing
+    reason: mandatory approval for every change blocks safe autonomous work; Codex baseline handled material unknowns without a new skill
+  - name: dispatching-parallel-agents
+    purpose: independent failures are assigned to isolated agents
+    overlap: executor-native multi-agent tools and plan ownership
+    decision: reject-active-skill
+    reason: automatic dispatch is executor-specific and increases context; use only when independence and non-overlap are proven
+  - name: executing-plans
+    purpose: execute a written plan with checkpoints
+    overlap: Codex plan state and Woon verification gates
+    decision: reject-active-skill
+    reason: separate-session assumptions and mandatory handoff add routing cost without a demonstrated behavior gap
+  - name: finishing-a-development-branch
+    purpose: verify then choose merge, PR or branch retention and clean owned worktrees
+    overlap: branch, pr, verify and safety
+    decision: retain-split-owners
+    reason: Woon already separates Git, GitHub, evidence and destructive cleanup effects
+  - name: receiving-code-review
+    purpose: verify review feedback before implementing it
+    overlap: review, quality and evidence policy
+    decision: evaluate-no-change
+    reason: useful principle, but no repeated baseline failure yet; do not add a new routing surface without evidence
+  - name: requesting-code-review
+    purpose: dispatch a read-only reviewer before changes cascade
+    overlap: review and executor-native delegation
+    decision: retain-existing
+    reason: Woon review already owns findings; mandatory subagent dispatch is not portable or always cost-effective
+  - name: subagent-driven-development
+    purpose: implement each plan task through fresh agents and layered review loops
+    overlap: executor orchestration, comply and verify
+    decision: reject-active-skill
+    reason: 503-line controller workflow, persistent ledger and repeated reviews exceed the default token and latency budget
+  - name: systematic-debugging
+    purpose: reproduce, trace root cause, test one hypothesis and fix the source
+    overlap: terminal, quality, test and verify
+    decision: retain-existing
+    reason: baseline trials already rejected symptom patches and repeated guesses; no new skill effect was measured
+  - name: test-driven-development
+    purpose: prove RED, implement minimally, keep GREEN and refactor
+    overlap: quality and verify lacked a dedicated test-design owner
+    decision: adopt-as-test
+    reason: Codex low reasoning failed once and Claude without custom skills failed three of three times under release pressure
+  - name: using-git-worktrees
+    purpose: isolate feature work and verify a clean baseline
+    overlap: branch, safety and host-native worktree ownership
+    decision: retain-split-owners
+    reason: a mandatory worktree conflicts with user-owned dirty trees and harness-managed workspaces
+  - name: using-superpowers
+    purpose: force skill lookup before every response
+    overlap: registry and runtime skill routing
+    decision: reject
+    reason: one-percent mandatory activation caused global workflow override and catalog context pressure
+  - name: verification-before-completion
+    purpose: require fresh command evidence before completion claims
+    overlap: verify
+    decision: retain-existing
+    reason: Woon verify already requires current bounded evidence and separates unrun layers
+  - name: writing-plans
+    purpose: produce file-specific executable plans with tests and no placeholders
+    overlap: native plan state, quality and verify
+    decision: evaluate-no-change
+    reason: low-reasoning baseline produced an executable policy-gated plan; a new skill is not yet justified
+  - name: writing-skills
+    purpose: baseline, pressure-test and refine skills while controlling discovery tokens
+    overlap: registry, comply and budget
+    decision: merge-into-skill-system
+    reason: adopt fresh-context no-guidance controls and behavior-first evaluation without provider-specific paths or mandatory subagents
+rejected_repository_features:
+  - automatic session-start injection
+  - mandatory design approval for every change
+  - automatic worktree creation and cleanup
+  - automatic subagent dispatch and fixed five-round review loops
+  - optional visual companion remote logo telemetry

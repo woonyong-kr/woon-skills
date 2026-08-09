@@ -67,7 +67,7 @@ def build(root: Path) -> dict[str, object]:
         "targets": ["codex", "claude"],
         "fallback_order": ["woon-canonical", "target-installed"],
         "skills": sorted(skills, key=lambda item: item["name"]),
-        "profiles": sorted(profiles, key=lambda item: item["name"]),
+        "profiles": sorted(profiles, key=lambda item: str(item["name"])),
     }
 
 

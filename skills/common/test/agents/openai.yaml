@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test"
+  short_description: "동작을 증명하는 테스트를 먼저 설계하고 검증합니다"
+  default_prompt: "$test로 변경 동작을 먼저 실패하는 테스트로 증명하고 구현 후 회귀를 검증해 줘."

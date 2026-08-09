@@ -14,13 +14,13 @@ woon skills eval-routing --executor all --repeat 3
 woon skills doctor
 ```
 
-루트 `catalog.json`은 모든 Woon 정본의 이름·domain·경로·description을 `SKILL.md`에서 생성한 색인입니다. 다른 저장소에서는 `woon resolve repo://skills/catalog.json`으로 위치를 찾습니다. 여기서 필요한 스킬을 먼저 찾고 Woon에 없을 때만 각 target의 installed skill/plugin을 fallback으로 사용합니다. `python scripts/audit_skills.py`로 metadata·link·catalog drift를 검사합니다.
+루트 `catalog.json`은 모든 Woon 정본의 이름·domain·경로·description을 `SKILL.md`에서 생성한 색인입니다. 다른 저장소에서는 `woon resolve repo://skills/catalog.json`으로 위치를 찾습니다. 여기서 필요한 스킬을 먼저 찾고 Woon에 없을 때만 각 target의 installed skill/plugin을 fallback으로 사용합니다. `python scripts/audit_skills.py`로 metadata·link·catalog drift와 upstream source review를 검사합니다.
 
 `core`는 `$quality·$safety·$terminal·$verify·$commit` 5개뿐입니다. 모든 스킬을 설치하지 말고 저장소에 맞는 profile을 추가합니다.
 
 | 작업 | profile | Woon 스킬 |
 |---|---|---|
-| 공통 개발 | `development` | `$quality·$naming·$refactor` |
+| 공통 개발 | `development` | `$quality·$naming·$refactor·$test` |
 | Python | `python` | `$python·$pytest` |
 | Java | `java` | `$java` |
 | TypeScript | `typescript` | `$ts` |
@@ -54,11 +54,13 @@ skills/<domain>/<short-name>/   Woon이 직접 유지하는 단일 원본
 catalog.json                    SKILL.md에서 생성한 Codex·Claude 공통 검색 색인
 scripts/build_catalog.py        root catalog 결정적 생성·검사
 scripts/audit_skills.py         metadata·link·catalog drift 정적 검사
+scripts/audit_sources.py        upstream commit·license·전수 skill review 검사
 vendor/<origin>/<name>/         upstream commit에 고정한 비교·fallback 원본
 profiles/                       작고 목적별인 활성 집합
 conflicts/                      side effect와 실제 충돌
 evals/profile-resolution.yaml   deterministic profile 회귀
 evals/routing/                  natural-language semantic routing 평가
+sources/reviews/                upstream 저장소별 모든 skill의 채택·병합·거부 판정
 sources/                        조사한 upstream과 Woon 파생 근거
 archive/                        활성 catalog에서 퇴역했지만 보존한 자료
 ```

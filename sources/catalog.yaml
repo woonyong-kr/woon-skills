@@ -81,9 +81,12 @@ repositories:
     decision: prefer over awslabs/mcp only when AWS becomes an active repository requirement
   - id: obra-superpowers
     upstream: https://github.com/obra/superpowers
-    status: rejected-bulk
+    checked_commit: 44c9b2d6e889982ac18c27d05a19fefe335194e1
+    checked_version: 6.2.0
+    status: adopted-selectively
     license: MIT
-    decision: session hooks and mandatory workflow override conflict with Woon rules
+    improves: [skills/common/test, skills/skill-system/comply]
+    decision: adopt test behavior and skill evaluation evidence; reject session hooks, mandatory approval gates and automatic subagent or worktree workflows that conflict with Woon autonomy, ownership and context budgets
   - id: ecc
     upstream: https://github.com/Jungle-12-303/skills.git
     status: vendor-locked

@@ -8,7 +8,7 @@
 4. 긴 규칙은 한 단계 `references/`로 옮깁니다.
 5. `agents/openai.yaml`, effects, profile, profile-resolution, positive·near-miss routing과 behavior case를 갱신합니다.
 6. `python scripts/build_catalog.py`로 root catalog를 재생성합니다.
-7. `python scripts/audit_skills.py`와 `$audit` 정적 검사, `$budget` 문맥 검사, `$comply` 행동 scenario를 실행합니다.
+7. `python scripts/audit_skills.py`로 skill과 source review를 함께 검사하고 `$audit` 정적 검사, `$budget` 문맥 검사, `$comply` 행동 scenario를 실행합니다.
 8. Codex와 Claude 각각 plan→install→두 번째 plan `unchanged`를 확인합니다.
 
 ## vendor 업데이트

@@ -7,6 +7,7 @@ import json
 import re
 from pathlib import Path
 
+from audit_sources import audit_sources
 from build_catalog import FRONTMATTER, build, render, scalar_fields
 
 NAME = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -85,10 +86,16 @@ def main() -> int:
     if not re.search(r"^installable:\s*false\s*$", eval_profile, re.MULTILINE):
         errors.append("profiles/eval.yaml: installable must be false")
 
+    errors.extend(audit_sources(root))
+
     if errors:
         print("\n".join(f"error: {error}" for error in errors))
         return 1
-    print(f"skills={len(skill_files)} metadata=ok links=ok catalog=ok")
+    source_reviews = len(list((root / "sources" / "reviews").glob("*.yaml")))
+    print(
+        f"skills={len(skill_files)} metadata=ok links=ok catalog=ok "
+        f"source_reviews={source_reviews}"
+    )
     return 0
 
 

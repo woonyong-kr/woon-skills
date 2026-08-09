@@ -1,6 +1,6 @@
 version: 1
 name: java
 extends: [development]
-max_active: 12
+max_active: 13
 skills:
   - skills/language/java/java

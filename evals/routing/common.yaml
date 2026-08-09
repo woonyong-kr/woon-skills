@@ -21,6 +21,20 @@ cases:
     allow_support: [terminal, ui-test]
     reject: [review]
     max_selected: 2
+  - id: test-behavior-first
+    prompt: "이 환불 계산을 구현하기 전에 실제 잘못된 금액을 잡는 실패 테스트부터 만들고 red-green-refactor로 진행해 줘"
+    profiles: [eval]
+    expect_primary: test
+    allow_support: [quality]
+    reject: [verify, pytest, spring-test]
+    max_selected: 2
+  - id: test-existing-regression
+    prompt: "이미 고친 버그에 테스트를 뒤늦게 붙였어. 이 테스트가 진짜 회귀를 잡는지 mutation으로 확인해 줘"
+    profiles: [eval]
+    expect_primary: test
+    allow_support: [verify]
+    reject: [pytest, spring-test]
+    max_selected: 2
   - id: safety-delete
     prompt: "이 디렉터리와 Git 이력을 지우기 전에 대상과 복구 가능성을 안전하게 확인해 줘"
     profiles: [eval]
