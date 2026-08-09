@@ -4,6 +4,7 @@ import importlib.util
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "evals/fixtures/learning-content/verify.py"
@@ -65,11 +66,12 @@ class LearningContentTest(unittest.TestCase):
         self.assertTrue(any("shared-reference" in error for error in errors))
 
     def test_scores_executable_fixture_without_hard_fail(self) -> None:
-        result = score_artifact(
-            self.markdown,
-            ("memberA", "memberB", "sharedAddress"),
-            "불변 객체",
-        )
+        with patch.object(SCORE_MODULE, "render_mermaid", return_value=True):
+            result = score_artifact(
+                self.markdown,
+                ("memberA", "memberB", "sharedAddress"),
+                "불변 객체",
+            )
         self.assertTrue(result["passed"])
         self.assertGreaterEqual(result["score"], 15)
         self.assertEqual(result["hard_fail"], [])
@@ -250,11 +252,12 @@ catch 위치를 바꾼다.
 호출 경계를 따라 전파된다.
 """
         self.assertEqual(len(java_output_pairs(markdown)), 2)
-        result = score_artifact(
-            markdown,
-            ("NetworkClient", "NetworkService", "Main"),
-            "예외 전파",
-        )
+        with patch.object(SCORE_MODULE, "render_mermaid", return_value=True):
+            result = score_artifact(
+                markdown,
+                ("NetworkClient", "NetworkService", "Main"),
+                "예외 전파",
+            )
         self.assertEqual(result["scores"]["runnable_example_and_output"], 2)
         self.assertEqual(result["evidence"]["executed_java_block"], 2)
 

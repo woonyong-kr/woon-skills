@@ -50,7 +50,10 @@ class AuditLearningContentTest(unittest.TestCase):
     def test_rejects_too_few_trials(self) -> None:
         root = self.make_root()
         path = root / "evals/quality/learning-content.yaml"
-        path.write_text(path.read_text().replace("trials: 3", "trials: 1"))
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("trials: 3", "trials: 1"),
+            encoding="utf-8",
+        )
         self.assertTrue(
             any("trials" in error for error in audit_learning_content(root))
         )
@@ -59,11 +62,12 @@ class AuditLearningContentTest(unittest.TestCase):
         root = self.make_root()
         path = root / "evals/quality/learning-content.yaml"
         path.write_text(
-            path.read_text().replace(
+            path.read_text(encoding="utf-8").replace(
                 "require: [problem_before_definition, runnable_example_and_output, causal_walkthrough]",
                 "require: [unknown_rule]",
                 1,
-            )
+            ),
+            encoding="utf-8",
         )
         self.assertTrue(
             any("unknown rubric" in error for error in audit_learning_content(root))
@@ -73,10 +77,11 @@ class AuditLearningContentTest(unittest.TestCase):
         root = self.make_root()
         path = root / "evals/quality/learning-content.yaml"
         path.write_text(
-            path.read_text().replace(
+            path.read_text(encoding="utf-8").replace(
                 "forbid: [claimed_unrun_output_as_actual, invented_execution_result]",
                 "forbid: [unknown_failure]",
-            )
+            ),
+            encoding="utf-8",
         )
         self.assertTrue(
             any("unknown hard-fail" in error for error in audit_learning_content(root))
@@ -86,7 +91,10 @@ class AuditLearningContentTest(unittest.TestCase):
         root = self.make_root()
         path = root / "evals/results/learning-content-2026-08-10.yaml"
         path.write_text(
-            path.read_text().replace("scores: [18, 18, 18]", "scores: [18, 18, 14]", 1)
+            path.read_text(encoding="utf-8").replace(
+                "scores: [18, 18, 18]", "scores: [18, 18, 14]", 1
+            ),
+            encoding="utf-8",
         )
         self.assertTrue(
             any("full-score passes" in error for error in audit_learning_content(root))
@@ -96,9 +104,10 @@ class AuditLearningContentTest(unittest.TestCase):
         root = self.make_root()
         path = root / "evals/results/learning-content-2026-08-10.yaml"
         path.write_text(
-            path.read_text().replace(
+            path.read_text(encoding="utf-8").replace(
                 "status: blocked_by_external_rate_limit", "status: incomplete", 1
-            )
+            ),
+            encoding="utf-8",
         )
         self.assertTrue(
             any(

@@ -10,6 +10,7 @@ import re
 import subprocess
 import sys
 import tempfile
+from itertools import pairwise
 from pathlib import Path
 
 VERIFY_PATH = Path(__file__).with_name("verify.py")
@@ -73,6 +74,24 @@ def is_console_command_block(language: str, body: str) -> bool:
 
 def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
     return subprocess.run(command, cwd=cwd, capture_output=True, text=True, check=False)
+
+
+def render_mermaid(diagram: str, position: int, work: Path) -> bool:
+    source = work / f"diagram-{position}.mmd"
+    source.write_text(diagram + "\n", encoding="utf-8")
+    output_dir = work / "rendered"
+    completed = run(
+        ["bash", str(DIAGRAM_VERIFIER), str(source), str(output_dir), "640"], work
+    )
+    default_output = output_dir / f"diagram-{position}-default.svg"
+    dark_output = output_dir / f"diagram-{position}-dark.svg"
+    return (
+        completed.returncode == 0
+        and default_output.exists()
+        and default_output.stat().st_size > 0
+        and dark_output.exists()
+        and dark_output.stat().st_size > 0
+    )
 
 
 def outputs_after_first_java(markdown: str) -> tuple[str, int, bool]:
@@ -205,7 +224,7 @@ def score_artifact(
     )
     if mixed_command_output:
         hard_fail.append("shell_command_mixed_into_output_evidence")
-    documented_output, output_position, output_evidence_before = (
+    _documented_output, output_position, output_evidence_before = (
         (output_pairs[0][1], output_pairs[0][2], all(pair[3] for pair in output_pairs))
         if output_pairs
         else ("", -1, False)
@@ -259,22 +278,7 @@ def score_artifact(
         diagrams = fenced_blocks(markdown, "mermaid")
         rendered = bool(diagrams)
         for position, diagram in enumerate(diagrams, start=1):
-            source = work / f"diagram-{position}.mmd"
-            source.write_text(diagram + "\n", encoding="utf-8")
-            output_dir = work / "rendered"
-            completed = run(
-                [str(DIAGRAM_VERIFIER), str(source), str(output_dir), "640"], work
-            )
-            default_output = output_dir / f"diagram-{position}-default.svg"
-            dark_output = output_dir / f"diagram-{position}-dark.svg"
-            rendered = (
-                rendered
-                and completed.returncode == 0
-                and default_output.exists()
-                and default_output.stat().st_size > 0
-                and dark_output.exists()
-                and dark_output.stat().st_size > 0
-            )
+            rendered = rendered and render_mermaid(diagram, position, work)
 
     diagrams = fenced_blocks(markdown, "mermaid")
     combined_diagrams = "\n".join(diagrams)
@@ -328,8 +332,7 @@ def score_artifact(
         and sum(1 for level, _ in headings if level == 1) == 1
     )
     heading_valid = heading_valid and all(
-        following[0] <= current[0] + 1
-        for current, following in zip(headings, headings[1:])
+        following[0] <= current[0] + 1 for current, following in pairwise(headings)
     )
     if heading_valid and rendered:
         scores["readability_and_theme"] = 2
