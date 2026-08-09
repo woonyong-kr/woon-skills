@@ -97,6 +97,14 @@ repositories:
     license: MIT
     improves: [evals/behavior/frontend.yaml]
     decision: retain one shared frontend quality chain and add framework-install, generated-output, versioned-docs and auth-flow regressions; do not install the Wasp-specific nested skill bundle or persistent generated AGENTS knowledge
+  - id: millionco-react-doctor
+    upstream: https://github.com/millionco/react-doctor
+    checked_commit: c1611428d2afd7ca665219b101173ec90e54df5a
+    checked_version: react-doctor@0.9.11
+    status: adopted-selectively
+    license: Modified-MIT with AI training or evaluation and hosted-service restrictions
+    improves: [skills/web/react, evals/behavior/react.yaml]
+    decision: keep one Woon React owner, add a short conditional static-analysis contract and cross-layer regressions, and do not copy the upstream skills or rule implementation because of routing overlap, mutable remote instructions and license restrictions
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
     checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434

@@ -1,0 +1,118 @@
+version: 1
+repository: millionco/react-doctor
+upstream: https://github.com/millionco/react-doctor
+checked_commit: c1611428d2afd7ca665219b101173ec90e54df5a
+checked_version: react-doctor@0.9.11
+checked_at: '2026-08-10'
+license: Modified-MIT with AI training or evaluation and hosted-service restrictions
+scope:
+  skill_files: 15
+decision: adopted-selectively
+evidence:
+  repository_state:
+    checked_commit_date: 2026-08-09
+    latest_release: react-doctor@0.9.11 published 2026-08-09
+    stars_at_check: 14318
+    forks_at_check: 455
+    open_issues_at_check: 66
+    github_size_kb: 114839
+    github_license_detection: NOASSERTION
+  inventory:
+    skill_body_o200k_tokens: 17736
+    internal_skills: 13
+    public_skills: 2
+    generated_rules: 787
+    security_scan_rules: 42
+    rule_test_files: 917
+    broader_test_files: 443
+    duplicate_public_internal_react_doctor: exact SKILL body match, but explain references had command and option drift
+  license_boundary:
+    finding: the root LICENSE modifies MIT and requires prior permission for using source or derivative works as training, fine-tuning, evaluation data or input to an automated AI-improvement pipeline, plus specified hosted commercial uses
+    handling: no upstream skill prose, rule implementation, prompt recipe or source-derived reference is copied into Woon; only independently written tool-execution and evidence-boundary contracts are retained
+    legal_status: repository text was recorded as an engineering constraint, not a legal opinion
+  upstream_validation:
+    install: pnpm install --frozen-lockfile passed with 613 packages and two ignored dependency build scripts
+    lint_type_format: lint passed with warnings in fuzz fixtures; typecheck passed 16 of 16 tasks; format check passed 6249 files
+    full_test_first_run: one of 23 API tests timed out at 30 seconds while test and typecheck builds were intentionally run concurrently
+    focused_retry: the same API package passed 23 of 23 tests alone in 21.11 seconds, classifying the first failure as resource contention rather than a reproduced logic failure
+    default_fuzz_scope: 788 generated fuzz cases were skipped by the normal test command; 178 verdict-robustness tests ran, so exhaustive fuzz was not claimed
+    local_build: passed after serial rebuild; a concurrent build probe temporarily removed dist/cli.js because two repository commands wrote the same package output, so Woon requires serialized upstream validation
+    local_cli_probe: version 0.9.11 produced schema 3 with 180 diagnostics on the upstream basic React fixture, including 17 errors and 163 warnings across 21 files; report ok was true while process exit was 1
+    dependency_audit_prod: 2 low, 11 moderate, 27 high and 2 critical advisories reported in the monorepo production dependency tree
+    dependency_audit_full: 5 low, 17 moderate, 30 high and 2 critical advisories reported in the full dependency tree
+  frontend_integration:
+    owner_contract: React owns component state, semantic DOM and lifecycle; CSS owns cascade and layout; UI test owns rendered viewport, focus and visual evidence; E2E owns cross-boundary user and business outcomes
+    deterministic_tool_value: exact-version JSON diagnostics find broad state, effect, accessibility, security and architecture candidates reproducibly
+    completion_boundary: process exit and report completeness are interpreted before score; static output never overrides keyboard, viewport, authorization, persistence or E2E failures
+    installation_boundary: read-only offline report comes first; skill, hook, config and CI installation remain separate authorized changes
+  behavior:
+    codex_no_guidance: 15 of 15 choices passed across three fresh gpt-5.6-terra trials
+    codex_no_guidance_tokens: 7329, 7317 and 7317 total tokens reported by the executor
+    implication: the new active prose is not justified as a behavior repair; it is limited to one conditional reference link and an operational contract that was previously absent
+    refinement_failures:
+      - the first Codex free-form trial treated an explicitly intentional controlled-adapter effect as removable before acknowledging the contract; the reference was narrowed to require feedback-loop, initialization and external-update verification first
+      - the first Claude trial called ok=true plus exit=1 a reporter defect without checking the exact-version exit contract; the interpretation rule was made explicit
+      - a later Claude trial treated an offscreen but focusable drawer as an intentional contract; the active React boundary was made explicit for unmount, hidden or inert behavior
+      - one Claude retry returned only a narrated tool lookup and no judgment; it was recorded as an executor-response failure rather than hidden or counted as a skill pass
+    held_out_final:
+      codex: 5 of 5 shuffled choices passed after compression; the free-form retry preserved the intentional adapter, rejected the hidden focus target and cross-account write, and routed rendered and journey evidence to UI test and E2E
+      codex_tokens: 8910 total tokens for the final shuffled-choice trial; 9263 total tokens for the final free-form contract trial
+      claude: 5 of 5 shuffled choices passed after compression; the final free-form retry classified the adapter as retain, the focusable hidden modal as fix and the cross-account write as a release blocker
+      claude_tokens: final shuffled trial used 1601 input, 550 cache-creation, 4468 cache-read and 840 output tokens; final free-form trial used 1601 input, 416 cache-creation, 4468 cache-read and 5707 output tokens
+    routing: no new routable skill or description was added; the existing web profile installed the same 12 skills for Codex and Claude, and explicit react invocation resolved the conditional contract in both isolated targets
+  context:
+    new_runtime_skills: 0
+    rejected_upstream_skill_body_o200k: 17736
+    active_react_skill_delta_o200k: 33
+    active_react_skill_delta_percent: 12.9
+    conditional_reference_o200k: 771
+    offline_eval_delta_o200k: 606
+    generated_catalog_delta_o200k: 0 because no skill name or description is added
+inventory:
+  - agents/benchmark-fp-fn-audit
+  - agents/deslop
+  - agents/find-similar-functions
+  - agents/fuzz
+  - agents/product-thinking
+  - agents/rde-eval
+  - agents/react-doctor
+  - agents/rule-research
+  - agents/rule-validate
+  - agents/rule-writing
+  - agents/run-parity
+  - agents/ship
+  - agents/writing-guidelines
+  - public/improve-react
+  - public/react-doctor
+groups:
+  - id: internal-rule-evaluation
+    skills:
+      - agents/benchmark-fp-fn-audit
+      - agents/fuzz
+      - agents/rde-eval
+      - agents/rule-research
+      - agents/rule-validate
+      - agents/rule-writing
+      - agents/run-parity
+    purpose: research, write, fuzz and compare React Doctor rules against local and large external corpora
+    overlap: comply already owns baseline, repeated adversarial cases, false-positive and false-negative classification, snapshots, held-out reruns and token evidence
+    decision: reject-active-skill
+    reason: these paths are repository-internal, depend on private corpora or Daytona and overlap Woon evaluation ownership; license restrictions also prevent importing their source-derived workflow
+  - id: internal-repository-workflow
+    skills:
+      - agents/deslop
+      - agents/find-similar-functions
+      - agents/product-thinking
+      - agents/react-doctor
+      - agents/ship
+      - agents/writing-guidelines
+    purpose: simplify this repository, search its symbols, change its public surface, run its scanner, ship its pull requests and fetch a mutable prose handbook
+    overlap: quality, refactor, review, registry, safety, commit, GitHub and writing owners already separate these responsibilities
+    decision: retain-existing
+    reason: repository-specific paths, tools, telemetry, release rules and remote handbooks would create overlapping routing and unsafe external effects if generalized as active Woon skills
+  - id: public-react-workflows
+    skills: [public/improve-react, public/react-doctor]
+    purpose: run or explain React Doctor, directly fix a worktree, or create detailed read-only improvement plans
+    overlap: one React owner already coordinates quality, CSS, rendered UI and E2E while common verify and safety own evidence and mutation boundaries
+    decision: retain-existing
+    reason: retain only an independently written exact-version, telemetry-off, read-only diagnostic protocol under the existing React owner; do not add react-doctor or improve-react as competing routable skills
