@@ -1,0 +1,80 @@
+version: 1
+repository: Imbad0202/academic-research-skills
+upstream: https://github.com/Imbad0202/academic-research-skills
+checked_commit: 73ea4028dc85dec590df35705e2ab7c90ddda4de
+checked_version: 3.19.0
+checked_at: '2026-08-10'
+license: CC-BY-NC-4.0
+scope:
+  skill_files: 4
+  support_files: 169 files under the four skill trees plus repository-level scripts, schemas, fixtures and workflows
+decision: adopted-selectively
+evidence:
+  repository_state:
+    checked_commit_date: 2026-08-09
+    latest_release: v3.19.0 published 2026-07-22
+    stars_at_check: 41471
+    forks_at_check: 3298
+    open_issues_at_check: 24
+    github_license_detection: NOASSERTION; root LICENSE and package metadata declare CC-BY-NC-4.0
+  context_surface:
+    skill_files: 4
+    total_skill_lines: 2177
+    total_o200k_tokens: 36404
+    support_files_under_skill_trees: 169
+    largest_skill: academic-paper at 10631 o200k tokens
+  upstream_validation:
+    pytest: 6635 passed, 3 skipped, 1 expected failure and 140 subtests passed in 404.02 seconds
+    eval_harness: citation_extraction 51 of 51 and rq_framing_patterns 40 of 40 measured cases passed their thresholds
+    pending_eval_tasks: field_norm_severity and surface_form_parity have gold data but no native measurer wired
+    dependency_audit: pip-audit found no known vulnerability in requirements-dev.txt on the checked date
+    relative_links: all relative Markdown links in the four SKILL.md files resolved
+    limitation: upstream tests establish its schemas and scripted invariants, not the truth of arbitrary papers, raw data or claimed experiment execution
+  behavior_baseline:
+    codex_claim_entailment: passed; DOI and abstract topic did not certify an inaccessible 35 percent result
+    codex_experiment_provenance: passed; manuscript consistency remained separate from execution, authenticity and reproducibility
+    codex_systematic_coverage: passed; seven Google results without protocol were labeled preliminary rather than PRISMA or comprehensive
+    candidate_codex: all five regression cases passed 3 fresh-context trials each; 15 of 15 with zero forbidden claims or file effects
+    candidate_claude_sonnet: all five regression cases passed once each with tools disabled and the current Woon research instructions
+    claude_fable: unverified because all three attempts stopped before inference with usage-credits HTTP 429
+  token_budget:
+    generated_runtime_catalog_delta_o200k: 0
+    new_runtime_skill_tokens_o200k: 0
+    offline_regression_spec_o200k: 594
+    new_regression_cases: 5
+    rejected_upstream_skill_tokens_o200k: 36404
+  adoption:
+    new_runtime_skills: 0
+    changed_runtime_skills: 0
+    new_behavior_suites: 1
+    reason: both executor controls already satisfy the safety behavior, so regression cases preserve it without a permanently active academic orchestration surface
+inventory:
+  - deep-research
+  - academic-paper
+  - academic-paper-reviewer
+  - academic-pipeline
+groups:
+  - id: evidence-integrity
+    skills: [deep-research]
+    purpose: distinguish source existence from claim support, bound search coverage and expose contradictions or absent evidence
+    overlap: research already owns multi-source synthesis, temporal verification, primary-source preference and uncertainty reporting
+    decision: adopt-as-test
+    reason: retain claim entailment, empirical provenance and no-evidence behavior as provider-neutral regressions because fresh Codex and Claude controls already pass
+  - id: academic-authoring
+    skills: [academic-paper]
+    purpose: plan, draft, revise, format and disclose an academic manuscript through a multi-agent workflow
+    overlap: tech, docs and diagram own Woon technical learning documents while no current profile requires journal submission automation
+    decision: reject-active-skill
+    reason: the 10631-token skill, venue-specific mandates and provider orchestration are disproportionate to current needs; a paper-specific owner should be proposed only after a real manuscript control exposes a gap
+  - id: academic-peer-review
+    skills: [academic-paper-reviewer]
+    purpose: simulate a multi-perspective journal review and verify revisions against prior findings
+    overlap: review owns code review only, so academic peer review would be a distinct optional domain rather than a merge target
+    decision: reject-active-skill
+    reason: simulated panels cannot confer peer-review authority, and no measured Woon task currently justifies a 7589-token active skill or its seven-agent execution cost
+  - id: academic-orchestrator
+    skills: [academic-pipeline]
+    purpose: coordinate research, drafting, integrity checks, peer review, revision and finalization
+    overlap: Woon uses small task profiles and explicit owners instead of one provider-specific end-to-end controller
+    decision: reject-active-skill
+    reason: the 10332-token orchestration layer duplicates routing, creates many mandatory turns and has two pending native eval tasks; Woon retains only independently testable evidence boundaries
