@@ -65,6 +65,14 @@ repositories:
     license: per-skill; root README claims MIT but no root LICENSE exists
     improves: [evals/behavior/react.yaml]
     decision: retain the single React owner and add measured regression cases; reject unsafe deployment automation and defer platform-specific Vercel tooling until an actual scoped project requires it
+  - id: vercel-skills
+    upstream: https://github.com/vercel-labs/skills
+    checked_commit: 941a7bcfeca4bf07913b9fb6f8ed81f20ff5297c
+    checked_version: 1.5.22
+    status: adopted-as-tests
+    license: MIT
+    improves: [evals/behavior/skill-system.yaml]
+    decision: retain Woon registry as the only canonical discovery owner; use marketplace results only as external candidates and do not import popularity-first installation behavior or a second package manager
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
     checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434

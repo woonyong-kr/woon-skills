@@ -1,0 +1,55 @@
+version: 1
+repository: vercel-labs/skills
+upstream: https://github.com/vercel-labs/skills
+checked_commit: 941a7bcfeca4bf07913b9fb6f8ed81f20ff5297c
+checked_version: 1.5.22
+checked_at: '2026-08-10'
+license: MIT
+scope:
+  skill_files: 1
+  supported_agents: 76
+  source_files_and_tests: 91
+decision: adopted-as-tests
+evidence:
+  repository_state:
+    checked_commit_date: 2026-08-07
+    latest_release: v1.5.22 published 2026-08-05
+    stars_at_check: 28454
+    forks_at_check: 2418
+    open_issues_at_check: 1002
+    github_size_kb: 1417
+  source_shape:
+    skill: find-skills
+    skill_o200k_tokens: 1303
+    cli_effects: remote discovery, Git clone and archive download, project or global installation, symlink or copy, update, removal, synchronization and optional agent launch
+    telemetry: opt-out search, install, update, removal and detected-agent events are sent to add-skill.vercel.sh; public GitHub visibility is checked but non-GitHub identifiers can be sent
+  upstream_validation:
+    tests: 56 files and 751 of 751 tests passed
+    type_check: passed
+    format_check: passed
+    build: passed with an ineffective dynamic import warning for src/blob.ts
+    relative_links: all resolved
+    engine_limit: package requires Node >=22.20.0; the reproducible local pnpm runner reported Node 22.19.0, so exact minimum-engine behavior remains unverified
+  dependency_audit:
+    production: one moderate node-tar archive stack-exhaustion DoS in tar 7.5.20; patched in 7.5.21
+    full_tree: two moderate and three high advisories, including PostCSS path traversal and nanoid infinite-loop findings through test tooling
+  behavior:
+    codex: 9 of 9 decisions passed across three fresh trials with the current registry skill and conditional reference
+    claude_sonnet: 3 of 3 decisions passed with the same Woon instructions
+    covered_boundaries: Woon-first lookup, capability question versus install authority, popularity versus evidence, unsafe source rejection, overlap merge and one shared Codex-Claude canonical
+  adoption:
+    new_runtime_skills: 0
+    catalog_context_delta_o200k: 0
+    offline_cases: 3
+    reason: the current registry is stricter and already behaves correctly; importing a broad marketplace trigger or a second package manager would duplicate ownership and introduce network, telemetry, dependency and canonical-drift risks
+  installation_probe:
+    codex_and_claude_skill_system: both resolved the same 9-skill profile successfully
+    web_alone: would retire the skill-system-only audit, budget, comply and registry entries from the managed installation
+    combined_profiles: rejected because 16 resolved skills exceed the skill-system max_active budget of 9
+    action: no global mutation; keep task-specific profile activation and address safe profile switching in the later woon-core mapping stage
+skills:
+  - name: find-skills
+    purpose: search the public skills marketplace, rank candidates and offer global installation
+    overlap: skills/skill-system/registry already owns Woon-first discovery, source review, merge, profile, Codex-Claude routing and approval
+    decision: retain-existing
+    reason: its broad capability-question trigger, install-count and stars heuristics, and immediate global-install offer are weaker than the Woon evidence gates and would create a competing discovery owner
