@@ -89,6 +89,14 @@ repositories:
     license: MIT
     improves: [evals/behavior/knowledge.yaml, evals/behavior/skill-system.yaml, evals/behavior/safety.yaml]
     decision: retain Woon canonical owners and add provider-neutral provenance, extracted-skill review, diagnostic privacy and migration-secret regressions; do not import the duplicate memory stack or broken provider-specific operations
+  - id: wasp-lang-open-saas
+    upstream: https://github.com/wasp-lang/open-saas
+    checked_commit: cbd30162b05d798b3a3f955ab5781940b67bec89
+    checked_version: wasp-v0.25-template
+    status: adopted-as-tests
+    license: MIT
+    improves: [evals/behavior/frontend.yaml]
+    decision: retain one shared frontend quality chain and add framework-install, generated-output, versioned-docs and auth-flow regressions; do not install the Wasp-specific nested skill bundle or persistent generated AGENTS knowledge
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
     checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434

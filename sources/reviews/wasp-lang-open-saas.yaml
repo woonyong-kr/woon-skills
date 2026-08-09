@@ -1,0 +1,77 @@
+version: 1
+repository: wasp-lang/open-saas
+upstream: https://github.com/wasp-lang/open-saas
+checked_commit: cbd30162b05d798b3a3f955ab5781940b67bec89
+checked_version: wasp-v0.25-template
+checked_at: '2026-08-10'
+license: MIT
+scope:
+  skill_files: 3
+  external_installer_dependency_skills: 6
+decision: adopted-as-tests
+evidence:
+  repository_state:
+    checked_commit_date: 2026-08-06
+    latest_release: wasp-v0.25-template published 2026-07-27
+    stars_at_check: 15200
+    forks_at_check: 1815
+    open_issues_at_check: 114
+    github_size_kb: 141021
+  source_shape:
+    direct_skill_body_o200k_tokens: 788
+    direct_skills: add-wasp-skills, getting-started and guided-tour
+    template: Wasp 0.25, React 19, Prisma, Tailwind, ShadCN, authentication, payments, jobs, email, file upload and Playwright E2E
+    overlap: Woon registry, tech documentation, quality, React, CSS, UI test, E2E, safety and deployment owners
+  external_install_dependency:
+    repository: wasp-lang/wasp-agent-plugins
+    checked_commit: f526d73545fb634e2a9da7456bdd14d9d58de8dd
+    checked_commit_date: 2026-08-07
+    license: MIT
+    skills: add-feature, deploying-app, expert-advice, start-dev-server, wasp-plugin-help and wasp-plugin-init
+    skill_body_o200k_tokens: 3668
+    support_reference_o200k_tokens: 3867
+    always_on_generated_agents_knowledge_o200k_tokens: 1918
+    tests_and_ci: none
+    hook_probe: emitted a SessionStart reminder and instructed the agent not to tell the user that an opt-out marker file would be created
+  upstream_validation:
+    direct_skill_tests: none
+    root_prettier: passed
+    root_eslint: passed with a warning that React was not installed in the maintenance root, so latest React was assumed
+    root_dependency_audit: one low and two high advisories in the development dependency tree
+    dynamic_docs_drift: the current template declares Wasp ^0.25.0 while the current main Guided Tour code sample still declares ^0.24.0
+    full_app_e2e: not run because Wasp CLI was absent and the workflow requires Wasp, Docker, database, generated artifacts, service configuration and Playwright browsers
+  frontend_integration:
+    owner_contract: React owns state and semantics, CSS owns layout and presentation, UI test owns rendered viewport and focus, E2E owns auth, persistence and business outcomes
+    decision: do not merge framework installation into CSS or React quality; preserve cross-layer completion boundaries as offline tests
+    covered_boundaries: UI library installation versus quality, generated output versus source ownership, mutable docs versus project version and rendered auth form versus production authentication
+  behavior:
+    first_codex_semantics: 12 of 12 decisions passed across three fresh trials
+    first_codex_output_contract: one of three self-label lines passed because two trials interpreted FAIL as rejecting the unsafe proposal
+    held_out_codex: 12 of 12 decisions and three of three output contracts passed after clarifying only that PASS means the chosen action matches the criterion
+    claude_sonnet: 4 of 4 decisions and the output contract passed in one fresh trial
+  context:
+    new_runtime_skills: 0
+    generated_catalog_delta_o200k: 0
+    offline_frontend_regression_delta_o200k: 446
+    rejected_direct_skill_body_o200k: 788
+    rejected_external_install_surface_o200k: 7535
+    first_codex_input_tokens: 17275, 17067 and 17275 with 9984 cached tokens each
+    held_out_codex_input_tokens: 13768, 13701 and 13701 with 9984 cached tokens each
+    claude_trial_usage: 2 input, 1870 cache-creation, 10070 cache-read and 886 output tokens for the main answer; provider token accounting is not directly comparable with Codex
+    rationale: Wasp-specific work should use version-matched project-local documentation on demand; generic owners already enforce stronger frontend, safety and verification boundaries without persistent generated AGENTS content
+skills:
+  - name: add-wasp-skills
+    purpose: fetch mutable installation instructions and install all skills from the separate Wasp plugin repository
+    overlap: registry already owns source pinning, license, overlap, provider routing, token and approval before installation
+    decision: reject-active-skill
+    reason: it delegates trust to a moving main branch and bulk-installs six overlapping skills, including always-on AGENTS injection, a hidden opt-out marker hook, external MCP setup and deployment effects
+  - name: getting-started
+    purpose: fetch current docs, install Wasp if missing and offer to start PostgreSQL, migrations and the development app
+    overlap: terminal, safety and verify own environment mutation and live-service evidence; project-local docs can be read directly when a Wasp project is active
+    decision: retain-existing
+    reason: no current Woon repository uses Wasp, and a generic startup skill would route too broadly; retain the useful version-aware documentation requirement as a frontend regression instead
+  - name: guided-tour
+    purpose: fetch a mutable guided tour and pause section by section while explaining the Open SaaS structure and features
+    overlap: tech and learning-content standards already own source-backed, linear explanation with code, causal diagrams and verification
+    decision: retain-existing
+    reason: the tour is Wasp-template-specific, its current example already drifts from the template version and mandatory pauses add interaction and token cost without improving the shared documentation owner

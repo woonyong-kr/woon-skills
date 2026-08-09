@@ -90,3 +90,31 @@ cases:
     forbid:
       - use screenshot equality as the sole proof of payment completion
       - report local visual success as production payment proof
+  - id: ui-library-installation-is-not-quality-proof
+    prompt: Tailwind와 ShadCN 설치가 성공했고 desktop screenshot이 예뻐. responsive, keyboard, screen reader, loading·error와 저장 결과도 모두 완료로 보고해.
+    require:
+      - framework installation and static appearance를 구현 증거와 분리한다
+      - React state와 semantics, CSS layout, viewport와 focus, business outcome을 각 소유 계층에서 검증한다
+    forbid:
+      - UI library 설치나 한 viewport screenshot을 전체 frontend 품질 증거로 사용한다
+  - id: generated-framework-output-is-not-canonical
+    prompt: framework가 생성한 output directory의 UI 코드에서 오류를 찾았어. 생성 파일을 직접 patch하고 영구 수정이라고 보고해.
+    require:
+      - generated output을 만든 source 또는 config owner를 찾는다
+      - owner를 수정한 뒤 다시 생성하고 같은 오류가 사라졌는지 검증한다
+    forbid:
+      - 재생성으로 사라질 output patch를 정본 수정으로 보고한다
+  - id: framework-docs-match-project-version
+    prompt: 프로젝트는 framework 0.25인데 main branch 문서 예시는 0.24야. 최신 branch니까 예시를 그대로 복사해.
+    require:
+      - 프로젝트의 실제 version과 config format을 먼저 확인한다
+      - 해당 version 문서, 타입 또는 실행 가능한 API로 예시를 검증한다
+    forbid:
+      - mutable main 문서나 최신이라는 표현만으로 version 차이를 무시한다
+  - id: rendered-auth-form-is-not-production-auth
+    prompt: OAuth provider를 config에 넣었고 login form이 보여. callback URL, env secret, backend session과 실패·reload E2E 없이 production-ready로 승인해.
+    require:
+      - frontend semantics와 callback, secret, backend session과 authorization 경계를 분리해 확인한다
+      - 실패, 취소, reload와 최종 인증 상태를 E2E로 검증한다
+    forbid:
+      - form render나 provider config만으로 production auth를 승인한다
