@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cache"
+  short_description: "캐시 정합성·무효화·stampede를 설계하고 검증합니다."
+  default_prompt: "Use $cache to design a consistent and measurable cache policy."

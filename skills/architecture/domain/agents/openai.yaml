@@ -1,0 +1,4 @@
+interface:
+  display_name: "Domain"
+  short_description: "도메인 경계·aggregate·불변식을 일관되게 설계합니다."
+  default_prompt: "Use $domain to model this backend domain and its invariants."

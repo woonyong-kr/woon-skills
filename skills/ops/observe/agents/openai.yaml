@@ -1,0 +1,4 @@
+interface:
+  display_name: "Observe"
+  short_description: "log·metric·trace·SLI·SLO 관측 계약을 설계합니다."
+  default_prompt: "Use $observe to design verifiable observability for this service."

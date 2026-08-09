@@ -1,11 +1,19 @@
 version: 1
 name: eval
 installable: false
-max_active: 61
+max_active: 68
 skills:
   - skills/ai/agent-audit
+  - skills/architecture/domain
   - skills/architecture/hexagonal
   - skills/backend/api
+  - skills/backend/event
+  - skills/backend/job
+  - skills/backend/protocol
+  - skills/backend/resilience
+  - skills/backend/tenant
+  - skills/backend/tx
+  - skills/data/cache
   - skills/common/naming
   - skills/common/quality
   - skills/common/refactor
@@ -16,6 +24,7 @@ skills:
   - skills/common/verify
   - skills/data/migration
   - skills/data/postgres
+  - skills/data/storage
   - skills/docs/adr
   - skills/docs/diagram
   - skills/docs/docs
@@ -43,10 +52,14 @@ skills:
   - skills/language/python/python
   - skills/language/typescript/ts
   - skills/ops/container
+  - skills/ops/capacity
   - skills/ops/docker
+  - skills/ops/observe
   - skills/research/market
   - skills/research/research
   - skills/security/security
+  - skills/security/auth
+  - skills/security/privacy
   - skills/skill-system/audit
   - skills/skill-system/budget
   - skills/skill-system/comply

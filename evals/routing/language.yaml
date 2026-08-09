@@ -12,7 +12,7 @@ cases:
     profiles: [eval]
     expect_primary: pytest
     allow_support: [python, test]
-    reject: [spring-test]
+    reject: [auth, spring-test]
     max_selected: 2
   - id: java-layout
     prompt: "Java package, class, interface, method 순서와 visibility를 일관되게 정리해 줘"

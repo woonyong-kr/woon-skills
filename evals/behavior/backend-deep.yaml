@@ -1,0 +1,159 @@
+version: 1
+profile: eval
+cases:
+  - id: tx-response-loss-replay
+    prompt: 결제 DB commit 직후 응답이 끊겼다. client가 같은 요청을 다시 보내며 동시에 다른 payload도 같은 key로 들어온다. 처리와 검증을 설계해 줘.
+    require:
+      - keep one caller-owned key for the original business intent
+      - atomically persist the local mutation and replayable result
+      - replay the committed result and reject a mismatched payload
+      - inject failure after commit before response
+    forbid:
+      - create a new key for the retry
+      - infer that a timeout means the payment failed
+    critical: [duplicate external effect, mismatched payload accepted]
+  - id: tx-write-skew
+    prompt: 당직 의사 둘이 각자 상대가 근무 중임을 보고 동시에 자기 근무를 해제해 최소 한 명 규칙이 깨진다. 단순 unit test 말고 막고 증명해 줘.
+    require:
+      - state the cross-row invariant
+      - use serializable execution or an explicit common lock or constraint
+      - run two real concurrent transactions and retry a serialization failure from the beginning
+    forbid:
+      - rely on repeatable reads alone
+      - prove concurrency with one connection
+  - id: tx-stale-lease-worker
+    prompt: worker A의 lease가 끝난 뒤 B가 job을 가져갔는데 A가 멈춤에서 깨어나 결과를 덮는다. 안전하게 막고 test해 줘.
+    require:
+      - issue a monotonically increasing fencing token on claim
+      - reject the stale token at the state-changing resource
+      - reproduce lease expiry and late write deterministically
+    forbid:
+      - assume lease ownership persists until the process dies
+      - use wall-clock sleep as the only proof
+  - id: tx-outbox-relay-crash
+    prompt: 주문과 outbox는 commit됐고 relay가 broker publish 뒤 sent 표시 전에 죽는다. 주문 event를 유실·이중 반영 없이 처리해 줘.
+    require:
+      - allow duplicate publication after relay restart
+      - deduplicate per consumer with inbox and business mutation in one transaction
+      - distinguish broker delivery count from business effect count
+    forbid:
+      - mark sent before publish
+      - claim global exactly-once delivery
+  - id: tx-remote-effect-local-failure
+    prompt: provider 결제가 성공한 뒤 local 주문 저장이 실패했다. 하나의 @Transactional로 원자적이라고 보고 다시 결제하면 될까?
+    require:
+      - reject local rollback as remote rollback
+      - persist a durable workflow state and provider correlation
+      - reconcile unknown results before another effect
+      - define idempotent compensation if the business allows it
+    forbid:
+      - call the provider again with a new key
+      - hide the workflow in a repository or adapter
+  - id: tx-nested-retry-amplification
+    prompt: load balancer 3회, SDK 4회, service 3회 retry가 켜져 있다. transient 장애에 downstream 호출이 폭증하지 않게 고쳐 줘.
+    require:
+      - calculate the multiplicative worst-case attempts
+      - choose one retry owner with one end-to-end budget
+      - test actual downstream call count under failure
+    forbid:
+      - tune each layer independently while keeping all retries
+  - id: event-offset-after-effect
+    prompt: consumer가 이메일 발송 뒤 offset commit 전에 죽어 redelivery된다. 적어도 한 번 전달 환경에서 업무 효과를 설계해 줘.
+    require:
+      - define event identity and consumer dedup scope
+      - make the external email intent idempotent or reconcile it
+      - treat redelivery as normal behavior
+    forbid:
+      - move offset commit before the effect as a universal fix
+      - equate broker ack with business completion
+  - id: cache-stale-overwrite
+    prompt: 느린 refresh가 DB의 새 version을 읽은 빠른 refresh 뒤에 완료돼 cache를 옛값으로 되돌린다.
+    require:
+      - compare a source version or fencing value before cache write
+      - test reversed completion order
+      - define maximum stale age and outage behavior
+    forbid:
+      - rely only on a shorter TTL
+  - id: resilience-timeout-unknown
+    prompt: caller cancellation 뒤 remote write가 계속됐을 수 있는데 fallback으로 새 provider에 같은 작업을 보낸다.
+    require:
+      - classify the first result as unknown
+      - reconcile with the original provider before a new effect
+      - propagate a bounded deadline without treating cancellation as rollback
+    forbid:
+      - fail over a non-idempotent write immediately
+  - id: capacity-unbounded-queue
+    prompt: 평균 부하는 낮지만 10초 burst 때 in-memory queue가 계속 자라고 GC 뒤 모든 요청이 timeout된다.
+    require:
+      - model burst arrival and service-time distribution
+      - bound the queue and reject or shed by explicit priority
+      - measure queue age, saturation, end-to-end p95 and recovery
+    forbid:
+      - fix overload only by increasing thread count
+      - report average latency as sufficient
+  - id: observe-logical-attempt
+    prompt: 한 주문이 retry 세 번 뒤 성공했는데 성공률은 33%로 나오고 trace는 queue에서 끊긴다.
+    require:
+      - separate logical operation outcome from physical attempts
+      - propagate message creation context across the queue
+      - define user-outcome SLI and retry metrics separately
+    forbid:
+      - count every retry as a separate user request
+  - id: auth-cross-tenant-object
+    prompt: JWT signature와 role은 정상인데 URL의 tenant와 object owner가 token tenant와 다르다.
+    require:
+      - validate issuer audience expiry and token purpose
+      - enforce tenant and object-level authorization at the resource
+      - include wrong-tenant negative tests
+    forbid:
+      - authorize solely from a role claim
+      - trust the tenant path parameter
+  - id: protocol-stream-reconnect
+    prompt: WebSocket client가 마지막 ack를 못 받고 reconnect하면서 command를 다시 보낸다. 순서·중복·backpressure를 설계해 줘.
+    require:
+      - define command identity, sequence and replay window
+      - use bounded buffers and a slow-consumer policy
+      - test disconnect after commit before ack
+    forbid:
+      - assume one TCP connection gives durable exactly-once processing
+  - id: storage-search-as-source
+    prompt: 검색 편의 때문에 Elasticsearch document를 주문 정본으로 쓰고 DB와 양쪽 update하려 한다.
+    require:
+      - choose one canonical owner from transaction and durability needs
+      - rebuild the search projection from a durable change stream
+      - measure lag and reconciliation gaps
+    forbid:
+      - perform an uncoordinated dual write
+  - id: tenant-cache-and-job-leak
+    prompt: tenant별 DB filter는 있지만 Redis key와 nightly batch에는 tenant가 없어 다른 고객 결과가 섞인다.
+    require:
+      - propagate verified tenant context through cache keys and jobs
+      - make repository access impossible without tenant scope
+      - test identical resource IDs across tenants
+    forbid:
+      - accept a client-provided tenant header as proof
+  - id: job-effect-before-checkpoint
+    prompt: CSV batch가 500건씩 처리되고 외부 송금 뒤 checkpoint 전에 worker가 죽는다. 재시작 시 안전하게 이어가게 해 줘.
+    require:
+      - give each payment intent a stable idempotency identity
+      - checkpoint only after a durable outcome or reconciliation state
+      - inject worker death after the effect before the checkpoint
+    forbid:
+      - skip the whole chunk without item-level evidence
+  - id: privacy-delete-projections
+    prompt: 회원 탈퇴 후 primary row는 지웠지만 cache, search, analytics export와 backup restore에서 다시 나타난다.
+    require:
+      - maintain a data inventory and deletion propagation record
+      - define backup expiry and re-delete after restore
+      - verify every projection with a canary subject
+    forbid:
+      - call soft delete final erasure
+      - put sensitive payload in the audit record
+  - id: domain-aggregate-size
+    prompt: 주문 하나가 재고·결제·배송 전체 객체를 aggregate로 잡아 모든 변경에 하나의 큰 lock을 건다.
+    require:
+      - identify only invariants that require immediate consistency
+      - split other contexts and reference them by stable identity
+      - use durable events or workflow for delayed convergence
+    forbid:
+      - keep the graph together because the UI shows one screen

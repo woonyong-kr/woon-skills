@@ -1,0 +1,13 @@
+version: 1
+name: distributed
+extends: [core]
+max_active: 13
+skills:
+  - skills/backend/event
+  - skills/backend/job
+  - skills/backend/protocol
+  - skills/backend/resilience
+  - skills/backend/tx
+  - skills/common/test
+  - skills/ops/capacity
+  - skills/ops/observe

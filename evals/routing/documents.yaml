@@ -53,9 +53,9 @@ cases:
     prompt: "승인한 정본만 개인정보를 검사해서 공개 WIKI에 발행해 줘"
     profiles: [eval]
     expect_primary: publish
-    allow_support: [knowledge]
+    allow_support: [knowledge, privacy]
     reject: [archive, release]
-    max_selected: 2
+    max_selected: 3
   - id: career-resume
     prompt: "내 실제 개인 기여와 코드 근거로 이력서 불릿을 다듬어 줘"
     profiles: [eval]

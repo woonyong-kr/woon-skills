@@ -1,0 +1,8 @@
+version: 1
+name: security
+extends: [core]
+max_active: 8
+skills:
+  - skills/security/auth
+  - skills/security/privacy
+  - skills/security/security

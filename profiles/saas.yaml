@@ -1,0 +1,12 @@
+version: 1
+name: saas
+extends: [core]
+max_active: 12
+skills:
+  - skills/architecture/domain
+  - skills/backend/api
+  - skills/backend/tenant
+  - skills/backend/tx
+  - skills/common/test
+  - skills/security/auth
+  - skills/security/privacy

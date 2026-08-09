@@ -1,0 +1,4 @@
+interface:
+  display_name: "Storage"
+  short_description: "데이터 저장소 선택과 정합성·내구성 계약을 설계합니다."
+  default_prompt: "Use $storage to choose and verify the data storage contract."

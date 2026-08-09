@@ -1,0 +1,4 @@
+interface:
+  display_name: "Event"
+  short_description: "메시지·이벤트 전달과 중복·순서·복구를 설계합니다."
+  default_prompt: "Use $event to design this event-driven workflow safely."

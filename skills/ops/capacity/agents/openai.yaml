@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capacity"
+  short_description: "부하·queue·backpressure·용량 한계를 설계합니다."
+  default_prompt: "Use $capacity to model load, queues, limits, and backpressure."

@@ -29,6 +29,82 @@ cases:
     reject_skills:
       - skills/language/java/java
       - skills/web/react
+  - id: backend-keeps-core-consistency-owners
+    profiles: [backend]
+    expect_skills:
+      - skills/architecture/domain
+      - skills/architecture/hexagonal
+      - skills/backend/api
+      - skills/backend/tx
+      - skills/common/quality
+      - skills/common/test
+    reject_skills:
+      - skills/backend/event
+      - skills/backend/job
+      - skills/security/auth
+      - skills/data/postgres
+  - id: data-adds-cache-and-storage-selection
+    profiles: [data]
+    expect_skills:
+      - skills/data/cache
+      - skills/data/migration
+      - skills/data/postgres
+      - skills/data/storage
+    reject_skills:
+      - skills/backend/event
+      - skills/ops/observe
+  - id: ops-adds-capacity-and-observability
+    profiles: [ops]
+    expect_skills:
+      - skills/ops/capacity
+      - skills/ops/container
+      - skills/ops/docker
+      - skills/ops/observe
+    reject_skills:
+      - skills/backend/tx
+      - skills/security/privacy
+  - id: security-separates-auth-privacy-and-threats
+    profiles: [security]
+    expect_skills:
+      - skills/security/auth
+      - skills/security/privacy
+      - skills/security/security
+    reject_skills:
+      - skills/language/java/spring-sec
+      - skills/backend/tenant
+  - id: distributed-adds-only-cross-process-contracts
+    profiles: [distributed]
+    expect_skills:
+      - skills/backend/event
+      - skills/backend/job
+      - skills/backend/protocol
+      - skills/backend/resilience
+      - skills/backend/tx
+      - skills/ops/observe
+    reject_skills:
+      - skills/data/cache
+      - skills/security/privacy
+  - id: saas-adds-tenant-auth-and-privacy
+    profiles: [saas]
+    expect_skills:
+      - skills/backend/tenant
+      - skills/security/auth
+      - skills/security/privacy
+      - skills/backend/tx
+    reject_skills:
+      - skills/ops/docker
+      - skills/backend/job
+  - id: worker-adds-durable-processing
+    profiles: [worker]
+    expect_skills:
+      - skills/backend/event
+      - skills/backend/job
+      - skills/backend/resilience
+      - skills/backend/tx
+      - skills/ops/capacity
+    reject_skills:
+      - skills/backend/protocol
+      - skills/security/auth
   - id: typescript-is-focused
     profiles: [typescript]
     expect_skills:

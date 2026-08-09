@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resilience"
+  short_description: "분산 장애·timeout·retry·격리 정책을 설계합니다."
+  default_prompt: "Use $resilience to design failure handling for this distributed flow."

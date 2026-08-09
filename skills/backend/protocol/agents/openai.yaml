@@ -1,0 +1,4 @@
+interface:
+  display_name: "Protocol"
+  short_description: "gRPC·GraphQL·WebSocket·webhook 계약을 설계합니다."
+  default_prompt: "Use $protocol to design the appropriate non-REST service contract."

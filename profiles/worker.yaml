@@ -1,0 +1,12 @@
+version: 1
+name: worker
+extends: [core]
+max_active: 12
+skills:
+  - skills/backend/event
+  - skills/backend/job
+  - skills/backend/resilience
+  - skills/backend/tx
+  - skills/common/test
+  - skills/ops/capacity
+  - skills/ops/observe

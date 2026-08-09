@@ -13,6 +13,81 @@ standards:
       - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/productivity/teach
     changed: translated the useful prerequisite and grounding model into a provider-neutral section dependency contract, removed interactive article shaping and HTML defaults, and added adversarial insertion and cycle gates after a fresh-context baseline failed 2 of 3 cases
 skills:
+  skills/architecture/domain:
+    adapted_from:
+      - https://learn.microsoft.com/en-us/azure/architecture/microservices/model/domain-analysis
+      - https://learn.microsoft.com/en-us/azure/architecture/microservices/model/tactical-ddd
+    changed: separated business modeling from framework and persistence, made aggregate a measured transaction consistency boundary, and routed atomicity to the single $tx owner
+  skills/backend/tx:
+    adapted_from:
+      - https://www.postgresql.org/docs/current/transaction-iso.html
+      - https://www.postgresql.org/docs/current/applevel-consistency.html
+      - https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
+      - https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html
+      - https://www.rfc-editor.org/rfc/rfc9110.html#section-9.2.2
+    changed: established one Woon owner for local transaction, isolation, caller-owned idempotency, atomic claim and mutation, unknown results, outbox/inbox and deterministic crash-window verification
+  skills/backend/event:
+    adapted_from:
+      - https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html
+      - https://kafka.apache.org/documentation/#semantics
+      - https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/
+    changed: limited exactly-once claims to their proven scope and made duplicate, ordering, ack, replay and end-to-end business effects explicit while delegating atomicity to $tx
+  skills/backend/resilience:
+    adapted_from:
+      - https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/
+      - https://docs.aws.amazon.com/wellarchitected/latest/framework/rel_mitigate_interaction_failure_limit_retries.html
+      - https://sre.google/sre-book/handling-overload/
+    changed: created one failure-policy owner for end-to-end deadlines, single retry ownership, bounded budgets, isolation, load shedding and contract-preserving fallbacks
+  skills/data/cache:
+    adapted_from:
+      - https://redis.io/docs/latest/develop/clients/client-side-caching/
+      - https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/
+      - https://redis.io/docs/latest/develop/reference/eviction/
+    changed: made source ownership, stale age, versioned invalidation, stampede control, fencing and cache-outage correctness mandatory instead of prescribing Redis defaults
+  skills/ops/observe:
+    adapted_from:
+      - https://opentelemetry.io/docs/specs/semconv/general/trace/
+      - https://opentelemetry.io/docs/specs/semconv/messaging/messaging-spans/
+      - https://sre.google/sre-book/service-level-objectives/
+    changed: unified logical operation and physical attempt evidence across logs, metrics and traces while separating tamper-sensitive audit records and privacy
+  skills/ops/capacity:
+    adapted_from:
+      - https://sre.google/sre-book/handling-overload/
+      - https://sre.google/sre-book/service-level-objectives/
+    changed: required measured workload distributions, bounded queues, explicit backpressure and overload contracts without copying arbitrary pool or batch sizes
+  skills/security/auth:
+    adapted_from:
+      - https://www.rfc-editor.org/rfc/rfc9700.html
+      - https://openid.net/specs/openid-connect-core-1_0.html
+    changed: created a framework-independent owner for OAuth and OIDC flow, token lifecycle and object-level authorization while leaving framework configuration to language skills
+  skills/backend/protocol:
+    adapted_from:
+      - https://grpc.io/docs/guides/deadlines/
+      - https://spec.graphql.org/
+      - https://www.rfc-editor.org/rfc/rfc6455.html
+      - https://www.rfc-editor.org/rfc/rfc9457.html
+    changed: separated non-REST interaction contracts from $api and required compatibility, flow control, reconnect, authorization and failure tests per protocol
+  skills/data/storage:
+    adapted_from:
+      - https://learn.microsoft.com/en-us/azure/architecture/guide/technology-choices/data-store-overview
+      - https://learn.microsoft.com/en-us/azure/architecture/microservices/design/data-considerations
+    changed: made access pattern, consistency, durability, partitioning, restore and canonical ownership the decision inputs instead of product popularity
+  skills/backend/tenant:
+    adapted_from:
+      - https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/considerations/tenancy-models
+      - https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/approaches/storage-data
+      - https://learn.microsoft.com/en-us/azure/architecture/guide/multitenant/approaches/compute
+    changed: treated tenant identity as verified security context and required isolation across data, cache, queues, jobs, telemetry, capacity and migration
+  skills/backend/job:
+    adapted_from:
+      - https://learn.microsoft.com/en-us/azure/architecture/patterns/competing-consumers
+      - https://docs.temporal.io/workflows
+    changed: created a provider-neutral durable state machine, lease and fencing, checkpoint, retry, cancellation and operational replay contract
+  skills/security/privacy:
+    adapted_from:
+      - https://www.nist.gov/privacy-framework
+      - https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html
+    changed: connected data inventory, minimization, retention, export and deletion across caches, projections, logs, queues and backups while requiring jurisdiction-specific policy verification
   skills/web/css:
     adapted_from:
       - https://github.com/AllThingsSmitty/css-protips/tree/e95123993037bbcd1bd97170cfa02087155c3690

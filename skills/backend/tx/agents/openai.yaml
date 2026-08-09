@@ -1,0 +1,4 @@
+interface:
+  display_name: "Transaction"
+  short_description: "트랜잭션·멱등성·원자성 실패를 설계하고 검증합니다."
+  default_prompt: "Use $tx to design and verify transaction, idempotency, and atomicity."

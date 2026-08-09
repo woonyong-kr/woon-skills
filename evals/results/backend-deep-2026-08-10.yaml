@@ -1,0 +1,98 @@
+version: 1
+evaluated_at: 2026-08-10
+profile: backend
+primary_skill: repo://skills/backend/tx
+behavior_spec: repo://skills/evals/behavior/backend-deep.yaml
+deterministic_fixture:
+  path: repo://skills/evals/fixtures/tx
+  runtime: Python 3 standard library SQLite
+  checks: 8
+  status: passed
+  covers:
+    - local rollback at three crash points
+    - commit-before-response replay
+    - same-key payload conflict
+    - eight concurrent duplicate requests
+    - outbox redelivery and consumer inbox
+    - stale-worker fencing
+    - remote success with lost response and local reconciliation rollback
+    - known-bad mutation detection
+  mutations_detected:
+    - split idempotency claim commit
+    - orphan business effect
+    - new local key per retry
+    - new provider key per retry
+codex_behavior:
+  model: gpt-5.6-terra
+  harness: isolated read-only codex exec with explicit canonical skill path
+  response_loss:
+    trials: 3
+    passed: 3
+    grader: manual semantic rubric plus deterministic fixture
+    observed:
+      - same caller-owned key and canonical fingerprint
+      - atomic local mutation and replayable terminal result
+      - same-payload replay and different-payload conflict
+      - commit-before-response and concurrent-request fault tests
+      - unknown result and unverified production scope
+  write_skew:
+    trials: 1
+    passed: 1
+    observed:
+      - cross-row invariant
+      - PostgreSQL SERIALIZABLE and SQLSTATE 40001 whole-transaction retry
+      - two real connections with barriers
+      - weaker-isolation mutant expected to fail
+  remote_unknown:
+    trials: 1
+    passed: 1
+    observed:
+      - durable workflow and stable provider key before remote call
+      - unknown result query and reconciliation before another effect
+      - idempotent compensation as a separate operation
+      - crash-point matrix and explicit unverified scope
+routing:
+  cases: 74
+  repeat: 3
+  codex:
+    primary_recall: 1.0000
+    forbidden_selections: 0
+    agreement: 0.9595
+    status: passed
+    note: optional support selection varied in three cases while every primary remained stable
+  claude:
+    status: blocked_by_external_rate_limit
+    reset_at: "2026-08-10T09:20:00+09:00"
+token_measurement:
+  tokenizer: tiktoken 0.9.0 o200k_base
+  backend_profile:
+    baseline:
+      active_skills: 10
+      description_tokens: 486
+      all_entry_tokens: 3194
+    candidate:
+      active_skills: 12
+      description_tokens: 603
+      all_entry_tokens: 4003
+    normal_inventory_delta_tokens: 117
+    note: all_entry_tokens is an upper bound when every selected skill body is loaded, not normal routing cost
+  tx_progressive_context:
+    entry_tokens: 443
+    atomicity_reference_tokens: 872
+    idempotency_reference_tokens: 721
+    verification_reference_tokens: 541
+  codex_runtime_smoke:
+    baseline:
+      input_tokens: 16972
+      cached_input_tokens: 9984
+      output_tokens: 595
+    candidate:
+      input_tokens: 57672
+      cached_input_tokens: 45312
+      output_tokens: 749
+    note: runtime totals include executor base context and tool calls; file token counts isolate canonical skill cost
+limitations:
+  - SQLite fixture proves the modeled state transitions but not PostgreSQL isolation, a real broker or provider guarantees.
+  - Codex behavior output was semantically inspected; only the fixture and static audits are deterministic graders.
+  - Claude routing remains unverified until the external session limit resets.
+  - Production load, failover, provider retention and reconciliation SLOs require project-specific integration tests.

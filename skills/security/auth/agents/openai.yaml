@@ -1,0 +1,4 @@
+interface:
+  display_name: "Auth"
+  short_description: "OAuth2·OIDC 인증·인가 경계를 안전하게 설계합니다."
+  default_prompt: "Use $auth to design this authentication and authorization flow."

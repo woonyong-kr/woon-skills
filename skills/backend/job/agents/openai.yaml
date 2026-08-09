@@ -1,0 +1,4 @@
+interface:
+  display_name: "Job"
+  short_description: "background job·scheduler·workflow 복구를 설계합니다."
+  default_prompt: "Use $job to design a restart-safe background workflow."

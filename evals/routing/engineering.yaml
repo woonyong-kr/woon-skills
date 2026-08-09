@@ -21,6 +21,97 @@ cases:
     allow_support: [quality]
     reject: [api, spring]
     max_selected: 2
+  - id: domain-invariant
+    prompt: "주문 aggregate가 재고·결제·배송 객체를 전부 들고 있고 한 화면의 CRUD 기준으로 경계가 나뉘어 있어. bounded context와 invariant를 다시 설계해 줘"
+    profiles: [eval]
+    expect_primary: domain
+    allow_support: [tx, hexagonal]
+    reject: [jpa, api]
+    max_selected: 3
+  - id: transaction-idempotency
+    prompt: "결제는 성공했는데 응답이 유실되고 DB commit도 실패할 수 있어. 같은 요청이 동시에 재전송돼도 이중 결제와 stuck 상태가 없도록 원자성·멱등성을 설계해 줘"
+    profiles: [eval]
+    expect_primary: tx
+    allow_support: [api, test]
+    reject: [hexagonal, event]
+    max_selected: 3
+  - id: event-delivery
+    prompt: "outbox relay가 publish 뒤 죽고 consumer도 처리 뒤 ack 전에 죽는다. 중복·순서·DLQ·schema evolution 계약을 설계해 줘"
+    profiles: [eval]
+    expect_primary: event
+    allow_support: [tx, observe]
+    reject: [api, job]
+    max_selected: 3
+  - id: distributed-resilience
+    prompt: "downstream이 느려지면 SDK와 service가 함께 retry해서 장애가 증폭돼. deadline, jitter, breaker, bulkhead와 load shedding을 정리해 줘"
+    profiles: [eval]
+    expect_primary: resilience
+    allow_support: [capacity, observe]
+    reject: [tx, api]
+    max_selected: 3
+  - id: cache-consistency
+    prompt: "DB 갱신 직후 cache invalidation이 유실되고 TTL 만료 때 요청이 몰려 이전 값이 새 값 뒤에 덮인다. 정합성과 stampede를 해결해 줘"
+    profiles: [eval]
+    expect_primary: cache
+    allow_support: [tx, capacity]
+    reject: [postgres, storage]
+    max_selected: 3
+  - id: service-observability
+    prompt: "재시도한 결제가 logical success 하나인데 attempt log가 세 개고 queue 뒤 결과는 trace가 끊겨. SLI·metric·trace·audit 계약을 설계해 줘"
+    profiles: [eval]
+    expect_primary: observe
+    allow_support: [tx, event]
+    reject: [review, docs]
+    max_selected: 3
+  - id: overload-capacity
+    prompt: "평균 TPS는 버티지만 burst 때 connection pool과 unbounded queue가 차서 전체 tenant가 timeout난다. backpressure와 안전 용량을 측정해 줘"
+    profiles: [eval]
+    expect_primary: capacity
+    allow_support: [resilience, observe, tenant]
+    reject: [postgres, container]
+    max_selected: 3
+  - id: oauth-oidc-flow
+    prompt: "SPA와 resource server의 OAuth2 OIDC flow, PKCE, refresh rotation, issuer audience와 object 권한 검증을 설계해 줘"
+    profiles: [eval]
+    expect_primary: auth
+    allow_support: [security, tenant]
+    reject: [spring-sec, api]
+    max_selected: 3
+  - id: grpc-stream-contract
+    prompt: "gRPC 양방향 stream이 재연결되면 duplicate와 순서 역전이 생겨. deadline, flow control, schema 호환과 resume 계약을 설계해 줘"
+    profiles: [eval]
+    expect_primary: protocol
+    allow_support: [event, resilience]
+    reject: [api, e2e]
+    max_selected: 3
+  - id: storage-selection
+    prompt: "주문 정본, full-text 검색, 큰 첨부 파일과 분석 projection을 어떤 저장소에 둘지 consistency·durability·restore 기준으로 선택해 줘"
+    profiles: [eval]
+    expect_primary: storage
+    allow_support: [postgres, migration]
+    reject: [cache, jpa]
+    max_selected: 3
+  - id: tenant-isolation
+    prompt: "shared DB·Redis·queue에서 같은 resource ID와 hot tenant 때문에 정보 유출과 noisy neighbor가 생길 수 있어. tenant 격리를 검증해 줘"
+    profiles: [eval]
+    expect_primary: tenant
+    allow_support: [auth, capacity]
+    reject: [security, storage]
+    max_selected: 3
+  - id: durable-job
+    prompt: "batch worker가 effect 뒤 checkpoint 전에 죽고 lease가 끝난 뒤 old worker도 다시 살아난다. restart-safe job과 fencing을 설계해 줘"
+    profiles: [eval]
+    expect_primary: job
+    allow_support: [tx, event]
+    reject: [ci, migration]
+    max_selected: 3
+  - id: privacy-lifecycle
+    prompt: "사용자 삭제 뒤 DB만 지워지고 cache·search·analytics·backup·log에는 남아 있어. 보존·export·삭제·audit 흐름을 설계해 줘"
+    profiles: [eval]
+    expect_primary: privacy
+    allow_support: [tenant, observe]
+    reject: [security, publish]
+    max_selected: 3
   - id: db-migration
     prompt: "운영 중인 큰 테이블에 nullable column을 추가하고 backfill하는 무중단 migration을 설계해 줘"
     profiles: [eval]

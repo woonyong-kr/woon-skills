@@ -1,0 +1,4 @@
+interface:
+  display_name: "Privacy"
+  short_description: "개인정보 보존·삭제·감사 증거 경계를 설계합니다."
+  default_prompt: "Use $privacy to design data retention, deletion, and audit controls."

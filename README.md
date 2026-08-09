@@ -26,6 +26,13 @@ woon skills doctor
 | Java | `java` | `$java` |
 | TypeScript | `typescript` | `$ts` |
 | Spring/JPA | `spring` | `$spring·$spring-test·$spring-sec·$jpa` |
+| backend 기본 설계 | `backend` | `$domain·$hexagonal·$api·$tx` |
+| 분산 backend | `distributed` | `$tx·$event·$job·$protocol·$resilience·$capacity·$observe·$test` |
+| worker·batch | `worker` | `$tx·$event·$job·$resilience·$capacity·$observe·$test` |
+| SaaS·multi-tenant | `saas` | `$domain·$api·$tx·$tenant·$auth·$privacy·$test` |
+| data·storage | `data` | `$cache·$migration·$postgres·$storage` |
+| 운영 기반 | `ops` | `$capacity·$container·$docker·$observe` |
+| 인증·개인정보·보안 | `security` | `$auth·$privacy·$security` |
 | GitHub | `github` | `$pr·$issue·$ci·$release·$notify` |
 | 개발 문서 | `docs` | `$docs·$lookup·$adr·$diagram` |
 | private knowledge | `knowledge` | `$safety·$knowledge·$archive·$diagram` |
@@ -56,6 +63,7 @@ catalog.json                    SKILL.md에서 생성한 Codex·Claude 공통 �
 scripts/build_catalog.py        root catalog 결정적 생성·검사
 scripts/audit_skills.py         metadata·link·catalog drift 정적 검사
 scripts/audit_sources.py        upstream commit·license·전수 skill review 검사
+scripts/audit_backend.py        backend owner·routing·행동·단일 원본 검사
 vendor/<origin>/<name>/         upstream commit에 고정한 비교·fallback 원본
 profiles/                       작고 목적별인 활성 집합
 conflicts/                      side effect와 실제 충돌

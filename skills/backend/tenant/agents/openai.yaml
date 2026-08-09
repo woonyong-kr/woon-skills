@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tenant"
+  short_description: "멀티테넌트 격리·quota·noisy-neighbor 경계를 설계합니다."
+  default_prompt: "Use $tenant to design and verify multitenant isolation."

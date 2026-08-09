@@ -7,6 +7,7 @@ import json
 import re
 from pathlib import Path
 
+from audit_backend import audit_backend
 from audit_learning_content import audit_learning_content
 from audit_sources import audit_sources
 from build_catalog import FRONTMATTER, build, render, scalar_fields
@@ -89,6 +90,7 @@ def main() -> int:
 
     errors.extend(audit_sources(root))
     errors.extend(audit_learning_content(root))
+    errors.extend(audit_backend(root))
 
     if errors:
         print("\n".join(f"error: {error}" for error in errors))
