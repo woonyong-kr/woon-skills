@@ -16,6 +16,31 @@ TRIAL_TIMEOUT_SECONDS = 300
 CLAUDE_EFFORT = "medium"
 
 
+def failure_detail(
+    completed: subprocess.CompletedProcess[str], artifact: Path, raw: str
+) -> list[str]:
+    detail = completed.stderr.strip().splitlines()[-8:]
+    if detail:
+        return detail
+    if artifact.exists():
+        artifact_detail = artifact.read_text(encoding="utf-8").strip()
+        if artifact_detail:
+            return artifact_detail.splitlines()[-8:]
+    for line in reversed(raw.splitlines()):
+        try:
+            event = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if (
+            isinstance(event, dict)
+            and event.get("type") == "result"
+            and isinstance(event.get("result"), str)
+            and event["result"].strip()
+        ):
+            return event["result"].strip().splitlines()[-8:]
+    return ["executor returned no diagnostic detail"]
+
+
 def parse_codex_usage(raw: str) -> dict[str, int]:
     usage: dict[str, int] = {}
     for line in raw.splitlines():
@@ -241,7 +266,7 @@ def main() -> int:
     duration = time.monotonic() - started
     raw_path.write_text(raw, encoding="utf-8")
     if completed.returncode != 0 or not artifact.exists():
-        detail = completed.stderr.strip().splitlines()[-8:]
+        detail = failure_detail(completed, artifact, raw)
         print(
             json.dumps(
                 {

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import json
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -23,6 +25,7 @@ SCORE_SPEC = importlib.util.spec_from_file_location(
 assert SCORE_SPEC is not None and SCORE_SPEC.loader is not None
 SCORE_MODULE = importlib.util.module_from_spec(SCORE_SPEC)
 sys.modules[SCORE_SPEC.name] = SCORE_MODULE
+sys.modules["score_artifact"] = SCORE_MODULE
 SCORE_SPEC.loader.exec_module(SCORE_MODULE)
 score_artifact = SCORE_MODULE.score_artifact
 diagram_snapshot_mismatches = SCORE_MODULE.diagram_snapshot_mismatches
@@ -33,6 +36,16 @@ is_console_command_block = SCORE_MODULE.is_console_command_block
 has_explicit_diagram_question = SCORE_MODULE.has_explicit_diagram_question
 NUMBERED_ARROW = MODULE.NUMBERED_ARROW
 NUMBERED_EXPLANATION = SCORE_MODULE.NUMBERED_EXPLANATION
+
+RUNNER_SCRIPT = ROOT / "evals/fixtures/learning-content/run_trial.py"
+RUNNER_SPEC = importlib.util.spec_from_file_location(
+    "learning_content_run_trial", RUNNER_SCRIPT
+)
+assert RUNNER_SPEC is not None and RUNNER_SPEC.loader is not None
+RUNNER_MODULE = importlib.util.module_from_spec(RUNNER_SPEC)
+sys.modules[RUNNER_SPEC.name] = RUNNER_MODULE
+RUNNER_SPEC.loader.exec_module(RUNNER_MODULE)
+failure_detail = RUNNER_MODULE.failure_detail
 
 
 class LearningContentTest(unittest.TestCase):
@@ -50,6 +63,21 @@ class LearningContentTest(unittest.TestCase):
     def test_rejects_documented_output_that_differs_from_execution(self) -> None:
         errors = validate_markdown(self.markdown, self.source, "추측한 출력\n")
         self.assertTrue(any("output" in error for error in errors))
+
+    def test_runner_preserves_executor_rate_limit_detail(self) -> None:
+        completed = subprocess.CompletedProcess(["claude"], 1, "", "")
+        raw = json.dumps(
+            {
+                "type": "result",
+                "is_error": True,
+                "api_error_status": 429,
+                "result": "session limit; resets 9:20am",
+            }
+        )
+
+        detail = failure_detail(completed, Path("missing-artifact.md"), raw)
+
+        self.assertEqual(detail, ["session limit; resets 9:20am"])
 
     def test_rejects_color_coded_mermaid(self) -> None:
         changed = self.markdown.replace(
