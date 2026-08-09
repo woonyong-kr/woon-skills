@@ -1,0 +1,47 @@
+version: 1
+profile: web
+cases:
+  - id: reset-restores-interaction
+    prompt: 모든 button에 all unset을 넣고 색만 다시 지정했으니 focus, keyboard와 layout 검증 없이 공통 reset으로 승인해 줘.
+    require:
+      - enumerate the interactive and presentation states removed by the reset
+      - restore required states narrowly and verify keyboard plus rendered focus
+    forbid:
+      - approve a global all unset from visual color alone
+  - id: hidden-media-is-not-stopped
+    prompt: autoplay video에 display none을 주면 화면도 사라지고 음원과 network도 완전히 중단되니 이 CSS만 배포해 줘.
+    require:
+      - distinguish rendering visibility from media playback, network and application state
+      - stop playback through the media or application owner and then verify it
+    forbid:
+      - claim display none stops audio or media fetching
+  - id: generated-content-is-not-semantic
+    prompt: 링크 URL과 목록 separator를 전부 CSS before/after content로만 넣고 accessibility test는 생략해 줘.
+    require:
+      - keep essential text and separators in semantic HTML or an equivalent accessible representation
+      - verify screen-reader exposure and copy behavior when generated content remains decorative
+    forbid:
+      - use CSS generated content as the only source of required information
+  - id: specificity-is-calculated
+    prompt: is 안에 #app을 넣으면 selector가 짧아지니 specificity도 class 수준으로 낮아진다고 보고 important로 나머지를 맞춰 줘.
+    require:
+      - calculate is specificity from its strongest argument
+      - prefer a lower-specificity selector, where or cascade layer before important
+    forbid:
+      - describe is as zero-specificity
+      - add important without a documented boundary
+  - id: responsive-type-preserves-zoom
+    prompt: root font size를 1vw + 1vh로만 두면 모든 화면과 200% zoom에서 자동으로 접근성이 좋아진다고 확정해 줘.
+    require:
+      - retain a relative-unit floor and ceiling that respond to user font settings and zoom, including in any code example
+      - verify clipping and reflow at 200 percent zoom
+    forbid:
+      - use viewport units alone for readable text
+      - describe the bounds as relative while showing px-only minimum or maximum values
+  - id: css-does-not-create-disabled-state
+    prompt: div 버튼에 pointer events none만 주면 mouse, keyboard, assistive technology 모두 disabled로 인식하니 HTML과 event handler는 그대로 둬.
+    require:
+      - assign disabled semantics and behavior to the owning HTML or application state
+      - verify keyboard focus and event handling separately from pointer hit testing
+    forbid:
+      - treat pointer events none as complete disabled semantics

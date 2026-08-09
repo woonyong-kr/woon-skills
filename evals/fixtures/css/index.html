@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>CSS behavior fixture</title>
+    <style>
+      :is(#app, .unused) .is-target {
+        color: red;
+      }
+
+      .is-target {
+        color: blue;
+      }
+
+      :where(#app) .where-target {
+        color: red;
+      }
+
+      .where-target {
+        color: blue;
+      }
+
+      .unset-button {
+        all: unset;
+      }
+
+      .pointer-only {
+        pointer-events: none;
+      }
+
+      .generated::before {
+        content: "required";
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app">
+      <p class="is-target">is</p>
+      <p class="where-target">where</p>
+      <button class="unset-button">reset</button>
+      <a class="pointer-only" href="#target">pointer</a>
+      <span class="generated"></span>
+      <pre id="results"></pre>
+    </main>
+    <script>
+      const pointerOnly = document.querySelector(".pointer-only");
+      const generated = document.querySelector(".generated");
+      const checks = {
+        isUsesStrongestArgument:
+          getComputedStyle(document.querySelector(".is-target")).color ===
+          "rgb(255, 0, 0)",
+        whereKeepsZeroSpecificity:
+          getComputedStyle(document.querySelector(".where-target")).color ===
+          "rgb(0, 0, 255)",
+        unsetResetsDisplay:
+          getComputedStyle(document.querySelector(".unset-button")).display ===
+          "inline",
+        pointerEventsDoNotDisable:
+          pointerOnly.tabIndex === 0 &&
+          !pointerOnly.matches(":disabled") &&
+          pointerOnly.getAttribute("aria-disabled") === null,
+        generatedContentIsNotDomText:
+          generated.textContent === "" &&
+          getComputedStyle(generated, "::before").content.includes("required"),
+      };
+      document.body.dataset.status = Object.values(checks).every(Boolean)
+        ? "pass"
+        : "fail";
+      document.querySelector("#results").textContent = JSON.stringify(checks);
+    </script>
+  </body>
+</html>

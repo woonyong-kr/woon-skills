@@ -85,6 +85,12 @@
       "description": "OCI image와 container runtime의 실행, mount, network, environment, resource, non-root와 runtime 장애를 설계·진단할 때 사용한다."
     },
     {
+      "name": "css",
+      "domain": "web",
+      "path": "skills/web/css",
+      "description": "CSS cascade·specificity·selector, reset, layout, responsive sizing, logical property와 interaction style을 작성·검토·정리할 때 사용한다. React state나 실제 화면 검수에는 각각 react·ui-test를 쓴다."
+    },
+    {
       "name": "diagram",
       "domain": "docs",
       "path": "skills/docs/diagram",

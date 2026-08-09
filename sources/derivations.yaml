@@ -13,6 +13,13 @@ standards:
       - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/productivity/teach
     changed: translated the useful prerequisite and grounding model into a provider-neutral section dependency contract, removed interactive article shaping and HTML defaults, and added adversarial insertion and cycle gates after a fresh-context baseline failed 2 of 3 cases
 skills:
+  skills/web/css:
+    adapted_from:
+      - https://github.com/AllThingsSmitty/css-protips/tree/e95123993037bbcd1bd97170cfa02087155c3690
+      - https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Cascade/Specificity
+      - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/content
+      - https://web.dev/articles/baseline-in-action-fluid-type
+    changed: separated pure CSS from React and rendered UI testing, retained portable low-specificity and logical-layout practices, and converted universal reset, generated-content, hidden-media and viewport-type tips into explicit accessibility and behavior gates
   skills/writing/tech:
     adapted_from:
       - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-shape

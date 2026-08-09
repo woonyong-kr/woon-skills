@@ -82,6 +82,15 @@ cases:
       - skills/github/notify
     reject_skills:
       - skills/git/history
+  - id: web-separates-css-react-and-render-testing
+    profiles: [web]
+    expect_skills:
+      - skills/web/css
+      - skills/web/react
+      - skills/web/e2e
+      - skills/web/ui-test
+    reject_skills:
+      - skills/language/java/java
   - id: skill-governance-is-opt-in
     profiles: [skill-system]
     expect_skills:

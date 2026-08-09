@@ -1,0 +1,78 @@
+version: 1
+repository: AllThingsSmitty/css-protips
+upstream: https://github.com/AllThingsSmitty/css-protips
+checked_commit: e95123993037bbcd1bd97170cfa02087155c3690
+checked_version: unreleased
+checked_at: '2026-08-10'
+license: CC0-1.0
+scope:
+  skill_files: 0
+  support_files: one canonical README, 15 translations, contribution documents and one SVG asset
+decision: merged-into-skill-system
+evidence:
+  repository_state:
+    checked_commit_date: 2025-03-20
+    releases: none
+    stars_at_check: 30224
+    forks_at_check: 2210
+    open_issues_at_check: 2
+  source_shape:
+    canonical_skills: 0
+    canonical_tips: 29
+    canonical_readme_o200k_tokens: 5314
+    translations: 15; upstream warns they can lag the canonical README
+  upstream_validation:
+    executable_tests: none
+    css_examples: 40 of 40 parsed without top-level syntax errors using tinycss2
+    relative_links: all resolved
+    limitation: syntax and demos do not establish accessibility, cross-browser behavior or suitability as universal rules
+  candidate_validation:
+    browser_fixture: 5 of 5 Chromium checks passed for is and where specificity, all unset display, pointer-events semantics and generated DOM text
+    codex_behavior: five unaffected cases passed 15 of 15 fresh trials; responsive type initially passed 1 of 3 because two answers contradicted rem guidance with px bounds, then passed 3 of 3 after one narrow rule correction
+    claude_sonnet_behavior: all 6 cases passed once each with the same SKILL and conditional reference, tools disabled
+    routing_codex: 55 cases times 3, primary recall 1.0000, forbidden selections 0, agreement 0.9818
+    routing_claude: 55 cases times 3, primary recall 1.0000, forbidden selections 0, agreement 1.0000
+    unverified: screen-reader combinations, real media network cancellation and rendered 200 percent zoom remain UI or integration checks rather than claims of this fixture
+  token_budget:
+    generated_catalog_delta_o200k: 83
+    css_skill_body_o200k: 307
+    conditional_quality_reference_o200k: 770
+    offline_regression_spec_o200k: 593
+    web_profile_skill_body_total_o200k: 3473
+    rejected_flat_tip_readme_o200k: 5314
+  adoption:
+    new_runtime_skills: 1
+    skill_name: css
+    split_owners: react retains component and state design; ui-test retains rendered visual verification
+    reason: pure CSS had no short canonical owner, while copying a flat tip list would preserve outdated and unsafe universal advice
+tip_inventory:
+  - Use a CSS Reset
+  - Inherit box-sizing
+  - Use unset Instead of Resetting All Properties
+  - Use not to Apply or Unapply Borders on Navigation
+  - Check if Font Is Installed Locally
+  - Add line-height to body
+  - Set focus for Form Elements
+  - Vertically-Center Anything
+  - Use aspect-ratio Instead of Height or Width
+  - Comma-Separated Lists
+  - Select Items Using Negative nth-child
+  - Use SVG for Icons
+  - Use the Lobotomized Owl Selector
+  - Use max-height for Pure CSS Sliders
+  - Equal-Width Table Cells
+  - Get Rid of Margin Hacks With Flexbox
+  - Use Attribute Selectors with Empty Links
+  - Control Specificity Better with is
+  - Style Default Links
+  - Intrinsic Ratio Boxes
+  - Style Broken Images
+  - Use rem for Global Sizing and em for Local Sizing
+  - Hide Autoplay Videos That Are Not Muted
+  - Use root for Flexible Type
+  - Set font-size on Form Elements for a Better Mobile Experience
+  - Use Pointer Events to Control Mouse Events
+  - Set display none on Line Breaks Used as Spacing
+  - Use empty to Hide Empty HTML Elements
+  - Use margin-inline instead of margin
+skills: []

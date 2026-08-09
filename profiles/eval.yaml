@@ -48,6 +48,7 @@ skills:
   - skills/skill-system/budget
   - skills/skill-system/comply
   - skills/skill-system/registry
+  - skills/web/css
   - skills/web/e2e
   - skills/web/react
   - skills/web/ui-test

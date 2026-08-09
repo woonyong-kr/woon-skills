@@ -56,6 +56,13 @@ cases:
     allow_support: [quality]
     reject: [ui-test, e2e]
     max_selected: 2
+  - id: css-cascade
+    prompt: "이 CSS의 cascade layer, :is() specificity와 global reset을 정리해 줘"
+    profiles: [eval]
+    expect_primary: css
+    allow_support: [quality]
+    reject: [react, ui-test]
+    max_selected: 2
   - id: browser-e2e
     prompt: "Playwright로 로그인부터 결제 완료까지 실제 사용자 E2E를 작성해 줘"
     profiles: [eval]

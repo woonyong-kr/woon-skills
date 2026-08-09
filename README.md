@@ -31,7 +31,7 @@ woon skills doctor
 | private knowledge | `knowledge` | `$safety·$knowledge·$archive·$diagram` |
 | knowledge 공개 | `knowledge-publish` | knowledge + `$publish` |
 | 기술·커리어 글 | `publishing` | `$docs·$diagram·$career·$interview·$tech` |
-| 웹 | `web` | `$react·$e2e·$ui-test` |
+| 웹 | `web` | `$css·$react·$e2e·$ui-test` |
 | 스킬 관리 | `skill-system` | `$registry·$audit·$comply·$budget` |
 
 ## 문서 스킬의 차이

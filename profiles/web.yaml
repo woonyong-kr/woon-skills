@@ -1,8 +1,9 @@
 version: 1
 name: web
 extends: [development]
-max_active: 11
+max_active: 12
 skills:
+  - skills/web/css
   - skills/web/e2e
   - skills/web/react
   - skills/web/ui-test
