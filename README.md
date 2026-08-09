@@ -10,6 +10,7 @@ woon skills validate --profile core
 woon skills plan --profile core,python --target codex
 woon skills install --profile core,python --target codex
 woon skills install --profile core,python --target claude
+woon skills eval-routing --executor all --repeat 3
 woon skills doctor
 ```
 

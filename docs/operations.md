@@ -17,7 +17,7 @@ upstream을 별도 branch에서 가져와 license와 commit을 확인하고 `loc
 
 ## natural routing 평가
 
-`evals/routing/` case는 명시 호출뿐 아니라 자연스러운 한국어 요청, 경계가 가까운 skill, 금지 선택을 포함합니다. 지원되는 Codex·Claude selector에서 같은 catalog와 기준으로 3회 실행해 primary recall, forbidden selection, agreement를 확인합니다. 아직 adapter가 없는 target은 `unverified`로 보고하며 keyword match나 profile resolution만으로 routing 품질을 주장하지 않습니다.
+`evals/routing/` case는 명시 호출뿐 아니라 자연스러운 한국어 요청, 경계가 가까운 skill, 금지 선택을 포함합니다. `woon skills eval-routing --executor all --repeat 3`으로 Codex·Claude를 같은 catalog·prompt·JSON schema에서 각각 실행해 primary recall, forbidden selection, agreement를 확인합니다. 실행 파일이나 인증이 없으면 해당 target을 `unverified`로 보고하고 전체 통과로 낮추지 않습니다. keyword match나 profile resolution만으로 routing 품질을 주장하지 않습니다.
 
 ## 폐기
 

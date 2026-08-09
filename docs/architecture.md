@@ -34,4 +34,4 @@ knowledge profile은 전체 catalog나 vendor를 노출하지 않고 `safety, kn
 
 ## 이식성
 
-repository path는 Woon registry가 `repo://<id>/...`로 해석합니다. Codex와 Claude는 같은 catalog·profile·스킬 정본을 사용하고 설치 대상만 OS 기본값 또는 machine-local `WOON_CODEX_SKILLS_HOME`, `WOON_CLAUDE_SKILLS_HOME`에서 정합니다. `installable: false` profile은 catalog·routing 평가 전용이며 어느 target에도 설치하지 않습니다.
+repository path는 Woon registry가 `repo://<id>/...`로 해석합니다. Codex와 Claude는 같은 catalog·profile·스킬 정본을 사용하고 설치 대상만 OS 기본값 또는 machine-local `WOON_CODEX_SKILLS_HOME`, `WOON_CLAUDE_SKILLS_HOME`에서 정합니다. `installable: false` profile은 catalog·routing 평가 전용이며 `woon-core`가 target plan·install을 거부합니다.
