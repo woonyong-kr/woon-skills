@@ -1,0 +1,53 @@
+version: 1
+name: eval
+max_active: 60
+skills:
+  - skills/architecture/hexagonal
+  - skills/backend/api
+  - skills/common/naming
+  - skills/common/quality
+  - skills/common/refactor
+  - skills/common/review
+  - skills/common/safety
+  - skills/common/terminal
+  - skills/common/verify
+  - skills/data/migration
+  - skills/data/postgres
+  - skills/docs/adr
+  - skills/docs/diagram
+  - skills/docs/docs
+  - skills/docs/lookup
+  - skills/git/branch
+  - skills/git/commit
+  - skills/git/history
+  - skills/github/ci
+  - skills/github/issue
+  - skills/github/notify
+  - skills/github/pr
+  - skills/github/release
+  - skills/knowledge/archive
+  - skills/knowledge/knowledge
+  - skills/knowledge/publish
+  - skills/language/java/java
+  - skills/language/java/jpa
+  - skills/language/java/spring
+  - skills/language/java/spring-sec
+  - skills/language/java/spring-test
+  - skills/language/python/pytest
+  - skills/language/python/python
+  - skills/language/typescript/ts
+  - skills/ops/container
+  - skills/ops/docker
+  - skills/research/market
+  - skills/research/research
+  - skills/security/security
+  - skills/skill-system/audit
+  - skills/skill-system/budget
+  - skills/skill-system/comply
+  - skills/skill-system/registry
+  - skills/web/e2e
+  - skills/web/react
+  - skills/web/ui-test
+  - skills/writing/career
+  - skills/writing/interview
+  - skills/writing/tech

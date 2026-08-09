@@ -1,0 +1,9 @@
+version: 1
+name: docs
+extends: [core]
+max_active: 9
+skills:
+  - skills/docs/adr
+  - skills/docs/diagram
+  - skills/docs/docs
+  - skills/docs/lookup

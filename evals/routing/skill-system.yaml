@@ -1,0 +1,30 @@
+version: 1
+cases:
+  - id: skill-register
+    prompt: "새 스킬을 짧은 이름으로 분류하고 source, effect, profile, routing case까지 woon-skills에 등록해 줘"
+    profiles: [eval]
+    expect_primary: registry
+    allow_support: [audit, budget]
+    reject: [comply]
+    max_selected: 3
+  - id: skill-static-audit
+    prompt: "스킬 frontmatter, TODO, 깨진 reference, source license와 중복 trigger를 정적으로 검사해 줘"
+    profiles: [eval]
+    expect_primary: audit
+    allow_support: [registry]
+    reject: [comply]
+    max_selected: 2
+  - id: skill-behavior
+    prompt: "이 스킬의 지침이 실제 agent 행동에서 지켜지는지 positive와 negative scenario로 반복 평가해 줘"
+    profiles: [eval]
+    expect_primary: comply
+    allow_support: []
+    reject: [audit, verify]
+    max_selected: 1
+  - id: skill-token
+    prompt: "현재 profile의 description과 SKILL 본문 token을 측정하고 routing 품질을 유지하며 줄여 줘"
+    profiles: [eval]
+    expect_primary: budget
+    allow_support: [audit]
+    reject: [registry]
+    max_selected: 2

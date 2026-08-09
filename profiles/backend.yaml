@@ -1,0 +1,7 @@
+version: 1
+name: backend
+extends: [development]
+max_active: 9
+skills:
+  - skills/architecture/hexagonal
+  - skills/backend/api

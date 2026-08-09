@@ -1,0 +1,51 @@
+version: 1
+cases:
+  - id: quality-placement
+    prompt: "작성한 코드가 여기저기 흩어졌어. 책임에 맞게 파일과 함수 위치, 이름을 일관되게 정리해 줘"
+    profiles: [eval]
+    expect_primary: quality
+    allow_support: [naming, refactor]
+    reject: [terminal, commit]
+    max_selected: 2
+  - id: terminal-diagnose
+    prompt: "터미널에서 저장소 상태와 실패 로그를 확인해서 원인만 진단해 줘"
+    profiles: [eval]
+    expect_primary: terminal
+    allow_support: []
+    reject: [commit, verify]
+    max_selected: 1
+  - id: verify-result
+    prompt: "방금 구현이 실제 요구대로 동작하는지 lint, type check, test와 UI까지 검증해 줘"
+    profiles: [eval]
+    expect_primary: verify
+    allow_support: [terminal, ui-test]
+    reject: [review]
+    max_selected: 2
+  - id: safety-delete
+    prompt: "이 디렉터리와 Git 이력을 지우기 전에 대상과 복구 가능성을 안전하게 확인해 줘"
+    profiles: [eval]
+    expect_primary: safety
+    allow_support: [history]
+    reject: [commit]
+    max_selected: 2
+  - id: review-diff
+    prompt: "이 PR diff를 수정하지 말고 버그와 회귀 위험 위주로 코드 리뷰해 줘"
+    profiles: [eval]
+    expect_primary: review
+    allow_support: [security]
+    reject: [refactor]
+    max_selected: 2
+  - id: refactor-behavior
+    prompt: "외부 동작은 유지하고 이 클래스의 책임과 중복을 작은 단계로 리팩터링해 줘"
+    profiles: [eval]
+    expect_primary: refactor
+    allow_support: [quality]
+    reject: [review]
+    max_selected: 2
+  - id: security-audit
+    prompt: "이 인증 코드에서 권한 우회와 secret 노출 가능성을 공격 경로 기준으로 점검해 줘"
+    profiles: [eval]
+    expect_primary: security
+    allow_support: [review]
+    reject: [quality]
+    max_selected: 2

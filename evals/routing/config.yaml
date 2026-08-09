@@ -1,0 +1,22 @@
+version: 1
+repeat: 3
+thresholds:
+  primary_recall: 0.95
+  forbidden_selections: 0
+  agreement: 0.90
+context_budget:
+  baseline_smoke:
+    input_tokens: 103540
+    cached_input_tokens: 82944
+    warning: skills descriptions shortened to fit 2 percent context budget
+  knowledge_profile_smoke:
+    active_skills: 4
+    names: [archive, diagram, knowledge, safety]
+    vendor_skills_exposed: 0
+    input_tokens: 12436
+    cached_input_tokens: 9984
+    warning: none
+  requirements:
+    max_active_skills: 4
+    max_input_tokens_for_inventory_smoke: 15000
+    descriptions_shortened_warning: false

@@ -1,0 +1,86 @@
+version: 1
+cases:
+  - id: repo-docs
+    prompt: "이 저장소 README의 설치와 실행 명령을 실제 pyproject와 --help에 맞게 고쳐 줘"
+    profiles: [eval]
+    expect_primary: docs
+    allow_support: [verify]
+    reject: [lookup, tech]
+    max_selected: 2
+  - id: official-lookup
+    prompt: "현재 설치된 FastAPI 버전의 lifespan API를 공식 문서에서 찾아 적용법을 알려 줘"
+    profiles: [eval]
+    expect_primary: lookup
+    allow_support: []
+    reject: [docs, research]
+    max_selected: 1
+  - id: architecture-decision
+    prompt: "PostgreSQL을 선택한 이유와 대안, 결과를 ADR로 남겨 줘"
+    profiles: [eval]
+    expect_primary: adr
+    allow_support: []
+    reject: [docs, tech]
+    max_selected: 1
+  - id: mermaid-diagram
+    prompt: "이 상태 전이를 light와 dark mode에서 읽히는 Mermaid로 그려 줘"
+    profiles: [eval]
+    expect_primary: diagram
+    allow_support: []
+    reject: [docs, publish]
+    max_selected: 1
+  - id: knowledge-search
+    prompt: "내 private woon-knowledge에서 관련 정본과 read-only corpus 문맥을 찾아 비교해 줘"
+    profiles: [eval]
+    expect_primary: knowledge
+    allow_support: []
+    reject: [archive, research]
+    max_selected: 1
+  - id: conversation-archive
+    prompt: "지금까지 대화를 중복 없이 한 정본으로 정리해서 private 위키에 저장해 줘"
+    profiles: [eval]
+    expect_primary: archive
+    allow_support: [knowledge]
+    reject: [publish, tech]
+    max_selected: 2
+  - id: knowledge-publish
+    prompt: "승인한 정본만 개인정보를 검사해서 공개 WIKI에 발행해 줘"
+    profiles: [eval]
+    expect_primary: publish
+    allow_support: [knowledge]
+    reject: [archive, release]
+    max_selected: 2
+  - id: career-resume
+    prompt: "내 실제 개인 기여와 코드 근거로 이력서 불릿을 다듬어 줘"
+    profiles: [eval]
+    expect_primary: career
+    allow_support: []
+    reject: [tech, interview]
+    max_selected: 1
+  - id: tech-article
+    prompt: "이 성능 개선 과정을 측정 조건과 한계가 있는 한국어 기술 글로 써 줘"
+    profiles: [eval]
+    expect_primary: tech
+    allow_support: [diagram]
+    reject: [career, docs]
+    max_selected: 2
+  - id: interview-practice
+    prompt: "내 프로젝트를 근거로 기술 면접 질문을 하나씩 내고 답변을 평가해 줘"
+    profiles: [eval]
+    expect_primary: interview
+    allow_support: [career]
+    reject: [tech]
+    max_selected: 2
+  - id: deep-research
+    prompt: "최신 공식 문서와 논문을 찾아 이 도구들의 장단점을 근거와 함께 조사해 줘"
+    profiles: [eval]
+    expect_primary: research
+    allow_support: []
+    reject: [lookup, market]
+    max_selected: 1
+  - id: market-compare
+    prompt: "개발 도구 세 개의 가격, 채택 신호, lock-in을 비교해 구매 권장안을 줘"
+    profiles: [eval]
+    expect_primary: market
+    allow_support: [research]
+    reject: [lookup]
+    max_selected: 2

@@ -1,0 +1,7 @@
+version: 1
+name: development
+extends: [core]
+max_active: 12
+skills:
+  - skills/common/naming
+  - skills/common/refactor

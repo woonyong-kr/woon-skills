@@ -1,6 +1,7 @@
 version: 1
 name: review
 extends: [core]
-max_active: 20
+max_active: 7
 skills:
-  - vendor/ecc/three-persona-multi-agent-review
+  - skills/common/review
+  - skills/security/security

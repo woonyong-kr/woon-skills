@@ -1,0 +1,36 @@
+version: 1
+skills:
+  skills/common/terminal:
+    adapted_from: vendor/ecc/terminal-ops
+    changed: removed automatic commit and push behavior
+  skills/common/verify:
+    adapted_from: vendor/ecc/verification-loop
+    changed: evidence layers and explicit unverified boundaries
+  skills/common/safety:
+    adapted_from: vendor/ecc/safety-guard
+    changed: destructive and external authorization gates
+  skills/docs/lookup:
+    adapted_from: vendor/ecc/documentation-lookup
+    changed: official version-matched sources only
+  skills/knowledge/knowledge:
+    replaces: vendor/ecc/knowledge-ops
+    changed: private canonical Woon MCP, corpus excerpt routing, no automatic sync or push
+  skills/skill-system/audit:
+    adapted_from: vendor/ecc/skill-stocktake
+    changed: Woon catalog, source, profile, and natural trigger checks
+  skills/skill-system/comply:
+    adapted_from: vendor/ecc/skill-comply
+    changed: repeated observable behavior cases
+  skills/skill-system/budget:
+    adapted_from: vendor/ecc/context-budget
+    changed: profile-level description and on-demand body accounting
+  skills/web/react:
+    adapted_from:
+      - vendor/ecc/frontend-patterns
+      - https://github.com/vercel-labs/agent-skills
+    changed: repository-first React ownership and measured optimization
+  skills/web/e2e:
+    adapted_from:
+      - vendor/ecc/e2e-testing
+      - https://github.com/microsoft/playwright-cli
+    changed: stable user-facing locators and evidence capture

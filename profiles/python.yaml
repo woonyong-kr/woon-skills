@@ -1,7 +1,7 @@
 version: 1
 name: python
-extends: [core]
-max_active: 20
+extends: [development]
+max_active: 9
 skills:
-  - vendor/ecc/python-patterns
-  - vendor/ecc/python-testing
+  - skills/language/python/pytest
+  - skills/language/python/python

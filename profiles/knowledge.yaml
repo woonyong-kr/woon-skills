@@ -1,5 +1,8 @@
 version: 1
 name: knowledge
-extends: [core]
-max_active: 20
-skills: []
+max_active: 4
+skills:
+  - skills/common/safety
+  - skills/docs/diagram
+  - skills/knowledge/archive
+  - skills/knowledge/knowledge

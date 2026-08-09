@@ -1,18 +1,2 @@
 version: 1
-groups:
-  - id: github-operations
-    mode: exclusive
-    members: [personal/github, vendor/ecc/github-ops, vendor/ecc/github-issue-manager]
-    preferred: personal/github
-  - id: continuous-learning
-    mode: exclusive
-    members: [vendor/ecc/continuous-learning, vendor/ecc/continuous-learning-v2]
-    preferred: vendor/ecc/continuous-learning-v2
-  - id: autonomous-loop
-    mode: exclusive
-    members: [vendor/ecc/autonomous-loops, vendor/ecc/continuous-agent-loop]
-    preferred: vendor/ecc/continuous-agent-loop
-  - id: testing-policy
-    mode: explicit-policy
-    members: [vendor/ecc/tdd-workflow, vendor/ecc/ai-regression-testing]
-    required_option: coverage_policy
+groups: []

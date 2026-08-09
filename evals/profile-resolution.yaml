@@ -1,0 +1,83 @@
+version: 1
+cases:
+  - id: core-is-five
+    profiles: [core]
+    expect_skills:
+      - skills/common/quality
+      - skills/common/safety
+      - skills/common/terminal
+      - skills/common/verify
+      - skills/git/commit
+    reject_skills:
+      - skills/knowledge/archive
+      - skills/web/e2e
+  - id: python-is-focused
+    profiles: [python]
+    expect_skills:
+      - skills/common/naming
+      - skills/language/python/python
+      - skills/language/python/pytest
+    reject_skills:
+      - skills/language/java/java
+      - skills/web/react
+  - id: typescript-is-focused
+    profiles: [typescript]
+    expect_skills:
+      - skills/common/quality
+      - skills/common/naming
+      - skills/language/typescript/ts
+    reject_skills:
+      - skills/language/python/python
+      - skills/language/java/java
+      - skills/web/react
+  - id: spring-adds-java-stack
+    profiles: [spring]
+    expect_skills:
+      - skills/language/java/java
+      - skills/language/java/spring
+      - skills/language/java/spring-test
+      - skills/language/java/spring-sec
+      - skills/language/java/jpa
+    reject_skills:
+      - skills/language/python/python
+  - id: docs-and-knowledge-stay-distinct
+    profiles: [docs]
+    expect_skills:
+      - skills/docs/docs
+      - skills/docs/lookup
+      - skills/docs/adr
+      - skills/docs/diagram
+    reject_skills:
+      - skills/knowledge/archive
+      - skills/knowledge/publish
+  - id: knowledge-is-on-demand
+    profiles: [knowledge]
+    expect_skills:
+      - skills/common/safety
+      - skills/knowledge/knowledge
+      - skills/knowledge/archive
+      - skills/docs/diagram
+    reject_skills:
+      - skills/web/e2e
+      - skills/knowledge/publish
+      - vendor/ecc/knowledge-ops
+  - id: github-operations-are-split
+    profiles: [github]
+    expect_skills:
+      - skills/github/pr
+      - skills/github/issue
+      - skills/github/ci
+      - skills/github/release
+      - skills/github/notify
+    reject_skills:
+      - skills/git/history
+  - id: skill-governance-is-opt-in
+    profiles: [skill-system]
+    expect_skills:
+      - skills/skill-system/registry
+      - skills/skill-system/audit
+      - skills/skill-system/comply
+      - skills/skill-system/budget
+    reject_skills:
+      - vendor/ecc/skill-stocktake
+      - vendor/ecc/context-budget

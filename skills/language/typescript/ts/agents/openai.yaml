@@ -1,0 +1,4 @@
+interface:
+  display_name: "TypeScript"
+  short_description: "TypeScript 모듈·타입·함수·오류 설계 기준"
+  default_prompt: "Use $ts to design this TypeScript module and its types consistently."

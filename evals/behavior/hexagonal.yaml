@@ -1,0 +1,91 @@
+version: 1
+profile: backend
+cases:
+  - id: single-provider-sdk-leak
+    prompt: 결제 provider는 하나뿐이지만 SDK type과 exception이 주문 use case까지 퍼졌고 외부 장치 없이 core를 검증해야 한다. 가장 작은 경계를 설계해 줘.
+    require:
+      - choose an application-owned port and one outbound adapter
+      - keep SDK types and exceptions inside the adapter
+      - wire the concrete adapter in the composition root
+    forbid:
+      - keep the SDK in the use case because there is only one provider
+      - copy the provider API as the port contract
+  - id: two-libraries-without-consumer-contract
+    prompt: application edge에서 설정에 따라 CSV library 둘 중 하나를 골라 같은 method를 호출한다. 변환·오류 의미 변경·독립 test seam은 없다. interface와 adapter를 설계해 줘.
+    require:
+      - choose direct use or a private edge helper
+      - explain that two implementations alone do not create a port
+    forbid:
+      - create a shared port only because there are two libraries
+      - call a pass-through configuration branch an adapter
+  - id: god-repository-split
+    prompt: 5개 use case가 30개 method의 OrderRepository 중 서로 다른 일부만 사용한다. port를 정리하되 interface 폭증도 피하고 싶다.
+    require:
+      - split contracts by actual consumer capability and change reason
+      - keep methods together when consumer, lifecycle and failure meaning match
+    forbid:
+      - keep one generic CRUD repository
+      - create one port per method
+  - id: identical-shape-boundary-types
+    prompt: HTTP Request, application Command, domain value와 DB row가 지금은 같은 field를 가진다. 타입과 mapping을 일관되게 정리해 줘.
+    require:
+      - split types only when validation, exposure, lifecycle or ownership differs
+      - keep transport and persistence concerns out of the domain contract
+    forbid:
+      - reuse one type only because the fields match
+      - copy every type mechanically for layer symmetry
+  - id: database-and-payment-consistency
+    prompt: DB transaction 안에서 결제를 승인한 뒤 DB commit이 실패할 수 있다. 주문과 결제를 원자적으로 보이게 설계해 줘.
+    require:
+      - reject a single local transaction as proof of remote atomicity
+      - define workflow state, idempotency and compensation or reconciliation
+      - avoid holding a database transaction across the remote call unless measured and justified
+    forbid:
+      - claim rollback also cancels the remote payment
+      - hide the workflow inside the payment adapter
+  - id: timeout-duplicate-charge
+    prompt: 결제 요청이 timeout됐지만 provider에서 성공했을 수 있다. SDK에도 retry가 있고 use case도 retry한다. 중복 결제를 막아 줘.
+    require:
+      - default to the application caller as the sole retry owner with a bounded end-to-end budget
+      - allow adapter ownership only as an explicit sole delegation with observable attempts and budget
+      - reuse one caller-owned idempotency key for the same business intent
+      - reconcile the unknown result before creating a new effect
+    forbid:
+      - stack SDK and use-case retries
+      - create a new idempotency key for every attempt
+  - id: layered-error-mapping
+    prompt: SQL unique violation, network timeout과 업무상 중복 주문이 모두 InternalError로 바뀌고 각 layer에서 로그된다. 오류 경계를 정리해 줘.
+    require:
+      - map vendor failures in the adapter and business meaning in the core
+      - preserve the original cause and log once at the owning boundary
+      - distinguish conflict, transient, timeout and unknown result when relevant
+    forbid:
+      - expose driver or SDK exceptions through the port
+      - log the same failure at every layer
+  - id: tenant-client-lifecycle
+    prompt: singleton payment client에 요청마다 다른 tenant credential과 mutable request state를 저장한다. composition과 lifecycle을 설계해 줘.
+    require:
+      - keep reusable thread-safe client state separate from tenant and request state
+      - choose explicit scopes and cleanup ownership in the composition root
+      - verify parallel tenant isolation
+    forbid:
+      - retain mutable tenant state in a global singleton
+      - hide resource creation in the domain
+  - id: adapter-orchestrates-workflow
+    prompt: PaymentAdapter가 결제 성공 뒤 OrderRepository와 EmailAdapter를 직접 호출한다. 성공 조건과 보상까지 adapter 안에 있다. 책임을 재배치해 줘.
+    require:
+      - move multi-adapter workflow and business success criteria to the use case
+      - keep each adapter focused on one external subsystem contract
+      - define partial failure and compensation explicitly
+    forbid:
+      - let one adapter orchestrate unrelated adapters
+      - duplicate business policy in adapters
+  - id: fake-and-real-adapter-diverge
+    prompt: in-memory fake는 통과하지만 DB adapter는 null, timezone, ordering과 duplicate에서 결과가 다르다. 어떤 test를 어떻게 구성해야 하나?
+    require:
+      - run one consumer-owned contract suite against the fake and real adapter
+      - add real integration cases for schema, mapping, ordering and duplicate behavior
+      - report fake-only proof separately from real integration proof
+    forbid:
+      - treat passing use-case tests as proof of database behavior
+      - weaken the contract to match accidental fake behavior

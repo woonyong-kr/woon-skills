@@ -1,0 +1,65 @@
+version: 1
+cases:
+  - id: api-contract
+    prompt: "이 REST API의 request, error schema, pagination과 idempotency contract를 설계해 줘"
+    profiles: [eval]
+    expect_primary: api
+    allow_support: []
+    reject: [spring, docs]
+    max_selected: 1
+  - id: hexagonal-boundary
+    prompt: "domain이 DB와 framework에 의존하지 않도록 port와 adapter 경계를 검토해 줘"
+    profiles: [eval]
+    expect_primary: hexagonal
+    allow_support: [quality]
+    reject: [api, spring]
+    max_selected: 2
+  - id: db-migration
+    prompt: "운영 중인 큰 테이블에 nullable column을 추가하고 backfill하는 무중단 migration을 설계해 줘"
+    profiles: [eval]
+    expect_primary: migration
+    allow_support: [postgres, safety]
+    reject: [jpa]
+    max_selected: 3
+  - id: postgres-plan
+    prompt: "PostgreSQL EXPLAIN ANALYZE와 buffer를 보고 이 query와 index를 최적화해 줘"
+    profiles: [eval]
+    expect_primary: postgres
+    allow_support: []
+    reject: [jpa, migration]
+    max_selected: 1
+  - id: container-runtime
+    prompt: "이 container의 mount, non-root user, network와 runtime failure를 진단해 줘"
+    profiles: [eval]
+    expect_primary: container
+    allow_support: [terminal]
+    reject: [docker]
+    max_selected: 2
+  - id: docker-build
+    prompt: "Dockerfile multi-stage build와 BuildKit cache를 고쳐 image를 작게 만들어 줘"
+    profiles: [eval]
+    expect_primary: docker
+    allow_support: [container]
+    reject: [ci]
+    max_selected: 2
+  - id: react-state
+    prompt: "이 React component의 state owner, effect와 불필요한 memoization을 정리해 줘"
+    profiles: [eval]
+    expect_primary: react
+    allow_support: [quality]
+    reject: [ui-test, e2e]
+    max_selected: 2
+  - id: browser-e2e
+    prompt: "Playwright로 로그인부터 결제 완료까지 실제 사용자 E2E를 작성해 줘"
+    profiles: [eval]
+    expect_primary: e2e
+    allow_support: [ui-test]
+    reject: [react]
+    max_selected: 2
+  - id: visual-ui-test
+    prompt: "모바일과 데스크톱에서 overflow, focus, dark mode를 실제 화면으로 검수해 줘"
+    profiles: [eval]
+    expect_primary: ui-test
+    allow_support: [e2e]
+    reject: [react]
+    max_selected: 2

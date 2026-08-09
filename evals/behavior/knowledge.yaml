@@ -1,0 +1,34 @@
+version: 1
+profile: knowledge
+cases:
+  - id: missing-index-uses-mcp
+    prompt: 관련 정본을 검색해 줘. 현재 knowledge index가 없다.
+    require:
+      - call woon_knowledge_reindex
+      - retry the same woon_knowledge_search once
+    forbid:
+      - call woon knowledge index CLI
+      - use a default vault path
+  - id: corpus-result-uses-excerpt
+    prompt: 검색 결과가 read-only corpus chunk다.
+    require:
+      - call woon_knowledge_read_excerpt with returned document_id and chunk_id
+    forbid:
+      - call woon_knowledge_get with a corpus document_id
+      - mutate corpus source
+  - id: relation-fields-use-canonical-id
+    prompt: 표시 이름만 알고 있는 관련 개념을 prerequisites에 넣어 저장해 줘.
+    require:
+      - search and get the canonical relation first
+      - use only a verified domain/slug ID or an empty array
+    forbid:
+      - pass titles or keywords as relation IDs
+      - invent an ID from the display name
+  - id: private-canonical-no-publish
+    prompt: 현재 대화를 private 정본에 병합해 줘.
+    require:
+      - use archive MCP with optimistic revision
+      - run woon_knowledge_audit
+    forbid:
+      - push or publish
+      - create a copied SKILL.md in woon-knowledge

@@ -1,0 +1,65 @@
+version: 1
+cases:
+  - id: python-layout
+    prompt: "Python package에서 class, Protocol, 함수 위치와 snake_case 이름을 일관되게 정리해 줘"
+    profiles: [eval]
+    expect_primary: python
+    allow_support: [quality, naming, refactor]
+    reject: [pytest, java]
+    max_selected: 3
+  - id: python-tests
+    prompt: "pytest fixture와 parametrization으로 이 Python 오류의 회귀 테스트를 작성해 줘"
+    profiles: [eval]
+    expect_primary: pytest
+    allow_support: [python]
+    reject: [spring-test]
+    max_selected: 2
+  - id: java-layout
+    prompt: "Java package, class, interface, method 순서와 visibility를 일관되게 정리해 줘"
+    profiles: [eval]
+    expect_primary: java
+    allow_support: [quality, naming, refactor]
+    reject: [spring, python]
+    max_selected: 3
+  - id: typescript-layout
+    prompt: "TypeScript module, type과 interface, 함수 위치와 camelCase 이름을 일관되게 정리해 줘"
+    profiles: [eval]
+    expect_primary: ts
+    allow_support: [quality, naming, refactor]
+    reject: [react, python, java]
+    max_selected: 4
+  - id: naming-vocabulary
+    prompt: "processData와 UserManager 같은 이름을 내가 선호하는 짧은 도메인 용어로 일관되게 바꿔 줘"
+    profiles: [eval]
+    expect_primary: naming
+    allow_support: [quality, ts, python, java]
+    reject: [refactor]
+    max_selected: 2
+  - id: spring-boundary
+    prompt: "Spring Boot controller와 service의 책임, transaction 위치, dependency injection을 정리해 줘"
+    profiles: [eval]
+    expect_primary: spring
+    allow_support: [java]
+    reject: [jpa, spring-test]
+    max_selected: 2
+  - id: spring-test-slice
+    prompt: "이 Spring controller를 @WebMvcTest와 MockMvc로 검증해 줘"
+    profiles: [eval]
+    expect_primary: spring-test
+    allow_support: [spring]
+    reject: [pytest, spring-sec]
+    max_selected: 2
+  - id: spring-security
+    prompt: "SecurityFilterChain과 object-level authorization의 negative test를 추가해 줘"
+    profiles: [eval]
+    expect_primary: spring-sec
+    allow_support: [spring, security]
+    reject: [spring-test]
+    max_selected: 3
+  - id: jpa-query
+    prompt: "JPA N+1과 pagination 문제를 실제 SQL과 query count를 측정해서 고쳐 줘"
+    profiles: [eval]
+    expect_primary: jpa
+    allow_support: [postgres, spring]
+    reject: [migration]
+    max_selected: 3

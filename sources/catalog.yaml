@@ -1,0 +1,67 @@
+version: 1
+checked_at: 2026-08-09
+policy:
+  discovery_only: popularity is not a quality score
+  vendor_copy: pin commit and preserve upstream license
+  woon_derivation: rewrite narrowly, record sources, validate routing and behavior
+repositories:
+  - id: openai-plugins
+    upstream: https://github.com/openai/plugins
+    status: canonical-discovery
+    license: per-plugin
+    decision: inspect individual plugin skill and MCP boundaries before adoption
+  - id: microsoft-playwright-cli
+    upstream: https://github.com/microsoft/playwright-cli
+    status: adopted-concepts
+    license: Apache-2.0
+    improves: [skills/web/e2e, skills/web/ui-test]
+    decision: prefer focused CLI/browser workflows over an always-on browser MCP
+  - id: addyosmani-agent-skills
+    upstream: https://github.com/addyosmani/agent-skills
+    status: adopted-concepts
+    license: MIT
+    improves: [skills/common/review, skills/common/refactor, skills/common/verify]
+    decision: select review, testing, and performance concepts instead of bulk install
+  - id: kepano-obsidian-skills
+    upstream: https://github.com/kepano/obsidian-skills
+    status: evaluated
+    license: MIT
+    improves: [skills/docs/diagram, skills/knowledge/knowledge]
+    decision: do not copy vault conventions that conflict with woon-knowledge canonical rules
+  - id: hashicorp-agent-skills
+    upstream: https://github.com/hashicorp/agent-skills
+    status: candidate
+    license: MPL-2.0
+    decision: add a focused Terraform profile only when a Woon repository needs it
+  - id: vercel-agent-skills
+    upstream: https://github.com/vercel-labs/agent-skills
+    status: adopted-concepts
+    license: per-skill
+    improves: [skills/web/react]
+    decision: retain React performance guidance; deployment remains explicit
+  - id: anthropic-skills
+    upstream: https://github.com/anthropics/skills
+    status: fallback
+    license: per-skill
+    decision: use artifact format skills from installed plugins; do not duplicate them in Woon
+  - id: cloudflare-security-audit
+    upstream: https://github.com/cloudflare/security-audit-skill
+    status: evaluated
+    license: MIT
+    improves: [skills/security/security]
+    decision: keep Woon evidence and scope gates instead of importing parallel-agent workflow
+  - id: aws-agent-toolkit
+    upstream: https://github.com/aws/agent-toolkit-for-aws
+    status: candidate
+    license: Apache-2.0
+    decision: prefer over awslabs/mcp only when AWS becomes an active repository requirement
+  - id: obra-superpowers
+    upstream: https://github.com/obra/superpowers
+    status: rejected-bulk
+    license: MIT
+    decision: session hooks and mandatory workflow override conflict with Woon rules
+  - id: ecc
+    upstream: https://github.com/Jungle-12-303/skills.git
+    status: vendor-locked
+    license: per-skill
+    decision: keep immutable for comparison; exclude all 183 skills from default profiles

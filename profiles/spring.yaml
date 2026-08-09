@@ -1,0 +1,9 @@
+version: 1
+name: spring
+extends: [java]
+max_active: 12
+skills:
+  - skills/language/java/jpa
+  - skills/language/java/spring
+  - skills/language/java/spring-sec
+  - skills/language/java/spring-test

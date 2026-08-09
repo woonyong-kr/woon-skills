@@ -1,0 +1,58 @@
+version: 1
+cases:
+  - id: commit-message
+    prompt: "현재 diff에 맞는 짧은 한국어 Git 커밋 메시지를 만들고 커밋해 줘"
+    profiles: [eval]
+    expect_primary: commit
+    allow_support: []
+    reject: [branch, pr]
+    max_selected: 1
+  - id: branch-strategy
+    prompt: "이 저장소에는 GitHub Flow와 trunk-based 중 어떤 브랜치 전략이 맞는지 판단해 줘"
+    profiles: [eval]
+    expect_primary: branch
+    allow_support: []
+    reject: [commit, pr]
+    max_selected: 1
+  - id: history-recover
+    prompt: "reflog로 사라진 커밋을 찾고 안전한 복구 방법을 제시해 줘"
+    profiles: [eval]
+    expect_primary: history
+    allow_support: [safety]
+    reject: [commit]
+    max_selected: 2
+  - id: github-pr
+    prompt: "현재 브랜치 diff로 GitHub Pull Request 본문을 작성하고 draft PR을 만들어 줘"
+    profiles: [eval]
+    expect_primary: pr
+    allow_support: [verify]
+    reject: [issue, commit]
+    max_selected: 2
+  - id: github-issue
+    prompt: "재현 절차와 acceptance criteria를 갖춘 GitHub bug issue를 만들어 줘"
+    profiles: [eval]
+    expect_primary: issue
+    allow_support: []
+    reject: [pr, notify]
+    max_selected: 1
+  - id: github-ci
+    prompt: "GitHub Actions에서 실패한 PR check 로그를 읽고 workflow 문제를 고쳐 줘"
+    profiles: [eval]
+    expect_primary: ci
+    allow_support: [verify]
+    reject: [release, notify]
+    max_selected: 2
+  - id: github-release
+    prompt: "현재 tag와 changelog를 확인해 draft GitHub Release note를 만들어 줘"
+    profiles: [eval]
+    expect_primary: release
+    allow_support: []
+    reject: [ci, publish]
+    max_selected: 1
+  - id: github-notify
+    prompt: "내 GitHub 알림에서 review 요청과 blocking 항목만 우선순위로 정리해 줘"
+    profiles: [eval]
+    expect_primary: notify
+    allow_support: []
+    reject: [issue, pr]
+    max_selected: 1

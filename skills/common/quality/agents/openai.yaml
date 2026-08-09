@@ -1,0 +1,4 @@
+interface:
+  display_name: "Quality"
+  short_description: "저장소 근거에 맞춘 코드 배치·경계·변경 품질 기준"
+  default_prompt: "Use $quality to place and review this change using repository-specific evidence."

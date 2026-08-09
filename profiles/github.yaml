@@ -1,0 +1,10 @@
+version: 1
+name: github
+extends: [core]
+max_active: 10
+skills:
+  - skills/github/ci
+  - skills/github/issue
+  - skills/github/notify
+  - skills/github/pr
+  - skills/github/release

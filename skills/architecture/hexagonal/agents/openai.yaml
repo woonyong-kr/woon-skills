@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hexagonal"
+  short_description: "경계·효과·검증으로 Hexagonal Architecture를 설계합니다"
+  default_prompt: "$hexagonal로 이 use case의 port, adapter, effect와 검증 경계를 설계해 주세요."

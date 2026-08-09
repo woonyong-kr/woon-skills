@@ -1,4 +1,0 @@
-interface:
-  display_name: "Coding Standards"
-  short_description: "모든 저장소에 적용하는 코드 배치·명명·검증 기본 기준"
-  default_prompt: "Use $woon-coding-standards to place and review this change using repository-specific evidence."

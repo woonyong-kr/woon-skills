@@ -1,0 +1,4 @@
+interface:
+  display_name: "Naming"
+  short_description: "사용자 어휘와 언어 규칙에 맞춘 짧고 일관된 이름"
+  default_prompt: "Use $naming to choose concise, consistent names for these symbols."

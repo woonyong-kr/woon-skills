@@ -1,30 +1,33 @@
 # Operations
 
-## 개인 스킬 변경
+## Woon 스킬 변경
 
-1. `personal/<name>/SKILL.md`와 필요한 `scripts/`, `references/`만 수정합니다.
-2. description을 180자 이하로 유지합니다.
-3. 필요한 side effect를 `conflicts/effects.yaml`에 선언합니다.
-4. `woon skills validate --profile <profile>`을 실행합니다.
-5. `woon skills plan --profile <profile> --target <target>`에서 변경 범위를 확인합니다.
-6. 설치 후 같은 plan이 모두 `unchanged`인지 확인합니다.
+1. `$registry`로 기존 trigger, owner, effect와 source를 조사합니다.
+2. `skills/<domain>/<short-name>/SKILL.md`를 만들거나 병합합니다.
+3. description은 180자 이하, main body는 procedure 중심으로 유지합니다.
+4. 긴 규칙은 한 단계 `references/`로 옮깁니다.
+5. `effects`, profile, profile-resolution case, semantic routing case를 갱신합니다.
+6. `$audit` 정적 검사, `$comply` 행동 scenario, `$budget` context 검사를 실행합니다.
+7. plan→install→두 번째 plan `unchanged`를 확인합니다.
 
 ## vendor 업데이트
 
-1. upstream 변경을 별도 branch에서 가져옵니다.
-2. 라이선스와 source commit을 확인합니다.
-3. `lock/sources.yaml`의 commit을 갱신합니다.
-4. 기존 profile의 routing, conflict, effect 회귀를 검증합니다.
-5. 자동 병합하지 않고 review PR로 반영합니다.
+upstream을 별도 branch에서 가져와 license와 commit을 확인하고 `lock/sources.yaml`을 review PR로 갱신합니다. vendor 본문을 직접 고치지 않습니다. useful concept를 Woon에 반영할 때는 `sources/derivations.yaml`에 overlap과 변경점을 기록합니다.
+
+## natural routing 평가
+
+`evals/routing/` case는 명시 호출뿐 아니라 자연스러운 한국어 요청, 경계가 가까운 skill, 금지 선택을 포함합니다. isolated Codex selector로 3회 실행해 primary recall, forbidden selection, agreement를 확인합니다. keyword match나 profile resolution만으로 routing 품질을 주장하지 않습니다.
 
 ## 폐기
 
-사용하지 않는 스킬은 먼저 profile에서 제거합니다. 설치 검증이 끝난 뒤 원본을 `retired/`로 옮기고 사유와 대체 스킬을 기록합니다. 이력 보존 없이 바로 삭제하지 않습니다.
+먼저 profile에서 제거하고 clean install에서 퇴역을 검증합니다. 원본은 `archive/`로 옮겨 이유와 대체 skill을 남깁니다. 설치된 unmanaged folder나 user change를 삭제하지 않습니다.
 
 ## 완료 조건
 
-- macOS, Linux, Windows CI가 통과합니다.
-- 기본 profile이 최대 활성 개수를 넘지 않습니다.
-- unresolved conflict와 undeclared side effect가 없습니다.
-- 두 번 설치한 뒤 plan이 `unchanged`입니다.
-- 운영 파일에 사용자 home 절대경로가 없습니다.
+- schema와 nested catalog가 유효함
+- profile별 `max_active` 이내이며 knowledge는 4개만 노출
+- unresolved conflict와 undeclared side effect가 없음
+- semantic routing과 behavior boundary case 통과
+- 두 번 설치한 뒤 plan이 `unchanged`
+- absolute home path와 secret이 없음
+- 실행한 검증과 미실행 production 계층이 구분됨

@@ -1,0 +1,7 @@
+version: 1
+name: git
+extends: [core]
+max_active: 7
+skills:
+  - skills/git/branch
+  - skills/git/history

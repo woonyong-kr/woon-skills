@@ -1,0 +1,9 @@
+version: 1
+name: knowledge-publish
+max_active: 5
+skills:
+  - skills/common/safety
+  - skills/docs/diagram
+  - skills/knowledge/archive
+  - skills/knowledge/knowledge
+  - skills/knowledge/publish

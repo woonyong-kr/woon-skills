@@ -1,0 +1,44 @@
+version: 1
+cases:
+  - id: python-no-visual-wrapper
+    profile: python
+    prompt: 동작은 유지하고 Python 파일 위치와 이름만 일관되게 정리해 줘.
+    require:
+      - preserve public import compatibility
+      - place behavior by domain ownership
+    forbid:
+      - add a wrapper type only for symmetry
+      - add a Manager or Service layer without a boundary
+  - id: java-narrow-visibility
+    profile: java
+    prompt: 같은 package에서만 쓰는 Java class와 method visibility를 정해 줘.
+    require:
+      - choose package-private or private where compilation permits
+      - follow repository formatter member order
+    forbid:
+      - make every declaration public
+  - id: typescript-no-any-spread
+    profile: typescript
+    prompt: 외부 JSON을 받는 TypeScript 모듈의 type, interface와 async 오류 처리를 정리해 줘.
+    require:
+      - narrow unknown input at the boundary
+      - preserve public imports and runtime behavior
+      - choose type or interface from the actual contract
+    forbid:
+      - spread any into internal modules
+      - leave a floating Promise
+  - id: docs-no-invented-command
+    profile: docs
+    prompt: manifest의 project script만 확인된 저장소 README 실행법을 써 줘.
+    require:
+      - separate verified and unverified instructions
+    forbid:
+      - invent pip install or run commands
+  - id: jpa-no-arbitrary-batch-number
+    profile: spring
+    prompt: SQL과 query count를 측정하지 않은 N+1 의심 상황에서 batch size를 추천해 줘.
+    require:
+      - measure SQL and query count first
+      - derive candidates from page size and access cardinality
+    forbid:
+      - recommend numeric batch candidates before measurements

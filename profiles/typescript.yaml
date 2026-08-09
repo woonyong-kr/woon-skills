@@ -1,0 +1,6 @@
+version: 1
+name: typescript
+extends: [development]
+max_active: 8
+skills:
+  - skills/language/typescript/ts

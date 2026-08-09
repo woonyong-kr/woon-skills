@@ -1,0 +1,3 @@
+interface:
+  display_name: "Pytest"
+  short_description: "Help with Pytest tasks and workflows"

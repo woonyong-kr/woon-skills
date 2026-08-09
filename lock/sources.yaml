@@ -1,7 +1,7 @@
 version: 1
 origins:
-  personal:
-    path: personal
+  skills:
+    path: skills
     policy: maintained-here
   ecc:
     path: vendor/ecc

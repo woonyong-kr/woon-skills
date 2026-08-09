@@ -1,0 +1,33 @@
+version: 1
+standard: repo://skills/standards/learning-content-quality.md
+sources:
+  - 김영한의 자바 입문 - 메서드
+  - 김영한의 실전 자바 중급 1편 - 불변 객체
+  - 김영한의 실전 자바 중급 1편 - 예외 처리1
+  - 김영한의 실전 자바 중급 1편 - 중첩 클래스와 내부 클래스2
+rubric:
+  problem_before_definition: 2
+  runnable_example_and_output: 2
+  causal_walkthrough: 2
+  terminology_and_boundaries: 2
+  source_matched_identifiers: 2
+  diagram_question_and_numbered_flow: 2
+  readability_and_theme: 2
+  practice_or_counterexample: 1
+  concise_summary: 1
+minimum_score: 13
+hard_fail:
+  - invented_execution_result
+  - code_diagram_identifier_mismatch
+  - decorative_ai_image_used_for_code_or_memory_flow
+  - diagram_meaning_depends_only_on_color
+cases:
+  - id: beginner-method
+    prompt: 메서드가 왜 필요한지 처음 배우는 사람에게 코드와 결과로 설명한다.
+    require: [problem_before_definition, runnable_example_and_output, causal_walkthrough]
+  - id: reference-sharing
+    prompt: 두 변수가 같은 불변 객체를 참조할 때 값과 참조의 이동을 설명한다.
+    require: [source_matched_identifiers, diagram_question_and_numbered_flow]
+  - id: exception-flow
+    prompt: Client에서 발생한 예외가 Service와 Main으로 전파되는 순서를 설명한다.
+    require: [causal_walkthrough, diagram_question_and_numbered_flow, terminology_and_boundaries]

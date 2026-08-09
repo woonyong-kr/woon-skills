@@ -1,0 +1,7 @@
+version: 1
+name: data
+extends: [core]
+max_active: 7
+skills:
+  - skills/data/migration
+  - skills/data/postgres

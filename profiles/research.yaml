@@ -1,0 +1,7 @@
+version: 1
+name: research
+extends: [core]
+max_active: 7
+skills:
+  - skills/research/market
+  - skills/research/research

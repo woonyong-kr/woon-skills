@@ -1,0 +1,4 @@
+interface:
+  display_name: "Markdown 학습 다이어그램"
+  short_description: "light/dark mode에서 읽히는 무채색 Mermaid 학습 다이어그램 작성"
+  default_prompt: "$diagram으로 실제 identifier와 인과 순서가 읽히는 Mermaid를 작성해 주세요."

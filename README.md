@@ -1,16 +1,8 @@
 # woon-skills
 
-Codex와 Claude가 작업에 필요한 스킬만 결정적으로 선택·설치하도록 관리하는 Woon 스킬 카탈로그입니다. 모든 스킬을 한꺼번에 설치하지 않습니다.
+Woon이 직접 유지하는 스킬을 짧은 이름과 작은 profile로 선택·설치하는 canonical catalog입니다. `woon-skills` 원본이 항상 우선이고, 없는 기능만 Codex에 설치된 skill/plugin을 fallback으로 사용합니다.
 
 ## 빠른 시작
-
-먼저 [`woon`](https://github.com/woonyong-kr/woon-core/releases) 바이너리와 Woon 저장소를 준비합니다.
-
-```text
-<woon-root>/
-├── woon-core/
-└── woon-skills/
-```
 
 ```bash
 woon skills validate --profile core
@@ -19,36 +11,50 @@ woon skills install --profile core,python --target codex
 woon skills doctor
 ```
 
-Windows PowerShell에서도 같은 명령을 사용합니다. 저장소 위치는 고정하지 않으며 `woon init --root <path>` 또는 `WOON_HOME`으로 찾습니다.
+`core`는 `$quality·$safety·$terminal·$verify·$commit` 5개뿐입니다. 모든 스킬을 설치하지 말고 저장소에 맞는 profile을 추가합니다.
+
+| 작업 | profile | Woon 스킬 |
+|---|---|---|
+| 공통 개발 | `development` | `$quality·$naming·$refactor` |
+| Python | `python` | `$python·$pytest` |
+| Java | `java` | `$java` |
+| TypeScript | `typescript` | `$ts` |
+| Spring/JPA | `spring` | `$spring·$spring-test·$spring-sec·$jpa` |
+| GitHub | `github` | `$pr·$issue·$ci·$release·$notify` |
+| 개발 문서 | `docs` | `$docs·$lookup·$adr·$diagram` |
+| private knowledge | `knowledge` | `$safety·$knowledge·$archive·$diagram` |
+| knowledge 공개 | `knowledge-publish` | knowledge + `$publish` |
+| 기술·커리어 글 | `publishing` | `$docs·$diagram·$career·$interview·$tech` |
+| 웹 | `web` | `$react·$e2e·$ui-test` |
+| 스킬 관리 | `skill-system` | `$registry·$audit·$comply·$budget` |
+
+## 문서 스킬의 차이
+
+- `$docs`: 현재 저장소의 README, 설치법, API 설명, runbook을 실제 code/manifest/`--help`에 맞춥니다.
+- `$lookup`: 현재 version의 외부 library/framework 공식 문서를 찾습니다.
+- `$adr`: 하나의 architecture 결정과 대안·결과를 기록합니다.
+- `$tech`: 근거와 한계가 있는 기술 글·학습 글을 씁니다.
+- `$career`: 이력서·경력기술서·cover letter를 실제 개인 기여에 맞춥니다.
+- `$diagram`: Markdown 안의 Mermaid 관계도를 만듭니다.
+- `$knowledge`: private 정본과 read-only corpus를 검색·조회·감사합니다.
+- `$archive`: 현재 대화를 기존 private 정본에 중복 없이 저장합니다.
+- `$publish`: 승인한 private 정본만 public 산출물로 분리합니다.
+
+DOCX, PDF, PPTX, XLSX와 Google Docs 같은 설치 plugin 스킬은 파일 형식·도구 축입니다. 예를 들어 이력서 내용에는 `$career`, DOCX 산출에는 `documents`가 함께 선택될 수 있으며 서로 대체하지 않습니다.
 
 ## 구조
 
 ```text
-personal/    직접 유지하는 스킬
-vendor/      upstream commit에 고정된 외부 스킬
-profiles/    실제로 활성화할 작은 스킬 집합
-conflicts/   중복 trigger와 side effect 선언
-lock/        출처·commit·업데이트 정책
-evals/       routing 회귀 사례
+skills/<domain>/<short-name>/   Woon이 직접 유지하는 단일 원본
+vendor/<origin>/<name>/         upstream commit에 고정한 비교·fallback 원본
+profiles/                       작고 목적별인 활성 집합
+conflicts/                      side effect와 실제 충돌
+evals/profile-resolution.yaml   deterministic profile 회귀
+evals/routing/                  natural-language semantic routing 평가
+sources/                        조사한 upstream과 Woon 파생 근거
+archive/                        활성 catalog에서 퇴역했지만 보존한 자료
 ```
 
-기본 `core` profile은 20개 이하로 유지합니다. 설치기는 대상 폴더의 실제 hash를 다시 확인하며, 관리하지 않는 기존 스킬을 덮어쓰지 않습니다. 변경 파일은 먼저 staging하고 기존 관리 파일은 backup한 뒤 적용합니다.
+`SKILL.md`는 decision과 절차만 담고, 상세 언어 규칙과 예제는 그 작업에서만 여는 한 단계 `references/`에 둡니다. machine-specific 절대 경로는 commit하지 않고 다른 저장소는 `repo://skills/...`로 원본을 참조합니다.
 
-## 원칙
-
-- `personal/`은 직접 수정하고 검증합니다.
-- `vendor/` 업데이트는 lock된 upstream commit을 바꾸는 review PR로만 받습니다.
-- profile에 넣기 전 description, trigger 충돌, side effect를 검토합니다.
-- `SKILL.md`는 절차 중심으로 유지하고 긴 설명과 예제는 `references/`로 분리합니다.
-- 사용자별 경로와 token은 저장소에 기록하지 않습니다.
-- 설치는 `woon skills`만 사용하며 별도 전체 복사 스크립트를 두지 않습니다.
-
-설계는 [architecture](docs/architecture.md), 유지보수 절차는 [operations](docs/operations.md)를 참고하세요.
-
-## 지원 환경
-
-`woon` CLI 기준으로 macOS, Linux, Windows를 지원합니다. 경로 결합은 OS API를 사용하고, 공백이 있는 경로를 회귀 테스트하며, 세 운영체제의 GitHub Actions에서 동일한 profile 해석을 검증합니다.
-
-## 라이선스
-
-각 vendor 스킬의 라이선스와 upstream 조건이 우선합니다. 출처 정보는 `lock/sources.yaml`에서 관리합니다.
+외부 스킬 조사와 채택 판단은 [source catalog](sources/catalog.yaml), Woon 스킬로 병합한 근거는 [derivations](sources/derivations.yaml)에 있습니다.
