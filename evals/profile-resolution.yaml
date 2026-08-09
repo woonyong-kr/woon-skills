@@ -158,6 +158,17 @@ cases:
       - skills/web/e2e
       - skills/knowledge/publish
       - vendor/ecc/knowledge-ops
+  - id: ingest-adds-only-corpus-reconciliation
+    profiles: [ingest]
+    expect_skills:
+      - skills/common/safety
+      - skills/docs/diagram
+      - skills/knowledge/archive
+      - skills/knowledge/ingest
+      - skills/knowledge/knowledge
+    reject_skills:
+      - skills/knowledge/publish
+      - skills/docs/docs
   - id: github-operations-are-split
     profiles: [github]
     expect_skills:

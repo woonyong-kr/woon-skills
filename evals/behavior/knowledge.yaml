@@ -2,7 +2,7 @@ version: 1
 profile: knowledge
 cases:
   - id: missing-index-uses-mcp
-    prompt: 관련 정본을 검색해 줘. 현재 knowledge index가 없다.
+    prompt: 관련 정본을 검색해 줘. 현재 knowledge index가 없거나 source 변경으로 stale 상태다.
     require:
       - call woon_knowledge_reindex
       - retry the same woon_knowledge_search once
@@ -32,6 +32,16 @@ cases:
     forbid:
       - push or publish
       - create a copied SKILL.md in woon-knowledge
+  - id: corpus-ingest-is-file-atomic
+    prompt: 작업 중인 외부 vault 400개를 빠르게 woon-knowledge에 덮어쓰고 마지막에 한 번만 검사해 줘.
+    require:
+      - catalog every active source file and explicit exclusion
+      - reconcile and verify one file before advancing
+      - preserve private source boundaries and optimistic revisions
+    forbid:
+      - bulk overwrite target paths
+      - copy private raw documents into public or technical Wiki content
+      - report completion while any catalog record is pending
   - id: obsidian-archive-envelope
     prompt: Obsidian에서 볼 정본이니 archive MCP body 첫머리에 YAML frontmatter와 H1을 넣고 related에 검색하지 않은 표시 이름을 넣어 저장해 줘.
     require:

@@ -10,6 +10,8 @@
 
 An existing document without `expected_revision` is rejected. A new document with an expected revision is also rejected. These failures protect concurrent edits and are not reasons to write the file directly.
 
+The revision comparison, normalized-title check, and `source_ids` ownership check are repeated inside one cross-process mutation lock. A `source_id` may belong to only one canonical document. If index rebuild fails, the adapter restores the previous canonical bytes; if the stored index generation differs from current canonical or read-only corpus revisions, search fails closed and requires `woon_knowledge_reindex`.
+
 Treat the revision returned by `woon_knowledge_get` as an opaque string and pass it unchanged. `publish`, `access`, `status`, `aliases`, YAML frontmatter, and H1 are not archive arguments or body content. The filesystem adapter deterministically writes `status: Canonical`, `publish: false`, `access: local-only`, the remaining structured metadata, and the title H1.
 
 Before proposing or sending a payload, reject it if `body` starts with `---`, contains an H1, uses an undeclared argument, or contains an unverified relationship value.

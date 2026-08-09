@@ -175,6 +175,12 @@
       "description": "Git commit 이력 조사, bisect, reflog 복구, commit message 재작성, cherry-pick, revert처럼 history를 분석하거나 조작할 때 사용한다."
     },
     {
+      "name": "ingest",
+      "domain": "knowledge",
+      "path": "skills/knowledge/ingest",
+      "description": "외부 폴더·Git 저장소·drop 문서 전체를 woon-knowledge에 파일별로 대조·중복 병합·변경 반영하고 완전성 catalog와 품질 검증까지 남길 때 사용한다."
+    },
+    {
       "name": "interview",
       "domain": "writing",
       "path": "skills/writing/interview",
@@ -490,6 +496,11 @@
     {
       "name": "github",
       "path": "profiles/github.yaml",
+      "installable": true
+    },
+    {
+      "name": "ingest",
+      "path": "profiles/ingest.yaml",
       "installable": true
     },
     {

@@ -1,0 +1,4 @@
+interface:
+  display_name: "지식 문서 수집"
+  short_description: "외부 문서를 한 편씩 중복 병합하고 catalog와 품질 검증"
+  default_prompt: "$ingest로 이 폴더의 모든 문서를 원천 보존·중복 제거·파일별 검증을 거쳐 woon-knowledge에 정리해 주세요."

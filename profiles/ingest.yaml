@@ -1,0 +1,9 @@
+version: 1
+name: ingest
+max_active: 5
+skills:
+  - skills/common/safety
+  - skills/docs/diagram
+  - skills/knowledge/archive
+  - skills/knowledge/ingest
+  - skills/knowledge/knowledge

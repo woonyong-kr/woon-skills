@@ -42,6 +42,13 @@ cases:
     allow_support: [knowledge]
     reject: [publish, tech]
     max_selected: 2
+  - id: external-corpus-ingest
+    prompt: "작업 중인 외부 vault의 모든 문서를 한 파일씩 비교해서 중복 병합하고 변경 추적 catalog와 검증 결과까지 private woon-knowledge에 반영해 줘"
+    profiles: [eval]
+    expect_primary: ingest
+    allow_support: [knowledge, archive]
+    reject: [publish, docs]
+    max_selected: 3
   - id: obsidian-archive-body
     prompt: "Obsidian 정본을 archive MCP에 병합하되 body의 frontmatter·H1과 related canonical ID를 올바르게 처리해 줘"
     profiles: [eval]
