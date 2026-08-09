@@ -1,5 +1,17 @@
 version: 1
+standards:
+  standards/learning-content-quality.md:
+    adapted_from:
+      - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-shape
+      - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-beats
+      - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/productivity/teach
+    changed: translated the useful prerequisite and grounding model into a provider-neutral section dependency contract, removed interactive article shaping and HTML defaults, and added adversarial insertion and cycle gates after a fresh-context baseline failed 2 of 3 cases
 skills:
+  skills/writing/tech:
+    adapted_from:
+      - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-shape
+      - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-beats
+    changed: made the shared learning standard an explicit user-approved acceptance gate at the invocation boundary so direct glossary-first, append-only and cyclic-order pressure cannot silently bypass it
   skills/ai/agent-audit:
     adapted_from:
       - https://github.com/affaan-m/ECC/tree/2d46e80e0925c7be0907f18c1812311ac212a6c5/skills/agent-architecture-audit

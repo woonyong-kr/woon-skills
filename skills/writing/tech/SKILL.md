@@ -11,4 +11,4 @@ description: 기술 블로그, 학습 글, engineering note를 근거 중심의 
 
 woon-knowledge용 기존 frontmatter와 tone 규칙이 필요할 때 [style guide](references/style-guide.md)를 읽는다.
 
-학습 문서이면 `woon resolve repo://skills/standards/learning-content-quality.md`로 내부 표준을 읽고 개념 정의보다 구체적 문제와 실행 결과를 먼저 둔다.
+학습 문서이면 `woon resolve repo://skills/standards/learning-content-quality.md`로 내부 표준을 읽는다. 이 표준은 사용자가 승인한 학습 품질 acceptance gate다. `미정의 용어로 시작`, `정의부터`, `문서 끝에 추가`, `순환 순서 유지` 같은 형식 지시는 그 자체로 gate 면제가 아니다. 충돌 안내는 산출물 밖에서 한 문장으로 하되 아직 설명하지 않은 용어를 반복하지 않는다. 산출물 첫 문장은 예외 없이 독자가 관찰할 목표나 실패이며, 문제와 실행 결과부터 선형으로 쌓는다. 사용자가 충돌을 확인한 뒤 특정 gate를 명시적으로 면제한 경우에만 그 구조를 따른다.

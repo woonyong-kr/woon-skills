@@ -95,6 +95,14 @@ repositories:
     license: MIT
     improves: [skills/ai/agent-audit]
     decision: audit all 284 canonical skills, adopt only the measured agent-wrapper diagnostic gap, retain Woon owners for equivalent behavior and reject always-on hooks, self-modifying memory and orchestration controllers
+  - id: mattpocock-skills
+    upstream: https://github.com/mattpocock/skills
+    checked_commit: 84fdeffd12f2ee307994d1eb6feb48173b6e0502
+    checked_version: 1.2.3
+    status: adopted-selectively
+    license: MIT
+    improves: [standards/learning-content-quality.md]
+    decision: review all 35 skills, merge only measured concept-grounding and insertion-order gaps into the shared learning standard, retain Woon owners where baseline behavior already passes, and reject automatic commits, test skipping, relentless questioning and provider-specific setup as active skills
   - id: ecc-legacy-vendor
     upstream: https://github.com/Jungle-12-303/skills.git
     status: vendor-locked
