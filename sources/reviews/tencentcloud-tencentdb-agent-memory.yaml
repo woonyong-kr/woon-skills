@@ -1,0 +1,65 @@
+version: 1
+repository: TencentCloud/TencentDB-Agent-Memory
+upstream: https://github.com/TencentCloud/TencentDB-Agent-Memory
+checked_commit: fe3230f176f1bf5832fee79d12494bbc2d19a8aa
+checked_version: v2.0.0
+checked_at: '2026-08-10'
+license: MIT
+scope:
+  skill_files: 3
+  canonical_skill_files: 1
+  frontmatter_skill_sidecars: 2
+decision: adopted-as-tests
+evidence:
+  repository_state:
+    default_branch: feat/server_team
+    checked_commit_date: 2026-08-06
+    latest_release: v2.0.0 published 2026-08-03
+    package_version: 2.0.0-beta.1
+    stars_at_check: 18643
+    forks_at_check: 1681
+    open_issues_at_check: 586
+    github_size_kb: 34156
+    github_license_detection: NOASSERTION although the root LICENSE states MIT
+  source_shape:
+    skill_body_o200k_tokens: 6184
+    memory_layers: L0 conversation, L1 atom, L2 scenario and L3 persona with evidence drill-down claims
+    additional_assets: shared skill extraction, wiki, code graph, team ACL and agent assignment
+    overlap: Woon knowledge, archive, registry, audit, safety and private canonical ownership
+  upstream_validation:
+    dependency_install: npm install --ignore-scripts added 610 packages without a committed lockfile
+    tests: failed because Vitest found zero test files despite package scripts declaring unit, E2E and smoke commands
+    build: plugin and three scripts built, then failed because scripts/seed-v2/tsconfig.json is absent
+    missing_skill_dependency: SKILL-DIAGNOSTIC-EXPORT references scripts/export-diagnostic.sh, which is absent
+    missing_postinstall_dependency: package postinstall references scripts/openclaw-after-tool-call-messages.patch.sh, which is absent
+    ci_gap: the pull-request workflow packages and checks manifest, size and isolation but does not run the declared test or build commands
+    isolation_probe: skipped because the shallow default-branch clone had neither origin/main nor HEAD~1, so the local result is not CI proof
+    dependency_audit: 30 moderate and 3 high advisories remained in the installed production tree
+  behavior_baseline:
+    codex: 12 of 12 decisions passed across three fresh trials
+    claude_sonnet: 4 of 4 decisions passed in one fresh trial
+    covered_boundaries: current correction beats untraced persona, extracted skills remain private candidates, raw diagnostic memory requires separate sharing authority and migration secrets stay bounded until verified cleanup
+  context:
+    new_runtime_skills: 0
+    generated_catalog_delta_o200k: 0
+    offline_regression_spec_delta_o200k: 561
+    rejected_upstream_skill_body_o200k: 6184
+    codex_trial_input_tokens: 17322 each with 9984 cached tokens
+    claude_trial_usage: 2 input, 1947 cache-creation, 10070 cache-read and 754 output tokens for the main answer; provider token accounting is not directly comparable with Codex
+    rationale: existing Woon owners already pass the useful ownership, provenance, privacy and migration gates, so only owner-specific offline regressions are added
+skills:
+  - name: openclaw-memory-tencentdb-setup
+    purpose: install, configure, restart and smoke-test the OpenClaw memory-tencentdb plugin
+    overlap: knowledge and archive already own Woon memory behavior, while terminal, safety and verify own installation effects and evidence
+    decision: retain-existing
+    reason: this OpenClaw-specific installer creates a second memory canonical and automatic recall surface; the pinned package also lacks reproducible tests and a complete build
+  - name: openclaw-diagnostic-export
+    purpose: package OpenClaw logs, configuration and the complete L0 to L3 memory store for manual support sharing
+    overlap: knowledge privacy, research evidence and safety already require exact source, minimization and separate authority for external sharing
+    decision: adopt-as-test
+    reason: keep the distinction between configuration redaction and raw-memory privacy as a regression, but reject the unusable workflow because its required export script is absent and the archive contains full conversations and persona data
+  - name: openclaw-memory-tencentdb-migration
+    purpose: migrate plugin identity while backing up configuration, retaining data, verifying counts and providing rollback
+    overlap: safety and verify already own bounded backups, secrets, before-after evidence and rollback
+    decision: adopt-as-test
+    reason: preserve the useful before-after and rollback gates as a safety case, while rejecting plaintext secret output, unprotected temp backups and provider-specific package mutation as an active skill

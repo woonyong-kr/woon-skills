@@ -81,6 +81,14 @@ repositories:
     license: AGPL-3.0; examples Apache-2.0; OpenClaw package metadata MIT without a local license file
     improves: [evals/behavior/knowledge.yaml]
     decision: keep Woon knowledge and archive as the only private canonical owners; adopt retrieved-experience safety as offline regressions and reject automatic recall, duplicate stores, unsafe server operations and generic overlapping utilities
+  - id: tencentcloud-tencentdb-agent-memory
+    upstream: https://github.com/TencentCloud/TencentDB-Agent-Memory
+    checked_commit: fe3230f176f1bf5832fee79d12494bbc2d19a8aa
+    checked_version: v2.0.0
+    status: adopted-as-tests
+    license: MIT
+    improves: [evals/behavior/knowledge.yaml, evals/behavior/skill-system.yaml, evals/behavior/safety.yaml]
+    decision: retain Woon canonical owners and add provider-neutral provenance, extracted-skill review, diagnostic privacy and migration-secret regressions; do not import the duplicate memory stack or broken provider-specific operations
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
     checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434
