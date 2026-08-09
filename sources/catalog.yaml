@@ -105,6 +105,14 @@ repositories:
     license: Modified-MIT with AI training or evaluation and hosted-service restrictions
     improves: [skills/web/react, evals/behavior/react.yaml]
     decision: keep one Woon React owner, add a short conditional static-analysis contract and cross-layer regressions, and do not copy the upstream skills or rule implementation because of routing overlap, mutable remote instructions and license restrictions
+  - id: google-styleguide
+    upstream: https://github.com/google/styleguide
+    checked_commit: 1809c769de31ba388c755ad15dd057a9ba8531fd
+    checked_version: gh-pages@2026-06-03
+    status: adopted-selectively
+    license: CC-BY-3.0
+    improves: [skills/language/typescript/ts, skills/language/java/java, skills/language/python/python, skills/language/c/c, skills/language/cpp/cpp, skills/language/csharp/cs, evals/behavior/language.yaml]
+    decision: retain short language owners and Korean conditional references, preserve executable repository conventions over blind strict-mode copying, add separate C, C++ and C# owners, and explicitly reject presenting google-c-style.el or the C++ guide as a standalone Google C style guide
   - id: anthropic-skills
     upstream: https://github.com/anthropics/skills
     checked_commit: f17010c9bb483898c1d9c9f42dde2b3a98889434

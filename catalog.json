@@ -55,6 +55,12 @@
       "description": "skill·agent·MCP·rule·profile의 문맥 비용을 기준본과 측정하고 routing·행동 품질을 유지하며 토큰 증가나 절감안을 판단할 때 사용한다."
     },
     {
+      "name": "c",
+      "domain": "language",
+      "path": "skills/language/c/c",
+      "description": "C header·source 배치, 함수·struct·pointer ownership, 전처리기와 오류 계약을 설계·검토할 때 사용한다. C++에는 사용하지 않는다."
+    },
+    {
       "name": "career",
       "domain": "writing",
       "path": "skills/writing/career",
@@ -83,6 +89,18 @@
       "domain": "ops",
       "path": "skills/ops/container",
       "description": "OCI image와 container runtime의 실행, mount, network, environment, resource, non-root와 runtime 장애를 설계·진단할 때 사용한다."
+    },
+    {
+      "name": "cpp",
+      "domain": "language",
+      "path": "skills/language/cpp/cpp",
+      "description": "C++ header·source, class·struct·access, ownership, 함수·include·naming 규칙을 설계·검토할 때 사용한다. C에는 사용하지 않는다."
+    },
+    {
+      "name": "cs",
+      "domain": "language",
+      "path": "skills/language/csharp/cs",
+      "description": "C# namespace·file, class·interface·record·member 순서, visibility, async·nullable 규칙을 설계·검토할 때 사용한다."
     },
     {
       "name": "css",
@@ -337,6 +355,11 @@
       "installable": true
     },
     {
+      "name": "c",
+      "path": "profiles/c.yaml",
+      "installable": true
+    },
+    {
       "name": "container",
       "path": "profiles/container.yaml",
       "installable": true
@@ -344,6 +367,16 @@
     {
       "name": "core",
       "path": "profiles/core.yaml",
+      "installable": true
+    },
+    {
+      "name": "cpp",
+      "path": "profiles/cpp.yaml",
+      "installable": true
+    },
+    {
+      "name": "csharp",
+      "path": "profiles/csharp.yaml",
       "installable": true
     },
     {

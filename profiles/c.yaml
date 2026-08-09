@@ -1,0 +1,6 @@
+version: 1
+name: c
+extends: [development]
+max_active: 9
+skills:
+  - skills/language/c/c

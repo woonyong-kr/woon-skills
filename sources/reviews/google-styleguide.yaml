@@ -1,0 +1,76 @@
+version: 1
+repository: google/styleguide
+upstream: https://github.com/google/styleguide
+checked_commit: 1809c769de31ba388c755ad15dd057a9ba8531fd
+checked_version: gh-pages@2026-06-03
+checked_at: '2026-08-10'
+license: CC-BY-3.0
+scope:
+  skill_files: 6
+decision: adopted-selectively
+evidence:
+  repository_state:
+    checked_commit_date: 2026-06-03
+    latest_commit_subject: Update C++ style guide
+    upstream_scope: public copies of Google language and documentation style guides
+  source_boundary:
+    official_language_guides: TypeScript, Java, Python, C++, C#
+    absent_language_guide: no standalone C guide is listed or stored
+    misleading_artifact: google-c-style.el is an Emacs configuration file, not a C language design or safety guide
+    c_replacement: Woon C rules use repository formatter and dialect first, then explicitly attributed C-only safety and portability sources
+  adaptation:
+    shared_precedence: executable repository formatter, linter and compiler policy override optional strict Google differences
+    progressive_disclosure: active skills contain only routing and invariant summaries; import, declaration, visibility and formatting details live in per-language references
+    no_mixed_mode: file naming, indentation and member order are never changed for only one file when the repository enforces a different convention
+    modernization: outdated C# language-version preferences are not promoted over current SDK, nullable, analyzer and async contracts
+  behavior:
+    codex_no_guidance: 18 of 18 choices passed across three fresh gpt-5.6-terra trials
+    codex_no_guidance_tokens: 2673, 2714 and 2735 total tokens reported by the executor
+    implication: obvious style decisions do not justify always-on prose; the value is a precise conditional reference, C provenance boundary and deterministic cross-language fixture
+    codex_held_out:
+      first_choices: 11 of 12 passed; the only miss used the attached Korean form `$c와` and did not load the one-letter skill
+      c_standalone_retry: a free-form `$c` invocation loaded the skill and produced a public status API, explicit pointer length, nullability and caller ownership plus a static implementation helper
+      other_languages: C++, C#, TypeScript, Java and Python passed 10 of 10 shuffled choices with their isolated profiles
+    claude_held_out:
+      completed: C, C#, TypeScript and Java passed 8 of 8 shuffled choices from project-local isolated skills
+      not_counted: C++ and Python direct trials returned HTTP 429 session-limit responses before inference and were not represented as passes
+      routing_evidence: before the quota limit, Claude passed all 61 catalog routing cases across three repeats with primary recall 1.0, zero forbidden selections and agreement 1.0, including all six language owners
+    routing:
+      codex_final: all 61 cases across three repeats passed with primary recall 1.0, zero forbidden selections and agreement 0.9508
+      contract_fix: beginner Java learning content now permits java as support for the tech owner because executable examples require a language correctness owner
+    fixture: 16 structural checks and actual TypeScript, Java, Python, C, C++ and C# compile, type, link and execution checks passed; C# build had zero warnings and zero errors
+  context:
+    new_runtime_skills: 3
+    existing_runtime_skills_extended: 3
+    reference_loading: conditional by language and concern
+    existing_active_skill_deltas_o200k: {ts: 18, java: 15, python: 13}
+    new_active_skill_o200k: {c: 271, cpp: 278, cs: 260}
+    conditional_reference_o200k: {ts: 1163, java: 820, python: 831, c: 1531, cpp: 1465, cs: 1465}
+    catalog_description_delta_o200k: 115
+    combined_profile_gate: installing all six language profiles together resolved 15 skills and was rejected by the max-active budget of 9; isolated profiles installed 9 skills each, except Python with 10
+inventory:
+  - typescript-style-guide
+  - java-style-guide
+  - python-style-guide
+  - cpp-style-guide
+  - csharp-style-guide
+  - google-c-style-el
+groups:
+  - id: existing-language-guides
+    skills: [typescript-style-guide, java-style-guide, python-style-guide]
+    purpose: define source, import, declaration, naming, documentation and language-safety conventions
+    overlap: existing ts, java and python owners already define module and type design but lacked an attributed comprehensive style layer
+    decision: retain-existing
+    reason: add Korean conditional convention references without creating google-ts, google-java or google-python routing duplicates
+  - id: missing-language-owners
+    skills: [cpp-style-guide, csharp-style-guide]
+    purpose: define C++ and C# language-specific files, types, member order, visibility, ownership and modern runtime contracts
+    overlap: quality and naming are language-neutral and cannot safely own C++ lifetime or C# nullable and async behavior
+    decision: adopt-as-new-skill
+    reason: add short cpp and cs owners with detailed on-demand references rather than placing both languages in one generic convention skill
+  - id: c-non-guide
+    skills: [google-c-style-el]
+    purpose: configure an editor indentation mode called Google C style
+    overlap: it does not define C API, ownership, safety, file placement or error contracts
+    decision: reject
+    reason: do not mislabel an editor configuration or the C++ guide as official Google C guidance; create an independent c owner with C-only sources

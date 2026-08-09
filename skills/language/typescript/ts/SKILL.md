@@ -5,7 +5,7 @@ description: TypeScript 코드의 모듈·파일 배치, type/interface, 함수�
 
 # TypeScript
 
-저장소의 `tsconfig.json`, package scripts, formatter, linter와 같은 역할의 기존 모듈을 먼저 확인한다. 공통 배치 판단에는 `$quality`, 이름의 의미와 사용자 어휘에는 `$naming`을 함께 적용한다. TypeScript 상세 판단이 필요할 때만 [설계 기준](references/design.md)을 읽는다.
+저장소의 `tsconfig.json`, package scripts, formatter, linter와 같은 역할의 기존 모듈을 먼저 확인한다. 공통 배치 판단에는 `$quality`, 이름의 의미와 사용자 어휘에는 `$naming`을 함께 적용한다. TypeScript 구조에는 [설계 기준](references/design.md), import·선언 순서·표기에는 [규약](references/conventions.md)을 필요한 경우에만 읽는다.
 
 1. 실행 환경과 module system, strictness, path alias와 public export를 확인한다.
 2. 변경할 모듈의 책임과 runtime 경계를 정한다.

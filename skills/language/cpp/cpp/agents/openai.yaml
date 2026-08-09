@@ -1,0 +1,4 @@
+interface:
+  display_name: "C++"
+  short_description: "C++ header·class·ownership·함수 배치 설계 기준"
+  default_prompt: "$cpp로 이 C++ 모듈의 header·class·ownership 경계를 일관되게 설계해 주세요."

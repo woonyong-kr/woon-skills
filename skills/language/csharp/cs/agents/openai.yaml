@@ -1,0 +1,4 @@
+interface:
+  display_name: "C#"
+  short_description: "C# file·type·member·nullable·async 설계 기준"
+  default_prompt: "$cs로 이 C# 모듈의 file·type·member·async 경계를 일관되게 설계해 주세요."

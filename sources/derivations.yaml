@@ -75,6 +75,32 @@ skills:
       - vendor/ecc/frontend-patterns
       - https://github.com/vercel-labs/agent-skills
     changed: repository-first React ownership and measured optimization
+  skills/language/typescript/ts:
+    adapted_from:
+      - https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/tsguide.html
+    changed: retained Woon module and runtime ownership, separated strict Google file naming from repository defaults, and moved import, declaration, type and documentation detail into a Korean conditional reference
+  skills/language/java/java:
+    adapted_from:
+      - https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/javaguide.html
+    changed: retained Woon package and type design, added explicit import, overload, modifier, naming and Javadoc rules as a conditional Korean reference
+  skills/language/python/python:
+    adapted_from:
+      - https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/pyguide.md
+    changed: retained Woon module ownership and compatibility, added formatter-aware import, function placement, naming, resource and typing rules as a conditional Korean reference
+  skills/language/c/c:
+    adapted_from:
+      - https://wiki.sei.cmu.edu/confluence/display/c/Introduction
+      - https://www.gnu.org/prep/standards/html_node/Writing-C.html
+      - https://github.com/google/styleguide/tree/1809c769de31ba388c755ad15dd057a9ba8531fd
+    changed: created an independent repository-first C owner for headers, linkage, ownership, errors and safety while explicitly recording that Google provides no standalone C guide
+  skills/language/cpp/cpp:
+    adapted_from:
+      - https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/cppguide.html
+    changed: created a short C++ owner and split API, ownership and lifetime design from strict include, access, declaration, naming and formatting conventions
+  skills/language/csharp/cs:
+    adapted_from:
+      - https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/csharp-style.md
+    changed: created a short C# owner, retained useful naming and organization rules, and replaced outdated language-version choices with current SDK, nullable, analyzer and async contracts
   skills/web/e2e:
     adapted_from:
       - vendor/ecc/e2e-testing

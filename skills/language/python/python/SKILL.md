@@ -15,4 +15,4 @@ description: Python 파일·package 구조, class·Protocol·function 위치, na
 6. visual consistency만을 위해 새 `InvoiceId` 같은 wrapper type이나 layer를 만들지 않는다.
 7. repository의 lint, type check, pytest를 실행한다.
 
-파일 배치, 선언 순서, naming, class/interface/function 기준은 관련 작업에서만 [Python design](references/design.md)을 읽는다.
+파일 배치와 class/function 경계는 [Python design](references/design.md), import·선언 순서·표기에는 [규약](references/conventions.md)을 관련 작업에서만 읽는다.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "C"
+  short_description: "C header·함수·ownership·오류 계약 설계 기준"
+  default_prompt: "$c로 이 C 모듈의 header·함수·ownership 경계를 일관되게 설계해 주세요."

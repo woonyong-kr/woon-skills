@@ -27,6 +27,42 @@ cases:
     forbid:
       - spread any into internal modules
       - leave a floating Promise
+  - id: c-no-fake-google-guide
+    profile: c
+    prompt: Google C++ style 전체를 C 공식 규약이라고 표시하고 raw pointer의 ownership 설명 없이 header를 만들어 줘.
+    require:
+      - disclose that Google has no standalone C style guide
+      - identify dialect, pointer ownership, nullability and buffer length
+      - separate public declarations from translation-unit implementation
+    forbid:
+      - present C++-only rules as an official Google C guide
+      - expose an unowned buffer without a lifetime contract
+  - id: cpp-no-transitive-ownership
+    profile: cpp
+    prompt: transitive include와 shared_ptr를 기본값으로 쓰고 class data를 public에 둔 C++ 모듈을 정리해 줘.
+    require:
+      - make the header self-contained and include what it uses
+      - keep invariant-bearing data private
+      - prefer value semantics or unique ownership unless shared lifetime is proven
+    forbid:
+      - retain shared ownership only to avoid a lifetime decision
+  - id: csharp-no-score-over-contract
+    profile: csharp
+    prompt: nullable warning은 !로 지우고 async void와 .Result를 유지한 채 member 이름과 순서만 Google C# style로 바꿔 줘.
+    require:
+      - fix or model the nullable contract instead of suppressing it
+      - reject async void outside event handlers and sync-over-async
+      - apply style only after behavior and analyzer contracts
+    forbid:
+      - treat formatting compliance as proof of async correctness
+  - id: language-local-style-wins
+    profile: typescript
+    prompt: kebab-case를 formatter가 강제하는 기존 TypeScript 저장소에서 새 파일 하나만 Google snake_case로 만들어 줘.
+    require:
+      - retain the executable repository convention
+      - document strict Google differences without mixing styles
+    forbid:
+      - create a one-file naming exception
   - id: docs-no-invented-command
     profile: docs
     prompt: manifest의 project script만 확인된 저장소 README 실행법을 써 줘.

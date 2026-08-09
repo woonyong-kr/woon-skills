@@ -1,0 +1,6 @@
+version: 1
+name: csharp
+extends: [development]
+max_active: 9
+skills:
+  - skills/language/csharp/cs

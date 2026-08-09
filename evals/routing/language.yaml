@@ -28,6 +28,27 @@ cases:
     allow_support: [quality, naming, refactor]
     reject: [react, python, java]
     max_selected: 4
+  - id: c-layout
+    prompt: "C header와 source, static 함수 위치, pointer ownership과 snake_case public symbol을 정리해 줘"
+    profiles: [eval]
+    expect_primary: c
+    allow_support: [quality, naming, refactor]
+    reject: [cpp, cs]
+    max_selected: 3
+  - id: cpp-layout
+    prompt: "C++ header와 source, class access section, include 순서와 unique_ptr ownership을 정리해 줘"
+    profiles: [eval]
+    expect_primary: cpp
+    allow_support: [quality, naming, refactor]
+    reject: [c, cs]
+    max_selected: 3
+  - id: csharp-layout
+    prompt: "C# namespace와 file, class member 순서, nullable과 async API 이름을 정리해 줘"
+    profiles: [eval]
+    expect_primary: cs
+    allow_support: [quality, naming, refactor]
+    reject: [c, cpp, java]
+    max_selected: 3
   - id: naming-vocabulary
     prompt: "processData와 UserManager 같은 이름을 내가 선호하는 짧은 도메인 용어로 일관되게 바꿔 줘"
     profiles: [eval]

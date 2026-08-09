@@ -74,9 +74,9 @@ cases:
     prompt: "Java 초보자가 개념을 순서대로 이해할 수 있는 실행 예제와 Mermaid가 있는 학습 문서를 써 줘"
     profiles: [eval]
     expect_primary: tech
-    allow_support: [diagram]
+    allow_support: [diagram, java]
     reject: [career, docs]
-    max_selected: 2
+    max_selected: 3
   - id: interview-practice
     prompt: "내 프로젝트를 근거로 기술 면접 질문을 하나씩 내고 답변을 평가해 줘"
     profiles: [eval]

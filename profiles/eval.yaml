@@ -31,6 +31,9 @@ skills:
   - skills/knowledge/archive
   - skills/knowledge/knowledge
   - skills/knowledge/publish
+  - skills/language/c/c
+  - skills/language/cpp/cpp
+  - skills/language/csharp/cs
   - skills/language/java/java
   - skills/language/java/jpa
   - skills/language/java/spring

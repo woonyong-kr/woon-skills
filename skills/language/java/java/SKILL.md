@@ -15,4 +15,4 @@ JDK version, build tool, formatter/Checkstyle, package structure와 주변 type�
 6. checked/unchecked exception은 caller의 recovery contract로 결정한다.
 7. formatter, compiler, static analysis와 test를 실행한다.
 
-상세 파일 배치와 naming, class/interface/method 기준은 필요할 때 [Java design](references/design.md)을 읽는다.
+상세 파일 배치와 type 선택은 [Java design](references/design.md), import·member 순서·modifier·표기는 [규약](references/conventions.md)을 필요한 경우에만 읽는다.
