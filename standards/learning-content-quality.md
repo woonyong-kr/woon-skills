@@ -6,6 +6,22 @@
 
 대표 표본은 Java 입문의 메서드와 실전 Java 중급의 불변 객체, 예외 처리, 중첩 클래스 자료다. 모든 문서가 같은 목차를 가져야 한다는 뜻은 아니다.
 
+표본에서는 반복 코드나 공유 변경처럼 독자가 먼저 관찰할 문제를 제시하고, 실행 코드·결과·원인 설명·개념·개선·정리로 범위를 넓혔다. code identifier를 그림과 설명에서 유지하고 한 페이지나 section에서 변화 하나를 추적하게 했다. 이 구조적 특성만 적용하며 문장·코드·그림은 복제하지 않는다.
+
+## Document map
+
+작성 전에 산출물 밖의 짧은 장부를 만든다.
+
+- `audience`: 독자가 이미 실행할 수 있는 작업
+- `goal`: 문서 끝에서 독자가 판단하거나 구현할 수 있어야 하는 일
+- `requires`: 문서 밖에서 알고 있다고 가정하는 개념
+- `introduces`: 각 section이 처음 정의하는 개념
+- `evidence`: code, 실제 output, source 또는 diagram 중 claim을 확인할 근거
+
+제목과 heading hierarchy가 목차의 정본이다. 개념 의존 순서가 확정된 뒤 heading을 배치하고, 수동 목차는 대상 renderer의 anchor를 실제 확인할 수 있을 때만 생성한다. 정본 heading과 별개인 손편집 목차를 유지하지 않는다.
+
+독립 학습 문서는 문서의 학습 목표를 드러내는 H1을 정확히 하나 둔다. `$archive`에 전달하는 본문은 archive가 frontmatter와 H1을 소유하므로 H2부터 시작한다. 두 경우 모두 heading level을 건너뛰지 않는다.
+
 ## Text progression
 
 독자가 새 개념이 왜 필요한지 경험한 다음 이름을 배우게 한다.
@@ -41,12 +57,22 @@
 - section 하나는 질문 하나에 답한다.
 - 결론이나 현재 관찰을 section 첫 문장에 둔다.
 - prose, code, output, diagram에서 class·method·variable 이름을 동일하게 유지한다.
+- 첫 실행 예제, 그 output과 바로 뒤 diagram은 같은 source snapshot을 설명한다. 아직 제시하지 않은 개선 코드의 branch·catch·state를 현재 그림에 미리 넣지 않는다.
 - code 전에는 볼 이유를, code 뒤에는 관찰할 결과를 설명한다.
-- 실행 결과와 예상 결과를 구분한다.
+- output fence에는 `text` 또는 `console` language를 붙인다. 각 fence 바로 앞에서 실제 compile·run 결과인지, 실행하지 않은 예상 결과인지 표시하고 evidence 상태를 fence 뒤에서 뒤늦게 설명하지 않는다. stdout과 stderr를 나누면 각 channel 이름과 evidence 상태를 각각 표시한다.
 - 한 단계에서 바뀌는 조건을 최소화해 원인과 결과를 추적할 수 있게 한다.
 - 초급 설명은 용어를 제거하지 말고 처음 등장할 때 정의한다.
 - 중급 설명은 단순화를 명시하고 실제 failure mode와 한계를 남긴다.
 - 근거 없는 단정, 장식적 수사, AI narration을 제거한다.
+
+## Visual rhythm
+
+- heading 직후에는 그 section이 답할 질문이나 결론을 둔다.
+- code·output·diagram을 연속해서 던지지 말고 각각 앞뒤에 관찰 목적과 결과를 연결한다.
+- 한 code block은 한 변화만 보여 주고, 긴 전체 코드는 실행 가능한 source와 연결한 뒤 핵심 부분만 설명한다.
+- output은 code와 다른 fence로 분리하고 실제 실행 여부를 표시한다.
+- 같은 종류의 주의·한계는 같은 callout 또는 문장 형식을 사용한다. 색과 아이콘만으로 의미를 전달하지 않는다.
+- 문단, 목록, code와 diagram 사이에 충분한 여백을 두되 의미 없는 빈 section이나 장식용 표를 만들지 않는다.
 
 ## Diagram quality
 
@@ -62,6 +88,7 @@
 - light/dark mode에서 읽히도록 hard-coded fill과 text color를 피한다.
 - diagram 앞에는 질문, 뒤에는 독자가 읽어야 할 2~5개 관찰을 둔다.
 - source와 대조하고 Mermaid render에서 clipping, crossing, contrast를 확인한다.
+- before/after를 한 그림에 함께 놓으면 두 snapshot과 바뀐 지점을 명시적으로 구획한다. 그렇지 않으면 현재 code snapshot과 개선 snapshot을 별도 그림으로 나눈다.
 
 AI raster image로 code, memory, sequence를 설명하지 않는다. 실제 screenshot, 측정 chart, 물리적 대상처럼 Mermaid가 사실을 보존하지 못하는 자료만 별도 image를 사용한다.
 
@@ -76,3 +103,7 @@ AI raster image로 code, memory, sequence를 설명하지 않는다. 실제 scre
 - code와 diagram identifier가 source와 일치한다.
 - summary는 본문에 없던 주장을 추가하지 않는다.
 - 초급 독자가 따라갈 수 있고 숙련 독자가 잘못된 단순화를 발견하지 않는다.
+- heading hierarchy에서 level을 건너뛰지 않고 목차 순서와 개념 의존 순서가 일치한다.
+- code는 실제 compile·run 또는 명시한 정적 검사로 확인되고, output의 증거 상태가 표시된다.
+- Mermaid는 default·dark theme에서 실제 render되며 source와 생성물의 identifier가 일치한다.
+- Obsidian 정본이면 `repo://skills/standards/obsidian-compatibility.md`의 envelope·link·visibility gate를 함께 통과한다.

@@ -425,6 +425,11 @@
       "installable": true
     },
     {
+      "name": "learning",
+      "path": "profiles/learning.yaml",
+      "installable": true
+    },
+    {
       "name": "ops",
       "path": "profiles/ops.yaml",
       "installable": true

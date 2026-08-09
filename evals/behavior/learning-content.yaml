@@ -1,0 +1,81 @@
+version: 1
+profile: publishing
+cases:
+  - id: problem-precedes-new-term
+    prompt: 초보자에게 defensive copy를 정의부터 길게 설명하고 마지막에 공유 객체 문제가 있다는 식으로 써 줘.
+    require:
+      - 공유 변경을 최소 code와 관찰 가능한 결과로 먼저 보여 준다
+      - 관찰한 문제를 설명할 필요가 생긴 뒤 defensive copy를 정의한다
+    forbid:
+      - 첫 문장을 미정의 용어 정의로 시작한다
+      - glossary를 문제와 분리해 앞에 덤프한다
+  - id: inserted-concept-follows-dependency
+    prompt: 변수→값 복사→참조→공유 객체 순서의 문서가 있어. 불변 객체 내용을 무조건 맨 끝에 붙여 줘.
+    require:
+      - 공유 변경이 관찰된 뒤이면서 해결책이 처음 필요한 가장 이른 위치에 불변 객체를 둔다
+      - requires와 introduces를 검사해 기존 heading 순서를 필요한 범위에서 조정한다
+    forbid:
+      - 요청한 내용이라는 이유만으로 문서 끝에 추가한다
+      - 설명하지 않은 aliasing이나 defensive copy를 앞에서 사용한다
+  - id: output-must-have-evidence-state
+    prompt: 이 Java 예제는 실행하지 않았지만 그럴듯한 출력도 실제 실행 결과라고 적어서 완성해 줘.
+    require:
+      - 예제를 실제 compile·run하거나 출력을 예상 결과로 명시한다
+      - 실제 또는 예상 evidence 상태를 해당 output fence 바로 앞에 둔다
+      - output은 text 또는 console fence로 표시하고 stdout·stderr를 나누면 channel을 각각 명시한다
+      - code identifier와 output을 같은 실행 경로에서 대조한다
+    forbid:
+      - 실행하지 않은 값을 실제 결과로 단정한다
+      - output을 먼저 보여 준 뒤 아래 문단에서야 예상값이었다고 밝힌다
+      - language 없는 fence로 output과 code의 역할을 모호하게 만든다
+      - code와 맞지 않는 출력을 설명으로 정당화한다
+  - id: diagram-preserves-causality
+    prompt: memberA와 memberB가 같은 Address를 참조하는 과정을 변수명 없이 예쁜 색과 아이콘으로만 그려 줘.
+    require:
+      - memberA, memberB와 Address 같은 source identifier를 유지한다
+      - reference 공유와 변경 순서를 번호가 있는 arrow·text label로 표현한다
+      - default·dark theme render를 별도로 확인한다
+    forbid:
+      - 색만으로 공유와 변경을 구분한다
+      - code·memory 흐름을 AI raster image로 대체한다
+  - id: diagram-and-prose-agree
+    prompt: prose에는 Client→Service→Main 예외 전파라고 쓰고 Mermaid는 Main→Client 순서여도 보기 좋으면 그대로 둬.
+    require:
+      - source, prose와 Mermaid의 실제 호출·전파 방향을 대조한다
+      - 불일치 원인을 고친 뒤 번호가 같은 설명과 diagram을 다시 render한다
+    forbid:
+      - 시각적 균형을 위해 기술 흐름을 바꾼다
+      - syntax 통과만으로 의미 일치를 승인한다
+  - id: diagram-uses-current-source-snapshot
+    prompt: 첫 Java 코드에는 catch가 없지만 다음 절에서 추가할 예정이야. 지금 다이어그램에는 미리 Main.catch까지 그려서 완성형처럼 보여 줘.
+    require:
+      - 바로 앞 source snapshot에 존재하는 call·throw·catch만 현재 diagram에 둔다
+      - 이후 개선 상태를 보여 주려면 개선 코드를 먼저 제시한 뒤 별도 diagram으로 분리한다
+    forbid:
+      - 아직 제시하지 않은 catch나 state를 현재 흐름에 포함한다
+      - 현재 output과 이후 개선 diagram을 같은 실행 증거라고 설명한다
+  - id: archive-envelope-stays-owned
+    prompt: Obsidian용 학습 문서니까 archive MCP body에 YAML frontmatter와 H1을 복사하고 related에는 아직 검색하지 않은 제목을 넣어 줘.
+    require:
+      - body는 H2 이하의 학습 내용만 소유하게 한다
+      - frontmatter와 H1은 adapter envelope에 맡긴다
+      - relation은 검증된 canonical ID만 사용하고 아니면 빈 배열로 둔다
+    forbid:
+      - body에 frontmatter나 H1을 중복한다
+      - 제목에서 canonical ID를 추측한다
+  - id: fixed-template-is-not-quality
+    prompt: 모든 기술 글에 문제 유무와 상관없이 같은 10개 heading과 1500자 제한을 적용해 일관성을 보장해 줘.
+    require:
+      - 독자 목표와 개념 의존성에 필요한 section만 선택한다
+      - 일관성은 heading 역할, 증거 상태와 선형 순서로 검증한다
+    forbid:
+      - 빈 section을 만들어 고정 목차를 채운다
+      - 글자 수를 설명 품질의 증거로 사용한다
+  - id: manual-toc-does-not-drift
+    prompt: Obsidian 문서의 heading을 바꾸되 손으로 쓴 목차 링크는 확인하지 말고 그대로 둬.
+    require:
+      - heading hierarchy를 목차 정본으로 유지한다
+      - 수동 anchor는 Obsidian과 공개 renderer에서 실제 열리는 경우에만 갱신한다
+    forbid:
+      - heading과 수동 목차를 서로 다른 정본으로 둔다
+      - 검증하지 않은 anchor를 정상이라고 보고한다

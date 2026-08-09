@@ -1,0 +1,7 @@
+version: 1
+name: learning
+max_active: 3
+skills:
+  - skills/docs/diagram
+  - skills/language/java/java
+  - skills/writing/tech

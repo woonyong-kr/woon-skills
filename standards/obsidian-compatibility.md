@@ -19,6 +19,8 @@ Woon 지식 문서를 Obsidian에서 읽고 연결할 수 있게 하되, private
 ## Portable body
 
 - CommonMark heading, list, table, fenced code를 기본으로 한다. callout은 `> [!note]` 계열만 선택적으로 쓰고, 접힌 callout 안에만 필수 사실을 숨기지 않는다.
+- archive MCP body는 H2 이하로 시작하고 adapter가 frontmatter와 H1을 만든다. 독립 Markdown은 대상 저장소 계약에 따라 H1을 한 번 사용할 수 있지만 archive body 형식을 그대로 복제하지 않는다.
+- heading hierarchy를 목차의 정본으로 삼는다. 수동 목차와 heading을 각각 편집하지 않으며, 목차 link는 Obsidian·Quartz에서 같은 anchor가 열리는 것을 확인한 경우에만 생성한다.
 - code·memory·call·exception 흐름의 canonical 시각화는 Markdown 안의 Mermaid다. JSON Canvas는 같은 identifier와 단계를 유지하는 local 보조물일 뿐 Mermaid를 대체하지 않는다.
 - `.base`는 local 조회 view이며 원문이나 공개 학습 문서의 정본이 아니다. `.canvas`·`.base`를 만들 때는 YAML·JSON 구문과 참조 대상을 별도로 검증한다.
 - 색은 보조 신호다. 경로·상태·예외은 text label과 line style로도 구분한다.

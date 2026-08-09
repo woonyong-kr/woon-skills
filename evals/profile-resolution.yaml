@@ -61,6 +61,16 @@ cases:
     reject_skills:
       - skills/knowledge/archive
       - skills/knowledge/publish
+  - id: learning-loads-only-content-language-and-diagram
+    profiles: [learning]
+    expect_skills:
+      - skills/writing/tech
+      - skills/docs/diagram
+      - skills/language/java/java
+    reject_skills:
+      - skills/writing/career
+      - skills/docs/docs
+      - skills/knowledge/archive
   - id: knowledge-is-on-demand
     profiles: [knowledge]
     expect_skills:
