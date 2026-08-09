@@ -111,6 +111,14 @@ repositories:
     license: MIT
     improves: [skills/skill-system/budget, skills/git/commit, skills/common/review]
     decision: retain Woon's measured brevity, commit and review owners; do not add an always-on prose mode, compressed subagent presets or in-place memory rewriting because fresh baselines already pass net-cost, control-arm, clarity and canonical-safety cases with zero catalog tokens
+  - id: mvanhorn-last30days
+    upstream: https://github.com/mvanhorn/last30days-skill
+    checked_commit: 1004324ad35a3ba656e6df0faabd54749e398455
+    checked_version: 3.18.4
+    status: evaluated
+    license: MIT
+    improves: [skills/research/research]
+    decision: retain Woon research for ordinary current and historical windows; do not vendor a 54935-token, 18 MB engine when fresh date, source-failure and no-evidence baselines already pass, but reconsider the external plugin behind an explicit preflight when authenticated multi-platform engagement data is actually required
   - id: ecc-legacy-vendor
     upstream: https://github.com/Jungle-12-303/skills.git
     status: vendor-locked

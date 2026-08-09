@@ -1,0 +1,51 @@
+version: 1
+repository: mvanhorn/last30days-skill
+upstream: https://github.com/mvanhorn/last30days-skill
+checked_commit: 1004324ad35a3ba656e6df0faabd54749e398455
+checked_version: 3.18.4
+checked_at: '2026-08-10'
+license: MIT
+scope:
+  skill_files: 1
+  support_files: Python research engine, MCP bundle, hooks, manifests, fixtures, evaluation harness and documentation
+decision: evaluated-no-change
+evidence:
+  repository_state:
+    latest_release: 3.18.4 published 2026-07-28
+    checked_commit_date: 2026-08-07
+    stars_at_check: 57730
+  context_surface:
+    skill_lines: 2255
+    skill_chars: 221743
+    skill_o200k_tokens: 54935
+    bundled_python_files: 94
+    bundled_python_lines: 50780
+    bundled_shell_files: 5
+    skill_directory_size: 18 MB
+  upstream_validation:
+    tests: 3607 passed, 5 skipped, 48 subtests passed
+    coverage: 88.45 percent, above the 84 percent gate
+    warnings: 112, including repeated unclosed SQLite connection ResourceWarnings
+    frozen_lock: passed
+    dependency_audit: 0 known vulnerabilities
+  behavior_baseline:
+    current_window: passed; separated publication and event dates, rejected an old viral benchmark and did not treat an official release as user demand
+    historical_as_of: passed; fixed a half-open timezone window, separated event, publication, update, archive and retrieval times, and excluded post-window edits
+    partial_coverage: passed; reported auth-required, timeout, irrelevant and press-release-only lanes and returned an honest insufficient-evidence result
+  quality_strengths:
+    retrieval: date filtering, entity grounding before engagement, normalization, deduplication and per-source outcomes
+    empty_result: nothing-solid is a first-class valid outcome rather than a prompt to fabricate
+    evaluation: deterministic regression metrics plus optional judged Precision@5 and nDCG@5 with explicit limitations
+    security: preflight, project-config trust boundaries, secret hygiene and multiple provider fallbacks are covered by tests
+  adoption:
+    new_runtime_skills: 0
+    changed_runtime_skills: 0
+    added_inventory_o200k_tokens: 0
+    reason: Woon already passed every portable behavior case; importing the engine would add excessive conditional context, executable surface and optional credential handling
+    reconsider_when: a task explicitly requires authenticated Reddit, X, YouTube, TikTok or other social engagement data unavailable through ordinary web research
+skills:
+  - name: last30days
+    purpose: research a fixed recent or historical time window across community, editorial, official, scholarly and market sources with engagement and partial-coverage reporting
+    overlap: research and lookup already own freshness, primary-source priority, event versus publication dates, claim-level citations and uncertainty
+    decision: evaluate-no-change
+    reason: three fresh adversarial baselines passed without the 54935-token contract; keep the external engine optional until a live source-coverage gap justifies installation and credential preflight
