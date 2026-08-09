@@ -28,7 +28,11 @@ DIAGRAM_VERIFIER = (
     Path(__file__).resolve().parents[3]
     / "skills/docs/diagram/scripts/verify-mermaid.sh"
 )
-GRADER_VERSION = "deterministic-v5"
+GRADER_VERSION = "deterministic-v6"
+NUMBERED_EXPLANATION = re.compile(
+    r"^\s*(?:\d+[.)]\s+|[-*]\s+(?:[①-⑳]|\*\*\d+\*\*(?:[.:])?|\d+(?:\s*,\s*\d+)*[.):]))",
+    re.MULTILINE,
+)
 
 WEIGHTS = {
     "problem_before_definition": 2,
@@ -50,7 +54,7 @@ def concept_mentions(markdown: str, concept_term: str) -> list[re.Match[str]]:
     elif concept_term == "예외 전파":
         pattern = (
             r"예외\s*전파|예외(?:가|는|를|의)?[^\n.!?]{0,40}"
-            r"(?:전파|전달|호출한 쪽으로[^\n.!?]{0,20}올라)"
+            r"(?:전파|전달|넘어|이동|거슬러\s*올라|호출한 쪽으로[^\n.!?]{0,20}올라)"
         )
     else:
         pattern = re.escape(concept_term)
@@ -104,7 +108,7 @@ def java_output_pairs(markdown: str) -> list[tuple[str, str, int, bool]]:
             evidence_region = markdown[previous_end : output_block.start()]
             evidence_before = evidence_before and (
                 re.search(
-                    r"실제(?:로|\s+compile|\s+컴파일|\s+실행|\s*·|[^.\n]{0,60}(?:컴파일|compile|실행|결과|확인))|직접|검증한 결과|실행 결과|예상(?:한|되는|\s+실행|\s*값|\s+결과)|결과를 예상|미실행",
+                    r"실제(?:로|\s+compile|\s+컴파일|\s+실행|\s*·|[^.\n]{0,60}(?:컴파일|compile|실행|결과|확인))|직접|검증한 결과|실행 결과|(?:직접\s*)?실행하지\s*않(?:았|은|고)|예상(?:한|되는|\s+실행|\s*값|\s+결과|\s+(?:stdout|stderr|output|출력))|결과를 예상|미실행",
                     evidence_region,
                 )
                 is not None
@@ -141,6 +145,23 @@ def diagram_snapshot_mismatches(markdown: str) -> list[str]:
     return mismatches
 
 
+def has_explicit_diagram_question(context: str) -> bool:
+    return (
+        "?" in context
+        or "답합니다" in context
+        or re.search(
+            r"다음 그림은[^.\n]*(?:어디|왜|어떻게)[^.\n]*(?:보여|설명)",
+            context,
+        )
+        is not None
+        or re.search(
+            r"(?:무엇|어떤|어느|왜|어떻게|어디|언제|누가)[^\n]{0,300}(?:가|까)\.",
+            context,
+        )
+        is not None
+    )
+
+
 def score_artifact(
     markdown: str,
     identifiers: tuple[str, ...],
@@ -174,6 +195,16 @@ def score_artifact(
 
     java_blocks = fenced_blocks(markdown, "java")
     output_pairs = java_output_pairs(markdown)
+    mixed_command_output = any(
+        re.search(
+            r"^\s*\$\s*(?:javac|java|mvn|gradle|\./gradlew|python\d*|node|npm|pnpm|yarn|cargo|go|dotnet)\b",
+            output,
+            re.MULTILINE,
+        )
+        for _, output, _, _ in output_pairs
+    )
+    if mixed_command_output:
+        hard_fail.append("shell_command_mixed_into_output_evidence")
     documented_output, output_position, output_evidence_before = (
         (output_pairs[0][1], output_pairs[0][2], all(pair[3] for pair in output_pairs))
         if output_pairs
@@ -231,7 +262,9 @@ def score_artifact(
             source = work / f"diagram-{position}.mmd"
             source.write_text(diagram + "\n", encoding="utf-8")
             output_dir = work / "rendered"
-            completed = run([str(DIAGRAM_VERIFIER), str(source), str(output_dir)], work)
+            completed = run(
+                [str(DIAGRAM_VERIFIER), str(source), str(output_dir), "640"], work
+            )
             default_output = output_dir / f"diagram-{position}-default.svg"
             dark_output = output_dir / f"diagram-{position}-dark.svg"
             rendered = (
@@ -249,9 +282,7 @@ def score_artifact(
     if snapshot_mismatches:
         hard_fail.append("code_diagram_snapshot_mismatch")
     arrow_count = len(NUMBERED_ARROW.findall(combined_diagrams))
-    numbered_explanations = len(
-        re.findall(r"^\s*(?:\d+\.\s+|[-*]\s+[①-⑳])", markdown, re.MULTILINE)
-    )
+    numbered_explanations = len(NUMBERED_EXPLANATION.findall(markdown))
     if arrow_count >= 3 and numbered_explanations >= 3:
         scores["causal_walkthrough"] = 2
 
@@ -286,15 +317,7 @@ def score_artifact(
     question_before_diagram = True
     for match in re.finditer(r"```mermaid", markdown):
         context = markdown[max(0, match.start() - 400) : match.start()]
-        explicit_question = (
-            "?" in context
-            or "답합니다" in context
-            or re.search(
-                r"다음 그림은[^.\n]*(?:어디|왜|어떻게)[^.\n]*(?:보여|설명)",
-                context,
-            )
-            is not None
-        )
+        explicit_question = has_explicit_diagram_question(context)
         question_before_diagram = question_before_diagram and explicit_question
     if diagrams and question_before_diagram and arrow_count >= 3:
         scores["diagram_question_and_numbered_flow"] = 2
@@ -330,6 +353,7 @@ def score_artifact(
             "run_returncode": run_returncode,
             "output_matches": output_matches,
             "output_evidence_before": output_evidence_before,
+            "shell_command_mixed_into_output": mixed_command_output,
             "java_output_pairs": len(output_pairs),
             "executed_java_block": executed_java_block,
             "compile_detail": compile_detail,

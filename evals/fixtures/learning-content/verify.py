@@ -11,7 +11,7 @@ FENCE = re.compile(r"```(?P<language>[a-zA-Z0-9_-]+)\n(?P<body>.*?)\n```", re.DO
 HEADING = re.compile(r"^(?P<marks>#{1,6})\s+(?P<title>.+)$", re.MULTILINE)
 FORBIDDEN_MERMAID = re.compile(r"\b(style|classDef|themeVariables)\b|#[0-9a-fA-F]{3,8}")
 NUMBERED_ARROW = re.compile(
-    r"(?:->>|-->>|-->|-\.->|--x|-x).*?(?:\b\d+[:.)]?(?=\s|[\"'|])|[①-⑳])"
+    r"(?:->>|-->>|-->|-\.->|--x|-x).*?(?:\b\d+(?:[:.)]|(?=\s|[\"'|]))|[①-⑳])"
 )
 
 

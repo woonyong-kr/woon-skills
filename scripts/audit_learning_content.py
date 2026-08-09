@@ -200,6 +200,54 @@ def audit_learning_content(root: Path) -> list[str]:
                 errors.append(
                     f"{result_path}: {executor_name} candidate requires three full-score passes"
                 )
+    hardening = result.get("usability_hardening")
+    if not isinstance(hardening, dict):
+        errors.append(f"{result_path}: usability hardening evidence is missing")
+    else:
+        status = hardening.get("status")
+        codex_hardening = hardening.get("codex")
+        claude_hardening = hardening.get("claude")
+        if not isinstance(codex_hardening, dict) or (
+            codex_hardening.get("trials") != 3
+            or codex_hardening.get("passed") != 3
+            or codex_hardening.get("scores") != [maximum, maximum, maximum]
+        ):
+            errors.append(f"{result_path}: hardening Codex requires three full passes")
+        if not isinstance(claude_hardening, dict):
+            errors.append(f"{result_path}: hardening Claude evidence is missing")
+        else:
+            requested = claude_hardening.get("requested_trials")
+            completed = claude_hardening.get("completed_trials")
+            passed = claude_hardening.get("passed")
+            scores = claude_hardening.get("scores")
+            valid_completed = (
+                requested == 3
+                and isinstance(completed, int)
+                and 1 <= completed <= requested
+                and passed == completed
+                and isinstance(scores, list)
+                and len(scores) == completed
+                and all(score == maximum for score in scores)
+            )
+            if not valid_completed:
+                errors.append(
+                    f"{result_path}: hardening Claude evidence is inconsistent"
+                )
+            elif status == "complete" and completed != requested:
+                errors.append(
+                    f"{result_path}: completed hardening requires three Claude passes"
+                )
+            elif status == "blocked_by_external_rate_limit":
+                if claude_hardening.get(
+                    "blocked_trials"
+                ) != requested - completed or not isinstance(
+                    claude_hardening.get("reset_at"), str
+                ):
+                    errors.append(
+                        f"{result_path}: blocked hardening requires reset evidence"
+                    )
+            elif status != "complete":
+                errors.append(f"{result_path}: unknown usability hardening status")
     optimization = result.get("context_optimization")
     rejected = optimization.get("rejected") if isinstance(optimization, dict) else None
     if not isinstance(rejected, list) or len(rejected) < 2:

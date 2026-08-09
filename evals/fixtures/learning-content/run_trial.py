@@ -13,6 +13,7 @@ from pathlib import Path
 from score_artifact import score_artifact
 
 TRIAL_TIMEOUT_SECONDS = 300
+CLAUDE_EFFORT = "medium"
 
 
 def parse_codex_usage(raw: str) -> dict[str, int]:
@@ -86,6 +87,8 @@ def run_claude(
         "--print",
         "--verbose",
         "--safe-mode",
+        "--effort",
+        CLAUDE_EFFORT,
         "--no-session-persistence",
         "--permission-mode",
         "dontAsk",
@@ -264,6 +267,7 @@ def main() -> int:
         "variant": args.variant,
         "model": args.model or "executor-default-unverified",
         "context_mode": args.context_mode,
+        "effort": CLAUDE_EFFORT if args.executor == "claude" else "executor-default",
         "returncode": completed.returncode,
         "duration_seconds": round(duration, 3),
         "usage": usage,

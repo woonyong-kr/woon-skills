@@ -92,6 +92,21 @@ class AuditLearningContentTest(unittest.TestCase):
             any("full-score passes" in error for error in audit_learning_content(root))
         )
 
+    def test_rejects_unexplained_incomplete_hardening(self) -> None:
+        root = self.make_root()
+        path = root / "evals/results/learning-content-2026-08-10.yaml"
+        path.write_text(
+            path.read_text().replace(
+                "status: blocked_by_external_rate_limit", "status: incomplete", 1
+            )
+        )
+        self.assertTrue(
+            any(
+                "unknown usability hardening status" in error
+                for error in audit_learning_content(root)
+            )
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

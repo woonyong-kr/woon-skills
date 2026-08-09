@@ -59,7 +59,8 @@
 - prose, code, output, diagram에서 class·method·variable 이름을 동일하게 유지한다.
 - 첫 실행 예제, 그 output과 바로 뒤 diagram은 같은 source snapshot을 설명한다. 아직 제시하지 않은 개선 코드의 branch·catch·state를 현재 그림에 미리 넣지 않는다.
 - code 전에는 볼 이유를, code 뒤에는 관찰할 결과를 설명한다.
-- output fence에는 `text` 또는 `console` language를 붙인다. 각 fence 바로 앞에서 실제 compile·run 결과인지, 실행하지 않은 예상 결과인지 표시하고 evidence 상태를 fence 뒤에서 뒤늦게 설명하지 않는다. stdout과 stderr를 나누면 각 channel 이름과 evidence 상태를 각각 표시한다.
+- output fence에는 `text` 또는 `console` language를 붙인다. 문서 안의 **모든 output fence 각각**의 바로 위 한 줄은 `검증 상태: 실제 compile·run 결과` 또는 `검증 상태: 미실행 예상 결과` 중 정확히 하나다. 첫 output에만 표시하거나 code 앞·fence 뒤에서 대신 설명하지 않는다. stdout과 stderr를 나누면 각 channel 이름을 같은 줄에 덧붙인다.
+- shell command는 `bash` 또는 command-only `console` fence에, stdout·stderr는 별도 output fence에 둔다. output fence에 `$ javac`, `$ java` 같은 prompt를 섞지 않는다. 완전한 source가 아닌 부분 snippet·method 교체안에는 독립 compile·run 결과를 붙이지 않는다. 결과가 필요하면 완전한 source를 다시 제시하거나 앞의 실행 가능한 source에 적용할 diff임을 명시하고 전체 source로 검증한다.
 - 한 단계에서 바뀌는 조건을 최소화해 원인과 결과를 추적할 수 있게 한다.
 - 초급 설명은 용어를 제거하지 말고 처음 등장할 때 정의한다.
 - 중급 설명은 단순화를 명시하고 실제 failure mode와 한계를 남긴다.
@@ -88,6 +89,8 @@
 - light/dark mode에서 읽히도록 hard-coded fill과 text color를 피한다.
 - diagram 앞에는 질문, 뒤에는 독자가 읽어야 할 2~5개 관찰을 둔다.
 - source와 대조하고 Mermaid render에서 clipping, crossing, contrast를 확인한다.
+- Obsidian에서 볼 문서는 640 CSS px split pane에서도 핵심 label과 arrow가 가로 스크롤 없이 읽혀야 한다. diagram 자연 폭은 20px 안전 여유를 둔 620px 이하로 설계하고 최종 acceptance만 640px로 판정한다.
+- 3-participant `sequenceDiagram`은 Mermaid fence 첫 줄에 `%%{init: {"sequence": {"actorMargin": 24, "width": 112}}}%%`를 정확히 둔다. participant에는 실제 짧은 identifier만 두고 arrow label은 번호를 포함해 한글 16자 이내로 줄이며 type·signature와 긴 설명은 prose로 옮긴다.
 - before/after를 한 그림에 함께 놓으면 두 snapshot과 바뀐 지점을 명시적으로 구획한다. 그렇지 않으면 현재 code snapshot과 개선 snapshot을 별도 그림으로 나눈다.
 
 AI raster image로 code, memory, sequence를 설명하지 않는다. 실제 screenshot, 측정 chart, 물리적 대상처럼 Mermaid가 사실을 보존하지 못하는 자료만 별도 image를 사용한다.

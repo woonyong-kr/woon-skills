@@ -29,7 +29,9 @@ outputs_after_first_java = SCORE_MODULE.outputs_after_first_java
 java_output_pairs = SCORE_MODULE.java_output_pairs
 concept_mentions = SCORE_MODULE.concept_mentions
 is_console_command_block = SCORE_MODULE.is_console_command_block
+has_explicit_diagram_question = SCORE_MODULE.has_explicit_diagram_question
 NUMBERED_ARROW = MODULE.NUMBERED_ARROW
+NUMBERED_EXPLANATION = SCORE_MODULE.NUMBERED_EXPLANATION
 
 
 class LearningContentTest(unittest.TestCase):
@@ -78,8 +80,19 @@ class LearningContentTest(unittest.TestCase):
     B-->>A: 2. response
     A->>A: ③ finish
     A--xB: 4: failure
+    B-->>A: 5:response
 """
-        self.assertEqual(len(NUMBERED_ARROW.findall(diagram)), 4)
+        self.assertEqual(len(NUMBERED_ARROW.findall(diagram)), 5)
+
+    def test_accepts_common_numbered_explanation_formats(self) -> None:
+        explanations = """1. 첫 단계
+2) 둘째 단계
+- 3. 셋째 단계
+- **4** 넷째 단계
+* ⑤ 다섯째 단계
+- 6, 7: 여섯째와 일곱째 단계
+"""
+        self.assertEqual(len(NUMBERED_EXPLANATION.findall(explanations)), 6)
 
     def test_rejects_diagram_control_flow_absent_from_preceding_code(self) -> None:
         markdown = """```java
@@ -249,8 +262,87 @@ catch 위치를 바꾼다.
         markdown = (
             "예외가 NetworkService를 거쳐 Main으로 전파된다.\n"
             "예외를 호출한 쪽으로 계속 전달한다.\n"
+            "예외가 호출 스택을 따라 이동한다.\n"
+            "예외는 호출 스택을 거슬러 올라간다.\n"
         )
-        self.assertEqual(len(concept_mentions(markdown, "예외 전파")), 2)
+        self.assertEqual(len(concept_mentions(markdown, "예외 전파")), 4)
+
+    def test_each_output_fence_requires_its_own_evidence_state(self) -> None:
+        markdown = """# 예제
+
+```java
+class Main { public static void main(String[] args) { System.out.println("one"); } }
+```
+
+실제 compile·run 결과입니다.
+
+```text
+one
+```
+
+```java
+class Other { public static void main(String[] args) { System.out.println("two"); } }
+```
+
+출력 순서는 다음과 같습니다.
+
+```text
+two
+```
+"""
+        pairs = java_output_pairs(markdown)
+        self.assertEqual(len(pairs), 2)
+        self.assertTrue(pairs[0][3])
+        self.assertFalse(pairs[1][3])
+
+    def test_accepts_natural_unexecuted_output_evidence_phrasing(self) -> None:
+        variants = (
+            "이 버전 역시 실행하지 않았고, 아래는 예상 stdout이다.",
+            "아래는 실행하지 않은 예상 stderr다.",
+            "다음 output은 직접 실행하지 않고 추적한 값이다.",
+        )
+        for evidence in variants:
+            with self.subTest(evidence=evidence):
+                markdown = f"""```java
+class Main {{}}
+```
+
+{evidence}
+
+```text
+expected
+```
+"""
+                self.assertTrue(outputs_after_first_java(markdown)[2])
+
+    def test_accepts_korean_interrogative_sentence_before_diagram(self) -> None:
+        self.assertTrue(
+            has_explicit_diagram_question(
+                "CustomException은 어떤 순서로 Main까지 도달하는가.\n\n"
+            )
+        )
+        self.assertFalse(
+            has_explicit_diagram_question(
+                "CustomException이 Main까지 도달하는 경로를 나열한다.\n\n"
+            )
+        )
+
+    def test_rejects_shell_command_mixed_into_output_fence(self) -> None:
+        markdown = """# 예제
+
+```java
+class Main { public static void main(String[] args) { System.out.println("ok"); } }
+```
+
+검증 상태: 미실행 예상 결과
+
+```console
+$ javac Main.java && java Main
+ok
+```
+"""
+        result = score_artifact(markdown, ("Main",), "예제")
+        self.assertIn("shell_command_mixed_into_output_evidence", result["hard_fail"])
 
     def test_accepts_obsidian_index_contract(self) -> None:
         fixture = ROOT / "evals/fixtures/learning-content/obsidian-index.md"

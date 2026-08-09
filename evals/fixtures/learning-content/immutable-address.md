@@ -66,14 +66,15 @@ public class AddressLesson {
 다음 그림은 “`memberB.moveTo("부산")`가 왜 `memberA.city`에도 보이는가?”에 답합니다.
 
 ```mermaid
+%%{init: {"sequence": {"actorMargin": 24, "width": 112}}}%%
 sequenceDiagram
     participant memberA
     participant memberB
-    participant sharedAddress as sharedAddress: MutableAddress
-    memberA->>sharedAddress: 1. 같은 참조를 보관
-    memberB->>sharedAddress: 2. 같은 참조를 보관
-    memberB->>sharedAddress: 3. moveTo("부산")
-    sharedAddress-->>memberA: 4. city == "부산"
+    participant sharedAddress
+    memberA->>sharedAddress: 1. 참조 보관
+    memberB->>sharedAddress: 2. 참조 보관
+    memberB->>sharedAddress: 3. moveTo
+    sharedAddress-->>memberA: 4. city=부산
 ```
 
 1. `memberA`가 `sharedAddress`를 가리킵니다.
@@ -88,7 +89,7 @@ sequenceDiagram
 다음 그림은 “새 `Address`를 반환하면 두 회원의 주소가 어떻게 분리되는가?”에 답합니다.
 
 ```mermaid
-flowchart LR
+flowchart TD
     addressA["addressA<br/>Address(city=서울)"]
     moveTo["moveTo(부산)"]
     addressB["addressB<br/>Address(city=부산)"]

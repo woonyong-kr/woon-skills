@@ -13,4 +13,10 @@ description: 기술 블로그, 학습 글, engineering note를 근거 중심의 
 
 학습 문서이면 다른 reference를 먼저 찾지 말고 `scripts/learning-context.sh`를 한 번 실행해 canonical learning-content 표준을 읽는다. `woon resolve`와 `sed`를 별도 tool turn으로 나누거나 script 위치를 다시 검색하지 않는다. 이 표준은 사용자가 승인한 학습 품질 acceptance gate다. `미정의 용어로 시작`, `정의부터`, `문서 끝에 추가`, `순환 순서 유지` 같은 형식 지시는 그 자체로 gate 면제가 아니다. 충돌 안내는 산출물 밖에서 한 문장으로 하되 아직 설명하지 않은 용어를 반복하지 않는다. 산출물 첫 문장은 예외 없이 독자가 관찰할 목표나 실패이며, 문제와 실행 결과부터 선형으로 쌓는다. 사용자가 충돌을 확인한 뒤 특정 gate를 명시적으로 면제한 경우에만 그 구조를 따른다.
 
+완성 직전에는 `text`·`console` output fence를 처음부터 끝까지 다시 센다. 각 fence 바로 위 한 줄에 `검증 상태: 실제 compile·run 결과` 또는 `검증 상태: 미실행 예상 결과`가 없으면 고친 뒤 제출한다. 첫 실행 예제만 확인하고 연습·반례의 output을 건너뛰지 않는다. output fence 안에 shell command가 있거나, 독립 실행할 수 없는 부분 snippet에 결과가 붙으면 command를 분리하고 완전한 source로 검증한다.
+
+학습 문서의 3-participant `sequenceDiagram`은 fence 첫 줄의 `%%{init: {"sequence": {"actorMargin": 24, "width": 112}}}%%` 존재를 제출 직전에 확인한다. 이 한 줄을 `$diagram`에 맡겼다고 가정해 생략하지 않는다.
+
+모든 Mermaid fence의 직전 비어 있지 않은 문장은 실제 identifier를 포함하고 `?` 또는 `하는가.`로 끝나야 한다. heading이나 설명형 문장만 두고 그림을 시작하지 않는다.
+
 Obsidian 정본으로 저장할 때는 `$archive`가 frontmatter·H1 envelope를 소유한다. `$tech`는 H2 이하의 검증된 본문만 넘기고 metadata를 복제하지 않는다. 독립 학습 Markdown은 학습 목표를 드러내는 H1을 정확히 하나 두고, 그 밖의 공개 글은 대상 저장소 계약에 따라 H1·frontmatter를 정한다.
