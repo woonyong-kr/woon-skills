@@ -1,0 +1,4 @@
+interface:
+  display_name: "Markdown 학습 다이어그램"
+  short_description: "light/dark mode에서 읽히는 무채색 Mermaid 학습 다이어그램 작성"
+  default_prompt: "학습 문서에 맞는 간결한 Mermaid 다이어그램을 작성해 주세요."

@@ -10,7 +10,8 @@ skills:
   - vendor/ecc/context-budget
   - vendor/ecc/documentation-lookup
   - vendor/ecc/knowledge-ops
-  - personal/woon-knowledge-automation
+  - personal/woon-conversation-archive
+  - personal/woon-markdown-diagrams
   - vendor/ecc/repo-scan
   - vendor/ecc/safety-guard
   - vendor/ecc/search-first

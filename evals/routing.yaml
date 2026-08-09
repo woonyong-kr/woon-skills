@@ -36,3 +36,15 @@ cases:
       - vendor/ecc/three-persona-multi-agent-review
     reject_skills:
       - vendor/ecc/docker-mounted-workspace
+  - id: conversation-archive-uses-canonical-knowledge
+    profiles: [core]
+    prompt: "지금까지 대화를 정리해서 내 위키에 중복 없이 저장해 줘"
+    expect_skills:
+      - personal/woon-conversation-archive
+    reject_skills:
+      - personal/tech-blog-writing
+  - id: learning-diagram-uses-mermaid-standard
+    profiles: [core]
+    prompt: "이 객체 상태 변화를 다크모드에서도 읽히는 Mermaid로 그려 줘"
+    expect_skills:
+      - personal/woon-markdown-diagrams
