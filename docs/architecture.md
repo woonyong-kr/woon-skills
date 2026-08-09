@@ -1,9 +1,9 @@
 # Architecture
 
-`woon-skills`는 skill source, profile, routing/effect policy를 소유하고 `woon-core`의 `woon skills`가 resolve·validate·install합니다.
+`woon-skills`는 root catalog, skill source, profile, routing/effect policy를 소유하고 `woon-core`의 `woon skills`가 resolve·validate·install합니다.
 
 ```text
-source lock + skills/<domain>/<name>
+catalog.json + source lock + skills/<domain>/<name>
                 ↓
       profile-resolution validation
                 ↓
@@ -17,6 +17,7 @@ source lock + skills/<domain>/<name>
 ## 소유권
 
 - `skills/`: Woon canonical. 다른 저장소에 복사하지 않습니다.
+- `catalog.json`: `SKILL.md`에서 생성한 이름·경로·description 검색 색인입니다.
 - `vendor/`: upstream commit과 license를 고정하고 직접 수정하지 않습니다.
 - `profiles/`: 설치할 reference와 `max_active`를 선언합니다.
 - `conflicts/effects.yaml`: read/write/process/network와 GitHub side effect를 선언합니다.
@@ -27,10 +28,10 @@ source lock + skills/<domain>/<name>
 
 ## token 경계
 
-항상 노출되는 name/description은 180자 이하이며 profile은 목적별 최소 집합입니다. SKILL body는 trigger 때만, reference는 특정 상세 규칙이 필요할 때만 읽습니다. MCP는 해당 작업에서만 on-demand로 활성화합니다.
+항상 노출되는 name/description은 80 `o200k_base` token을 기본 검토선으로 삼고 tokenizer가 없을 때만 180자를 추정 fallback으로 사용합니다. `SKILL.md` 500 token과 실제 실행 p95 10% 증가는 자동 실패가 아니라 품질 근거가 필요한 검토선입니다. 본문은 trigger 때만, reference는 실제 상세 규칙이 필요할 때만 읽습니다. MCP는 해당 작업에서만 on-demand로 활성화합니다.
 
 knowledge profile은 전체 catalog나 vendor를 노출하지 않고 `safety, knowledge, archive, diagram` 4개만 설치합니다. private knowledge는 `repo://skills/skills/knowledge/...`를 참조하고 절대 사용자 경로를 commit하지 않습니다.
 
 ## 이식성
 
-repository path는 Woon registry가 `repo://<id>/...`로 해석합니다. Codex와 Claude 설치 대상은 OS 기본값 또는 machine-local `WOON_CODEX_SKILLS_HOME`, `WOON_CLAUDE_SKILLS_HOME`에서만 정합니다.
+repository path는 Woon registry가 `repo://<id>/...`로 해석합니다. Codex와 Claude는 같은 catalog·profile·스킬 정본을 사용하고 설치 대상만 OS 기본값 또는 machine-local `WOON_CODEX_SKILLS_HOME`, `WOON_CLAUDE_SKILLS_HOME`에서 정합니다. `installable: false` profile은 catalog·routing 평가 전용이며 어느 target에도 설치하지 않습니다.

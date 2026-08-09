@@ -1,3 +1,4 @@
 interface:
   display_name: "Market"
-  short_description: "Help with Market tasks and workflows"
+  short_description: "시장·경쟁 대안·가격·채택 신호와 기회 규모를 비교합니다"
+  default_prompt: "$market로 다음 요청을 처리해 주세요: [요청]"

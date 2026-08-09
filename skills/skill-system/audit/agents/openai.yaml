@@ -1,3 +1,4 @@
 interface:
   display_name: "Audit"
-  short_description: "Help with Audit tasks and workflows"
+  short_description: "스킬 구조·metadata·source와 연결 무결성을 검사합니다"
+  default_prompt: "$audit으로 변경된 스킬과 catalog의 정적 품질 위반을 검사해 주세요."

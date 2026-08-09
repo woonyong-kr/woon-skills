@@ -1,3 +1,4 @@
 interface:
   display_name: "Docs"
-  short_description: "Help with Docs tasks and workflows"
+  short_description: "코드와 실제 명령에 맞는 개발 문서를 작성합니다"
+  default_prompt: "$docs로 다음 요청을 처리해 주세요: [요청]"

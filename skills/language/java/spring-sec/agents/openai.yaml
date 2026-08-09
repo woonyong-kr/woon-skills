@@ -1,3 +1,4 @@
 interface:
   display_name: "Spring Sec"
-  short_description: "Help with Spring Sec tasks"
+  short_description: "Spring Security 인증·인가와 보안 test를 설계합니다"
+  default_prompt: "$spring-sec로 다음 요청을 처리해 주세요: [요청]"

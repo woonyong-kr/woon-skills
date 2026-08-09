@@ -1,3 +1,4 @@
 interface:
   display_name: "Security"
-  short_description: "Help with Security tasks and workflows"
+  short_description: "코드·설정·dependency의 보안 위험을 검토합니다"
+  default_prompt: "$security로 다음 요청을 처리해 주세요: [요청]"

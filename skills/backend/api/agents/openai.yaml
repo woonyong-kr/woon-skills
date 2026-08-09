@@ -1,3 +1,4 @@
 interface:
   display_name: "API"
-  short_description: "Help with API tasks and workflows"
+  short_description: "HTTP·REST API 계약과 오류·버전 정책을 설계합니다"
+  default_prompt: "$api로 다음 요청을 처리해 주세요: [요청]"

@@ -1,3 +1,4 @@
 interface:
   display_name: "Budget"
-  short_description: "Help with Budget tasks and workflows"
+  short_description: "실제 문맥 비용과 품질 대비 토큰 증감을 판단합니다"
+  default_prompt: "$budget으로 이 profile의 Codex·Claude 문맥 비용과 최적화 근거를 비교해 주세요."

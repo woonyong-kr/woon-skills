@@ -1,3 +1,4 @@
 interface:
   display_name: "Java"
-  short_description: "Help with Java tasks and workflows"
+  short_description: "Java package·type·method·visibility 구조를 설계합니다"
+  default_prompt: "$java로 다음 요청을 처리해 주세요: [요청]"

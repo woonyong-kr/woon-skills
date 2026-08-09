@@ -1,3 +1,4 @@
 interface:
   display_name: "PR"
-  short_description: "Help with PR tasks and workflows"
+  short_description: "GitHub Pull Request와 review comment를 처리합니다"
+  default_prompt: "$pr로 다음 요청을 처리해 주세요: [요청]"

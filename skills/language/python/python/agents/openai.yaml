@@ -1,3 +1,4 @@
 interface:
   display_name: "Python"
-  short_description: "Help with Python tasks and workflows"
+  short_description: "Python package·Protocol·typing·API 구조를 설계합니다"
+  default_prompt: "$python로 다음 요청을 처리해 주세요: [요청]"

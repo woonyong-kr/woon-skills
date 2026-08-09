@@ -17,6 +17,10 @@ jobs:
       - uses: actions/checkout@v7
         with:
           path: woon/woon-skills
+      - name: Audit generated skill catalog
+        shell: bash
+        working-directory: woon/woon-skills
+        run: python scripts/audit_skills.py
       - name: Resolve locked woon release
         id: toolchain
         shell: bash

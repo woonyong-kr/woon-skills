@@ -1,3 +1,4 @@
 interface:
   display_name: "Notify"
-  short_description: "Help with Notify tasks and workflows"
+  short_description: "GitHub 알림·review 요청·실패 check를 정리합니다"
+  default_prompt: "$notify로 다음 요청을 처리해 주세요: [요청]"

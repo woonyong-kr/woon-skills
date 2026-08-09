@@ -5,6 +5,13 @@ policy:
   vendor_copy: pin commit and preserve upstream license
   woon_derivation: rewrite narrowly, record sources, validate routing and behavior
 repositories:
+  - id: agent-skills-spec
+    upstream: https://github.com/agentskills/agentskills
+    checked_commit: 217be548739f21d6008915c29aefe320ea1a90af
+    status: adopted-standard
+    license: Apache-2.0-code-and-CC-BY-4.0-docs
+    improves: [skills/skill-system/audit, skills/skill-system/budget, skills/skill-system/registry]
+    decision: use the portable SKILL.md format and progressive disclosure while keeping stricter Woon metadata, profile and evidence gates
   - id: openai-plugins
     upstream: https://github.com/openai/plugins
     status: canonical-discovery

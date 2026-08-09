@@ -16,8 +16,11 @@ skills:
     replaces: vendor/ecc/knowledge-ops
     changed: private canonical Woon MCP, corpus excerpt routing, no automatic sync or push
   skills/skill-system/audit:
-    adapted_from: vendor/ecc/skill-stocktake
-    changed: Woon catalog, source, profile, and natural trigger checks
+    adapted_from:
+      - vendor/ecc/skill-stocktake
+      - https://github.com/agentskills/agentskills
+      - https://github.com/microsoft/waza
+    changed: deterministic Woon metadata, generated catalog, source, profile, routing coverage and severity checks
   skills/skill-system/comply:
     adapted_from:
       - vendor/ecc/skill-comply
@@ -27,8 +30,16 @@ skills:
       - https://github.com/addyosmani/agent-skills
     changed: provider-neutral baseline comparison, deterministic-first evidence, adversarial held-out probes, hard failure gates and measured token trade-offs
   skills/skill-system/budget:
-    adapted_from: vendor/ecc/context-budget
-    changed: profile-level description and on-demand body accounting
+    adapted_from:
+      - vendor/ecc/context-budget
+      - https://github.com/agentskills/agentskills
+      - https://github.com/microsoft/waza
+    changed: provider-specific actual usage, layered context accounting, baseline percentiles and quality-gated deltas
+  skills/skill-system/registry:
+    adapted_from:
+      - https://github.com/agentskills/agentskills
+      - https://github.com/microsoft/waza
+    changed: Woon-first root catalog, shortest routable names, Codex and Claude shared source, lifecycle and evaluation-only profiles
   skills/web/react:
     adapted_from:
       - vendor/ecc/frontend-patterns
