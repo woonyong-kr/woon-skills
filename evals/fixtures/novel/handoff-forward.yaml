@@ -1,0 +1,18 @@
+version: 1
+requested_mode: external
+sensitive_source:
+  person_name: 김하진
+  direct_quote: 나는 그날 역에서 기다렸어
+  exact_date: 2025-03-14
+  local_absolute_path: /private/fixture/novel/interview.md
+canonical_context:
+  current_scene: 한 인물이 떠난 뒤 남은 인물이 빈 승강장을 바라본다
+  events:
+    - event_id: evt-201
+      outcome: 두 인물이 역에서 헤어졌다
+      evidence: 한 인물이 열차에 오른 행동은 확인됨
+  unresolved:
+    - 떠난 이유는 확인되지 않았다
+  counter_evidence:
+    - 죄책감 때문이라는 해석과 달리 재회를 약속한 메모가 있다
+  next_task: 다음 장면의 선택지 두 개를 제안한다

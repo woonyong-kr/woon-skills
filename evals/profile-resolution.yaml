@@ -168,6 +168,18 @@ cases:
       - skills/knowledge/archive
       - skills/knowledge/knowledge
       - skills/writing/tech
+  - id: novel-is-private-and-focused
+    profiles: [novel]
+    expect_skills:
+      - skills/common/safety
+      - skills/novel/novel-handoff
+      - skills/novel/novel-merge
+    reject_skills:
+      - skills/knowledge/archive
+      - skills/knowledge/knowledge
+      - skills/knowledge/insight
+      - skills/knowledge/publish
+      - skills/writing/tech
   - id: ingest-adds-only-corpus-reconciliation
     profiles: [ingest]
     expect_skills:

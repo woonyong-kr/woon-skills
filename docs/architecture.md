@@ -32,6 +32,8 @@ catalog.json + source lock + skills/<domain>/<name>
 
 knowledge profile은 전체 catalog나 vendor를 노출하지 않고 `safety, knowledge, archive, diagram` 4개만 설치합니다. private knowledge는 `repo://skills/skills/knowledge/...`를 참조하고 절대 사용자 경로를 commit하지 않습니다.
 
+novel profile은 `safety, novel-handoff, novel-merge` 3개만 설치합니다. 소설 원문과 정본은 항상 private/local-only이며 스킬 원본은 `repo://skills/skills/novel/...`에만 둡니다. `$novel-handoff`는 맥락 prompt, `$novel-merge`는 정본 병합을 각각 소유하고 `$archive/$knowledge/$insight/$tech/$diagram`의 owner를 대체하지 않습니다.
+
 ## 이식성
 
 repository path는 Woon registry가 `repo://<id>/...`로 해석합니다. Codex와 Claude는 같은 catalog·profile·스킬 정본을 사용하고 설치 대상만 OS 기본값 또는 machine-local `WOON_CODEX_SKILLS_HOME`, `WOON_CLAUDE_SKILLS_HOME`에서 정합니다. `installable: false` profile은 catalog·routing 평가 전용이며 `woon-core`가 target plan·install을 거부합니다.

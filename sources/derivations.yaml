@@ -186,3 +186,9 @@ skills:
       - https://github.com/obra/superpowers/tree/44c9b2d6e889982ac18c27d05a19fefe335194e1/skills/test-driven-development
       - https://github.com/obra/superpowers/blob/44c9b2d6e889982ac18c27d05a19fefe335194e1/skills/test-driven-development/writing-good-tests.md
     changed: shortened provider-neutral test contract, practical handling of existing implementations, independent expectations, minimal test doubles and mutation evidence
+  skills/novel/novel-handoff:
+    native_for: Woon private novel continuity across local and external AI sessions
+    changed: created one prompt-only owner with local-full default, de-identified external derivation, bounded context, immutable originals and no external transmission authority
+  skills/novel/novel-merge:
+    native_for: Woon private novel conversation reconciliation
+    changed: created one canonical merge owner for typed claims, event lineage, linear chronology, complete disposition inventory and a single local-only source catalog without original duplication

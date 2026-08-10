@@ -1,0 +1,43 @@
+version: 1
+canonical_revision: heldout-r7
+canonical_hash: sha256-heldout-r7
+catalog:
+  - path: evidence/interview-audio
+    kind: media
+    short_abstract: 역에서 헤어진 사건을 다룬 비공개 합성 음성 fixture
+    provenance: {parent: null, source: src-heldout-1}
+    privacy: private/local-only
+    status: active
+    timeline_range: 초봄 무렵
+    related_ids: [evt-201]
+existing_events:
+  - event_id: evt-201
+    identity: 두 인물이 초봄 무렵 역에서 헤어짐
+conversation_claims:
+  - claim_id: h1
+    text: 두 사람은 이른 봄 승강장에서 작별했다
+    source_locator: synthetic-chat#1
+  - claim_id: h2
+    text: 떠난 인물은 죄책감 때문에 열차에 탔다
+    source_locator: synthetic-chat#2
+  - claim_id: h3
+    text: AI가 둘이 사실 형제였다는 반전을 제안했다
+    source_locator: synthetic-chat#3
+  - claim_id: h4
+    text: 남은 인물은 배신감을 느꼈다고 서술자가 추정했다
+    source_locator: synthetic-chat#4
+  - claim_id: h5
+    text: 다음 주에 작가가 역 장면을 다시 검토할 예정이다
+    source_locator: synthetic-chat#5
+  - claim_id: h6
+    text: 편지가 작별 전에 도착했는지는 확인되지 않았다
+    source_locator: synthetic-chat#6
+new_source:
+  path: derived/synthetic-chat-summary
+  kind: analysis
+  short_abstract: 여섯 claim의 병합 여부를 검토하는 비공개 합성 대화 요약
+  provenance: {parent: src-heldout-1, source: src-heldout-2}
+  privacy: private/local-only
+  status: held
+  timeline_range: 초봄 무렵
+  related_ids: [evt-201]

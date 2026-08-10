@@ -1,0 +1,53 @@
+version: 1
+scope: novel-structural-routing
+status: passed
+fixture:
+  files: 4
+  deterministic_audit: passed
+routing:
+  cases: 6
+  repeat: 3
+  codex:
+    passed: 18
+    failed: 0
+    agreement: 1.0
+  claude:
+    passed: 18
+    failed: 0
+    agreement: 1.0
+behavior:
+  cases: 16
+  status: forward-smoke-passed
+  runtime_trials: 2
+  full_matrix: not-run
+  executor: codex
+  synthetic_only: true
+  handoff:
+    passed: true
+    forbidden_leaks: 0
+    context_and_counter_evidence_preserved: true
+    reported_total_tokens: 12130
+  merge:
+    passed: true
+    claims_accounted: 6
+    silent_omissions: 0
+    existing_event_merged: evt-201
+    catalog_and_lineage_present: true
+    reported_total_tokens: 14291
+  reason: two required held-out forward smokes passed; the complete 16-case matrix was not executed
+tokens:
+  tokenizer: o200k_base
+  profile_description_tokens: 163
+  entrypoints:
+    novel-handoff: 500
+    novel-merge: 499
+  conditional_references:
+    handoff-contract: 891
+    merge-contract: 1264
+  runtime_input: null
+  runtime_cached: null
+  runtime_output: null
+notes:
+  - profile inventory counts the three description fields only
+  - conditional reference tokens are paid only when that reference is read
+  - routing executors did not expose token usage, so runtime values remain null

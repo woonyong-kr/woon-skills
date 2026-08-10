@@ -1,0 +1,4 @@
+interface:
+  display_name: "Novel Handoff"
+  short_description: "소설 맥락을 안전하게 다른 AI로 이어갈 인계 프롬프트를 만듭니다"
+  default_prompt: "$novel-handoff로 이 소설의 현재 맥락을 다른 AI에 전달할 프롬프트로 정리해 주세요."

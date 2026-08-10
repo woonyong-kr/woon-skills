@@ -40,6 +40,8 @@ skills:
   skills/knowledge/insight: [read, write]
   skills/knowledge/knowledge: [read, process]
   skills/knowledge/publish: [read, write, process, network, push]
+  skills/novel/novel-handoff: [read, write]
+  skills/novel/novel-merge: [read, write, process]
   skills/language/java/java: [read, write, process]
   skills/language/java/jpa: [read, write, process]
   skills/language/java/spring: [read, write, process]

@@ -1,0 +1,13 @@
+version: 1
+name: novel-eval
+installable: false
+max_active: 8
+skills:
+  - skills/common/safety
+  - skills/docs/diagram
+  - skills/knowledge/archive
+  - skills/knowledge/insight
+  - skills/knowledge/knowledge
+  - skills/novel/novel-handoff
+  - skills/novel/novel-merge
+  - skills/writing/tech

@@ -1,0 +1,52 @@
+version: 1
+canonical_revision: fixture-r3
+canonical_hash: sha256-fixture-r3
+catalog:
+  - path: source/interview-01.audio
+    kind: media
+    short_abstract: 두 인물의 역 장면에 관한 비공개 음성 원본
+    provenance: {parent: null, source: source-01}
+    privacy: private/local-only
+    status: active
+    timeline_range: 늦여름
+    related_ids: [evt-010]
+  - path: derived/interview-01.transcript
+    kind: transcript
+    short_abstract: 음성 source-01에서 파생된 비공개 전사
+    provenance: {parent: source-01, source: transcript-01}
+    privacy: private/local-only
+    status: active
+    timeline_range: 늦여름
+    related_ids: [evt-010]
+existing_events:
+  - event_id: evt-010
+    identity: 인물-A와 인물-B가 늦여름 저녁 역에서 헤어짐
+conversation_claims:
+  - claim_id: c1
+    text: 폭우 속 플랫폼에서 둘이 작별했다
+    source_locator: conversation-02#12
+  - claim_id: c2
+    text: 인물-B는 죄책감 때문에 떠났다
+    source_locator: conversation-02#13
+  - claim_id: c3
+    text: 편지는 다음 날 도착했다
+    source_locator: conversation-02#14
+expected_dispositions:
+  - claim_id: c1
+    class: 사실
+    event_id: evt-010
+    disposition: 병합
+  - claim_id: c2
+    class: 해석
+    event_id: evt-010
+    disposition: 보류
+  - claim_id: c3
+    class: 미해결
+    event_id: evt-010
+    disposition: 충돌
+invariants:
+  source_hash_unchanged: true
+  timeline_event_ids_unique: true
+  claim_inventory_complete: true
+  catalog_paths_unique: true
+  catalog_is_local_only: true

@@ -1,0 +1,7 @@
+version: 1
+name: novel
+max_active: 3
+skills:
+  - skills/common/safety
+  - skills/novel/novel-handoff
+  - skills/novel/novel-merge

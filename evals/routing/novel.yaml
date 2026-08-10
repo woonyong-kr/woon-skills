@@ -1,0 +1,44 @@
+version: 1
+cases:
+  - id: novel-external-handoff
+    prompt: "이 소설의 현재 설정과 미해결을 다른 AI에 붙일 수 있게 실명은 가리고 맥락 프롬프트로 만들어 줘"
+    profiles: [novel-eval]
+    expect_primary: novel-handoff
+    allow_support: []
+    reject: [novel-merge, archive, insight]
+    max_selected: 1
+  - id: novel-local-full-handoff
+    prompt: "로컬 AI에서 다음 장면을 이어 쓰려고 해. 원문은 건드리지 말고 지금까지의 사건 순서와 인물 상태를 넘길 prompt를 만들어 줘"
+    profiles: [novel-eval]
+    expect_primary: novel-handoff
+    allow_support: []
+    reject: [novel-merge, knowledge, tech]
+    max_selected: 1
+  - id: novel-conversation-merge
+    prompt: "다른 AI와 소설 설정을 논의한 대화를 기존 연표와 인물 정본에 겹치지 않게 반영해 줘"
+    profiles: [novel-eval]
+    expect_primary: novel-merge
+    allow_support: [novel-handoff]
+    reject: [archive, insight, knowledge]
+    max_selected: 2
+  - id: novel-analysis-not-merge
+    prompt: "소설 작업 중 왜 설정 충돌을 놓쳤고 어떤 확인으로 고쳤는지 회고만 해 줘. 정본에는 저장하지 마"
+    profiles: [novel-eval]
+    expect_primary: insight
+    allow_support: []
+    reject: [novel-merge, archive, novel-handoff]
+    max_selected: 1
+  - id: general-knowledge-archive-not-novel
+    prompt: "이 기술 대화를 private woon-knowledge 정본에 중복 없이 저장해 줘"
+    profiles: [novel-eval]
+    expect_primary: archive
+    allow_support: [knowledge]
+    reject: [novel-merge, novel-handoff]
+    max_selected: 2
+  - id: novel-flow-diagram-only
+    prompt: "이미 확정된 소설 사건 세 개의 관계만 Mermaid로 그려 줘. 설정을 병합하거나 바꾸지는 마"
+    profiles: [novel-eval]
+    expect_primary: diagram
+    allow_support: []
+    reject: [novel-merge, novel-handoff, tech]
+    max_selected: 1

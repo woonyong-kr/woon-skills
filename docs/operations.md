@@ -11,6 +11,8 @@
 7. `python scripts/audit_skills.py`로 skill과 source review를 함께 검사하고 `$audit` 정적 검사, `$budget` 문맥 검사, `$comply` 행동 scenario를 실행합니다.
 8. Codex와 Claude 각각 plan→install→두 번째 plan `unchanged`를 확인합니다.
 
+소설 스킬은 `python scripts/audit_novel.py`로 private/local-only, 단일 inventory/catalog, 원본 불변, 사건 lineage, routing near-miss와 fixture를 추가 검사합니다. 외부 handoff는 전송하지 않고 비식별 derived prompt 산출까지만 검증합니다.
+
 ## vendor 업데이트
 
 upstream을 별도 branch에서 가져와 license와 commit을 확인하고 `lock/sources.yaml`을 review PR로 갱신합니다. vendor 본문을 직접 고치지 않습니다. useful concept를 Woon에 반영할 때는 `sources/derivations.yaml`에 overlap과 변경점을 기록합니다.
