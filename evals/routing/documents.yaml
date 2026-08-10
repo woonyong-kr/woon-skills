@@ -40,8 +40,22 @@ cases:
     profiles: [eval]
     expect_primary: archive
     allow_support: [knowledge]
-    reject: [publish, tech]
+    reject: [publish, tech, insight]
     max_selected: 2
+  - id: conversation-insight
+    prompt: "이 대화에서 내가 어디서 잘못 판단했고 어떤 증거로 방향을 바꿔 해결했는지, 다음에 재사용할 통찰까지 인과로 연결해 줘"
+    profiles: [eval]
+    expect_primary: insight
+    allow_support: [diagram]
+    reject: [archive, tech, knowledge]
+    max_selected: 2
+  - id: colloquial-troubleshooting-retrospective
+    prompt: "아까 그 삽질 있자나 처음엔 왜 틀렸고 뭘 보고 피봇했는지 해결과정이랑 담번 체크할 것만 엮어줘 저장은 하지마"
+    profiles: [eval]
+    expect_primary: insight
+    allow_support: []
+    reject: [archive, tech, docs]
+    max_selected: 1
   - id: external-corpus-ingest
     prompt: "작업 중인 외부 vault의 모든 문서를 한 파일씩 비교해서 중복 병합하고 변경 추적 catalog와 검증 결과까지 private woon-knowledge에 반영해 줘"
     profiles: [eval]
@@ -75,7 +89,7 @@ cases:
     profiles: [eval]
     expect_primary: tech
     allow_support: [diagram]
-    reject: [career, docs]
+    reject: [career, docs, insight]
     max_selected: 2
   - id: beginner-learning-document
     prompt: "Java 초보자가 개념을 순서대로 이해할 수 있는 실행 예제와 Mermaid가 있는 학습 문서를 써 줘"

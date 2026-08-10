@@ -1,7 +1,7 @@
 version: 1
 name: skill-system
 extends: [core]
-max_active: 9
+max_active: 10
 skills:
   - skills/skill-system/audit
   - skills/skill-system/budget

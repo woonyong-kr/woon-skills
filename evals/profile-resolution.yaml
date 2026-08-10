@@ -158,6 +158,16 @@ cases:
       - skills/web/e2e
       - skills/knowledge/publish
       - vendor/ecc/knowledge-ops
+  - id: insight-is-an-opt-in-conversation-trace
+    profiles: [insight]
+    expect_skills:
+      - skills/common/quality
+      - skills/common/safety
+      - skills/knowledge/insight
+    reject_skills:
+      - skills/knowledge/archive
+      - skills/knowledge/knowledge
+      - skills/writing/tech
   - id: ingest-adds-only-corpus-reconciliation
     profiles: [ingest]
     expect_skills:

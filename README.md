@@ -36,6 +36,7 @@ woon skills doctor
 | GitHub | `github` | `$pr·$issue·$ci·$release·$notify` |
 | 개발 문서 | `docs` | `$docs·$lookup·$adr·$diagram` |
 | private knowledge | `knowledge` | `$safety·$knowledge·$archive·$diagram` |
+| 대화 기반 문제 해결 회고 | `insight` | `$insight` |
 | knowledge 공개 | `knowledge-publish` | knowledge + `$publish` |
 | 기술·커리어 글 | `publishing` | `$docs·$diagram·$career·$interview·$tech` |
 | 웹 | `web` | `$css·$react·$e2e·$ui-test` |
@@ -51,6 +52,7 @@ woon skills doctor
 - `$diagram`: Markdown 안의 Mermaid 관계도를 만듭니다.
 - `$knowledge`: private 정본과 read-only corpus를 검색·조회·감사합니다.
 - `$archive`: 현재 대화를 기존 private 정본에 중복 없이 저장합니다.
+- `$insight`: 대화에서 실수·가설·전환·해결·검증을 근거로 연결해 재사용할 통찰을 만듭니다. 저장은 하지 않습니다.
 - `$publish`: 승인한 private 정본만 public 산출물로 분리합니다.
 
 DOCX, PDF, PPTX, XLSX와 Google Docs 같은 설치 plugin 스킬은 파일 형식·도구 축입니다. 예를 들어 이력서 내용에는 `$career`, DOCX 산출에는 `documents`가 함께 선택될 수 있으며 서로 대체하지 않습니다.
@@ -64,6 +66,7 @@ scripts/build_catalog.py        root catalog 결정적 생성·검사
 scripts/audit_skills.py         metadata·link·catalog drift 정적 검사
 scripts/audit_sources.py        upstream commit·license·전수 skill review 검사
 scripts/audit_backend.py        backend owner·routing·행동·단일 원본 검사
+scripts/audit_insight.py        대화 통찰 owner·routing·행동·예산 형태 검사
 vendor/<origin>/<name>/         upstream commit에 고정한 비교·fallback 원본
 profiles/                       작고 목적별인 활성 집합
 conflicts/                      side effect와 실제 충돌

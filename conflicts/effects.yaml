@@ -37,6 +37,7 @@ skills:
   skills/github/release: [read, write, network, release]
   skills/knowledge/archive: [read, write, process]
   skills/knowledge/ingest: [read, write, process]
+  skills/knowledge/insight: [read, write]
   skills/knowledge/knowledge: [read, process]
   skills/knowledge/publish: [read, write, process, network, push]
   skills/language/java/java: [read, write, process]

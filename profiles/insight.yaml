@@ -1,0 +1,6 @@
+version: 1
+name: insight
+extends: [core]
+max_active: 10
+skills:
+  - skills/knowledge/insight
