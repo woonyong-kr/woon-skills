@@ -1,0 +1,51 @@
+version: 1
+evaluated_at: 2026-08-10
+profile: site-promotion
+status: passed
+fixture:
+  path: repo://skills/evals/fixtures/site-promotion
+  source: synthetic-only
+  variant: candidate
+  candidate_trials: 3
+  passed: 3
+  scores: [9, 9, 9]
+  maximum: 9
+  critical_failures: 0
+  private_markers_leaked: 0
+  rescored_from_immutable_artifacts: true
+  scorer_regressions:
+    cases: 4
+    status: passed
+  duration_seconds: [50.589, 79.576, 75.881]
+  usage:
+    - input_tokens: 24173
+      cached_input_tokens: 9984
+      output_tokens: 2880
+      reasoning_output_tokens: 1034
+    - input_tokens: 24173
+      cached_input_tokens: 9984
+      output_tokens: 4675
+      reasoning_output_tokens: 2790
+    - input_tokens: 24173
+      cached_input_tokens: 9984
+      output_tokens: 4700
+      reasoning_output_tokens: 2709
+routing:
+  command: woon skills eval-routing --executor codex --repeat 3
+  full_catalog_cases: 103
+  site_promotion_cases: 20
+  repeat: 3
+  primary_recall: 1.0000
+  forbidden_selections: 0
+  agreement: 0.9223
+  status: passed
+behavior:
+  spec: repo://skills/evals/behavior/site-promotion.yaml
+  candidate_trials: 3
+  passed: 3
+  critical_failures: 0
+  full_matrix: not-run
+limitations:
+  - 후보 평가는 합성 Kyro fixture 한 종류의 fresh Codex 실행 3회이며 전체 공개 승격 분포를 대표하지 않는다.
+  - behavior 12-case 전체 matrix는 실행하지 않았고 held-out candidate 계약만 검증했다.
+  - 실행기가 모델 식별자를 노출하지 않아 model은 executor-default-unverified다.

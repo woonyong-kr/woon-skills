@@ -1,0 +1,8 @@
+version: 1
+name: site-promotion
+max_active: 4
+skills:
+  - skills/common/safety
+  - skills/common/verify
+  - skills/knowledge/knowledge
+  - skills/writing/site-promotion

@@ -1,0 +1,143 @@
+version: 1
+cases:
+  - id: promote-private-kyro-to-blog-candidate
+    prompt: "내 private Woon 정본에서 Kyro 근거를 찾아 기술 블로그 공개 후보로 바꿔 줘. 아직 사이트 파일은 건드리지 마"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [knowledge, tech]
+    reject: [archive, publish, career]
+    max_selected: 3
+  - id: promote-one-source-to-two-genres
+    prompt: "같은 knowledge 정본으로 블로그와 포트폴리오를 각각 써 줘. 숫자는 같아야 하지만 두 글이 복사본처럼 보이면 안 돼"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [knowledge, tech, career]
+    reject: [archive, publish]
+    max_selected: 4
+  - id: promote-selected-project-with-architecture
+    prompt: "내 비공개 프로젝트 기록을 포트폴리오 후보로 만들고 내가 선택한 Kyro만 노출해. 승인한 아키텍처 이미지를 카드 썸네일로 쓰는 조건도 잡아 줘"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [knowledge, career]
+    reject: [react, css, publish]
+    max_selected: 3
+  - id: promote-claim-ledger-first
+    prompt: "woon-knowledge의 팀 성과, 내 기여, 프로젝트 뒤 개인 확장을 나눠서 공개용 claim ledger와 포트폴리오 초안을 만들어 줘"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [knowledge, career]
+    reject: [archive, tech]
+    max_selected: 3
+  - id: promote-private-rights-filter
+    prompt: "private 정본에서 공개 가능한 claim만 골라 블로그 후보와 제외 사유를 보여 줘. 실제 발행은 하지 마"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [knowledge, privacy, tech]
+    reject: [archive, publish]
+    max_selected: 4
+  - id: promote-update-existing-work-candidate
+    prompt: "private Kyro 정본의 최신 revision을 기준으로 기존 portfolio work 문구를 고칠 후보를 만들어. 반영은 내가 보고 승인할게"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [knowledge, career]
+    reject: [commit, publish]
+    max_selected: 3
+  - id: promote-approved-source-write-only
+    prompt: "방금 보여 준 portfolio candidate 중 P1, P3만 content/work/kyro.md에 반영 승인해. commit이나 배포는 하지 마"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [verify, career]
+    reject: [commit, release, publish]
+    max_selected: 3
+  - id: promote-colloquial-draft
+    prompt: "내 위키에 정리해둔 그 장애복구 얘기 있자나 그걸 블로그용이랑 포폴용으로 따로 후보 좀 뽑아줘 일단 쓰진 말고"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [knowledge, tech, career]
+    reject: [archive, publish]
+    max_selected: 4
+
+  - id: ordinary-tech-article-not-promotion
+    prompt: "Transactional Outbox의 crash window를 예제와 한계가 있는 기술 글로 써 줘. 필요한 사실은 이 prompt에 다 있어"
+    profiles: [eval]
+    expect_primary: tech
+    allow_support: [diagram]
+    reject: [site-promotion, career, knowledge]
+    max_selected: 2
+  - id: ordinary-portfolio-copy-not-private-promotion
+    prompt: "여기 붙여 둔 공개 GitHub README만 근거로 프로젝트 포트폴리오 문구를 짧게 다듬어 줘"
+    profiles: [eval]
+    expect_primary: career
+    allow_support: []
+    reject: [site-promotion, knowledge, tech]
+    max_selected: 1
+  - id: resume-bullets-not-site-promotion
+    prompt: "내 실제 개인 기여를 이력서 불릿 두 개로 줄여 줘"
+    profiles: [eval]
+    expect_primary: career
+    allow_support: []
+    reject: [site-promotion, tech, publish]
+    max_selected: 1
+  - id: knowledge-read-only-not-promotion
+    prompt: "private woon-knowledge에서 Kyro 관련 정본과 revision만 찾아 요약해 줘. 공개 글은 만들지 마"
+    profiles: [eval]
+    expect_primary: knowledge
+    allow_support: []
+    reject: [site-promotion, archive, publish]
+    max_selected: 1
+  - id: knowledge-archive-not-promotion
+    prompt: "지금 대화를 private 정본에 중복 없이 병합해 줘. 공개 사이트에는 아무것도 만들지 마"
+    profiles: [eval]
+    expect_primary: archive
+    allow_support: [knowledge]
+    reject: [site-promotion, publish, tech]
+    max_selected: 2
+  - id: approved-wiki-publication-not-promotion
+    prompt: "이미 공개 승인한 canonical 문서를 Quartz 공개 WIKI source로 변환해 줘. 배포와 블로그·포트폴리오 변환은 없어"
+    profiles: [eval]
+    expect_primary: publish
+    allow_support: [knowledge, privacy, safety]
+    reject: [site-promotion, archive, career]
+    max_selected: 3
+  - id: deploy-existing-site-not-promotion
+    prompt: "GitHub Pages 배포 요청의 정확한 대상, 승인 범위와 롤백 가능성만 확인해 줘. 아직 실행하지 마"
+    profiles: [eval]
+    expect_primary: safety
+    allow_support: [verify, terminal]
+    reject: [site-promotion, tech, career]
+    max_selected: 3
+  - id: portfolio-ui-code-not-promotion
+    prompt: "React 포트폴리오 component의 toggle state와 hash route 렌더링 로직을 구현해 줘"
+    profiles: [eval]
+    expect_primary: react
+    allow_support: [ui-test, test, verify]
+    reject: [site-promotion, career, tech]
+    max_selected: 3
+  - id: architecture-diagram-only-not-promotion
+    prompt: "이 Kubernetes 복구 흐름을 real identifier가 있는 Mermaid architecture diagram으로만 그려 줘"
+    profiles: [eval]
+    expect_primary: diagram
+    allow_support: []
+    reject: [site-promotion, tech, career]
+    max_selected: 1
+  - id: review-existing-blog-not-promotion
+    prompt: "이 공개 기술 글의 논리, 수치 조건과 한계가 자연스러운지 검수해 줘"
+    profiles: [eval]
+    expect_primary: tech
+    allow_support: []
+    reject: [site-promotion, career, publish]
+    max_selected: 1
+  - id: ambiguous-praise-is-not-approval
+    prompt: "아까 만든 공개 블로그 초안은 좋아. 파일 반영은 하지 말고 문장만 더 자연스럽게 다듬어 줘"
+    profiles: [eval]
+    expect_primary: tech
+    allow_support: []
+    reject: [site-promotion, publish, commit]
+    max_selected: 1
+  - id: public-project-selection-only
+    prompt: "포트폴리오 페이지에는 내가 직접 선택한 것만 나와야 해. Kyro 하나만 남기고 앞으로 승인한 항목만 공개 목록에 추가되게 해 줘"
+    profiles: [eval]
+    expect_primary: site-promotion
+    allow_support: [career, verify]
+    reject: [knowledge, publish, react]
+    max_selected: 3

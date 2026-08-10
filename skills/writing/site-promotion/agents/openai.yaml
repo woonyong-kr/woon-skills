@@ -1,0 +1,4 @@
+interface:
+  display_name: "Site Promotion"
+  short_description: "private 정본을 승인 가능한 블로그·포트폴리오 후보로 변환"
+  default_prompt: "$site-promotion으로 private 근거를 공개 후보로 변환하고 승인 전에는 파일을 쓰지 마세요."

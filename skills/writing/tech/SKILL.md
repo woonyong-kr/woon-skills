@@ -7,6 +7,8 @@ description: 기술 블로그, 학습 글, engineering note를 근거 중심의 
 
 결론→문제와 조건→판단→실행 또는 원리→증거→한계→다음 질문 순으로 쓴다. 원본의 기술 사실과 source identifier를 보존하고, 새 사실은 공식 출처나 실행 결과로 확인한다.
 
+기술 블로그는 독자가 재사용할 하나의 engineering 질문에 답한다. 채용용 자기소개, 역할 요약과 성과 카드 문법을 섞지 않는다. private 정본을 블로그 candidate로 바꾸거나 같은 근거로 포트폴리오도 함께 만들 때는 `$site-promotion`이 공개 경계와 두 산출물의 claim 일관성을 먼저 소유한다.
+
 한 문단에는 논점 하나를 두고 병렬 정보만 목록으로 쓴다. 이모지, AI 공동저자 흔적, 근거 없는 단정, 과도한 동기부여 표현을 제거한다. 성능·정확도 숫자에는 dataset, 환경, 횟수와 측정 방식을 붙인다. diagram은 prose보다 관계를 명확히 할 때만 `$diagram`으로 만든다.
 
 일반 기술 글에서 한국어 문장, 제목, code·output 연결과 증거 표기 기준이 필요하면 [style guide](references/style-guide.md)를 읽는다. 학습 문서는 아래 learning-content 표준이 같은 영역을 더 구체적으로 소유하므로 별도 tone 요구가 없으면 style guide를 함께 읽지 않는다. 이 reference는 저장소별 frontmatter를 소유하지 않는다.

@@ -18,30 +18,31 @@ woon skills doctor
 
 `core`는 `$quality·$safety·$terminal·$verify·$commit` 5개뿐입니다. 모든 스킬을 설치하지 말고 저장소에 맞는 profile을 추가합니다.
 
-| 작업 | profile | Woon 스킬 |
-|---|---|---|
-| 공통 개발 | `development` | `$quality·$naming·$refactor·$test` |
-| LLM·agent 개발 | `ai` | development + `$agent-audit` |
-| Python | `python` | `$python·$pytest` |
-| Java | `java` | `$java` |
-| TypeScript | `typescript` | `$ts` |
-| Spring/JPA | `spring` | `$spring·$spring-test·$spring-sec·$jpa` |
-| backend 기본 설계 | `backend` | `$domain·$hexagonal·$api·$tx` |
-| 분산 backend | `distributed` | `$tx·$event·$job·$protocol·$resilience·$capacity·$observe·$test` |
-| worker·batch | `worker` | `$tx·$event·$job·$resilience·$capacity·$observe·$test` |
-| SaaS·multi-tenant | `saas` | `$domain·$api·$tx·$tenant·$auth·$privacy·$test` |
-| data·storage | `data` | `$cache·$migration·$postgres·$storage` |
-| 운영 기반 | `ops` | `$capacity·$container·$docker·$observe` |
-| 인증·개인정보·보안 | `security` | `$auth·$privacy·$security` |
-| GitHub | `github` | `$pr·$issue·$ci·$release·$notify` |
-| 개발 문서 | `docs` | `$docs·$lookup·$adr·$diagram` |
-| private knowledge | `knowledge` | `$safety·$knowledge·$archive·$diagram` |
-| 대화 기반 문제 해결 회고 | `insight` | `$insight` |
-| private 소설 작업 | `novel` | `$safety·$novel-handoff·$novel-merge` |
-| knowledge 공개 | `knowledge-publish` | knowledge + `$publish` |
-| 기술·커리어 글 | `publishing` | `$docs·$diagram·$career·$interview·$tech` |
-| 웹 | `web` | `$css·$react·$e2e·$ui-test` |
-| 스킬 관리 | `skill-system` | `$registry·$audit·$comply·$budget` |
+| 작업                     | profile               | Woon 스킬                                                                 |
+| ------------------------ | --------------------- | ------------------------------------------------------------------------- |
+| 공통 개발                | `development`       | `$quality·$naming·$refactor·$test`                                   |
+| LLM·agent 개발          | `ai`                | development +`$agent-audit`                                             |
+| Python                   | `python`            | `$python·$pytest`                                                      |
+| Java                     | `java`              | `$java`                                                                 |
+| TypeScript               | `typescript`        | `$ts`                                                                   |
+| Spring/JPA               | `spring`            | `$spring·$spring-test·$spring-sec·$jpa`                              |
+| backend 기본 설계        | `backend`           | `$domain·$hexagonal·$api·$tx`                                        |
+| 분산 backend             | `distributed`       | `$tx·$event·$job·$protocol·$resilience·$capacity·$observe·$test` |
+| worker·batch            | `worker`            | `$tx·$event·$job·$resilience·$capacity·$observe·$test`            |
+| SaaS·multi-tenant       | `saas`              | `$domain·$api·$tx·$tenant·$auth·$privacy·$test`                   |
+| data·storage            | `data`              | `$cache·$migration·$postgres·$storage`                               |
+| 운영 기반                | `ops`               | `$capacity·$container·$docker·$observe`                              |
+| 인증·개인정보·보안     | `security`          | `$auth·$privacy·$security`                                            |
+| GitHub                   | `github`            | `$pr·$issue·$ci·$release·$notify`                                   |
+| 개발 문서                | `docs`              | `$docs·$lookup·$adr·$diagram`                                        |
+| private knowledge        | `knowledge`         | `$safety·$knowledge·$archive·$diagram`                               |
+| 대화 기반 문제 해결 회고 | `insight`           | `$insight`                                                              |
+| private 소설 작업        | `novel`             | `$safety·$novel-handoff·$novel-merge`                                 |
+| 지식→사이트 공개 후보   | `site-promotion`    | `$safety·$verify·$knowledge·$site-promotion`                           |
+| knowledge 공개           | `knowledge-publish` | knowledge +`$publish`                                                   |
+| 기술·커리어 글          | `publishing`        | `$docs·$diagram·$career·$interview·$tech`                           |
+| 웹                       | `web`               | `$css·$react·$e2e·$ui-test`                                          |
+| 스킬 관리                | `skill-system`      | `$registry·$audit·$comply·$budget`                                   |
 
 ## 문서 스킬의 차이
 

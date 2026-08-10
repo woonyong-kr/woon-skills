@@ -158,6 +158,19 @@ cases:
       - skills/web/e2e
       - skills/knowledge/publish
       - vendor/ecc/knowledge-ops
+  - id: site-promotion-is-four-skill-review-queue
+    profiles: [site-promotion]
+    expect_skills:
+      - skills/common/safety
+      - skills/common/verify
+      - skills/knowledge/knowledge
+      - skills/writing/site-promotion
+    reject_skills:
+      - skills/knowledge/archive
+      - skills/knowledge/publish
+      - skills/git/commit
+      - skills/github/release
+      - skills/web/react
   - id: insight-is-an-opt-in-conversation-trace
     profiles: [insight]
     expect_skills:
