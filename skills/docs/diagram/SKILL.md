@@ -15,6 +15,6 @@ Obsidian의 640px split pane에 3개 participant를 놓는 `sequenceDiagram`은 
 
 Mermaid CLI가 repository에 고정되어 있지 않으면 이미 존재하는 `scripts/verify-mermaid.sh <source.mmd> <output-dir>`를 바로 한 번 호출한다. script 파일을 `find`·`rg`·`ls`로 다시 찾지 않는다. 이 script는 설치된 `mmdc` 또는 npm cache의 고정 version으로 default·dark SVG를 만든다. exit `2`이면 새 package를 설치하거나 같은 명령을 반복하지 말고 render를 미검증으로 남긴다. source 작성, 두 theme render와 파일 확인을 여러 tool turn으로 쪼개지 않는다.
 
-학습용 code·memory·exception 흐름에서는 AI raster image를 만들지 않는다. `woon resolve repo://skills/standards/learning-content-quality.md`의 diagram gate를 적용해 실제 identifier, 의미 있는 공간 구획, 번호가 붙은 arrow, diagram 뒤의 관찰 설명으로 같은 정보 품질을 만든다.
+학습용 code·memory·exception 흐름에서는 AI raster image를 만들지 않는다. `woon resolve repo://skills/standards/learning-content-quality.md`의 diagram gate를 적용해 실제 identifier, 의미 있는 공간 구획, 번호가 붙은 arrow, diagram 뒤의 관찰 설명으로 같은 정보 품질을 만든다. 단, PDF·웹·문서에 실제 UI·측정 chart·강의 도판 같은 설명력 높은 source figure가 있으면 Mermaid로 다시 그려 버리지 않는다. 원본 asset의 보존·권리·privacy·본문 매핑은 `repo://skills/skills/knowledge/ingest/references/source-assets.md`를 따른다.
 
 Obsidian `.canvas`를 요청해도 검증된 Markdown Mermaid를 삭제하거나 색만으로 필수 의미를 표현하지 않는다. Canvas는 같은 identifier·단계를 유지하고 Obsidian·공개 renderer를 별도 검증한 보조물로만 둔다. 세부 계약은 `woon resolve repo://skills/standards/obsidian-compatibility.md`를 읽는다.

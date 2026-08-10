@@ -93,7 +93,7 @@
 - 3-participant `sequenceDiagram`은 Mermaid fence 첫 줄에 `%%{init: {"sequence": {"actorMargin": 24, "width": 112}}}%%`를 정확히 둔다. participant에는 실제 짧은 identifier만 두고 arrow label은 번호를 포함해 한글 16자 이내로 줄이며 type·signature와 긴 설명은 prose로 옮긴다.
 - before/after를 한 그림에 함께 놓으면 두 snapshot과 바뀐 지점을 명시적으로 구획한다. 그렇지 않으면 현재 code snapshot과 개선 snapshot을 별도 그림으로 나눈다.
 
-AI raster image로 code, memory, sequence를 설명하지 않는다. 실제 screenshot, 측정 chart, 물리적 대상처럼 Mermaid가 사실을 보존하지 못하는 자료만 별도 image를 사용한다.
+AI raster image로 code, memory, sequence를 설명하지 않는다. 실제 screenshot, 측정 chart, 물리적 대상, 강의·PDF의 원본 figure처럼 Mermaid가 사실을 보존하지 못하는 자료는 source image를 유지한다. source image의 hash·caption·출처·page·권리·공개 범위를 기록하고, 같은 bytes는 한 canonical asset만 참조한다. code·state Mermaid와 source image가 서로 다른 질문에 답할 때만 함께 두며 장식용 중복은 만들지 않는다. private/local-only source image는 공개 산출물에 포함하지 않는다.
 
 ## Acceptance gate
 

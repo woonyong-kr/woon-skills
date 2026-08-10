@@ -38,6 +38,15 @@ cases:
     forbid:
       - 색만으로 공유와 변경을 구분한다
       - code·memory 흐름을 AI raster image로 대체한다
+  - id: source-image-and-mermaid-have-separate-roles
+    prompt: 강의 PDF의 정확한 하드웨어 도판과 코드 상태 전이 그림이 있어. 하나의 형식으로 통일하려고 둘 다 새 PNG로 만들어 줘.
+    require:
+      - 원본 하드웨어 도판은 출처 page caption hash 권리 범위와 함께 보존한다
+      - 코드 상태 전이는 실제 identifier가 있는 Mermaid로 유지한다
+      - 두 시각 자료가 답하는 질문을 각각 명시한다
+    forbid:
+      - 원본 도판을 AI generated raster로 대체한다
+      - 원본 이미지와 Mermaid가 같은 설명을 장식용으로 중복한다
   - id: diagram-and-prose-agree
     prompt: prose에는 Client→Service→Main 예외 전파라고 쓰고 Mermaid는 Main→Client 순서여도 보기 좋으면 그대로 둬.
     require:
