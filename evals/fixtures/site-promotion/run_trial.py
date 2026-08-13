@@ -56,17 +56,20 @@ def main() -> int:
     parser.add_argument("--trial", type=int, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--model", default="")
+    parser.add_argument("--case", choices=("gated", "approved"), default="gated")
     args = parser.parse_args()
 
     root = Path(__file__).resolve().parents[3]
-    request = Path(__file__).with_name("held-out.md").read_text(encoding="utf-8")
+    fixture_name = "held-out-approved.md" if args.case == "approved" else "held-out.md"
+    request = Path(__file__).with_name(fixture_name).read_text(encoding="utf-8")
     prompt = request
     if args.variant == "candidate":
         prompt = f"{candidate_context(root)}\n\n<request>\n{request}\n</request>"
 
     args.output.mkdir(parents=True, exist_ok=True)
-    artifact = args.output / f"{args.variant}-{args.trial}.md"
-    raw_path = args.output / f"{args.variant}-{args.trial}.jsonl"
+    prefix = f"approved-{args.variant}" if args.case == "approved" else args.variant
+    artifact = args.output / f"{prefix}-{args.trial}.md"
+    raw_path = args.output / f"{prefix}-{args.trial}.jsonl"
     command = [
         "codex",
         "exec",
@@ -113,7 +116,7 @@ def main() -> int:
         )
         return 1
 
-    quality = score(artifact.read_text(encoding="utf-8"))
+    quality = score(artifact.read_text(encoding="utf-8"), mode=args.case)
     result = {
         "variant": args.variant,
         "trial": args.trial,
@@ -124,7 +127,7 @@ def main() -> int:
         "artifact_bytes": artifact.stat().st_size,
         "quality": quality,
     }
-    (args.output / f"{args.variant}-{args.trial}-score.json").write_text(
+    (args.output / f"{prefix}-{args.trial}-score.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -29,4 +29,6 @@ architecture가 프로젝트 이해나 claim 검증의 핵심이면 다음을 �
 - image file 존재, 권리 범위와 provenance 확인
 - card와 상세 route에서 실제 render 확인
 
+본문 claim이 rights 때문에 보류돼도 `public-approved` architecture asset은 포트폴리오 후보 안에 `cardImage: <relative-path>` 형태로 반복해 남긴다. private 위치는 쓰지 않고, title·alt·description에 필요한 공개 claim이 없으면 그 metadata와 실제 반영만 보류한다.
+
 장식 image를 만들거나 private diagram을 공개 asset으로 복사하지 않는다. blog image와 같은 bytes를 쓸 수는 있지만 각 화면의 alt와 설명은 독자 질문에 맞게 쓴다.

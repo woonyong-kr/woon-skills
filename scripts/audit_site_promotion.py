@@ -162,11 +162,14 @@ def audit_site_promotion(root: Path) -> list[str]:
             errors.append(f"{result_path}: routing evidence boundary is missing")
         if (
             not isinstance(behavior_result, Mapping)
+            or behavior_result.get("held_out_cases") != 2
             or behavior_result.get("candidate_trials") != 3
             or behavior_result.get("critical_failures") != 0
             or behavior_result.get("full_matrix") != "not-run"
         ):
             errors.append(f"{result_path}: behavior evidence boundary is missing")
+        if result.get("grader") != "deterministic-v2":
+            errors.append(f"{result_path}: deterministic-v2 grader evidence is missing")
 
     return errors
 

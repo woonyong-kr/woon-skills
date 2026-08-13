@@ -3,12 +3,18 @@
 
 from __future__ import annotations
 
-import sys
+import importlib.util
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from score_artifact import score
+SCORE_PATH = Path(__file__).with_name("score_artifact.py")
+SCORE_SPEC = importlib.util.spec_from_file_location(
+    "site_promotion_score_artifact", SCORE_PATH
+)
+assert SCORE_SPEC is not None and SCORE_SPEC.loader is not None
+SCORE_MODULE = importlib.util.module_from_spec(SCORE_SPEC)
+SCORE_SPEC.loader.exec_module(SCORE_MODULE)
+score = SCORE_MODULE.score
 
 
 class ScoreArtifactTest(unittest.TestCase):

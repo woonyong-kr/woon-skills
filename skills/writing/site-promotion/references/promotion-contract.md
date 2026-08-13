@@ -26,7 +26,9 @@ candidate 전에 표 또는 동등한 구조로 다음을 확정한다.
 | rights | public-approved, private, unknown 중 하나 |
 | destinations | blog, portfolio 또는 둘 다 |
 
-입력에 ownership이 없으면 `unresolved`, rights가 없으면 `unknown`이다. 작성 요청, source 보유와 verification 상태로 이 값을 추론하지 않는다. `private`, `unknown`, `unresolved` claim은 공개 candidate에서 제외하고 영수증에 이유만 남긴다. historical 기록은 현재 사실처럼 쓰지 않는다. 팀 성과는 개인 성과로 바꾸지 않는다.
+입력에 ownership이 없으면 `unresolved`, rights가 없으면 `unknown`이다. 작성 요청, source 보유, verification 상태나 인접 claim의 ownership으로 이 값을 추론하지 않는다. 예를 들어 개인 행동 claim 뒤의 수치 claim은 별도 ownership 근거가 없으면 `unresolved`다. `private`, `unknown`, `unresolved` claim은 공개 candidate 본문에서 제외하고 영수증에 이유를 남긴다. 본문이 전부 보류돼도 private field를 제거한 ledger의 최소 사실·verification·ownership·metric context·rights·destination은 유지한다. historical 기록은 현재 사실처럼 쓰지 않는다. 팀 성과는 개인 성과로 바꾸지 않는다.
+
+private field는 ledger와 영수증 어디에도 raw value를 다시 쓰지 않는다. `private identifier 1건`, `이메일 1건`, `내부 경로 1건`처럼 유형과 건수만 기록한다. 가림 처리나 제외 설명도 원문 재출력 권한이 아니다.
 
 ## 승인 상태
 

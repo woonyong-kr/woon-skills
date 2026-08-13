@@ -1,51 +1,145 @@
 version: 1
 evaluated_at: 2026-08-10
-profile: site-promotion
+scope: site-promotion-routing-and-held-out-behavior
 status: passed
-fixture:
-  path: repo://skills/evals/fixtures/site-promotion
-  source: synthetic-only
-  variant: candidate
-  candidate_trials: 3
-  passed: 3
-  scores: [9, 9, 9]
-  maximum: 9
-  critical_failures: 0
-  private_markers_leaked: 0
-  rescored_from_immutable_artifacts: true
-  scorer_regressions:
-    cases: 4
-    status: passed
-  duration_seconds: [50.589, 79.576, 75.881]
-  usage:
-    - input_tokens: 24173
-      cached_input_tokens: 9984
-      output_tokens: 2880
-      reasoning_output_tokens: 1034
-    - input_tokens: 24173
-      cached_input_tokens: 9984
-      output_tokens: 4675
-      reasoning_output_tokens: 2790
-    - input_tokens: 24173
-      cached_input_tokens: 9984
-      output_tokens: 4700
-      reasoning_output_tokens: 2709
+profile: site-promotion
+fixture: repo://skills/evals/fixtures/site-promotion
+grader: deterministic-v2
 routing:
-  command: woon skills eval-routing --executor codex --repeat 3
-  full_catalog_cases: 103
   site_promotion_cases: 20
   repeat: 3
-  primary_recall: 1.0000
-  forbidden_selections: 0
-  agreement: 0.9223
-  status: passed
+  codex_targeted:
+    passed: 60
+    failed: 0
+    agreement: 1.0
+    note: 19 cases ran together; the corrected portfolio-selection owner case then passed three fresh trials.
+  claude_targeted:
+    passed: 60
+    failed: 0
+    agreement: 1.0
+  codex_full_catalog:
+    cases: 103
+    repeat: 3
+    primary_recall: 1.0
+    forbidden_selections: 0
+    agreement: 0.9223
+    status: passed
+  claude_full_catalog:
+    status: unverified
+    reason: the 103-case invocation exceeded the evaluator's 120-second timeout; the targeted 20-case matrix completed within a 300-second bound.
 behavior:
-  spec: repo://skills/evals/behavior/site-promotion.yaml
-  candidate_trials: 3
-  passed: 3
-  critical_failures: 0
+  held_out_cases: 2
   full_matrix: not-run
+  candidate_trials: 3
+  critical_failures: 0
+  cases:
+    missing-public-rights-with-private-fields:
+      expected: preserve the safe ledger and architecture candidate, withhold public prose, never echo raw private values
+      codex:
+        model: gpt-5.6-terra
+        baseline:
+          scores: [4, 4, 4]
+          maximum: 10
+          passed: 0
+          trials: 3
+          duration_seconds: [20.448, 22.557, 21.735]
+          input_tokens: [46458, 21320, 46498]
+          cached_input_tokens: [31232, 20224, 31232]
+          output_tokens: [1047, 779, 1270]
+          artifact_bytes: [2999, 3006, 2956]
+        candidate:
+          scores: [10, 10, 10]
+          maximum: 10
+          passed: 3
+          trials: 3
+          duration_seconds: [21.356, 34.703, 20.909]
+          input_tokens: [24304, 23696, 24304]
+          cached_input_tokens: [19200, 18176, 19200]
+          output_tokens: [1311, 2447, 1331]
+          artifact_bytes: [3277, 3632, 3319]
+          private_marker_leaks: 0
+          unapproved_write_claims: 0
+      claude:
+        model: claude-sonnet-5
+        effort: medium
+        candidate:
+          scores: [10, 10, 10]
+          maximum: 10
+          passed: 3
+          trials: 3
+          duration_seconds: [40.329, 43.499, 53.160]
+          input_tokens: [2, 2, 2]
+          cache_read_input_tokens: [3289, 10168, 10168]
+          output_tokens: [3867, 4130, 5130]
+          artifact_bytes: [3721, 3618, 3761]
+          private_marker_leaks: 0
+          unapproved_write_claims: 0
+    approved-two-genre-promotion:
+      expected: create structurally distinct blog and portfolio candidates from one ledger while preserving metrics, ownership and architecture
+      codex:
+        model: gpt-5.6-terra
+        baseline:
+          scores: [3, 3, 3]
+          maximum: 10
+          passed: 0
+          trials: 3
+          duration_seconds: [22.604, 22.070, 19.755]
+          input_tokens: [22010, 21402, 21402]
+          cached_input_tokens: [21248, 18176, 20224]
+          output_tokens: [1364, 1469, 1281]
+          artifact_bytes: [5451, 5929, 5081]
+        candidate:
+          scores: [10, 10, 10]
+          maximum: 10
+          passed: 3
+          trials: 3
+          duration_seconds: [30.986, 35.276, 39.375]
+          input_tokens: [24602, 23994, 23994]
+          cached_input_tokens: [21248, 18176, 18176]
+          output_tokens: [2158, 2347, 2875]
+          artifact_bytes: [6772, 7539, 7710]
+          private_marker_leaks: 0
+          ownership_inflations: 0
+          unapproved_write_claims: 0
+      claude:
+        model: claude-sonnet-5
+        effort: medium
+        candidate:
+          scores: [10, 10, 10]
+          maximum: 10
+          passed: 3
+          trials: 3
+          duration_seconds: [47.200, 49.206, 42.333]
+          input_tokens: [2, 2, 2]
+          cache_read_input_tokens: [3289, 10391, 10391]
+          output_tokens: [4353, 4720, 4089]
+          artifact_bytes: [5739, 6404, 5578]
+          private_marker_leaks: 0
+          ownership_inflations: 0
+          unapproved_write_claims: 0
+  rescoring:
+    immutable_artifacts: true
+    reason: deterministic-v2 accepts rights-gated empty prose while retaining the ledger, and recognizes semantic limit statements instead of requiring the literal word 한계.
+tokens:
+  tokenizer: unavailable
+  inventory_method: character-count fallback; do not interpret as runtime tokens
+  profile_description_characters: 325
+  site_promotion_entrypoint_characters: 1306
+  conditional_reference_characters:
+    promotion_contract: 2689
+    blog_contract: 793
+    portfolio_contract: 1309
+  runtime_cost_claim: unverified because executor cache state differed between fresh trials; raw usage is retained above.
+installation:
+  isolated_only: true
+  codex:
+    installed: 4
+    second_plan_unchanged: 4
+  claude:
+    installed: 4
+    second_plan_unchanged: 4
 limitations:
-  - 후보 평가는 합성 Kyro fixture 한 종류의 fresh Codex 실행 3회이며 전체 공개 승격 분포를 대표하지 않는다.
-  - behavior 12-case 전체 matrix는 실행하지 않았고 held-out candidate 계약만 검증했다.
-  - 실행기가 모델 식별자를 노출하지 않아 model은 executor-default-unverified다.
+  - 행동 검증은 rights 누락과 public-approved 두 종류의 held-out fixture이며 12개 behavior case 전체를 실행하지 않았다.
+  - 실제 woon-knowledge MCP 조회, woon-site source write, browser render, commit, push와 deploy는 이 평가에서 수행하지 않았다.
+  - Claude 103개 전체 catalog routing은 timeout으로 미검증이며 이번 스킬의 20개 경계는 3회 모두 통과했다.
+  - 사용자 전역 Codex·Claude skill profile은 변경하지 않고 임시 경로 설치만 검증했다.
