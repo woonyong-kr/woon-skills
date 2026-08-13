@@ -3,6 +3,6 @@ name: knowledge
 max_active: 4
 skills:
   - skills/common/safety
-  - skills/docs/diagram
   - skills/knowledge/archive
+  - skills/knowledge/compile-knowledge
   - skills/knowledge/knowledge

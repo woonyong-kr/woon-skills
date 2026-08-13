@@ -1,8 +1,8 @@
 version: 1
-name: ingest
+name: knowledge-compile
 max_active: 4
 skills:
   - skills/common/safety
+  - skills/docs/diagram
   - skills/knowledge/compile-knowledge
-  - skills/knowledge/ingest
   - skills/knowledge/knowledge

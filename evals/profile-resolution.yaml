@@ -153,11 +153,21 @@ cases:
       - skills/common/safety
       - skills/knowledge/knowledge
       - skills/knowledge/archive
-      - skills/docs/diagram
+      - skills/knowledge/compile-knowledge
     reject_skills:
       - skills/web/e2e
       - skills/knowledge/publish
       - vendor/ecc/knowledge-ops
+  - id: knowledge-compile-is-bounded-and-separate-from-archive
+    profiles: [knowledge-compile]
+    expect_skills:
+      - skills/common/safety
+      - skills/docs/diagram
+      - skills/knowledge/compile-knowledge
+      - skills/knowledge/knowledge
+    reject_skills:
+      - skills/knowledge/archive
+      - skills/knowledge/publish
   - id: site-promotion-is-four-skill-review-queue
     profiles: [site-promotion]
     expect_skills:
@@ -197,11 +207,11 @@ cases:
     profiles: [ingest]
     expect_skills:
       - skills/common/safety
-      - skills/docs/diagram
-      - skills/knowledge/archive
+      - skills/knowledge/compile-knowledge
       - skills/knowledge/ingest
       - skills/knowledge/knowledge
     reject_skills:
+      - skills/knowledge/archive
       - skills/knowledge/publish
       - skills/docs/docs
   - id: github-operations-are-split

@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Wiki 컴파일"
+  short_description: "근거·claim·page spec을 검증해 Wiki를 컴파일"
+  default_prompt: "$compile-knowledge로 검토한 지식 입력을 안전하게 컴파일해 주세요."

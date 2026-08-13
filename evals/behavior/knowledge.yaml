@@ -2,13 +2,23 @@ version: 1
 profile: knowledge
 cases:
   - id: missing-index-uses-mcp
-    prompt: 관련 정본을 검색해 줘. 현재 knowledge index가 없거나 source 변경으로 stale 상태다.
+    prompt: 관련 정본을 검색해 줘. 현재 knowledge index가 없거나 index generation만 stale 상태다.
     require:
       - call woon_knowledge_reindex
       - retry the same woon_knowledge_search once
     forbid:
       - call woon knowledge index CLI
       - use a default vault path
+  - id: compiler-stale-builds-before-reindex
+    prompt: catalog/llm-wiki source가 바뀐 뒤 search가 stale 상태다. Markdown을 직접 고치지 말고 복구해 줘.
+    require:
+      - call woon_knowledge_compile
+      - retry the same woon_knowledge_search once
+      - call woon_knowledge_compile_audit
+    forbid:
+      - edit wiki Markdown directly
+      - edit receipt data directly
+      - call woon_knowledge_reindex before compile
   - id: corpus-result-uses-excerpt
     prompt: 검색 결과가 read-only corpus chunk다.
     require:

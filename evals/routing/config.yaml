@@ -11,7 +11,7 @@ context_budget:
     warning: skills descriptions shortened to fit 2 percent context budget
   knowledge_profile_smoke:
     active_skills: 4
-    names: [archive, diagram, knowledge, safety]
+    names: [archive, compile-knowledge, knowledge, safety]
     vendor_skills_exposed: 0
     input_tokens: 12436
     cached_input_tokens: 9984

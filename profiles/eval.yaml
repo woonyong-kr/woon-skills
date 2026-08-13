@@ -1,7 +1,7 @@
 version: 1
 name: eval
 installable: false
-max_active: 71
+max_active: 72
 skills:
   - skills/ai/agent-audit
   - skills/architecture/domain
@@ -38,6 +38,7 @@ skills:
   - skills/github/pr
   - skills/github/release
   - skills/knowledge/archive
+  - skills/knowledge/compile-knowledge
   - skills/knowledge/ingest
   - skills/knowledge/insight
   - skills/knowledge/knowledge

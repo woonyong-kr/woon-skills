@@ -35,7 +35,8 @@ woon skills doctor
 | 인증·개인정보·보안     | `security`          | `$auth·$privacy·$security`                                            |
 | GitHub                   | `github`            | `$pr·$issue·$ci·$release·$notify`                                   |
 | 개발 문서                | `docs`              | `$docs·$lookup·$adr·$diagram`                                        |
-| private knowledge        | `knowledge`         | `$safety·$knowledge·$archive·$diagram`                               |
+| private knowledge        | `knowledge`         | `$safety·$knowledge·$archive·$compile-knowledge`                     |
+| LLM Wiki maintenance     | `knowledge-compile` | `$safety·$knowledge·$compile-knowledge·$diagram`                     |
 | 대화 기반 문제 해결 회고 | `insight`           | `$insight`                                                              |
 | private 소설 작업        | `novel`             | `$safety·$novel-handoff·$novel-merge`                                 |
 | 지식→사이트 공개 후보   | `site-promotion`    | `$safety·$verify·$knowledge·$site-promotion`                           |
@@ -54,6 +55,7 @@ woon skills doctor
 - `$diagram`: Markdown 안의 Mermaid 관계도를 만듭니다.
 - `$knowledge`: private 정본과 read-only corpus를 검색·조회·감사합니다.
 - `$archive`: 현재 대화를 기존 private 정본에 중복 없이 저장합니다.
+- `$compile-knowledge`: source·accepted claim·page spec에서 receipt가 있는 Wiki를 결정론적으로 컴파일합니다.
 - `$insight`: 대화에서 실수·가설·전환·해결·검증을 근거로 연결해 재사용할 통찰을 만듭니다. 저장은 하지 않습니다.
 - `$novel-handoff`: 소설 정본을 수정하지 않고 로컬 전체 또는 외부 비식별 맥락 prompt를 만듭니다.
 - `$novel-merge`: 다른 AI 대화를 사건 lineage와 단일 catalog 기준으로 private 소설 정본에 병합합니다.

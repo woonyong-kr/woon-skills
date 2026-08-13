@@ -42,6 +42,13 @@ cases:
     allow_support: [knowledge]
     reject: [publish, tech, insight]
     max_selected: 2
+  - id: llm-wiki-compile
+    prompt: "catalog/llm-wiki의 source, accepted claim, page spec을 검토해 receipt까지 다시 컴파일하고 stale 검색을 복구해 줘"
+    profiles: [eval]
+    expect_primary: compile-knowledge
+    allow_support: [knowledge]
+    reject: [archive, ingest, publish]
+    max_selected: 2
   - id: conversation-insight
     prompt: "이 대화에서 내가 어디서 잘못 판단했고 어떤 증거로 방향을 바꿔 해결했는지, 다음에 재사용할 통찰까지 인과로 연결해 줘"
     profiles: [eval]

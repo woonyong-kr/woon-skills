@@ -13,7 +13,7 @@ description: archive MCP payload·body를 만들거나 private woon-knowledge에
 
 payload 인수는 `canonical_id`, `title`, `domain`, `summary`, `body`, `difficulty`, `prerequisites`, `next_concepts`, `related`, `source_session_ids`, `expected_revision`만 쓴다. `document_id`, `path`, `revision`, `tool` wrapper 같은 alias를 만들지 않는다.
 
-저장 뒤 `woon_knowledge_audit`을 실행한다. private 정본이며 별도 요청 없이 commit, push, publish하지 않는다. 입력 계약은 [MCP contract](references/mcp-contract.md)를 필요할 때만 읽는다. 이 스킬은 `repo://skills/skills/knowledge/archive`의 단일 원본이며 knowledge 저장소에 복사하지 않는다.
+저장은 source·accepted claim·page spec을 먼저 갱신하고 compiler가 Markdown·receipt를 만든다. 저장 뒤 `woon_knowledge_compile_audit`과 `woon_knowledge_audit`을 실행한다. private 정본이며 별도 요청 없이 commit, push, publish하지 않는다. 입력 계약은 [MCP contract](references/mcp-contract.md)를 필요할 때만 읽는다. 이 스킬은 `repo://skills/skills/knowledge/archive`의 단일 원본이며 knowledge 저장소에 복사하지 않는다.
 
 외부 폴더나 저장소의 여러 문서를 전수 처리하는 요청은 `$ingest`가 파일별 catalog·privacy·완전성을 먼저 소유하고, 실제 canonical 한 편 저장 단계에서만 이 스킬의 계약을 호출한다.
 
