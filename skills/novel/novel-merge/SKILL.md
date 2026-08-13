@@ -11,6 +11,6 @@ description: 다른 AI와 나눈 소설 대화나 새 창작안을 기존 프로
 4. 사실·사건은 같은 참여자·시간 범위·행위·결과를 가리키면 기존 사건에 병합한다. 창작 초안은 정서·관계 강도·시점·사건 배치·상징·대사·결말 효과 중 하나라도 달라 선택·개선 가치가 생기면 기존안을 덮어쓰지 말고 같은 variant group에 새 ID로 보존한다. 오탈자·공백·렌더링만 고친 경우에만 같은 variant revision으로 갱신한다.
 5. `추가·병합·중복·충돌·보류·기각` disposition을 모든 claim에 하나씩 남긴다. 충돌은 조용히 덮어쓰지 않고 반증·대안 해석·미해결 조건과 함께 기존 사건에 연결한다.
 6. novel 전체는 private/local-only다. 쓰기 직전 hash drift면 재계획하고 민감 원본을 외부 MCP·repo·AI에 보내지 않는다. 삭제·commit·push·publish는 별도 요청 없이는 하지 않는다.
-7. 반영 뒤 단일 catalog·선형 연표, dangling event/source link, 중복 identity, 누락 inventory와 privacy를 검사한다. 입력에 있던 서로 다른 창작안이 모두 variant ID·상태·차이 이유와 함께 남았는지도 검사한다. 실행하지 않은 검증은 완료로 쓰지 않는다.
+7. 반영 뒤 단일 catalog·선형 연표, dangling event/source link, 중복 identity, 누락 inventory와 privacy를 검사한다. 로컬 Novel workspace에서는 `python3 scripts/audit_novel_workspace.py`를 실행한다. 입력에 있던 서로 다른 창작안이 모두 variant ID·상태·차이 이유와 함께 남았는지도 검사한다. 실행하지 않은 검증은 완료로 쓰지 않는다.
 
 claim schema, identity와 충돌은 [병합 계약](references/merge-contract.md)을 읽는다. 인계는 `$novel-handoff`, 회고는 `$insight`, 지식 저장은 `$archive/$knowledge`, 학습 글은 `$tech`, 그림은 `$diagram`이 소유한다. 단일 원본은 `repo://skills/skills/novel/novel-merge`다.
