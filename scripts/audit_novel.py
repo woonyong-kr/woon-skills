@@ -65,12 +65,14 @@ def audit_novel(root: Path) -> list[str]:
             "de-identified derived context",
             "외부 MCP",
             "단일 inventory/catalog",
+            "Git 이력 보존본",
         ),
         merge: (
             "사실·해석·허구·감정·결정·일정·미해결",
             "단일 inventory/catalog",
             "private/local-only",
             "외부 MCP",
+            "Git 이력 보존본",
         ),
         handoff_ref: ("short_abstract", "사진·음성·전사·정확한 날짜", "누락 inventory"),
         merge_ref: (
