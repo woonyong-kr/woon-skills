@@ -1,4 +1,4 @@
 interface:
   display_name: "Novel Merge"
-  short_description: "다른 AI 대화를 기존 소설 정본에 중복 없이 판정하고 병합합니다"
-  default_prompt: "$novel-merge로 이 대화를 기존 소설 정본에 중복 없이 반영해 주세요."
+  short_description: "사실 정본은 병합하고 서로 다른 창작안은 모두 보존합니다"
+  default_prompt: "$novel-merge로 사실 정본은 중복 없이 병합하고, 내용과 효과가 다른 창작안은 variant로 모두 보존해 주세요."
