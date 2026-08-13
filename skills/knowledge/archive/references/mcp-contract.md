@@ -2,7 +2,7 @@
 
 - `woon_knowledge_search(query, limit)`: bounded snippets and stable IDs. Read-only.
 - `woon_knowledge_get(canonical_id)`: complete body, metadata, path, and content revision. Read-only.
-- `woon_knowledge_archive_conversation(canonical_id, title, domain, summary, body, difficulty, prerequisites, next_concepts, related, source_session_ids, expected_revision)`: creates one new ID or replaces one existing ID when `expected_revision` matches.
+- `woon_knowledge_archive_conversation(canonical_id, title, domain, summary, purpose, body, difficulty, prerequisites, next_concepts, related, source_session_ids, expected_revision)`: creates one new ID or replaces one existing ID when `expected_revision` matches. `purpose` is a nonempty statement of why the document is retained and what future question, decision, or output it should support.
 - `woon_knowledge_reindex()`: rebuilds the local FTS index from Markdown and exits.
 - `woon_knowledge_compile(force=false)`: compiles stale source-schema inputs and rebuilds the index when output changes.
 - `woon_knowledge_compile_audit()`: verifies page provenance and compiler receipts without mutation.
@@ -18,7 +18,7 @@ Treat the revision returned by `woon_knowledge_get` as an opaque string and pass
 
 Before proposing or sending a payload, reject it if `body` starts with `---`, contains an H1, uses an undeclared argument, or contains an unverified relationship value.
 
-For a non-executed example, return a corrected contract-shaped payload rather than only refusing. Use placeholders only for unknown required `canonical_id`, `title`, `domain`, `summary`, and `body`; default `difficulty` to `foundation` and unknown optional lists to `[]`. Never send a placeholder in a real MCP call.
+For a non-executed example, return a corrected contract-shaped payload rather than only refusing. Use placeholders only for unknown required `canonical_id`, `title`, `domain`, `summary`, `purpose`, and `body`; default `difficulty` to `foundation` and unknown optional lists to `[]`. Never send a placeholder in a real MCP call.
 
 ## Learning relation IDs
 
