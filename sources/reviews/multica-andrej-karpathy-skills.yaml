@@ -1,0 +1,52 @@
+version: 1
+repository: multica-ai/andrej-karpathy-skills
+upstream: https://github.com/multica-ai/andrej-karpathy-skills
+checked_commit: 2c606141936f1eeef17fa3043a72095b4765b9c2
+checked_version: unreleased
+checked_at: '2026-08-14'
+license: SKILL.md frontmatter MIT; root LICENSE absent
+scope:
+  skill_files: 1
+  support_files: provider setup, examples and translated README
+decision: merged-into-existing-skill
+evidence:
+  repository_state:
+    checked_commit_date: 2026-04-20
+    root_license_file: absent
+  source_shape:
+    canonical_skills: 1
+    upstream_skill_lines: 67
+    upstream_skill_words: 371
+    upstream_skill_bytes: 2518
+  overlap:
+    think_before_coding: quality already owned constraints, responsibilities and success conditions but did not distinguish material from harmless ambiguity
+    simplicity_first: quality already rejected speculative layers, wrappers and fallback branches
+    surgical_changes: quality and safety already preserved unrelated and user work but required propagation needed an explicit boundary
+    goal_driven_execution: test and verify already owned regression and completion evidence, while non-code artifact validation needed an explicit boundary
+  adoption:
+    new_runtime_skills: 0
+    canonical_owner: skills/common/quality
+    delegated_owners: [skills/common/safety, skills/common/test, skills/common/verify]
+    copied_upstream_text: false
+    reason: a second always-on skill would duplicate ownership and catalog context, while four compact rules close the measured boundaries in the existing owner
+  boundaries:
+    - harmless ambiguity must not stop autonomous execution
+    - simplicity must preserve security, consistency, compatibility and public contracts
+    - narrow changes include required caller, schema, migration, documentation and test propagation
+    - test-first is selected by artifact and risk; unavailable validation remains unverified
+  candidate_validation:
+    static: quick_validate, source audit, full skill audit and 47 repository tests passed
+    codex_behavior: five-case hardening trial passed 3 of 3; exact final combined and config-only adversarial smoke passed with no file mutation or unsupported production claim
+    claude_behavior: an initial candidate selected cancellation recording before policy resolution in 2 of 3 trials; after the no-branch boundary it passed 3 of 3 plus the exact-final combined smoke
+    token_budget: quality entrypoint increased from 612 to 846 o200k tokens; generated catalog remains 74 skills and the unchanged quality catalog entry remains 78 tokens
+  hardening_history:
+    - harmless assumptions must remain explicitly unverified
+    - material ambiguity must block every unresolved branch, not merely mention the ambiguity
+    - artifact validation must reject ceremonial tests that do not prove the output or risk
+    - Claude plan permission mode ended one trial with a plan handoff instead of an answer; it was excluded as a harness mismatch and rerun with dontAsk
+skills:
+  - name: karpathy-guidelines
+    purpose: surface consequential assumptions, prefer the minimum sufficient design, limit changes to the requested behavior and define verifiable completion
+    overlap: quality already owns top-level code quality while safety, test and verify own effects, regression and evidence
+    decision: merge-into-skill-system
+    reason: four compact boundaries improve the existing owner, but a second default skill would duplicate routing, instructions and context cost

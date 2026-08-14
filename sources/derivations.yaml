@@ -104,6 +104,10 @@ skills:
     adapted_from:
       - https://github.com/affaan-m/ECC/tree/2d46e80e0925c7be0907f18c1812311ac212a6c5/skills/agent-architecture-audit
     changed: shortened provider-neutral code-first trace contract, separated conditional layer reference, removed mandatory activation and ECC-specific tools, then admitted only after a fresh-context baseline failure
+  skills/common/quality:
+    adapted_from:
+      - https://github.com/multica-ai/andrej-karpathy-skills/tree/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines
+    changed: retained one Woon quality owner, translated four compact execution principles, limited clarification to material ambiguity, preserved mandatory security and compatibility, included required propagation in narrow changes, and delegated tests, evidence and effects to their existing owners
   skills/common/terminal:
     adapted_from: vendor/ecc/terminal-ops
     changed: removed automatic commit and push behavior

@@ -30,6 +30,15 @@ repositories:
     license: MIT
     improves: [skills/common/review, skills/common/refactor, skills/common/verify, skills/skill-system/comply]
     decision: select small, actionable, verifiable workflow concepts instead of bulk install
+  - id: multica-andrej-karpathy-skills
+    review_required: true
+    upstream: https://github.com/multica-ai/andrej-karpathy-skills
+    checked_commit: 2c606141936f1eeef17fa3043a72095b4765b9c2
+    checked_version: unreleased
+    status: adopted-selectively
+    license: SKILL.md frontmatter MIT; root LICENSE absent
+    improves: [skills/common/quality, evals/behavior/quality.yaml]
+    decision: keep quality as the only top-level owner; merge compact ambiguity, simplicity, narrow-change and goal-evidence rules, delegate effects to safety, regression to test and completion evidence to verify, and do not add a duplicate always-on skill or copy upstream prose
   - id: microsoft-waza
     upstream: https://github.com/microsoft/waza
     checked_commit: 7c2e710290edc6e978e228f5949a2d1d3d26820c

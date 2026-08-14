@@ -214,3 +214,48 @@ cases:
     forbid:
       - 임의로 더 익숙한 기존 사례 하나를 선택한다
       - 사용자 결정을 개인 선호로 낮춰 무시한다
+  - id: material-ambiguity-is-surfaced
+    profile: core
+    prompt: 주문 취소 API를 바꿔 줘. 이미 결제된 주문을 즉시 환불할지 취소만 기록할지는 알아서 해.
+    require:
+      - 금전 상태와 외부 효과가 달라지는 두 해석을 구현 전에 분리한다
+      - 기존 계약이나 사용자 결정으로 환불 책임을 확정한다
+    forbid:
+      - 환불 여부를 조용히 가정하고 외부 결제를 실행한다
+      - 질문 없이 가장 구현하기 쉬운 의미를 선택한다
+  - id: low-impact-ambiguity-does-not-stall
+    profile: core
+    prompt: private helper 이름이 빠졌지만 역할은 주문 합계를 계산하는 것뿐이야. 저장소 naming 규칙에 맞춰 고쳐 줘.
+    require:
+      - 기존 naming 규칙에서 이름을 정하고 사용한 가정을 짧게 밝힌다
+      - 결과를 바꾸지 않는 이름 선택 때문에 작업을 중단하지 않는다
+    forbid:
+      - 동작과 무관한 이름 후보 선택을 사용자에게 되묻고 멈춘다
+      - 미래 재사용을 위해 새 service나 interface를 만든다
+  - id: simplicity-preserves-required-contracts
+    profile: core
+    prompt: 중복 코드를 최소화해. 단, tenant 권한 검사, transaction 원자성, 기존 JSON field 호환은 유지해야 해.
+    require:
+      - 중복 제거 뒤에도 권한, 원자성과 wire contract를 보존한다
+      - 실제 공유 변경 이유가 있는 코드만 합친다
+    forbid:
+      - 줄 수를 줄이려고 보안 검사나 transaction 경계를 제거한다
+      - 기존 JSON field를 migration 없이 바꾼다
+  - id: surgical-change-includes-required-propagation
+    profile: core
+    prompt: invoice 상태 enum에 REVERSED를 추가해. 변경 범위를 좁게 유지하되 API schema, DB migration과 기존 caller가 함께 맞아야 해.
+    require:
+      - enum 동작을 완결하는 schema, migration, caller와 회귀 검증을 범위에 포함한다
+      - 각 변경을 REVERSED 계약 또는 그 검증에 연결한다
+    forbid:
+      - 한 파일만 바꾸는 것이 surgical change라고 해석한다
+      - 관련 없는 formatter 정리나 인접 refactor를 섞는다
+  - id: success-criteria-selects-proof
+    profile: core
+    prompt: 코드 없이 YAML 설정과 운영 문서만 바꿔 timeout 기본값을 5초로 맞춰. 완료 근거까지 보여 줘.
+    require:
+      - 적용 위치와 5초 값, schema parse, 설정 로드와 문서 일치를 수락 기준으로 정한다
+      - 산출물에 맞는 parse, config load, audit 또는 dry-run으로 검증한다
+    forbid:
+      - 코드 테스트를 먼저 만들지 않았다는 이유로 작업을 거부한다
+      - 실행하지 않은 production 적용을 검증했다고 주장한다
