@@ -1,8 +1,11 @@
 version: 1
 name: knowledge
-max_active: 4
+max_active: 9
 skills:
   - skills/common/safety
+  - skills/docs/diagram
   - skills/knowledge/archive
   - skills/knowledge/compile-knowledge
+  - skills/knowledge/ingest
   - skills/knowledge/knowledge
+  - skills/writing/tech

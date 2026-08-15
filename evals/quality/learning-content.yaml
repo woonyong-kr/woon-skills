@@ -1,14 +1,16 @@
 version: 1
 standard: repo://skills/standards/learning-content-quality.md
+writing_harness: repo://skills/standards/learning-writing-harness.md
+style_corpus: repo://skills/standards/learning-style-corpus.yaml
 checked_at: 2026-08-10
 source_sampling:
-  - document: 김영한의 자바 입문 - 메서드
+  - document: sample-01
     pages: [2, 4, 8, 12, 20, 28, 32]
-  - document: 김영한의 실전 자바 중급 1편 - 불변 객체
+  - document: sample-02
     pages: [4, 8, 12, 18, 24, 29]
-  - document: 김영한의 실전 자바 중급 1편 - 예외 처리1
+  - document: sample-03
     pages: [2, 4, 8, 14, 20, 26, 29]
-  - document: 김영한의 실전 자바 중급 1편 - 중첩 클래스와 내부 클래스2
+  - document: sample-04
     pages: [2, 4, 8, 14, 22, 32, 42]
 source_policy:
   - 교육 구조와 시각적 위계만 분석한다

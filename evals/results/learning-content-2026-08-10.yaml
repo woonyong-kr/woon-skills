@@ -12,13 +12,13 @@ scoring:
   rescored_from_immutable_artifacts: false
   comparison_scope: 기존 A/B는 18점 content rubric이며 640px 폭과 자연어 변형은 usability hardening에서 별도로 측정했다.
 source_sampling:
-  - document: 김영한의 자바 입문 - 메서드
+  - document: sample-01
     pages: [2, 4, 8, 12, 20, 28, 32]
-  - document: 김영한의 실전 자바 중급 1편 - 불변 객체
+  - document: sample-02
     pages: [4, 8, 12, 18, 24, 29]
-  - document: 김영한의 실전 자바 중급 1편 - 예외 처리1
+  - document: sample-03
     pages: [2, 4, 8, 14, 20, 26, 29]
-  - document: 김영한의 실전 자바 중급 1편 - 중첩 클래스와 내부 클래스2
+  - document: sample-04
     pages: [2, 4, 8, 14, 22, 32, 42]
 source_policy: 교육 구조와 시각적 위계만 분석했고 원문 문장·코드·그림은 복제하지 않았다.
 executors:
@@ -163,16 +163,22 @@ rendering:
     observed: [heading, callout, aliased_wikilink_navigation, two_rendered_mermaid_diagrams, no_horizontal_clipping]
 routing:
   command: woon skills eval-routing --executor all --repeat 3
-  cases: 61
+  executed_at: 2026-08-14
+  scope: current 75-skill catalog, 105 routing cases
+  cases: 105
   repeat: 3
   codex:
+    executable: codex-cli 0.144.6
+    timeout_seconds: 120
     primary_recall: 1.0000
     forbidden_selections: 0
-    agreement: 0.9508
+    agreement: 0.9810
   claude:
+    executable: Claude Code 2.1.205
+    timeout_seconds: 300
     primary_recall: 1.0000
     forbidden_selections: 0
-    agreement: 0.9836
+    agreement: 0.9810
 limitations:
   - 표본은 held-out exception-flow 한 종류의 fresh prompt 3회이며 전체 기술 문서 분포를 대표하지 않는다.
   - Codex candidate는 품질 통과율을 높였지만 p50 input·output·시간도 증가했다.

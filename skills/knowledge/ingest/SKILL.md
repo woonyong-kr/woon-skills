@@ -11,4 +11,12 @@ description: 외부 폴더·Git 저장소·drop 문서 전체를 woon-knowledge�
 
 각 파일은 후보 생성 뒤 원천 보존, 중복 제거, 제목·목차·선형 설명, 코드·Mermaid 정합성, Obsidian link, privacy, target revision을 검사한다. PDF·웹·문서가 image를 참조하면 본문보다 먼저 asset inventory를 만들고 누락 여부를 검사한다. 실제 UI·측정 chart·강의 도판처럼 원본성이 설명의 일부이면 [source asset 계약](references/source-assets.md)을 읽고 hash 단일 원본으로 보존한다. 실패하면 같은 파일만 수정·재검사하고 통과한 뒤 다음 파일로 이동한다. LLM Wiki v2에서는 source evidence, accepted claim, page spec을 갱신하고 `$compile-knowledge`로 compile·receipt audit을 실행한다. `source-reconcile` 또는 `wiki/` 직접 쓰기로 우회하지 않는다. 상세 판정과 완료 조건은 [reconciliation](references/reconciliation.md)을 필요할 때만 읽는다.
 
+이동형 영상·음성 자료는 기본적으로 Vault에 보관하지 않는다. 시스템 설계에 참고했다면 지속되는 것은 검증 가능한 설계 결정뿐이며, 영상 URL·설명·라이브 채팅·자막·자동 전사본을 source·claim·검색 색인에 넣지 않는다. 영상 자체가 장기 증거여야 하는 예외는 사용자가 영구 보관 범위와 재검토 주기를 명시하고 별도 수집 설계를 요청했을 때만 검토한다.
+
+독자가 다시 읽을 Wiki 본문이나 page spec을 만들 때는 아래 명령으로 quality gate, 범용 writing harness, 표본 근거를 함께 읽는다. 자료의 성격에 맞는 route를 고르고, 원본의 사실·현재 해석·미결정·visibility·purpose·재열람 질문을 분리한다. 코드가 없는 조사·사건·결정·절차도 같은 계약을 따르며, source에 없는 의도·결론·실행 결과를 보완하지 않는다.
+
+```bash
+bash "$(woon resolve repo://skills/skills/writing/tech/scripts/learning-context.sh)"
+```
+
 완료는 catalog의 모든 활성 파일이 `merged`, `canonical`, `catalog-only`, `external-private`, `excluded` 중 하나이고 pending과 중복 source ownership이 0일 때만 선언한다. source figure가 있었다면 누락, 중복 bytes, 깨진 embed, orphan catalog, rights·access 위반도 모두 0이어야 한다. 마지막에 `woon_knowledge_compile_audit`, `woon_knowledge_audit`, source catalog drift, Obsidian link·Mermaid·asset, 검색 표본, Git diff를 반복 검증한다. 자동 commit·push·publish는 하지 않는다.

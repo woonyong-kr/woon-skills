@@ -26,6 +26,8 @@ class AuditLearningContentTest(unittest.TestCase):
         (root / "evals/behavior").mkdir(parents=True)
         (root / "evals/results").mkdir(parents=True)
         (root / "standards").mkdir(parents=True)
+        (root / "skills/knowledge/archive").mkdir(parents=True)
+        (root / "skills/knowledge/ingest").mkdir(parents=True)
         shutil.copy(
             ROOT / "evals/quality/learning-content.yaml",
             root / "evals/quality/learning-content.yaml",
@@ -39,8 +41,24 @@ class AuditLearningContentTest(unittest.TestCase):
             root / "standards/learning-content-quality.md",
         )
         shutil.copy(
+            ROOT / "standards/learning-writing-harness.md",
+            root / "standards/learning-writing-harness.md",
+        )
+        shutil.copy(
+            ROOT / "standards/learning-style-corpus.yaml",
+            root / "standards/learning-style-corpus.yaml",
+        )
+        shutil.copy(
             ROOT / "evals/results/learning-content-2026-08-10.yaml",
             root / "evals/results/learning-content-2026-08-10.yaml",
+        )
+        shutil.copy(
+            ROOT / "skills/knowledge/archive/SKILL.md",
+            root / "skills/knowledge/archive/SKILL.md",
+        )
+        shutil.copy(
+            ROOT / "skills/knowledge/ingest/SKILL.md",
+            root / "skills/knowledge/ingest/SKILL.md",
         )
         return root
 
@@ -112,6 +130,42 @@ class AuditLearningContentTest(unittest.TestCase):
         self.assertTrue(
             any(
                 "unknown usability hardening status" in error
+                for error in audit_learning_content(root)
+            )
+        )
+
+    def test_rejects_missing_wiki_lifecycle_behavior_case(self) -> None:
+        root = self.make_root()
+        path = root / "evals/behavior/learning-content.yaml"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "record-preserves-provenance-and-uncertainty",
+                "removed-wiki-lifecycle-case",
+                1,
+            ),
+            encoding="utf-8",
+        )
+        self.assertTrue(
+            any(
+                "record-preserves-provenance-and-uncertainty" in error
+                for error in audit_learning_content(root)
+            )
+        )
+
+    def test_rejects_missing_ingest_writing_integration(self) -> None:
+        root = self.make_root()
+        path = root / "skills/knowledge/ingest/SKILL.md"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "repo://skills/skills/writing/tech/scripts/learning-context.sh",
+                "removed-writing-context.sh",
+                1,
+            ),
+            encoding="utf-8",
+        )
+        self.assertTrue(
+            any(
+                "ingest/SKILL.md: missing learning-context integration" in error
                 for error in audit_learning_content(root)
             )
         )

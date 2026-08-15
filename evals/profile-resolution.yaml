@@ -151,9 +151,29 @@ cases:
     profiles: [knowledge]
     expect_skills:
       - skills/common/safety
+      - skills/docs/diagram
       - skills/knowledge/knowledge
       - skills/knowledge/archive
       - skills/knowledge/compile-knowledge
+      - skills/knowledge/ingest
+      - skills/writing/tech
+    reject_skills:
+      - skills/research/research-library
+      - skills/web/e2e
+      - skills/knowledge/publish
+      - vendor/ecc/knowledge-ops
+  - id: research-library-extends-knowledge-without-dropping-writers
+    profiles: [research-library]
+    expect_skills:
+      - skills/common/safety
+      - skills/docs/diagram
+      - skills/knowledge/knowledge
+      - skills/knowledge/archive
+      - skills/knowledge/compile-knowledge
+      - skills/knowledge/ingest
+      - skills/writing/tech
+      - skills/research/research
+      - skills/research/research-library
     reject_skills:
       - skills/web/e2e
       - skills/knowledge/publish
@@ -165,6 +185,7 @@ cases:
       - skills/docs/diagram
       - skills/knowledge/compile-knowledge
       - skills/knowledge/knowledge
+      - skills/writing/tech
     reject_skills:
       - skills/knowledge/archive
       - skills/knowledge/publish

@@ -16,4 +16,8 @@ description: 저장소의 README, 설치·사용법, API 설명, CONTRIBUTING, r
 
 문서만 보고 성공했다고 하지 말고 문서가 가리키는 실제 동작까지 확인한다.
 
-초보자 tutorial이나 개념 설명이 주목적이면 `woon resolve repo://skills/standards/learning-content-quality.md`로 내부 학습문서 표준을 읽고 문제→실행 예제→원인→개념→개선→연습 흐름을 적용한다.
+초보자 tutorial이나 개념 설명이 주목적이면 아래 명령으로 내부 학습문서 표준과 writing harness를 읽는다. install·runbook은 `goal-to-workflow`처럼 절차를 따라가는 route를, 개념 설명은 독자가 이미 본 장면과 질문에 맞는 route를 고른다. 같은 목차를 모든 문서에 복제하지 않는다.
+
+```bash
+bash "$(woon resolve repo://skills/skills/writing/tech/scripts/learning-context.sh)"
+```

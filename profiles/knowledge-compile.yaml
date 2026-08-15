@@ -1,8 +1,9 @@
 version: 1
 name: knowledge-compile
-max_active: 4
+max_active: 5
 skills:
   - skills/common/safety
   - skills/docs/diagram
   - skills/knowledge/compile-knowledge
   - skills/knowledge/knowledge
+  - skills/writing/tech

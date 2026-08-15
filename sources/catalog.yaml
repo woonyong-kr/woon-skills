@@ -202,6 +202,15 @@ repositories:
     license: CC-BY-NC-4.0
     improves: [skills/research/research, evals/behavior/research.yaml]
     decision: preserve claim-entailment, experiment-provenance and systematic-coverage boundaries as provider-neutral regression cases; do not copy the 36404-token academic pipeline because Codex and Claude controls already pass and the noncommercial license plus provider-specific orchestration add cost without measured lift
+  - id: tmc-nlm
+    review_required: true
+    upstream: https://github.com/tmc/nlm
+    checked_commit: 23a4c4540f8fa6897397b9f688003bb774328914
+    checked_version: v0.1.1
+    status: adopted-selectively
+    license: MIT
+    improves: [skills/research/research-library]
+    decision: use a pinned local Markdown exporter behind a purpose-bound, user-authorized upload boundary; reject its generic MCP server, browser credential harvesting and whole-directory sync as Woon defaults
   - id: allthingssmitty-css-protips
     review_required: true
     upstream: https://github.com/AllThingsSmitty/css-protips

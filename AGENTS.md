@@ -2,7 +2,7 @@
 # Woon 지침: skills
 
 대상: `agents`
-Profiles: `core`, `skills`
+Profiles: `skill-system`
 
 ## 필수 작업 순서
 

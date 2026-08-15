@@ -29,7 +29,7 @@ upstream을 별도 branch에서 가져와 license와 commit을 확인하고 `loc
 
 - schema와 nested catalog가 유효함
 - root catalog가 최신이며 Codex·Claude가 같은 정본을 가리킴
-- profile별 `max_active` 이내이며 knowledge는 4개만 노출
+- profile별 `max_active` 이내이며 `knowledge`는 읽기·작성·컴파일·학습 문체의 7개, `research-library`는 그 집합에 연구·문헌 intake 2개를 더한 9개를 노출
 - unresolved conflict와 undeclared side effect가 없음
 - semantic routing과 behavior boundary case 통과
 - 두 번 설치한 뒤 plan이 `unchanged`

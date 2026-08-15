@@ -1,7 +1,7 @@
 version: 1
 name: eval
 installable: false
-max_active: 72
+max_active: 73
 skills:
   - skills/ai/agent-audit
   - skills/architecture/domain
@@ -60,6 +60,7 @@ skills:
   - skills/ops/observe
   - skills/research/market
   - skills/research/research
+  - skills/research/research-library
   - skills/security/security
   - skills/security/auth
   - skills/security/privacy

@@ -35,8 +35,9 @@ woon skills doctor
 | 인증·개인정보·보안     | `security`          | `$auth·$privacy·$security`                                            |
 | GitHub                   | `github`            | `$pr·$issue·$ci·$release·$notify`                                   |
 | 개발 문서                | `docs`              | `$docs·$lookup·$adr·$diagram`                                        |
-| private knowledge        | `knowledge`         | `$safety·$knowledge·$archive·$compile-knowledge`                     |
-| LLM Wiki maintenance     | `knowledge-compile` | `$safety·$knowledge·$compile-knowledge·$diagram`                     |
+| private knowledge        | `knowledge`         | `$safety·$knowledge·$archive·$ingest·$compile-knowledge·$tech·$diagram` |
+| 논문·NotebookLM 지식화   | `research-library`  | knowledge +`$research·$research-library`                                 |
+| LLM Wiki maintenance     | `knowledge-compile` | `$safety·$knowledge·$compile-knowledge·$diagram·$tech`               |
 | 대화 기반 문제 해결 회고 | `insight`           | `$insight`                                                              |
 | private 소설 작업        | `novel`             | `$safety·$novel-handoff·$novel-merge`                                 |
 | 지식→사이트 공개 후보   | `site-promotion`    | `$safety·$verify·$knowledge·$site-promotion`                           |

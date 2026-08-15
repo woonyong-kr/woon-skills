@@ -6,9 +6,14 @@ if ! command -v woon >/dev/null 2>&1; then
   exit 2
 fi
 
-standard_path="$(woon resolve repo://skills/standards/learning-content-quality.md)"
-if [[ ! -f "$standard_path" ]]; then
-  echo "learning-content standard does not exist: $standard_path" >&2
-  exit 2
-fi
-sed -n '1,360p' "$standard_path"
+for standard_uri in \
+  repo://skills/standards/learning-content-quality.md \
+  repo://skills/standards/learning-writing-harness.md \
+  repo://skills/standards/learning-style-corpus.yaml; do
+  standard_path="$(woon resolve "$standard_uri")"
+  if [[ ! -f "$standard_path" ]]; then
+    echo "learning-content contract does not exist: $standard_path" >&2
+    exit 2
+  fi
+  sed -n '1,420p' "$standard_path"
+done

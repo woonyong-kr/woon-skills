@@ -7,6 +7,8 @@ import json
 import re
 from pathlib import Path
 
+import yaml
+
 from audit_backend import audit_backend
 from audit_insight import audit_insight
 from audit_learning_content import audit_learning_content
@@ -21,6 +23,7 @@ INTERFACE_FIELD = re.compile(
     r'^  (?P<key>display_name|short_description|default_prompt): (?P<value>".*")$',
     re.MULTILINE,
 )
+EFFECTS = {"read", "write", "process", "network", "commit", "merge", "release", "push"}
 
 
 def interface_fields(text: str) -> dict[str, str]:
@@ -30,11 +33,40 @@ def interface_fields(text: str) -> dict[str, str]:
     return fields
 
 
+def audit_effect_registry(root: Path, skill_paths: set[str]) -> list[str]:
+    """Keep the declared capability registry complete for every installable skill."""
+
+    path = root / "conflicts" / "effects.yaml"
+    try:
+        payload = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except (OSError, yaml.YAMLError) as error:
+        return [f"{path}: cannot load effects registry: {error}"]
+    effects = payload.get("skills") if isinstance(payload, dict) else None
+    if not isinstance(effects, dict):
+        return [f"{path}: skills must be a mapping"]
+
+    errors: list[str] = []
+    declared = set(effects)
+    missing = sorted(skill_paths.difference(declared))
+    extra = sorted(declared.difference(skill_paths))
+    if missing:
+        errors.append(f"{path}: missing skill effects {missing}")
+    if extra:
+        errors.append(f"{path}: effects reference unknown skills {extra}")
+    for skill_path, values in effects.items():
+        if not isinstance(values, list) or not values or any(
+            not isinstance(value, str) or value not in EFFECTS for value in values
+        ):
+            errors.append(f"{path}: {skill_path} has invalid effects")
+    return errors
+
+
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     errors: list[str] = []
     names: set[str] = set()
     skill_files = sorted((root / "skills").rglob("SKILL.md"))
+    skill_paths = {skill_file.parent.relative_to(root).as_posix() for skill_file in skill_files}
 
     for skill_file in skill_files:
         text = skill_file.read_text(encoding="utf-8")
@@ -97,6 +129,7 @@ def main() -> int:
     errors.extend(audit_insight(root))
     errors.extend(audit_novel(root))
     errors.extend(audit_site_promotion(root))
+    errors.extend(audit_effect_registry(root, skill_paths))
 
     if errors:
         print("\n".join(f"error: {error}" for error in errors))

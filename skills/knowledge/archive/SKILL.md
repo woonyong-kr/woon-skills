@@ -17,6 +17,12 @@ payload 인수는 `canonical_id`, `title`, `domain`, `summary`, `purpose`, `body
 
 외부 폴더나 저장소의 여러 문서를 전수 처리하는 요청은 `$ingest`가 파일별 catalog·privacy·완전성을 먼저 소유하고, 실제 canonical 한 편 저장 단계에서만 이 스킬의 계약을 호출한다.
 
-대화가 학습 설명을 포함하면 `woon resolve repo://skills/standards/learning-content-quality.md`로 내부 표준을 읽는다. 문제·실행 근거·인과·개념·한계를 재배열하되 대화에 없던 실행 결과를 만들지 않는다.
+정본을 기록하거나 독자가 다시 읽을 Wiki 본문을 만들 때는 아래 명령으로 quality gate, 범용 Wiki writing harness, 표본 근거를 함께 읽는다. 주제에 맞는 route를 고르고, purpose·source·claim·page·receipt·visibility·재열람 질문을 분리한다. code·실행 근거·인과·개념·한계는 필요한 경우에만 사용하며, 대화에 없던 실행 결과·사실·의도를 만들지 않는다.
+
+```bash
+bash "$(woon resolve repo://skills/skills/writing/tech/scripts/learning-context.sh)"
+```
+
+새롭거나 크게 고친 학습 본문은 compiler 통과만으로 문체 품질이 보장되지 않는다. 해당 page의 receipt hash가 포함된 content quality review를 갱신하고 `$compile-knowledge`의 `evaluate-quality` gate가 전체 current payload를 통과하기 전까지는 "문서 품질 검증 완료"라고 말하지 않는다.
 
 Obsidian·Quartz 표시, wikilink, callout, `.base`·`.canvas` 경계가 관련되면 `woon resolve repo://skills/standards/obsidian-compatibility.md`를 읽는다.

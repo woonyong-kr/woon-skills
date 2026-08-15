@@ -40,7 +40,7 @@
 - 유효한 고유 source 정보의 누락 0
 - 의미 중복 section 0
 - private locator, secret, 개인 원문이 public 문서에 노출되지 않음
-- 모든 wikilink가 활성 문서에 연결된다. `_quarantine`, backup, export는 연결 대상으로 인정하지 않음
+- 모든 wikilink가 활성 문서에 연결된다. retired, backup, export 경로는 연결 대상으로 인정하지 않음
 - 후보 검토와 deterministic check가 모두 통과
 
 하나라도 실패하면 그 파일은 적용하지 않는다. 전체 수치가 좋아도 개별 실패를 평균으로 상쇄하지 않는다.

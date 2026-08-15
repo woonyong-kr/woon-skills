@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 from typing import Any
 
@@ -43,6 +44,91 @@ def audit_learning_content(root: Path) -> list[str]:
         errors.append(f"{quality_path}: standard must use repo://skills/")
     elif not (root / standard.removeprefix(prefix)).exists():
         errors.append(f"{quality_path}: standard target does not exist")
+
+    contract_targets: dict[str, Path] = {}
+    for field, expected_name in (
+        ("writing_harness", "learning-writing-harness.md"),
+        ("style_corpus", "learning-style-corpus.yaml"),
+    ):
+        value = quality.get(field)
+        if not isinstance(value, str) or not value.startswith(prefix):
+            errors.append(f"{quality_path}: {field} must use repo://skills/")
+            continue
+        target = root / value.removeprefix(prefix)
+        if not target.exists() or target.name != expected_name:
+            errors.append(f"{quality_path}: {field} target does not exist")
+        else:
+            contract_targets[field] = target
+
+    harness_path = contract_targets.get("writing_harness")
+    if harness_path is not None:
+        harness = harness_path.read_text(encoding="utf-8")
+        required_sections = (
+            "## Canonical lifecycle",
+            "## Claim unit contract",
+            "## Input contract",
+            "## Adaptive route selection",
+            "## Writing state machine",
+            "## Korean prose renderer",
+            "## Block contracts",
+            "## LLM execution protocol",
+            "## Reject rules",
+            "## Final reader check",
+        )
+        for heading in required_sections:
+            if heading not in harness:
+                errors.append(f"{harness_path}: missing {heading}")
+
+    learning_context_uri = "repo://skills/skills/writing/tech/scripts/learning-context.sh"
+    for integration_path in (
+        root / "skills/knowledge/archive/SKILL.md",
+        root / "skills/knowledge/ingest/SKILL.md",
+    ):
+        if not integration_path.exists():
+            errors.append(f"{integration_path}: missing Wiki writing integration")
+        elif learning_context_uri not in integration_path.read_text(encoding="utf-8"):
+            errors.append(
+                f"{integration_path}: missing learning-context integration"
+            )
+
+    corpus_path = contract_targets.get("style_corpus")
+    if corpus_path is not None:
+        corpus = load_mapping(corpus_path)
+        if corpus.get("version") != 1:
+            errors.append(f"{corpus_path}: version must be 1")
+        samples = corpus.get("samples")
+        if not isinstance(samples, list) or len(samples) < 4:
+            errors.append(f"{corpus_path}: requires four or more samples")
+        else:
+            seen_sample_ids: set[str] = set()
+            for position, sample in enumerate(samples, start=1):
+                if not isinstance(sample, dict):
+                    errors.append(f"{corpus_path}: sample {position} must be a mapping")
+                    continue
+                sample_id = sample.get("id")
+                digest = sample.get("sha256")
+                pages = sample.get("reviewed_pages")
+                role = sample.get("role")
+                if (
+                    not isinstance(sample_id, str)
+                    or not sample_id
+                    or sample_id in seen_sample_ids
+                ):
+                    errors.append(f"{corpus_path}: sample {position} has invalid id")
+                else:
+                    seen_sample_ids.add(sample_id)
+                if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+                    errors.append(f"{corpus_path}: sample {position} has invalid sha256")
+                if (
+                    not isinstance(pages, list)
+                    or not pages
+                    or any(not isinstance(page, int) or page < 1 for page in pages)
+                ):
+                    errors.append(f"{corpus_path}: sample {position} has invalid reviewed_pages")
+                if not isinstance(role, str) or not role.strip():
+                    errors.append(f"{corpus_path}: sample {position} requires role")
+        if not non_empty_strings(corpus.get("observations")):
+            errors.append(f"{corpus_path}: observations must not be empty")
 
     samples = quality.get("source_sampling")
     if not isinstance(samples, list) or len(samples) < 4:
@@ -163,6 +249,20 @@ def audit_learning_content(root: Path) -> list[str]:
                 errors.append(
                     f"{behavior_path}: case {position} overlaps require and forbid"
                 )
+        required_behavior_cases = {
+            "archive-envelope-stays-owned",
+            "fixed-template-is-not-quality",
+            "record-preserves-provenance-and-uncertainty",
+            "decision-keeps-reversal-condition",
+            "record-route-never-invents-execution",
+            "general-diagram-keeps-stable-entities",
+        }
+        missing_behavior_cases = required_behavior_cases - seen
+        if missing_behavior_cases:
+            errors.append(
+                f"{behavior_path}: missing required cases "
+                + ", ".join(sorted(missing_behavior_cases))
+            )
 
     result_path = result_paths[-1]
     result = load_mapping(result_path)

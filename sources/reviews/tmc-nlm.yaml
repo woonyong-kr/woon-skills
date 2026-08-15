@@ -1,0 +1,34 @@
+version: 1
+repository: tmc/nlm
+upstream: https://github.com/tmc/nlm
+checked_commit: 23a4c4540f8fa6897397b9f688003bb774328914
+checked_version: v0.1.1
+checked_at: '2026-08-14'
+license: MIT
+scope:
+  skill_files: 1
+  support_files: Go CLI, private-RPC client, browser-auth implementation, MCP server, rendering and artifact export code
+decision: adopted-selectively
+evidence:
+  repository_state:
+    branch: main
+    build: passed with Go 1.26.5 on macOS arm64
+    installed_binary_sha256: 289c5927f1b66483ec021e9b61dbf9925bf02a3d4a73852806f68dc77321af9a
+  tested_surface:
+    command_help: passed without authentication
+    markdown_artifact_export: Woon notebooklm-export command and manifest contract unit-tested; live export unverified because no Google session was read or created
+    external_effects_not_run: auth, source add, source sync, delete and share
+  security_boundary:
+    protocol: reverse-engineered private NotebookLM RPC, not a Google-supported service API
+    credentials: auth can extract browser profile cookies and a token into a local environment file
+    restriction: no generic MCP installation, no whole-Vault sync, no automatic auth or upload
+  adoption:
+    runtime: pinned local CLI only
+    woon_owner: research-library skill plus research-intake-plan validator
+    outcome: exported Markdown remains derived-review-required until source evidence and claim review complete
+skills:
+  - name: nlm
+    purpose: export selected NotebookLM Markdown artifacts after the user explicitly authorizes a scoped Google-account action
+    overlap: research owns evidence synthesis and archive plus compile-knowledge own canonical promotion
+    decision: adopt-as-new-skill
+    reason: Woon needs a constrained external-workbench bridge, not a second canonical store or a default credential-bearing MCP server

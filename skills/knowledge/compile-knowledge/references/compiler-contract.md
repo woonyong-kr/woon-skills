@@ -4,6 +4,7 @@
 
 - `sources.yaml`: `source_id`, kind, safe locator, original/normalized SHA-256, privacy, lifecycle, title, body. New non-`legacy-wiki` sources additionally require a nonempty `purpose` that states why the knowledge is retained and what future question, decision, or output it supports. Conversation provenance may also carry `source_session_ids`.
 - `claims.yaml`: only `status: accepted` claims render. Each claim declares one or more source IDs and Markdown supported by those sources.
+- A replaced conversation revision remains as `lifecycle: archived` source and `status: superseded` claim with a `superseded_by` ID. Its raw body and hash stay immutable, but only the current `compiled/accepted` pair belongs to a page spec and normal retrieval.
 - `pages.yaml`: exactly one safe `.md` output path, frontmatter whose title matches `title`, source IDs, claim IDs, and either `source-body` or `claims` rendering.
 - `relations.yaml`: derived learning edges for review. It does not replace canonical page validation.
 - `receipts.yaml`: compiler-owned input/output hashes. Never edit it manually.
@@ -12,6 +13,7 @@
 ## Gates
 
 - A page may reference only existing source and accepted-claim IDs.
+- A page may reference only `lifecycle: compiled` sources. An inactive source or claim must have a non-cyclic `superseded_by` chain that reaches a current page record; an unclassified orphan fails the audit.
 - Every claim evidence ID must belong to that page's source set.
 - A public page may use only `privacy: public` sources.
 - A new source without a concrete retention purpose is rejected; legacy migrations preserve the historical source as-is rather than inventing past intent.
@@ -24,5 +26,6 @@
 - `woon_knowledge_compile_audit()`: verifies reproducibility and receipts without mutation.
 - `woon_knowledge_reindex()`: only after a current compiler audit; it cannot make stale inputs valid.
 - `woon_knowledge_archive_conversation(...)`: writes a conversation source, accepted claim, and page spec atomically before compiling the canonical output.
+- `woon knowledge reconcile-superseded-revisions`: non-destructively classifies safe unreferenced conversation revisions whose current successor is unambiguous. It never guesses across different or ambiguous locators.
 
 Legacy Wiki migration uses one `legacy-wiki` source and `legacy-document` accepted claim per existing page. This proves reproduction and preserves the original evidence; it does not claim that every old paragraph was independently fact-checked.

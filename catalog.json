@@ -355,6 +355,12 @@
       "description": "최신 자료, 논문, 도구, 사례를 여러 출처에서 조사·비교·종합해 근거 있는 결론과 불확실성을 제시할 때 사용한다."
     },
     {
+      "name": "research-library",
+      "domain": "research",
+      "path": "skills/research/research-library",
+      "description": "Zotero로 논문·서지를 수집하고 NotebookLM Markdown 산출물을 Woon 정본 후보로 검증할 때 사용한다. 논문 PDF, CSL JSON, DOI·arXiv ID, NotebookLM 보고서·학습 가이드·flashcard export, Obsidian 문헌 노트를 다룰 때 적용한다."
+    },
+    {
       "name": "resilience",
       "domain": "backend",
       "path": "skills/backend/resilience",
@@ -591,6 +597,11 @@
     {
       "name": "research",
       "path": "profiles/research.yaml",
+      "installable": true
+    },
+    {
+      "name": "research-library",
+      "path": "profiles/research-library.yaml",
       "installable": true
     },
     {

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Library"
+  short_description: "Safely intake Zotero and NotebookLM research exports."
+  default_prompt: "Use $research-library to prepare a review-only intake plan from my Zotero export and NotebookLM Markdown."
