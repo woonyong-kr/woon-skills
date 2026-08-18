@@ -1,0 +1,4 @@
+interface:
+  display_name: "인물 연결 관리"
+  short_description: "인물 관계와 자료 출처를 안전하게 연결하는 규칙"
+  default_prompt: "$people로 이 자료의 제공자와 참석자를 인물 지도에 안전하게 연결해 주세요."

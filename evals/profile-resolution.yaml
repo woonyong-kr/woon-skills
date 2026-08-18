@@ -157,6 +157,8 @@ cases:
       - skills/knowledge/compile-knowledge
       - skills/knowledge/ingest
       - skills/writing/tech
+      - skills/knowledge/knowledge-navigation
+      - skills/knowledge/obsidian-plugin
     reject_skills:
       - skills/research/research-library
       - skills/web/e2e
@@ -212,6 +214,15 @@ cases:
       - skills/knowledge/archive
       - skills/knowledge/knowledge
       - skills/writing/tech
+  - id: personal-is-purpose-bound-and-local
+    profiles: [personal]
+    expect_skills:
+      - skills/common/safety
+      - skills/knowledge/people
+      - skills/productivity/tasks
+    reject_skills:
+      - skills/knowledge/publish
+      - skills/github/release
   - id: novel-is-private-and-focused
     profiles: [novel]
     expect_skills:

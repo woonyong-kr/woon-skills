@@ -196,6 +196,12 @@ skills:
   skills/novel/novel-merge:
     native_for: Woon private novel conversation reconciliation
     changed: created one canonical merge owner for typed claims, event lineage, linear chronology, complete disposition inventory and a single local-only source catalog without original duplication
+  skills/productivity/tasks:
+    native_for: Woon local-first personal task and read-only Apple Calendar workflow
+    changed: created one owner for purpose-bound Markdown routines, KST daily materialization, local receipt verification and read-only ICS projection while rejecting app UI, direct databases and provider-specific task systems
+  skills/knowledge/people:
+    native_for: Woon local-first person, source attribution and meeting-role indexing
+    changed: created one role-aware person-card owner with implicit vault ownership, explicit-or-repeated card creation, local MCP verification, unresolved attribution and Novel exclusion
   skills/writing/site-promotion:
     native_for: Woon private knowledge to public site promotion with human approval
     changed: created one review-queue owner for evidence-ledger transformation, distinct blog and portfolio genres, selected portfolio visibility, architecture media, exact source-write approval and separate commit, push and deploy authority

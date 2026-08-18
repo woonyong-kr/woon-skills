@@ -1,6 +1,6 @@
 version: 1
-name: knowledge
-max_active: 9
+name: personal
+max_active: 12
 skills:
   - skills/common/safety
   - skills/docs/diagram
@@ -8,6 +8,9 @@ skills:
   - skills/knowledge/compile-knowledge
   - skills/knowledge/ingest
   - skills/knowledge/knowledge
-  - skills/knowledge/knowledge-navigation
   - skills/knowledge/obsidian-plugin
+  - skills/knowledge/people
+  - skills/productivity/tasks
+  - skills/research/research
+  - skills/research/research-library
   - skills/writing/tech

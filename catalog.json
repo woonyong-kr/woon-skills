@@ -229,6 +229,12 @@
       "description": "private woon-knowledge에서 정본 문서를 검색·조회·감사·이력 확인·복구하거나 지식 중복과 연결 품질을 진단할 때 사용한다."
     },
     {
+      "name": "knowledge-navigation",
+      "domain": "knowledge",
+      "path": "skills/knowledge/knowledge-navigation",
+      "description": "LLM Wiki, 학습 노트, 면접 문답을 키워드에서 질문·답변·후속 질문으로 연결하고 Markdown 정본과 Obsidian JSON Canvas 보조 지도를 함께 만들거나 검증할 때 사용한다. 지식 지도, Canvas, 문서 간 탐색, 질문 노트 구조화, 고아 문서·중복 키워드 점검 요청에 적용한다."
+    },
+    {
       "name": "lookup",
       "domain": "docs",
       "path": "skills/docs/lookup",
@@ -275,6 +281,18 @@
       "domain": "ops",
       "path": "skills/ops/observe",
       "description": "backend의 structured log, metric, distributed trace, correlation, audit signal, SLI·SLO, alert와 dashboard를 설계·검토할 때 사용한다. 부분 실패·재시도·비동기 흐름을 운영에서 추적할 때도 사용한다."
+    },
+    {
+      "name": "obsidian-plugin",
+      "domain": "knowledge",
+      "path": "skills/knowledge/obsidian-plugin",
+      "description": "Woon Obsidian Vault의 Community Plugin 설치 상태를 확인하고, 사용자가 승인한 plugin을 공식 release에서 검증·설치·활성화·제거할 때 사용한다."
+    },
+    {
+      "name": "people",
+      "domain": "knowledge",
+      "path": "skills/knowledge/people",
+      "description": "Vault 문서의 소유자, 자료 저자·제공자, 발표자, 회의 참석자·협업자를 인물 카드와 역할로 연결하고 사람 기준으로 다시 찾을 때 사용한다. 이름만 언급된 자료나 Novel·민감 인물은 이 skill로 일반 지도에 넣지 않는다."
     },
     {
       "name": "postgres",
@@ -413,6 +431,12 @@
       "domain": "data",
       "path": "skills/data/storage",
       "description": "relational·document·key-value·wide-column·search·object storage를 access pattern, consistency, durability, partitioning, query와 운영 비용으로 선택·설계·검토할 때 사용한다."
+    },
+    {
+      "name": "tasks",
+      "domain": "productivity",
+      "path": "skills/productivity/tasks",
+      "description": "Obsidian의 반복 할 일·일일 기록을 목적과 검증 규칙으로 관리하고, 사용자가 직접 요청한 Apple Calendar 일정의 생성·변경을 EventKit MCP와 영수증·재조회로 처리할 때 사용한다. 지식·Novel 원고의 task 등록은 거부한다."
     },
     {
       "name": "tech",
@@ -582,6 +606,11 @@
     {
       "name": "ops",
       "path": "profiles/ops.yaml",
+      "installable": true
+    },
+    {
+      "name": "personal",
+      "path": "profiles/personal.yaml",
       "installable": true
     },
     {

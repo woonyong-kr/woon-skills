@@ -1,7 +1,7 @@
 version: 1
 name: eval
 installable: false
-max_active: 73
+max_active: 77
 skills:
   - skills/ai/agent-audit
   - skills/architecture/domain
@@ -42,6 +42,9 @@ skills:
   - skills/knowledge/ingest
   - skills/knowledge/insight
   - skills/knowledge/knowledge
+  - skills/knowledge/knowledge-navigation
+  - skills/knowledge/obsidian-plugin
+  - skills/knowledge/people
   - skills/knowledge/publish
   - skills/language/c/c
   - skills/language/cpp/cpp
@@ -58,6 +61,7 @@ skills:
   - skills/ops/capacity
   - skills/ops/docker
   - skills/ops/observe
+  - skills/productivity/tasks
   - skills/research/market
   - skills/research/research
   - skills/research/research-library

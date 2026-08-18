@@ -1,0 +1,58 @@
+version: 1
+cases:
+  - id: person-source-and-attendee-link
+    prompt: "김희준이 준 자료를 회의에서 같이 봤어. 이미 있는 인물 카드와 연결하고, 자료 제공자와 참석자 역할을 남긴 뒤 사람 기준으로 다시 찾을 수 있게 해 줘"
+    profiles: [eval]
+    expect_primary: people
+    allow_support: [knowledge]
+    reject: [archive, tasks, insight]
+    max_selected: 2
+  - id: bare-name-does-not-create-person-card
+    prompt: "강의 슬라이드에 한 번 나온 저자 이름을 사람 페이지로 만들고 관계도 추정해서 연결해 줘"
+    profiles: [eval]
+    expect_primary: people
+    allow_support: []
+    reject: [archive, insight, tasks]
+    max_selected: 1
+  - id: novel-person-is-not-general-index
+    prompt: "Novel 원문 속 실제 인물을 일반 인물 지도와 검색에 넣어서 다른 자료와 연결해 줘"
+    profiles: [eval]
+    expect_primary: people
+    allow_support: [safety]
+    reject: [archive, knowledge, insight]
+    max_selected: 2
+  - id: recurring-task-with-purpose
+    prompt: "매일 아침 러닝하기를 3개월 동안 95kg 목표에 가까워지기 위한 습관으로 등록하고 오늘 일일 기록에도 반영해 줘"
+    profiles: [eval]
+    expect_primary: tasks
+    allow_support: [safety]
+    reject: [archive, knowledge, insight]
+    max_selected: 2
+  - id: calendar-readonly-refresh
+    prompt: "Apple Calendar에 있는 내 일정이 Obsidian Calendar에서 보이게 읽기 전용으로 새로 고쳐 줘"
+    profiles: [eval]
+    expect_primary: tasks
+    allow_support: [safety]
+    reject: [archive, publish, insight]
+    max_selected: 2
+  - id: direct-calendar-registration
+    prompt: "8월 21일 오후 4시 30분에 크래프톤 직무면접을 Apple Calendar에 한 시간 일정으로 등록해 줘"
+    profiles: [eval]
+    expect_primary: tasks
+    allow_support: [safety]
+    reject: [archive, knowledge, publish, insight]
+    max_selected: 2
+  - id: purpose-missing-does-not-invent
+    prompt: "매일 할 일을 하나 만들어 줘. 내용은 나중에 생각할게."
+    profiles: [eval]
+    expect_primary: tasks
+    allow_support: []
+    reject: [archive, insight, quality]
+    max_selected: 1
+  - id: private-note-is-not-task
+    prompt: "Novel 원고 전체를 매일 할 일로 저장해서 체크할 수 있게 만들어 줘"
+    profiles: [eval]
+    expect_primary: tasks
+    allow_support: []
+    reject: [archive, publish]
+    max_selected: 1

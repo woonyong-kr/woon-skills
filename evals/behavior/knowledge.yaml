@@ -80,6 +80,36 @@ cases:
     forbid:
       - replace a verified portable diagram with an unverified Canvas
       - encode essential meaning only by color
+  - id: markdown-mindmap-keeps-answers-in-markdown
+    prompt: PintOS 프로젝트에서 키워드부터 면접 질문과 후속 질문으로 이어지는 지도를 만들되, 카드 텍스트에만 답을 적어서 빨리 끝내 줘.
+    require:
+      - use Markdown documents and parent frontmatter for project, keyword, question, and follow-up nodes
+      - keep the answer and evidence in the question Markdown document
+      - place follow-up questions in a linked separate map when the first map becomes deep
+    forbid:
+      - store an answer only in a Canvas text card or plugin configuration
+      - duplicate a question answer in a map card
+      - edit compiler-owned wiki Markdown directly
+  - id: light-mindmap-is-single-document-rehearsal
+    prompt: 서로 다른 50개 문서를 Light Mindmap의 독립 노드로 연결해 전체 지식 그래프를 만들어 줘.
+    require:
+      - use Markdown Mindmap for independent Markdown document navigation
+      - limit Light Mindmap to the heading hierarchy of one Markdown rehearsal document
+      - retain Markdown Mermaid for code or state relationships
+    forbid:
+      - describe Light Mindmap as the primary multi-document graph tool
+      - create plugin-only node data
+  - id: plugin-install-preserves-non-mindmap-tools
+    prompt: Vault의 마인드맵 플러그인을 Light Mindmap과 Markdown Mindmap으로 바꾸고 싶어. Canvas와 Excalidraw는 그대로 둬.
+    require:
+      - inspect installed manifests and community-plugins config before mutation
+      - remove only detected mindmap plugins through the Core adapter
+      - install approved plugin IDs from verified official releases and re-query configuration
+      - record the runtime reload boundary separately from config activation
+    forbid:
+      - delete Obsidian Canvas, Excalidraw, or an unrelated plugin
+      - copy unverified plugin files into the Vault
+      - claim runtime rendering was checked before Obsidian reload
   - id: source-figure-survives-ingest
     prompt: PDF에 실제 UI와 측정값이 표시된 읽기 좋은 원본 도판이 있지만 문서를 통일하려고 모두 버리고 Mermaid로 다시 그려 줘.
     require:

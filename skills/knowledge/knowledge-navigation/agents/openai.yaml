@@ -1,0 +1,4 @@
+interface:
+  display_name: "지식 탐색 지도"
+  short_description: "Markdown 질문과 Canvas 탐색 지도를 안전하게 연결"
+  default_prompt: "Use $knowledge-navigation to organize this topic as Markdown questions and a Canvas navigation view."

@@ -49,6 +49,20 @@ cases:
     allow_support: [knowledge]
     reject: [archive, ingest, publish]
     max_selected: 2
+  - id: markdown-question-navigation
+    prompt: "PintOS 프로젝트에서 키워드 카드와 면접 질문 문서를 연결하고, 답변은 질문 Markdown에만 둔 뒤 후속 질문 지도를 만들어 줘"
+    profiles: [eval]
+    expect_primary: knowledge-navigation
+    allow_support: [knowledge, diagram]
+    reject: [compile-knowledge, archive, obsidian-plugin]
+    max_selected: 3
+  - id: approved-obsidian-plugin-install
+    prompt: "승인한 Obsidian Community Plugin의 manifest ID와 release hash를 확인해 설치하고 활성 설정과 receipt를 재조회해 줘"
+    profiles: [eval]
+    expect_primary: obsidian-plugin
+    allow_support: [knowledge]
+    reject: [archive, compile-knowledge, diagram]
+    max_selected: 2
   - id: conversation-insight
     prompt: "이 대화에서 내가 어디서 잘못 판단했고 어떤 증거로 방향을 바꿔 해결했는지, 다음에 재사용할 통찰까지 인과로 연결해 줘"
     profiles: [eval]
