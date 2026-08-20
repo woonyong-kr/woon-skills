@@ -24,7 +24,7 @@ description: Vault 문서의 소유자, 자료 저자·제공자, 발표자, 회
 - Novel 원문, `sources/private/`, 실제 인물의 창작·민감 자료: 일반 인물 카드·지도·검색으로 옮기지 않는다. 별도 Novel local-only 경계를 따른다.
 - 자동 수집 메일·대화 후보: 사람 이름이나 관계를 추정해 카드·링크를 만들지 않는다. 후보 검토 뒤 명시된 사실만 이 skill으로 연결할 수 있다.
 - Calendar 제목: Core가 `identifiers`의 정확한 표기만 local-only 일정 노트에 연결한다. `Woon 일정`에서 직접 만든 일정은 최우녕을 `organizer`로 연결한다. 같은 식별자가 여러 카드에 있으면 `inbox/review/calendar-person-identity-review.md`에 후보만 남기고 자동 연결하지 않으며, 사용자가 지정한 뒤에만 맥락 단어를 포함한 식별자를 갱신한다.
-- Novel private history: 원문을 찾거나 이름을 추정하지 않는다. 사용자가 확인한 `work/people/person-link-ledger.yaml`만 `woon_people_private_history_sync` 또는 `woon people private-history-sync --novel-root <local-path>`으로 재생성한다. Woon 대시보드에는 자료 수와 Vault 시간 이력만, Novel 대시보드에는 로컬 원본 링크만 남긴다. `review_candidates`가 있을 때만 `inbox/review/private-person-history-review.md`를 만들고, 사용자가 승인해 후보가 0개가 되면 Core 소유 파일만 제거한다.
+- Novel private history: 원문을 찾거나 이름을 추정하지 않는다. 독립 작품은 `work/work-catalog.yaml`, 확인된 작품↔인물 관계는 `work/people/person-link-ledger.yaml`만 정본으로 사용한다. `woon_people_private_history_sync` 또는 `woon people private-history-sync --novel-root <local-path>`은 두 정본을 검증해 Novel 안에 작품→인물과 인물→작품 local-only 대시보드를 재생성한다. Woon 대시보드에는 Novel 원문·원본 경로를 복사하지 않는다. `review_candidates`가 있을 때만 `inbox/review/private-person-history-review.md`를 만들고, 사용자가 승인해 후보가 0개가 되면 Core 소유 파일만 제거한다.
 
 ## 완료 기준
 
@@ -33,6 +33,7 @@ description: Vault 문서의 소유자, 자료 저자·제공자, 발표자, 회
 - 사람 기준 재조회 결과에는 의도적으로 연결한 문서만 나온다.
 - 기본 `people-index`와 전역 Graph에 Novel·민감 인물 카드가 나타나지 않는다.
 - `novel-local-only` 카드의 직접 확인된 식별자는 local-only Calendar 노트에만 쓸 수 있고, 이 예외가 일반 지도·검색으로 번지지 않는다.
-- private history는 explicit ledger를 반복 실행해도 같은 읽기 모델만 재생성하며, Novel 원문이나 일반 Graph를 바꾸지 않는다.
+- private history는 작품 catalog와 explicit relation ledger를 반복 실행해도 같은 양방향 읽기 모델만 재생성하며, Novel 원문이나 일반 Graph를 바꾸지 않는다.
+- Calendar는 Novel 작품·관계·원문을 event나 task로 가져오지 않고, 사용자 확인 식별자의 local-only 사람 연결만 허용한다.
 
 이 skill은 `repo://skills/skills/knowledge/people`의 단일 원본이며, Vault에는 사용 문서만 둔다.
