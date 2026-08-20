@@ -1,6 +1,6 @@
 ---
 name: obsidian-plugin
-description: Woon Obsidian Vault의 Community Plugin 설치 상태를 확인하고, 사용자가 승인한 plugin을 공식 release에서 검증·설치·활성화·제거할 때 사용한다.
+description: Woon Obsidian Vault의 Community Plugin 상태를 확인하고, 승인된 공식 release나 사용자 소유 local development build를 receipt·backup·hash로 검증해 설치·활성화·제거할 때 사용한다.
 ---
 
 # Obsidian Plugin
@@ -10,12 +10,16 @@ Obsidian plugin은 UI 조작이나 임의 폴더 복사로 관리하지 않는�
 ```bash
 woon knowledge obsidian-plugin status --vault <vault>
 woon knowledge obsidian-plugin install --plugin <approved-id> --vault <vault>
+woon knowledge obsidian-plugin install-local-build --plugin <approved-development-id> \
+  --source-dir <built-plugin-directory> --version <exact-version> --vault <vault>
 woon knowledge obsidian-plugin remove-detected-mindmaps --vault <vault>
 woon knowledge obsidian-plugin configure-simple-calendar --vault <vault>
 woon knowledge obsidian-plugin retire --plugin notion-bases --vault <vault>
 ```
 
 `status`는 설치 manifest, version, 활성 config, 설정 파일과 `mindmap` 판정을 read-only로 반환한다. 설치는 allowlist의 공식 GitHub release API와 release asset SHA-256을 확인하고, manifest `id`가 요청 ID와 같을 때만 stage → backup → atomic replace → `community-plugins.json` 갱신 → 재조회 순서로 진행한다. receipt와 backup은 Vault의 Git 제외 `.local/woon-knowledge/obsidian-plugins/`에 남긴다.
+
+Community Plugin 등록 전에 사용자가 소유한 plugin을 실제 Vault에서 검증해야 할 때는 임의 폴더 복사 대신 `install-local-build`만 사용한다. 사용자가 현재 작업에서 교체를 명시적으로 승인했고 [approved plugins](references/approved-plugins.md)의 development allowlist에 있는 ID에 한해, `main.js`·`manifest.json`·`styles.css`의 일반 파일 여부, manifest ID, 정확한 version과 SHA-256을 확인한다. 기존 설정 파일은 변경 없이 보존하고 stage → backup → atomic replace → 활성 config 재조회를 거친다. 실패하면 runtime·설정·활성 config를 모두 기존 상태로 복원한다. 이 경로는 로컬 개발 검증일 뿐 공식 release나 Community Plugin 승인을 대체하지 않으며 자동화에서 임의로 호출하지 않는다.
 
 설치 전에는 먼저 `status`로 대상 ID와 기존 mindmap plugin을 확정한다. 삭제는 `remove-detected-mindmaps`만 사용해 설치 manifest가 실제 mindmap인 plugin만 backup으로 옮긴다. Obsidian 기본 Canvas, Excalidraw, 비 mindmap plugin, 그리고 이름만 비슷한 폴더는 제거하지 않는다.
 
