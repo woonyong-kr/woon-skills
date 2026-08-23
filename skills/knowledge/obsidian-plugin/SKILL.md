@@ -13,7 +13,10 @@ woon knowledge obsidian-plugin install --plugin <approved-id> --vault <vault>
 woon knowledge obsidian-plugin install-local-build --plugin <approved-development-id> \
   --source-dir <built-plugin-directory> --version <exact-version> --vault <vault>
 woon knowledge obsidian-plugin remove-detected-mindmaps --vault <vault>
-woon knowledge obsidian-plugin configure-simple-calendar --vault <vault>
+woon knowledge obsidian-plugin configure-context-calendar --vault <vault>
+woon knowledge obsidian-plugin attest-context-calendar-runtime \
+  --attested-check ribbon --attested-check month-view --attested-check event-card \
+  --attested-check context-links --attested-check readonly-blocked --vault <vault>
 woon knowledge obsidian-plugin retire --plugin notion-bases --vault <vault>
 ```
 
@@ -25,8 +28,10 @@ Community Plugin 등록 전에 사용자가 소유한 plugin을 실제 Vault에�
 
 Community plugin 설정상 활성화와 현재 실행 중인 Obsidian의 runtime load는 다르다. adapter는 저장하지 않은 문서를 잃을 수 있는 앱 재시작이나 UI 자동화를 하지 않는다. 설치 뒤 Obsidian을 안전하게 reload한 다음 `status` receipt와 실제 plugin 화면으로 rendered 동작을 확인한다.
 
-Apple Calendar 화면은 Core가 배포·영수증으로 설치하는 `woon-simple-calendar`만 사용한다. 설정 전 `woon calendar refresh`로 Core가 `inbox/calendar/events/*.md`의 일정 행과 `inbox/calendar/apple-calendar.md`의 월간 dashboard를 함께 만들 수 있는지 확인한다. 일정 행에는 `Date`, 고정된 `Category`, user-confirmed 인물 링크만 남으며, Simple Calendar는 이를 날짜별 두 줄 카드와 저채도 분류 채움색으로 표시한다. 카드는 움직이지 않고 hover·keyboard focus에서만 같은 분류의 채움색이 진해지며, 긴 제목의 전체 내용은 tooltip과 클릭한 읽기 전용 Markdown에서 확인한다. 시간, 장소, 메모, 참석자, URL, 원본 event ID는 화면과 Markdown에 넣지 않는다. 동명이 식별자는 `inbox/review/calendar-person-identity-review.md`에만 후보로 남기고 자동 링크하지 않는다.
+Apple Calendar projection은 독립 공개 plugin인 `context-calendar`의 한 read-only source profile로만 연결한다. 설정 전 `woon calendar refresh`로 Core가 `inbox/calendar/events/*.md`와 `inbox/calendar/apple-calendar.md`를 함께 재생성할 수 있는지 확인한 뒤, 검증된 local build를 `install-local-build`로 설치하고 `configure-context-calendar`로 `woon-apple-calendar` profile을 upsert한다. 이 profile은 `editable: false`이며 다른 사용자 profile과 plugin 설정을 보존한다.
 
-Simple Calendar의 JavaScript·CSS·manifest 정본은 `woonyong-kr/simple-calendar`의 공식 GitHub release이고, Core adapter는 release의 manifest ID와 asset SHA-256을 검증한 runtime 사본만 Vault에 설치한다. 왼쪽 ribbon의 `Apple Calendar 열기` 아이콘과 같은 이름의 명령 팔레트 명령은 같은 읽기 전용 dashboard를 연다. calendar block은 문서 작업 영역 전체를 채우며, card 클릭은 대응 Markdown을 열 뿐 생성·끌어놓기·inline edit·외부 동기화는 지원하지 않는다. 일정 변경은 Apple Calendar에서만 한다. 이전 `notion-bases`는 새 dashboard·plugin manifest·receipt와 실제 렌더링을 검증한 뒤 `retire --plugin notion-bases`로만 local backup에 옮긴다.
+`context-calendar` 정본은 `woonyong-kr/simple-calendar` 저장소다. 공개 plugin 자체는 어떤 Vault·Calendar 공급자·분류 이름도 가정하지 않고 folder/tag/property mapping을 설정으로 받으며, Woon Core만 `Date`, `Category`, 확인된 인물 링크가 있는 local projection을 제공한다. 긴 제목, 분류색, Agenda와 Context는 plugin 표시 계층이 담당하지만 원본 event ID·장소·메모·참석자·URL은 Woon projection에 넣지 않는다. 동명이 식별자는 `inbox/review/calendar-person-identity-review.md`에서만 검토한다.
+
+구형 `woon-simple-calendar`는 새 plugin의 exact version·asset hash·활성 config·read-only profile·dashboard·configure receipt가 모두 검증된 뒤에만 `retire --plugin woon-simple-calendar`로 backup 이동한다. 설치 파일 존재만으로 완료하지 않고 Obsidian reload 뒤 ribbon, 월간 화면, 일정 카드, 인물·관련 문서 링크, read-only 차단을 실제 UI에서 확인한 다음 `attest-context-calendar-runtime`으로 전체 checklist를 수동 확인했다고 기록한다. 이 operator attestation은 자동 runtime 검증이 아니며 현재 asset·settings·dashboard hash에 묶이므로 어느 하나라도 바뀌면 화면을 다시 확인해야 한다.
 
 현재 승인된 plugin ID와 공식 release 출처는 [approved plugins](references/approved-plugins.md)에 둔다. 새 plugin은 사용자 승인, Community Plugin 등록 확인, 공식 repository와 manifest ID 일치, release asset hash 검증 규칙을 먼저 추가한 뒤에만 allowlist에 넣는다.
