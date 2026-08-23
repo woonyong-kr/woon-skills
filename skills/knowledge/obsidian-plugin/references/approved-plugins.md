@@ -11,7 +11,7 @@
 | ID | Source repository | Boundary |
 | --- | --- | --- |
 | `context-graph` | `woonyong-kr/context-tree` | 사용자가 명시적으로 승인한 수동 개발 검증에서만 `install-local-build`로 설치한다. 공식 release·Community Plugin 승인으로 간주하지 않는다. |
-| `context-calendar` | `woonyong-kr/simple-calendar` | 자동 심사 보완 release인 exact `2.0.1` source build를 receipt로 검증할 때만 사용한다. |
+| `context-calendar` | `woonyong-kr/simple-calendar` | 자동 심사를 통과한 exact `2.0.2` source build를 receipt로 검증할 때만 사용한다. |
 
 두 mindmap plugin은 Markdown 원본을 읽는다. `light-mindmap`의 node 편집은 heading을 바꾸므로 source diff와 link를 재검증해야 하고, `markdown-mindmap`은 map block의 folder·`parent` relation을 다시 읽어 card를 그린다.
 
