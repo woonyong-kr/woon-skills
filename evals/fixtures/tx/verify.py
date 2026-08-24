@@ -7,6 +7,7 @@ import json
 import tempfile
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import closing
 from pathlib import Path
 
 from model import (
@@ -32,7 +33,7 @@ from model import (
 
 
 def scalar(path: Path, query: str) -> int:
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         return int(connection.execute(query).fetchone()[0])
 
 
@@ -130,7 +131,7 @@ def test_fencing(root: Path) -> None:
     assert fence_b > fence_a
     assert write_fenced(path, "job-1", fence_b, "new")
     assert not write_fenced(path, "job-1", fence_a, "stale")
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         row = connection.execute(
             "SELECT fence, value FROM fenced_resource WHERE job_id = 'job-1'"
         ).fetchone()
@@ -153,7 +154,7 @@ def test_remote_unknown_reconciliation(root: Path) -> None:
     else:
         raise AssertionError("provider response-loss point did not run")
 
-    with connect(local_path) as connection:
+    with closing(connect(local_path)) as connection:
         status = connection.execute(
             "SELECT status FROM remote_workflows WHERE intent_id = 'pay-remote'"
         ).fetchone()[0]
@@ -175,7 +176,7 @@ def test_remote_unknown_reconciliation(root: Path) -> None:
     else:
         raise AssertionError("local reconciliation crash point did not run")
 
-    with connect(local_path) as connection:
+    with closing(connect(local_path)) as connection:
         status = connection.execute(
             "SELECT status FROM remote_workflows WHERE intent_id = 'pay-remote'"
         ).fetchone()[0]

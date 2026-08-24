@@ -165,7 +165,8 @@ class AuditLearningContentTest(unittest.TestCase):
         )
         self.assertTrue(
             any(
-                "ingest/SKILL.md: missing learning-context integration" in error
+                error
+                == f"{path}: missing learning-context integration"
                 for error in audit_learning_content(root)
             )
         )

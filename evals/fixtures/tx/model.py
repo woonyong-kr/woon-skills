@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import sqlite3
+from contextlib import closing
 from pathlib import Path
 from typing import Any, Optional
 
@@ -41,7 +42,7 @@ def connect(path: Path) -> sqlite3.Connection:
 
 
 def initialize(path: Path) -> None:
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         connection.executescript(
             """
             PRAGMA journal_mode = WAL;
@@ -96,7 +97,7 @@ def initialize(path: Path) -> None:
 
 
 def initialize_provider(path: Path) -> None:
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         connection.executescript(
             """
             PRAGMA journal_mode = WAL;
@@ -277,7 +278,7 @@ def write_fenced(path: Path, job_id: str, fence: int, value: str) -> bool:
 
 def start_remote_workflow(path: Path, intent_id: str, provider_key: str) -> None:
     """Persist local intent before calling a non-transactional provider."""
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         connection.execute("BEGIN IMMEDIATE")
         connection.execute(
             "INSERT INTO remote_workflows(intent_id, provider_key, status) "
@@ -340,7 +341,7 @@ def reconcile_remote(
     fail_before_commit: bool = False,
 ) -> bool:
     """Resolve an unknown local workflow by querying the provider by stable key."""
-    with connect(local_path) as local:
+    with closing(connect(local_path)) as local:
         workflow = local.execute(
             "SELECT provider_key, status FROM remote_workflows WHERE intent_id = ?",
             (intent_id,),
@@ -350,7 +351,7 @@ def reconcile_remote(
     if workflow["status"] == "succeeded":
         return True
 
-    with connect(provider_path) as provider:
+    with closing(connect(provider_path)) as provider:
         charge = provider.execute(
             "SELECT charge_id FROM provider_charges WHERE provider_key = ?",
             (workflow["provider_key"],),
@@ -393,7 +394,7 @@ def reconcile_remote(
 
 def audit_provider_invariants(path: Path) -> list[str]:
     errors: list[str] = []
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         duplicates = connection.execute(
             "SELECT COUNT(*) FROM ("
             "SELECT intent_id FROM provider_charges "
@@ -407,7 +408,7 @@ def audit_provider_invariants(path: Path) -> list[str]:
 
 def audit_invariants(path: Path) -> list[str]:
     errors: list[str] = []
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         processing = connection.execute(
             "SELECT COUNT(*) FROM idempotency WHERE status = 'processing'"
         ).fetchone()[0]
@@ -461,7 +462,7 @@ def unsafe_split_claim(
     path: Path, scope: str, key: str, payload: dict[str, Any]
 ) -> None:
     """Known mutant: persist the claim in a separate transaction."""
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         connection.execute("BEGIN IMMEDIATE")
         connection.execute(
             "INSERT INTO idempotency(scope, key, payload_digest, status) "
@@ -473,7 +474,7 @@ def unsafe_split_claim(
 
 def unsafe_orphan_effect(path: Path, scope: str, key: str, intent_id: str) -> None:
     """Known mutant: commit the mutation without its idempotency result."""
-    with connect(path) as connection:
+    with closing(connect(path)) as connection:
         connection.execute("BEGIN IMMEDIATE")
         connection.execute(
             "INSERT INTO effects(business_intent, scope, key) VALUES (?, ?, ?)",
