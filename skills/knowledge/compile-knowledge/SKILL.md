@@ -5,7 +5,7 @@ description: private woon-knowledge의 LLM Wiki source·claim·page spec·receip
 
 # Compile Knowledge
 
-`wiki/`는 compiler 산출물이다. source, accepted claim, page spec만 편집하고 Markdown 출력·receipt를 직접 고치지 않는다.
+`wiki/`는 Woon의 단일 지식 정본이다. 그중 `catalog/llm-wiki/pages.yaml`이 소유한 근거 문서만 compiler 산출물이며 source, accepted claim, page spec으로 갱신하고 Markdown 출력·receipt를 직접 고치지 않는다. `wiki/personal/`의 대화·프로젝트 문서는 같은 Wiki 안에 있지만 Core conversation-to-Wiki 경로가 관리하므로 compiler page로 복제하거나 덮어쓰지 않는다.
 
 1. 먼저 `$knowledge`로 기존 canonical 문서와 관계 ID를 확인한다. 대화 한 건을 정본에 저장하는 일은 `$archive`, 외부 corpus 전수 수집은 `$ingest`에 넘긴다.
 2. source body 또는 claim Markdown을 새로 쓰거나 고쳐 독자가 읽을 설명을 바꿀 때는 먼저 아래 명령으로 `$tech`의 learning harness를 읽는다. hash·receipt·관계만 고치는 변경에는 이 단계를 적용하지 않는다.
@@ -35,7 +35,7 @@ woon knowledge refresh-provisional-curation --vault <vault>
 ```bash
 woon knowledge reconcile-superseded-revisions --vault <vault>
 ```
-6. `woon_knowledge_compile_audit`과 `woon_knowledge_audit`을 모두 통과시킨다. source 변경 뒤 search가 stale이면 compile이 먼저이고 reindex는 그 다음이다. compiler 입력·출력·index가 모두 current인지 확인한 뒤에만 완료를 말한다.
+6. `woon_knowledge_compile_audit`과 `woon_knowledge_audit`을 모두 통과시킨다. receipt의 `compiler_projection_sha256`은 source·claim·page spec이 소유하는 compiler 본문을 검증하고, `output_sha256`은 해당 compile 시점의 전체 파일을 추적한다. 대화 자동화가 관리 marker 안의 현재 이해·시간 이력을 정상 갱신해 전체 파일 hash가 달라져도 compiler projection이 재현되면 stale이 아니다. marker 밖의 compiler 본문 변경은 계속 오류다. source 변경 뒤 search가 stale이면 compile이 먼저이고 reindex는 그 다음이다. compiler 입력·출력·index가 모두 current인지 확인한 뒤에만 완료를 말한다.
 7. 독자가 읽는 학습 본문을 새로 쓰거나 고쳤다면, 현재 receipt `output_sha256`와 writing harness hash를 함께 담은 quality review payload를 갱신하고 아래 gate를 실행한다. 한 페이지라도 누락·보류·stale이면 compiler 정합성은 통과해도 문서 품질은 미검증으로 보고한다.
 
 ```bash

@@ -17,4 +17,4 @@ description: private woon-knowledge에서 정본 문서를 검색·조회·감�
 - 이력: `woon_knowledge_history`로 revision과 Git evidence 확인.
 - 복구: 사용자가 revision을 선택하고 승인한 뒤 `woon_knowledge_restore`.
 
-대화를 새 정본으로 저장하거나 기존 문서에 병합하는 일은 `$archive`, 외부 corpus 전수 수집은 `$ingest`, source·claim·page spec 직접 갱신은 `$compile-knowledge`가 맡는다. 직접 `wiki/` overwrite, receipt 수정, 별도 vector DB 정본, CLI를 통한 default production vault 변경, 자동 commit/push를 만들지 않는다. 이 스킬의 단일 원본은 `repo://skills/skills/knowledge/knowledge`이며 다른 저장소에 복사하지 않는다.
+대화를 같은 주제의 Wiki와 일일 이력에 병합하는 일은 `$archive`, 외부 corpus 전수 수집은 `$ingest`, 근거 문서의 source·claim·page spec 갱신은 `$compile-knowledge`가 맡는다. 성장·검증 상태를 이유로 두 번째 Wiki 문서를 만들지 않는다. 직접 `wiki/` overwrite, receipt 수정, 별도 vector DB 정본, CLI를 통한 default production vault 변경, 자동 commit/push를 만들지 않는다. 이 스킬의 단일 원본은 `repo://skills/skills/knowledge/knowledge`이며 다른 저장소에 복사하지 않는다.
