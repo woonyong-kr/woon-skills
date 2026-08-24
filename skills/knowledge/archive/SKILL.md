@@ -13,7 +13,7 @@ description: archive MCP payload·body를 만들거나 private woon-knowledge에
 
 payload 인수는 `canonical_id`, `title`, `domain`, `summary`, `purpose`, `body`, `difficulty`, `prerequisites`, `next_concepts`, `related`, `source_session_ids`, `expected_revision`만 쓴다. `document_id`, `path`, `revision`, `tool` wrapper 같은 alias를 만들지 않는다.
 
-Wiki는 `wiki/` 하나만 정본으로 사용한다. 대화에서 생긴 이해·결정·프로젝트·콘텐츠처럼 아직 근거 확정 전인 입력은 별도 성장 Wiki를 만들지 않고 Core의 conversation-to-Wiki 경로가 `wiki/personal/`의 같은 주제 문서와 그날의 일일 이력에 병합한다. 이 경로는 관리 marker와 시간 이력만 갱신하며 Markdown을 자유 편집하거나 compiler page를 덮어쓰지 않는다. 공개 글·경력 주장·인용처럼 근거 확인이 필요한 입력만 source·accepted claim·page spec을 갱신하고 compiler가 같은 `wiki/` 아래의 근거 문서와 receipt를 만든다.
+Wiki는 `wiki/` 하나만 정본으로 사용한다. 대화에서 생긴 이해·결정·프로젝트·콘텐츠처럼 아직 근거 확정 전인 입력은 별도 병렬 Wiki를 만들지 않고 Core의 conversation-to-Wiki 경로가 `wiki/personal/`의 같은 주제 문서와 그날의 일일 이력에 병합한다. 이 경로는 관리 marker와 시간 이력만 갱신하며 Markdown을 자유 편집하거나 compiler page를 덮어쓰지 않는다. 공개 글·경력 주장·인용처럼 근거 확인이 필요한 입력만 source·accepted claim·page spec을 갱신하고 compiler가 같은 `wiki/` 아래의 근거 문서와 receipt를 만든다.
 
 대화 경로는 실제 Wiki·일일 기록·검토 후보를 생성한 뒤 vault health와 검색 색인을 확인하고, 같은 입력 재실행이 새 문서나 이력을 만들지 않는지 검증한다. 근거 경로는 `woon_knowledge_compile_audit`과 `woon_knowledge_audit`을 실행한다. 두 경로 모두 private 정본이며 별도 요청 없이 commit, push, publish하지 않는다. 입력 계약은 [MCP contract](references/mcp-contract.md)를 필요할 때만 읽는다. 이 스킬은 `repo://skills/skills/knowledge/archive`의 단일 원본이며 knowledge 저장소에 복사하지 않는다.
 
