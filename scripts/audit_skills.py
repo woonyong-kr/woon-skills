@@ -10,6 +10,7 @@ from pathlib import Path
 import yaml
 
 from audit_backend import audit_backend
+from audit_career import audit_career
 from audit_insight import audit_insight
 from audit_learning_content import audit_learning_content
 from audit_novel import audit_novel
@@ -126,6 +127,7 @@ def main() -> int:
     errors.extend(audit_sources(root))
     errors.extend(audit_learning_content(root))
     errors.extend(audit_backend(root))
+    errors.extend(audit_career(root))
     errors.extend(audit_insight(root))
     errors.extend(audit_novel(root))
     errors.extend(audit_site_promotion(root))

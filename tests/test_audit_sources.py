@@ -155,6 +155,30 @@ class AuditSourcesTest(unittest.TestCase):
             )
         )
 
+    def test_supply_chain_review_requires_effect_and_installation_boundaries(self) -> None:
+        catalog = CATALOG.replace(
+            "    review_required: true\n",
+            "    review_required: true\n    supply_chain_required: true\n",
+        )
+        root = self.make_root(catalog=catalog)
+        errors = audit_sources(root)
+        self.assertTrue(any("supply_chain must be a mapping" in error for error in errors))
+
+        review = REVIEW.replace(
+            "evidence:\n  validation: passed\n",
+            "evidence:\n  validation: passed\n"
+            "supply_chain:\n"
+            "  source_files_reviewed: all tracked files at the pinned commit\n"
+            "  scripts_reviewed: no install scripts\n"
+            "  dependency_files_reviewed: no dependency manifests\n"
+            "  effects: read-only guidance\n"
+            "  network: none\n"
+            "  writes: none\n"
+            "  shell: none\n"
+            "  installation: do not install; retain existing owner\n",
+        )
+        self.assertEqual(audit_sources(self.make_root(review, catalog)), [])
+
     def test_accepts_grouped_review_with_complete_inventory_coverage(self) -> None:
         self.assertEqual(audit_sources(self.make_root(GROUPED_REVIEW)), [])
 

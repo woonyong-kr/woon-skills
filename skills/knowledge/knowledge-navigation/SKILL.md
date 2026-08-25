@@ -1,87 +1,57 @@
 ---
 name: knowledge-navigation
-description: LLM Wiki, 학습 노트, 면접 문답을 키워드에서 질문·답변·후속 질문으로 연결하고 Markdown 정본과 Obsidian JSON Canvas 보조 지도를 함께 만들거나 검증할 때 사용한다. 지식 지도, Canvas, 문서 간 탐색, 질문 노트 구조화, 고아 문서·중복 키워드 점검 요청에 적용한다.
+description: Woon Wiki의 단일 계층형 키워드 트리, 하위 문서 색인, 엔티티별 성장 구조와 Obsidian Graph·Canvas 파생 화면을 설계·검증할 때 사용한다. 고아 문서, 중복 키워드, 별도 Map, 모호한 부모를 진단하는 요청에 적용한다.
 ---
 
 # Knowledge Navigation
 
-`$knowledge-navigation`은 여러 Markdown 문서 사이를 탐색하는 방법을 정한다. 답과 근거는 Markdown에 남기고, `.canvas`는 그 Markdown 파일이나 특정 heading/block을 여는 보조 뷰로만 만든다. Canvas 카드·edge label·group에만 존재하는 지식은 만들지 않는다.
+`$knowledge-navigation`은 `woon-knowledge/docs/wiki-information-architecture.md`를 실행하는 절차다. 사람이 읽고 AI가 검색하는 지식·질문·탐색 순서의 정본은 `wiki/**/*.md`뿐이다. 먼저 `$knowledge`로 기존 정체성을 찾고, 실제 기록은 `$archive` 또는 `$compile-knowledge`로 반영한다.
 
-먼저 `$knowledge`로 기존 정본과 동일 질문을 찾는다. LLM Wiki의 읽는 페이지는 compiler 산출물인 `wiki/`이므로 직접 고치지 않는다. 새 지식은 `$archive` 또는 `$compile-knowledge`의 source·claim·page spec 경로로 넣고, 이 skill은 그 문서로 가는 질문·키워드 지도만 소유한다.
+## 단일 트리 계약
 
-## 도구 선택
+1. `wiki/README.md`만 root다. 모든 활성 Wiki 문서는 root에서 `parent` 하나를 따라 도달해야 한다.
+2. 부모는 폴더가 아니라 의미로 선택한다. `parent_topics`, `parent_moc`, `map_role`, `mindmap_role`로 병렬 계층을 만들지 않는다.
+3. `canonical_id`, title, aliases, keywords, 중심 질문을 함께 대조한다. 같은 질문이면 기존 문서의 section을 갱신하고, 독립된 중심 질문·고유 근거 또는 이력·둘 이상의 재사용 맥락 중 하나가 있을 때만 새 child를 만든다.
+4. 새 child는 `parent`, 대표 `keywords`, `central_question`, 생성 이유를 확정할 수 있을 때만 만든다. 부모가 모호하면 root에 임시로 붙이지 않고 Review로 보낸다.
+5. root는 직접 하위 키워드 wikilink만 보여 준다. hub의 작은 순수 분류 child는 일반 텍스트 불릿으로 두고 그 직접 child wikilink를 한 단계 들여써 평탄화한다. 그룹이 20개를 넘으면 중간 hub 링크를 유지하며, 전체 subtree·최신 목록·summary·상태·개수는 펼치지 않는다. topic·entity의 하단 색인만 직접 하위 키워드와 필요한 최신 관련 문서의 wikilink를 보여 준다.
+6. `aliases`는 같은 정체성의 다른 이름, `related_to`는 비교·원인·사례·사용 같은 횡단 관계다. 둘 다 기본 부모를 대신하지 않는다.
 
-- 프로젝트 → 키워드 → 질문처럼 여러 Markdown 문서를 계층으로 탐색해야 하면 Markdown Mindmap을 주 도구로 쓴다.
-- 특정 문서·heading 사이의 제한된 공간 배치를 보고 싶으면 이 skill과 JSON Canvas를 보조 뷰로 쓴다.
-- 한 Markdown 문서의 heading 흐름을 빠르게 복습·발표·면접 리허설해야 하면 Light Mindmap을 쓴다. 이는 여러 문서를 독립 노드로 탐색하는 도구가 아니다.
-- 코드·실행·상태 관계를 설명해야 하면 `$diagram`의 Markdown Mermaid가 정본이다. Canvas와 Light Mindmap은 Mermaid를 대체하지 않는다.
+## 페이지와 엔티티
 
-## Markdown 정본 계약
+- 탐색 페이지는 직접 링크 또는 `분류 텍스트 → child 링크` 2단 불릿만 읽는다. 모든 entity 첫 화면도 주제 키워드 wikilink와 별도 히스토리를 우선하며, 설명과 판단 근거는 도착한 상세 topic·detail에서 읽는다.
+- 책은 `책` 페이지에서 `- 장르 텍스트` 아래의 책 제목 wikilink를 바로 연다. 정본 parent tree는 `Wiki → 책 → 장르 키워드 → 책 제목`을 유지하며, 책 페이지는 목차 anchor와 장별 개념·정리 wikilink만 소유하고 소개문·`키워드:`·`영역: Area N`을 반복하지 않는다.
+- `콘텐츠` subtree와 Facet은 만들지 않는다. 강의·글·영상에서 얻은 의미는 기존 주제 Wiki에 흡수하고, 외부 원자료와 PDF·이미지·전사는 `Wiki → 리소스 → 주제 keyword topic`에서 링크로만 색인한다.
+- 책이 아닌 외부 자료의 의미 부모나 `resource_keyword`를 확정할 수 없으면 중간 콘텐츠 카드를 만들지 않고 Review로 보낸다. Novel·민감 자료는 일반 리소스 Graph에 중복 노출하지 않는다.
+- 프로젝트 entity는 목표·완료 조건, 요구사항, 설계, 결정, 구현, 검증, 결과, 남은 문제를 subtree와 본문으로 관리한다.
+- 인물 hub의 직접 child는 사람 이름의 person entity뿐이다. 인물 entity는 관계·프로젝트·결정·대화·자료를 주제 wikilink로 묶고 사건은 별도 히스토리에 날짜순으로 누적한다. 사람 이름과 특정 분석 제목을 별도 인물처럼 병렬로 두지 않는다. 이름 한 번의 언급으로 entity를 만들지 않는다.
+- 질문과 답변은 관련 키워드 본문에 둔다. 질문 자체가 계속 갱신되는 독립 정체성일 때만 detail child로 분리한다.
 
-1. 지도 Markdown에 `keywords`, `canvas_view`, `canvas_sync`를 기록하고, `## Canvas 노드` 아래에 Canvas에 놓을 문서/heading 링크를 정확한 vault 상대 wikilink로 적는다.
-2. 질문은 `질문 → 답변 → 근거 → 후속 질문`을 Markdown에 쓴다. 짧은 답이라도 근거 문서 또는 확인 상태를 남기며, 답이 없는 질문은 `미확인`으로 둔다.
-3. 같은 키워드는 같은 지도 안에서 한 번만 대표로 둔다. 동의어는 새 노드가 아니라 대표 문서의 alias 또는 본문 표기로 연결한다.
-4. 답이 LLM Wiki를 바꾸면 source·claim·page spec을 갱신하고 compiler를 실행한다. 지도는 compiler가 만든 Markdown으로 연결하지만, compiler output을 직접 편집하지 않는다.
+## 파생 화면 경계
 
-## Markdown Mindmap 계약
-
-Markdown Mindmap은 Markdown 파일과 frontmatter 관계만 읽어 지도 block을 다시 그린다. 프로젝트·키워드·질문·후속 질문은 각각 실제 `.md` 파일이고, 카드의 답변은 질문 문서의 `## 짧은 답변`, `## 상세 근거`, `## 후속 질문`에 둔다.
-
-1. node 문서에는 `mindmap_role`, 안정적인 `mindmap_id`, 부모 문서를 가리키는 `parent: "[[...]]"`를 둔다. 관계를 map block이나 plugin 설정에 중복 저장하지 않는다.
-2. map host에는 `mindmap` fenced block만 두고, level은 폴더와 `mindmap_role`로 고른다. edge의 `via`는 child의 `parent`여야 한다.
-3. 새 질문을 추가할 때는 질문 Markdown과 `parent`만 만들고 map host에서 Refresh한다. 별도 node 데이터·Canvas text card·복사한 답변을 만들지 않는다.
-4. 후속 질문은 질문 본문의 wikilink와 별도 follow-up map으로 연결한다. 한 map에 모든 깊이를 추가해 무한한 나무를 만들지 않는다.
-5. plugin card를 눌러 여는 rendered note가 답변의 유일한 본문이다. map에는 제목·선·필터만 둔다.
-
-공식 plugin이 설치되지 않았으면 `$obsidian-plugin`의 Core adapter로 정확한 plugin ID를 확인한다. map block을 쓰는 문서는 Reading view 또는 Live Preview에서 renderer를 확인하고, Refresh 뒤 새 문서가 실제 card로 보이는지 재확인한다.
-
-정적 관계 검사는 아래 명령으로 실행한다. 이는 map block의 level·role·`parent`와 `mindmap_id`만 검사하며, rendered card 검증을 대신하지 않는다.
-
-```bash
-python3 "$(woon resolve repo://skills/skills/knowledge/knowledge-navigation/scripts/validate_markdown_mindmap.py)" \
-  --vault <vault> \
-  --map <vault-relative-map.md>
-```
+- `maps/`에는 `.canvas`와 plugin profile 같은 화면 상태만 둘 수 있다. Markdown Map, 별도 키워드 목록, 독립 시작 노트를 만들지 않는다.
+- Global Graph는 `graph/overview` tag가 있는 root·hub·entity만 보여 준다. leaf는 현재 페이지의 subtree, Local Graph, Context Graph에서 연다.
+- `.base`, Canvas, Context Graph는 Wiki metadata와 실존 wikilink를 읽는다. 화면에만 존재하는 제목·답변·관계·순서를 만들지 않는다.
+- 한 문서의 code·실행·상태 관계를 설명하는 canonical 시각화는 `$diagram`의 Markdown Mermaid다.
 
 ## Canvas 계약
 
-1. `.canvas`에는 `file` node와 node 사이 edge만 둔다. `text`, `link`, `group` node와 edge `label`은 금지한다.
-2. 각 node의 `file`은 vault 안의 기존 `.md`이고, `subpath`를 쓸 때는 실제 `# heading` 또는 `#^block-id`여야 한다. 절대 경로, Canvas 자체, 이미지, 외부 URL은 넣지 않는다.
-3. Canvas에서 읽어야 하는 제목·질문·답은 대응 Markdown heading 또는 block에 있다. Canvas의 위치·크기·선은 탐색 순서만 보조한다.
-4. 신규 Canvas는 `auto-` ID만 AI가 소유한다. `manual-` ID와 그 node에 닿는 edge는 사용자의 배치이므로 재생성 전에 이전 파일과 비교해 달라지면 멈추고 계획만 보고한다. 접두어가 없는 기존 Canvas는 전부 수동 배치로 취급한다.
-5. 대량 변경 전에는 대상 Markdown, 현재 Canvas, 생성 범위, 보존할 `manual-` 범위를 표로 제시한다. 동의 없이 전체 Vault를 재배치하거나 모든 문서를 Canvas에 넣지 않는다.
-
-생성 뒤에는 아래 검사를 실행한다. `--previous`는 재생성일 때만 준다.
+1. `.canvas`에는 기존 Wiki Markdown을 가리키는 `file` node와 node 사이 edge만 둔다. `text`, `link`, `group` node와 edge label은 지식 정본으로 사용하지 않는다.
+2. node `file`은 vault 안의 실존 `.md`다. `subpath`는 실제 heading 또는 block이어야 한다.
+3. Canvas edge는 실제 `parent`, `related_to`, 본문 wikilink 중 하나를 투영한다. 좌표·색·edge가 Markdown 관계를 대신하지 않는다.
+4. `auto-` ID만 AI가 재생성한다. `manual-` ID와 그 node에 닿는 edge, 접두어 없는 기존 배치는 사용자 소유로 보존한다.
+5. 대량 변경 전후에 대상 Markdown, Canvas, 자동 생성 범위, 보존할 수동 범위를 비교한다.
 
 ```bash
 python3 "$(woon resolve repo://skills/skills/knowledge/knowledge-navigation/scripts/validate_canvas.py)" \
   --vault <vault> \
-  --canvas <vault-relative-map.canvas> \
-  --map <vault-relative-map.md>
+  --canvas <vault-relative-map.canvas>
 ```
-
-재생성일 때만 `--previous <previous-canvas>`를 추가한다.
-
-## Light Mindmap 분기
-
-Light Mindmap은 `type: mindmap` Markdown의 H1~H6 heading을 한 문서 안에서 렌더한다. 다음에만 사용한다.
-
-- 긴 한 문서의 학습 순서·면접 답변·발표 개요를 연습할 때
-- heading 하나가 개념 하나이고, heading에 둔 wikilink를 클릭해 보충 문서로 이동하게 할 때
-
-다음에는 사용하지 않는다.
-
-- 여러 독립 문서를 모두 node로 배치하는 탐색 지도
-- compiler가 소유하는 `wiki/` 출력의 frontmatter를 바꾸는 일
-- Mermaid의 코드·실행·상태 관계를 꾸미기 위한 대체 그림
-
-AI는 Light Mindmap 문서에서 `type`, `mindmap-layout`, `mindmap-theme`, `mindmap-line`, `mindmap-node` frontmatter와 근거가 있는 heading만 바꾼다. 시각 균형을 맞추려고 heading·사실·질문을 새로 만들지 않으며, Canvas·diagram·이미지를 삽입하지 않는다. 플러그인의 node 직접 편집은 Markdown heading을 수정하므로, 수정 뒤 source view diff와 link 검증을 다시 실행한다.
-
-표시 검증은 plugin이 설치·활성화된 Obsidian에서 source view, light theme, dark theme로 같은 문서를 열어 heading 누락·클리핑·wikilink 이동을 확인하는 것이다. 설치되지 않았거나 UI adapter가 없으면 정적 계약 검사까지만 통과로 기록하고 rendered 검증은 미완료로 남긴다.
 
 ## 완료 기준
 
-1. Markdown의 `## Canvas 노드`와 Canvas node 대상이 일치한다.
-2. JSON Canvas 구문, Markdown target, heading/block target, duplicate keyword, manual placement 보존 검사가 통과한다.
-3. 새 지식이 compiler 범위면 `$compile-knowledge`의 compile·audit도 통과한다.
-4. Canvas는 Obsidian에서, Light Mindmap은 light/dark에서 실제로 열리는 것을 별도로 확인한다. 이 중 UI 표시를 확인하지 못한 것은 완료가 아니라 정적 검증 완료다.
+1. root에서 모든 활성 Wiki가 `parent`로 도달하고 cycle·고아 문서가 없다.
+2. title·aliases·keywords·중심 질문 기준의 의미상 중복과 병렬 Markdown Map이 없다.
+3. root의 직접 child 링크, hub의 직접 링크 또는 작은 분류 2단 불릿, topic·entity의 child·latest 링크가 실제 metadata와 일치하며 hub에 최신 subtree를 펼치거나 설명·날짜·개수를 반복하지 않는다.
+4. `콘텐츠` 분류가 없고 책 화면은 장르 텍스트→책 링크→목차 링크, 리소스는 주제 키워드→원자료 링크이며, 프로젝트·인물 entity는 각각 project·topic-timeline 계약을 충족한다.
+5. Canvas target과 edge가 실존 Wiki 관계와 일치하고 수동 배치를 보존한다.
+6. Obsidian에서 root tree, entity tree, latest, Global Graph, Local Graph를 실제로 확인한다. UI 확인 전에는 정적 검증 완료로만 보고한다.

@@ -1,0 +1,24 @@
+version: 1
+repository: VoltAgent/awesome-agent-skills
+upstream: https://github.com/VoltAgent/awesome-agent-skills
+checked_commit: ea6bfaa2d2afa08017f7f77175acdf142ed2abe3
+checked_version: unreleased
+checked_at: 2026-08-25
+license: MIT
+scope:
+  skill_files: 0
+decision: discovery-only
+evidence:
+  inventory: repository contains a curated README directory and metadata links rather than vendored executable skills
+  useful: upstream discovery by owner and domain
+  rejected: popularity as quality, bulk installation, directory-level trust and treating linked licenses or effects as reviewed
+supply_chain:
+  source_files_reviewed: all nine tracked repository files at the pinned commit
+  scripts_reviewed: no executable install or lifecycle scripts are tracked
+  dependency_files_reviewed: no package or dependency manifest is tracked
+  effects: directory links only; linked repositories have independent and unreviewed effects
+  network: opening linked upstream repositories is optional discovery activity
+  writes: none in the directory itself
+  shell: none in the directory itself
+  installation: do not install; register only individually pinned and audited upstream skills
+skills: []

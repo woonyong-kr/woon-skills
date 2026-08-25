@@ -1,0 +1,29 @@
+version: 1
+repository: MadsLorentzen/ai-job-search
+upstream: https://github.com/MadsLorentzen/ai-job-search
+checked_commit: e2c311a5b40512daf79a04b22c96d7e049afc745
+checked_version: 1.6.0
+checked_at: 2026-08-25
+license: MIT
+scope:
+  skill_files: 1
+decision: adopted-selectively
+evidence:
+  inventory: 3 Claude skills, 6 portable portal skills, 13 commands, Python tools and tests were inspected at the pinned commit
+  useful: untrusted posting boundary, requirement matrix, user-approved drafting, second-pass review, submitted-artifact archive and outcome lifecycle
+  rejected: tracked personal profile workspace, portal scraping, Gmail and Notion connectors, automatic profile rewriting, LaTeX toolchain ownership and parallel-agent orchestration
+supply_chain:
+  source_files_reviewed: README, AGENTS, CLAUDE, commands, skills, tools, tests, settings and gitignore at the pinned commit
+  scripts_reviewed: Python salary and PDF tools plus command-defined Bun, LaTeX, Git, Gmail, Notion and browser execution surfaces
+  dependency_files_reviewed: no root package manifest; six portal tools use separate Bun manifests and optional external executables
+  effects: reads job pages and personal records; writes profiles, tailored documents, application archives, tracker rows and reports
+  network: optional job portals, company research, Gmail, Notion and salary sources
+  writes: broad workspace writes including personal profile, CV, cover letter, tracker and application archive
+  shell: Bun, Python, pdftotext, LaTeX, Git and optional browser-header curl paths
+  installation: do not install; merge only bounded concepts into existing Woon career and Core pipeline
+skills:
+  - name: career-application-pipeline
+    purpose: evaluate one JD, ground claims, generate and review artifacts, and preserve the exact submitted set with outcomes
+    overlap: skills/writing/career and Woon Core career command
+    decision: retain-existing
+    reason: one Woon owner now implements the useful lifecycle without a parallel Claude workspace or second career canon

@@ -225,3 +225,43 @@ repositories:
     status: vendor-locked
     license: per-skill
     decision: keep immutable for comparison; exclude all 183 skills from default profiles
+  - id: madslorentzen-ai-job-search
+    review_required: true
+    supply_chain_required: true
+    upstream: https://github.com/MadsLorentzen/ai-job-search
+    checked_commit: e2c311a5b40512daf79a04b22c96d7e049afc745
+    checked_version: 1.6.0
+    status: adopted-selectively
+    license: MIT
+    improves: [skills/writing/career, evals/behavior/career.yaml]
+    decision: retain one Woon career owner and implement the useful application lifecycle, untrusted-JD, draft-review, PDF and outcome boundaries without installing the Claude workspace or portal automation
+  - id: nousresearch-hermes-agent
+    review_required: true
+    supply_chain_required: true
+    upstream: https://github.com/NousResearch/hermes-agent
+    checked_commit: 74ad422d50e6d76e26ba5ce3b4d2a4d520e923dd
+    checked_version: 0.20.5
+    status: evaluated
+    license: MIT
+    improves: [evals/behavior/knowledge.yaml, evals/behavior/safety.yaml]
+    decision: retain Woon and Herdr as canonical owners; do not install a second agent runtime with broad shell, network, messaging, memory and self-modifying skill effects
+  - id: voltagent-awesome-agent-skills
+    review_required: true
+    supply_chain_required: true
+    upstream: https://github.com/VoltAgent/awesome-agent-skills
+    checked_commit: ea6bfaa2d2afa08017f7f77175acdf142ed2abe3
+    checked_version: unreleased
+    status: adopted-selectively
+    license: MIT
+    improves: [skills/skill-system/registry, scripts/audit_sources.py]
+    decision: use the directory only for discovery and require each linked upstream skill to pass Woon commit, license, script, effect, routing and evaluation review before registration
+  - id: tinyhumansai-openhuman
+    review_required: true
+    supply_chain_required: true
+    upstream: https://github.com/tinyhumansai/openhuman
+    checked_commit: 0b8b02cbd1b0a5ed5c1b893341383c036ebd4435
+    checked_version: 0.63.17
+    status: evaluated
+    license: GPL-3.0
+    improves: [evals/behavior/knowledge.yaml, evals/behavior/safety.yaml]
+    decision: retain the single Wiki canon and bounded context bundle; do not install a second personal-memory runtime, connector stack, orchestrator or desktop application

@@ -11,4 +11,4 @@ description: 이력서, 경력기술서, 자기소개, cover letter, portfolio �
 
 먼저 대상 JD와 사용자 기록을 읽고, 문서별 형식에 맞춰 결과→행동→조건→근거로 쓴다. 과장된 형용사, AI 흔적, 꾸민 서사보다 사용자의 실제 표현을 우선한다. 링크, 수치, 저자성, 공개 권한을 검증하고 미확인 사항은 표시한다.
 
-문서별 상세 규격과 품질 gate가 필요할 때만 [career docs](references/career-docs.md)를 읽는다. 면접 답변 훈련은 `$interview`를 쓴다.
+문서별 상세 규격과 품질 gate가 필요할 때만 [career docs](references/career-docs.md)를 읽는다. JD 대조부터 지원 결과까지 하나의 지원 기록으로 관리할 때만 [지원 파이프라인](references/application-pipeline.md)을 읽는다. 면접 답변 훈련은 `$interview`를 쓴다.

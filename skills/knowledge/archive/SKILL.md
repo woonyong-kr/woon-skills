@@ -13,9 +13,11 @@ description: archive MCP payload·body를 만들거나 private woon-knowledge에
 
 payload 인수는 `canonical_id`, `title`, `domain`, `summary`, `purpose`, `body`, `difficulty`, `prerequisites`, `next_concepts`, `related`, `source_session_ids`, `expected_revision`만 쓴다. `document_id`, `path`, `revision`, `tool` wrapper 같은 alias를 만들지 않는다.
 
-Wiki는 `wiki/` 하나만 정본으로 사용한다. 대화에서 생긴 이해·결정·프로젝트·콘텐츠처럼 아직 근거 확정 전인 입력은 별도 병렬 Wiki를 만들지 않고 Core의 conversation-to-Wiki 경로가 `wiki/personal/`의 같은 주제 문서와 그날의 일일 이력에 병합한다. 이 경로는 관리 marker와 시간 이력만 갱신하며 Markdown을 자유 편집하거나 compiler page를 덮어쓰지 않는다. 공개 글·경력 주장·인용처럼 근거 확인이 필요한 입력만 source·accepted claim·page spec을 갱신하고 compiler가 같은 `wiki/` 아래의 근거 문서와 receipt를 만든다.
+Wiki는 `wiki/` 하나만 정본으로 사용하고 `woon-knowledge/docs/wiki-information-architecture.md`의 계층 계약을 따른다. 대화에서 생긴 이해·결정·프로젝트·자료는 먼저 `canonical_id`·title·aliases·keywords·중심 질문으로 기존 문서를 찾는다. 기존 정체성이면 정확한 `wiki_subject_path`로 같은 문서의 현재 이해·관련 section·시간 이력에 병합한다. 새 정본은 독립 문서 조건과 의미상 `parent`, 대표 `keywords`, `central_question`, `new_wiki_reason`을 모두 확정한 경우에만 만들며, `wiki/personal/`이나 root에 기본 낙하시키지 않는다. 부모나 정체성이 모호하면 Wiki·receipt·cursor를 쓰지 않고 Review로 보낸다. 공개 글·경력 주장·인용처럼 근거 확인이 필요한 입력만 source·accepted claim·page spec을 갱신하고 compiler가 같은 `wiki/` 아래의 근거 문서와 receipt를 만든다.
 
-대화 경로는 실제 Wiki·일일 기록·검토 후보를 생성한 뒤 vault health와 검색 색인을 확인하고, 같은 입력 재실행이 새 문서나 이력을 만들지 않는지 검증한다. 근거 경로는 `woon_knowledge_compile_audit`과 `woon_knowledge_audit`을 실행한다. 두 경로 모두 private 정본이며 별도 요청 없이 commit, push, publish하지 않는다. 입력 계약은 [MCP contract](references/mcp-contract.md)를 필요할 때만 읽는다. 이 스킬은 `repo://skills/skills/knowledge/archive`의 단일 원본이며 knowledge 저장소에 복사하지 않는다.
+`콘텐츠` subtree와 Facet은 만들지 않는다. `content_kind: book`은 기존 책을 먼저 찾고, 새 책이면 확인된 장르 키워드 하나를 기존 `Wiki → 책 → 장르 키워드` hub와 정확히 대조한 뒤에만 그 아래 book entity를 만든다. 장르가 없거나 둘 이상이면 Review로 보내며 임시 부모에 붙이지 않는다. 책 첫 화면에는 목차 anchor와 장별 개념·정리 wikilink만 두고 소개문, `키워드:`, `영역: Area N`을 만들지 않는다. 책이 아닌 자료의 의미는 가장 구체적인 기존 Wiki에 병합하고, 안전한 원자료 URL 또는 Vault 내부 source·asset과 기존 `resource_keyword`가 모두 확인된 경우에만 `Wiki → 리소스 → 주제 키워드` 페이지에 하이퍼링크 한 줄을 추가한다. 설명형 content/resource entity는 만들지 않는다.
+
+대화 경로는 실제 Wiki·generated subtree/latest·일일 기록·검토 후보를 생성한 뒤 tree audit, vault health와 검색 색인을 확인하고, 같은 completed-turn 범위를 재실행해 새 문서·timeline 행·색인이 늘지 않는지 검증한다. Wiki 승격은 source를 해석하는 이 단계에서 한 번만 수행하고, 일일 기록 writer는 이미 확정된 ledger와 정본 링크만 자기 marker에 투영한다. 일일 자유 메모·할 일·Calendar projection을 다시 읽어 Wiki로 승격하지 않는다. 근거 경로는 `woon_knowledge_compile_audit`과 `woon_knowledge_audit`을 실행한다. 두 경로 모두 private 정본이며 별도 요청 없이 commit, push, publish하지 않는다. 입력 계약은 [MCP contract](references/mcp-contract.md)를 필요할 때만 읽는다. 이 스킬은 `repo://skills/skills/knowledge/archive`의 단일 원본이며 knowledge 저장소에 복사하지 않는다.
 
 외부 폴더나 저장소의 여러 문서를 전수 처리하는 요청은 `$ingest`가 파일별 catalog·privacy·완전성을 먼저 소유하고, 실제 canonical 한 편 저장 단계에서만 이 스킬의 계약을 호출한다.
 

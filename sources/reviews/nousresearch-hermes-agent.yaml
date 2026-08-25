@@ -1,0 +1,24 @@
+version: 1
+repository: NousResearch/hermes-agent
+upstream: https://github.com/NousResearch/hermes-agent
+checked_commit: 74ad422d50e6d76e26ba5ce3b4d2a4d520e923dd
+checked_version: 0.20.5
+checked_at: 2026-08-25
+license: MIT
+scope:
+  skill_files: 0
+decision: evaluated-no-install
+evidence:
+  inventory: agent runtime, memory backends, scheduler, messaging, browser, shell, Docker, SSH, plugins, optional skills and desktop surfaces inspected at the pinned commit
+  useful: explicit memory provenance, bounded retrieval, scheduled jobs and capability separation
+  rejected: second canonical memory store, self-modifying active skills, always-on agent runtime, messaging connectors and broad tool authority
+supply_chain:
+  source_files_reviewed: root Python, JavaScript workspaces, plugins, optional skills, setup, Docker and desktop entrypoints at the pinned commit
+  scripts_reviewed: install, setup, Docker entrypoints, sandbox, SSH shim, update handoff and provider-specific execution scripts
+  dependency_files_reviewed: pyproject exact pins, uv lock, npm workspaces, package overrides, desktop and web manifests
+  effects: broad filesystem, shell, network, scheduler, browser, Docker, SSH, messaging, memory and skill mutation capability
+  network: model providers, messaging channels, web search, browsers and optional remote execution
+  writes: agent memory, skills, schedules, config, transcripts, workspaces and connector state
+  shell: first-class local, Docker and SSH command execution
+  installation: reject; keep Herdr for pane lifecycle and Woon for knowledge, tasks and automation
+skills: []

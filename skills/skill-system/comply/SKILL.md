@@ -1,6 +1,6 @@
 ---
 name: comply
-description: 스킬 행동·산출물의 개선을 기준본 대조, 반복·적대적 요청, 금지 효과와 토큰 증거로 평가하고 실패 원인을 좁힐 때 사용한다.
+description: 스킬 지침이 실제 agent 행동에서 지켜지는지 positive·negative scenario를 반복 실행하고 금지 효과와 토큰 증거로 평가할 때 사용한다.
 ---
 
 # Comply

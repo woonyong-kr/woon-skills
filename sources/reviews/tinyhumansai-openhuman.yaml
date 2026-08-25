@@ -1,0 +1,24 @@
+version: 1
+repository: tinyhumansai/openhuman
+upstream: https://github.com/tinyhumansai/openhuman
+checked_commit: 0b8b02cbd1b0a5ed5c1b893341383c036ebd4435
+checked_version: 0.63.17
+checked_at: 2026-08-25
+license: GPL-3.0
+scope:
+  skill_files: 0
+decision: evaluated-no-install
+evidence:
+  inventory: Tauri desktop, Rust kernel, web UI, agent orchestration, memory, connectors, billing and deployment scripts inspected at the pinned commit
+  useful: local-first product surface, bounded memory retrieval, explicit capability contracts and diagnostics
+  rejected: second personal-memory canon, duplicate orchestration, connector credentials, cloud/payment surfaces and large desktop runtime
+supply_chain:
+  source_files_reviewed: root workspace, app, Rust crates, connector, memory, orchestration and desktop entrypoints at the pinned commit
+  scripts_reviewed: install, release, CI, mobile, Docker, deep-work, debug, review, agent-batch and connector E2E scripts
+  dependency_files_reviewed: pnpm workspace and lock, Cargo workspace and lock, Tauri, mobile and package manifests
+  effects: local files, shell, network, desktop UI, connectors, memory, scheduling, messaging, payments and agent orchestration
+  network: model providers, Gmail, Notion, Telegram, payment, update and optional cloud services
+  writes: local database, memory, config, connector state, generated artifacts and desktop application state
+  shell: extensive Bash, Node, Rust, Docker, mobile and release command execution
+  installation: reject; retain Wiki and Woon Core as the only personal knowledge and orchestration owners
+skills: []

@@ -21,10 +21,10 @@ description: Vault 문서의 소유자, 자료 저자·제공자, 발표자, 회
 - 일반 source·회의·일일 기록·brain 후보: 이 skill의 local MCP로 역할 연결이 가능하다.
 - compiler가 소유한 `wiki/`: 생성 Markdown을 직접 고치지 않는다. `$compile-knowledge`로 source·claim·page spec을 갱신하고 compiler receipt까지 확인한다.
 - 이름은 있으나 카드 생성 근거가 없는 자료: `attributions`만 사용한다.
-- Novel 원문, `sources/private/`, 실제 인물의 창작·민감 자료: 일반 인물 카드·지도·검색으로 옮기지 않는다. 별도 Novel local-only 경계를 따른다.
+- Novel 원문, `wiki/private/_sources/**`, 실제 인물의 창작·민감 자료: 일반 인물 지도·검색으로 옮기지 않는다. 원문은 Wiki 내부 source 경계에 두고 확인된 작품·인물 관계만 기존 `wiki/private/**` 정본 아래에 연결한다.
 - 자동 수집 메일·대화 후보: 사람 이름이나 관계를 추정해 카드·링크를 만들지 않는다. 후보 검토 뒤 명시된 사실만 이 skill으로 연결할 수 있다.
 - Calendar 제목: Core가 `identifiers`의 정확한 표기만 local-only 일정 노트에 연결한다. `Woon 일정`에서 직접 만든 일정은 최우녕을 `organizer`로 연결한다. 같은 식별자가 여러 카드에 있으면 `inbox/review/calendar-person-identity-review.md`에 후보만 남기고 자동 연결하지 않으며, 사용자가 지정한 뒤에만 맥락 단어를 포함한 식별자를 갱신한다.
-- Novel private history: 원문을 찾거나 이름을 추정하지 않는다. 독립 작품은 `work/work-catalog.yaml`, 확인된 작품↔인물 관계는 `work/people/person-link-ledger.yaml`만 정본으로 사용한다. `woon_people_private_history_sync` 또는 `woon people private-history-sync --novel-root <local-path>`은 두 정본을 검증해 Novel 안에 작품→인물과 인물→작품 local-only 대시보드를 재생성한다. Woon 대시보드에는 Novel 원문·원본 경로를 복사하지 않는다. `review_candidates`가 있을 때만 `inbox/review/private-person-history-review.md`를 만들고, 사용자가 승인해 후보가 0개가 되면 Core 소유 파일만 제거한다.
+- Novel private history: 원문을 읽어 이름을 추정하지 않는다. `wiki/private/_sources/novel/work/work-catalog.yaml`과 `wiki/private/_sources/novel/work/people/person-link-ledger.yaml`은 source 입력 장부이며, 검증된 작품→인물·인물→작품 관계의 정본은 기존 `wiki/private/**` 작품·사람 subtree에 한 번만 기록한다. `inbox/private-person-history/**`나 source dashboard를 만들지 않는다. 원문 전체는 복사하지 않고 source locator·hash·확인 근거만 둔다. `review_candidates`가 있을 때만 Review를 만들고 승인 전에는 관계를 승격하지 않는다.
 
 ## 완료 기준
 
@@ -33,7 +33,7 @@ description: Vault 문서의 소유자, 자료 저자·제공자, 발표자, 회
 - 사람 기준 재조회 결과에는 의도적으로 연결한 문서만 나온다.
 - 기본 `people-index`와 전역 Graph에 Novel·민감 인물 카드가 나타나지 않는다.
 - `novel-local-only` 카드의 직접 확인된 식별자는 local-only Calendar 노트에만 쓸 수 있고, 이 예외가 일반 지도·검색으로 번지지 않는다.
-- private history는 작품 catalog와 explicit relation ledger를 반복 실행해도 같은 양방향 읽기 모델만 재생성하며, Novel 원문이나 일반 Graph를 바꾸지 않는다.
+- private history 검증은 작품 catalog와 explicit relation ledger를 반복 실행해도 새 dashboard·링크·이력을 만들지 않으며, Novel 원문이나 전역 Graph를 바꾸지 않는다. 사람용 관계 갱신은 Wiki projection 한 경로만 소유한다.
 - Calendar는 Novel 작품·관계·원문을 event나 task로 가져오지 않고, 사용자 확인 식별자의 local-only 사람 연결만 허용한다.
 
 이 skill은 `repo://skills/skills/knowledge/people`의 단일 원본이며, Vault에는 사용 문서만 둔다.

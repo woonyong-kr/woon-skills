@@ -24,6 +24,16 @@ REVIEW_DECISIONS = {
 }
 REQUIRED_SKILL_FIELDS = ("name", "purpose", "overlap", "decision", "reason")
 REQUIRED_GROUP_FIELDS = ("id", "purpose", "overlap", "decision", "reason")
+SUPPLY_CHAIN_FIELDS = (
+    "source_files_reviewed",
+    "scripts_reviewed",
+    "dependency_files_reviewed",
+    "effects",
+    "network",
+    "writes",
+    "shell",
+    "installation",
+)
 
 
 def load_mapping(path: Path) -> dict[str, Any]:
@@ -188,6 +198,15 @@ def audit_sources(root: Path) -> list[str]:
         evidence = review.get("evidence")
         if not isinstance(evidence, dict) or not evidence:
             errors.append(f"{review_path}: evidence must be a non-empty mapping")
+        if catalog_item.get("supply_chain_required") is True:
+            supply_chain = review.get("supply_chain")
+            if not isinstance(supply_chain, dict):
+                errors.append(f"{review_path}: supply_chain must be a mapping")
+            else:
+                for field in SUPPLY_CHAIN_FIELDS:
+                    value = supply_chain.get(field)
+                    if not isinstance(value, str) or not value.strip():
+                        errors.append(f"{review_path}: supply_chain missing {field}")
 
         commit = review.get("checked_commit", "")
         if not isinstance(commit, str) or COMMIT.fullmatch(commit) is None:

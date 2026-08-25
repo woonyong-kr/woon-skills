@@ -10,7 +10,7 @@
 
 | ID | Source repository | Boundary |
 | --- | --- | --- |
-| `context-graph` | `woonyong-kr/linked-canvas` | 공개 `0.5.13` release와 asset attestation이 검증됐다. Community directory 등록 전에는 exact `0.5.13` build만 `install-local-build`와 receipt로 검증한다. |
+| `context-graph` | `woonyong-kr/linked-canvas` | 공개 `0.5.14` release와 asset attestation이 검증됐다. Community directory 등록 전에는 exact `0.5.14` build만 `install-local-build`와 receipt로 검증한다. |
 | `context-calendar` | `woonyong-kr/simple-calendar` | CI·release asset attestation을 통과한 exact `2.1.3` source build를 `install-local-build`와 receipt로 검증한다. |
 
 두 mindmap plugin은 Markdown 원본을 읽는다. `light-mindmap`의 node 편집은 heading을 바꾸므로 source diff와 link를 재검증해야 하고, `markdown-mindmap`은 map block의 folder·`parent` relation을 다시 읽어 card를 그린다.

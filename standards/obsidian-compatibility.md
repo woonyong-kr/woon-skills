@@ -6,7 +6,7 @@ Woon 지식 문서를 Obsidian에서 읽고 연결할 수 있게 하되, private
 
 ## Ownership layers
 
-- archive MCP의 구조화 인수는 `canonical_id`, `title`, `domain`, `summary`, `difficulty`, 관계 ID, `source_session_ids`, `expected_revision`을 소유한다. `aliases`·`publish`·`access`·`status`는 archive 인수가 아니다.
+- archive MCP의 구조화 인수는 `canonical_id`, `title`, `domain`, `summary`, `difficulty`, 관계 ID, `source_session_ids`, `expected_revision`을 소유한다. conversation-to-Wiki envelope는 별도로 `wiki_subject_path` 또는 신규용 `new_wiki_reason`·`parent`·`keywords`·`central_question`을 소유한다. `aliases`·`publish`·`access`·`status`는 archive MCP 인수가 아니다.
 - filesystem adapter가 구조화 인수에서 YAML frontmatter와 H1을 생성하고 `status: Canonical`, `publish: false`, `access: local-only`를 고정한다. MCP `body`에는 이 영역을 반복하지 않고 H2 이하의 본문만 넣는다. 사용자가 중복을 지시해도 MCP 계약을 우선한다.
 - Markdown 본문은 검증된 설명·코드·관찰·한계를 소유한다. metadata를 본문으로 복제해 두 개의 정본을 만들지 않는다.
 
@@ -23,11 +23,12 @@ Woon 지식 문서를 Obsidian에서 읽고 연결할 수 있게 하되, private
 - heading hierarchy를 목차의 정본으로 삼는다. 수동 목차와 heading을 각각 편집하지 않으며, 목차 link는 Obsidian·Quartz에서 같은 anchor가 열리는 것을 확인한 경우에만 생성한다.
 - code·memory·call·exception 흐름의 canonical 시각화는 Markdown 안의 Mermaid다. JSON Canvas는 같은 identifier와 단계를 유지하는 local 보조물일 뿐 Mermaid를 대체하지 않는다.
 - `.base`는 local 조회 view이며 원문이나 공개 학습 문서의 정본이 아니다. `.canvas`·`.base`를 만들 때는 YAML·JSON 구문과 참조 대상을 별도로 검증한다.
+- Wiki의 키워드 계층과 탐색 순서는 같은 `wiki/**/*.md`의 `parent`와 Core 관리 children/latest block이 소유한다. `maps/`의 Markdown, Canvas text node, Base view에 별도 목록이나 설명을 복제하지 않는다.
 - 색은 보조 신호다. 경로·상태·예외은 text label과 line style로도 구분한다.
 
 ## Acceptance
 
-1. `woon_knowledge_audit`으로 metadata, duplicate, broken·ambiguous link, private/public 위반을 검사한다.
+1. `woon_knowledge_audit`과 vault health로 metadata, parent cycle·고아, duplicate identity, generated tree drift, broken·ambiguous link, private/public 위반을 검사한다.
 2. Obsidian Reading view와 light·dark mode에서 heading, wikilink, callout, Mermaid 대비와 clipping을 확인한다.
 3. 공개 대상은 Quartz build 후 링크·Mermaid·navigation과 private 정보 불포함을 rendered output에서 확인한다.
 4. 표시를 확인하지 못한 층은 통과로 보고하지 않고 미검증으로 남긴다.

@@ -23,7 +23,7 @@ description: Obsidian의 반복 할 일·일일 기록을 목적과 검증 규�
 2. 반복 routine에는 사용자가 말했거나 확인한 `purpose`가 있는지 확인한다. 목적이 없으면 추정하거나 과거 문서에서 만들어 내지 말고, 목적 한 문장을 요청한다. 종료 가능한 목표라면 종료 기준도 확인한다.
 3. 목표가 있는 routine은 먼저 `woon_tasks_upsert_goal`로 `goal_id`, 목표, 종료 기준, 필요하면 종료일 또는 사용자 확인 측정값을 저장한다. 목표 문서는 `inbox/tasks/goals/`의 사용자가 직접 고칠 수 있는 Markdown 정본이다.
 4. `woon_tasks_upsert_recurring_todo`로 `task_id`, 제목, 목적, 영역, 시작일, 연결한 `goal_id`를 저장한다. 제목은 동사로 시작하고 한 번에 검증할 수 있어야 한다.
-5. `woon_tasks_materialize_due`로 해당 KST 날짜의 일일 기록 관리 구역만 갱신한다. 목표가 달성·중단되었거나 종료일을 지났다면 routine은 다음 날짜부터 자동 제외되어야 한다.
+5. `woon_tasks_materialize_due`로 해당 KST 날짜의 `woon-tasks` 관리 구역만 갱신한다. 일일 자유 메모·Codex block·Calendar projection·Wiki는 읽거나 승격하지 않는다. 목표가 달성·중단되었거나 종료일을 지났다면 routine은 다음 날짜부터 자동 제외되어야 한다.
 6. 생성·수정·완료 뒤 같은 MCP로 다시 조회해 routine과 일일 항목이 하나씩인지 확인하고, receipt가 local runtime state에 남았는지 확인한다.
 7. 완료는 `woon_tasks_complete`로 해당 날짜의 해당 항목만 표시한다. 이 작업은 Calendar event나 활동 이력을 완료 처리하지 않는다.
 

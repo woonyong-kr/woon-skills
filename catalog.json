@@ -106,7 +106,7 @@
       "name": "comply",
       "domain": "skill-system",
       "path": "skills/skill-system/comply",
-      "description": "스킬 행동·산출물의 개선을 기준본 대조, 반복·적대적 요청, 금지 효과와 토큰 증거로 평가하고 실패 원인을 좁힐 때 사용한다."
+      "description": "스킬 지침이 실제 agent 행동에서 지켜지는지 positive·negative scenario를 반복 실행하고 금지 효과와 토큰 증거로 평가할 때 사용한다."
     },
     {
       "name": "container",
@@ -232,7 +232,7 @@
       "name": "knowledge-navigation",
       "domain": "knowledge",
       "path": "skills/knowledge/knowledge-navigation",
-      "description": "LLM Wiki, 학습 노트, 면접 문답을 키워드에서 질문·답변·후속 질문으로 연결하고 Markdown 정본과 Obsidian JSON Canvas 보조 지도를 함께 만들거나 검증할 때 사용한다. 지식 지도, Canvas, 문서 간 탐색, 질문 노트 구조화, 고아 문서·중복 키워드 점검 요청에 적용한다."
+      "description": "Woon Wiki의 단일 계층형 키워드 트리, 하위 문서 색인, 엔티티별 성장 구조와 Obsidian Graph·Canvas 파생 화면을 설계·검증할 때 사용한다. 고아 문서, 중복 키워드, 별도 Map, 모호한 부모를 진단하는 요청에 적용한다."
     },
     {
       "name": "lookup",
