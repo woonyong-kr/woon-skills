@@ -21,7 +21,7 @@ description: Woon Wiki의 단일 계층형 키워드 트리, 하위 문서 색�
 
 - 탐색 페이지는 직접 링크 또는 `분류 텍스트 → child 링크` 2단 불릿만 읽는다. `navigation_groups`는 표시 순서일 뿐 새 정체성이나 두 번째 parent를 만들지 않는다. 모든 entity 첫 화면도 주제 키워드 wikilink와 별도 히스토리를 우선하며, 설명과 판단 근거는 도착한 상세 topic·detail에서 읽는다.
 - 책은 `책` 페이지에서 `- 장르 텍스트` 아래의 책 제목 wikilink를 바로 연다. 정본 parent tree는 `Wiki → 책 → 장르 키워드 → 책 제목`을 유지하며, 책 페이지는 목차 anchor와 장별 개념·정리 wikilink만 소유하고 소개문·`키워드:`·`영역: Area N`을 반복하지 않는다.
-- `콘텐츠` subtree와 Facet은 만들지 않는다. 강의·글·영상에서 얻은 의미는 기존 주제 Wiki에 흡수하고, 외부 원자료와 PDF·이미지·전사는 `Wiki → 리소스 → 분야 hub → 같은 출처·대상·용도의 bundle topic`에서 링크로만 색인한다. 리소스 첫 화면은 `분야 텍스트 → bundle 링크`를 보여 주고 자료가 하나뿐인 분야만 원자료 링크를 바로 보여 준다.
+- `콘텐츠` subtree와 Facet은 만들지 않는다. 강의·글·영상에서 얻은 의미는 기존 주제 Wiki에 흡수하고, 외부 원자료와 PDF·이미지·전사는 `Wiki → 리소스 → 분야 텍스트 → 원자료 링크`로만 색인한다. 같은 출처·대상·용도라는 이유로 중간 bundle 문서를 만들지 않는다.
 - 책이 아닌 외부 자료의 의미 부모나 `resource_keyword`를 확정할 수 없으면 중간 콘텐츠 카드를 만들지 않고 Review로 보낸다. Novel·민감 자료는 일반 리소스 Graph에 중복 노출하지 않는다.
 - 프로젝트 entity는 목표·완료 조건, 요구사항, 설계, 결정, 구현, 검증, 결과, 남은 문제를 subtree와 본문으로 관리한다.
 - 인물 hub의 직접 child는 사람 이름의 person entity뿐이다. 인물 entity는 관계·프로젝트·결정·대화·자료를 주제 wikilink로 묶고 사건은 별도 히스토리에 날짜순으로 누적한다. 사람 이름과 특정 분석 제목을 별도 인물처럼 병렬로 두지 않는다. 이름 한 번의 언급으로 entity를 만들지 않는다.
@@ -53,6 +53,6 @@ python3 "$(woon resolve repo://skills/skills/knowledge/knowledge-navigation/scri
 1. root에서 모든 활성 Wiki가 `parent`로 도달하고 cycle·고아 문서가 없다.
 2. title·aliases·keywords·중심 질문 기준의 의미상 중복과 병렬 Markdown Map이 없다.
 3. root의 직접 child 링크, hub의 직접 링크·작은 분류·명시적 `navigation_groups` 2단 불릿, topic·entity의 child·latest 링크가 실제 metadata와 일치하며 hub에 최신 subtree를 펼치거나 설명·날짜·개수를 반복하지 않는다.
-4. `콘텐츠` 분류가 없고 책 화면은 장르 텍스트→책 링크→목차 링크, 리소스는 분야 텍스트→중복 없는 bundle 링크→원자료 링크이며, 프로젝트·인물 entity는 각각 project·topic-timeline 계약을 충족한다.
+4. `콘텐츠` 분류가 없고 책 화면은 장르 텍스트→책 링크→목차 링크, 리소스는 분야 텍스트→원자료 링크이며, 프로젝트·인물 entity는 각각 project·topic-timeline 계약을 충족한다.
 5. Canvas target과 edge가 실존 Wiki 관계와 일치하고 수동 배치를 보존한다.
 6. Obsidian에서 root tree, entity tree, latest, Global Graph, Local Graph를 실제로 확인한다. UI 확인 전에는 정적 검증 완료로만 보고한다.
