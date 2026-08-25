@@ -29,16 +29,16 @@ description: Obsidian의 반복 할 일·일일 기록을 목적과 검증 규�
 
 ## Calendar Boundary
 
-- `woon_calendar_refresh_readonly`는 Apple Calendar의 제목·캘린더 이름·시작·종료·종일 여부와 Core가 기록한 고정 분류를 검색용 `inbox/calendar/events/` Markdown과 Simple Calendar 월간 dashboard `inbox/calendar/apple-calendar.md`에 같은 입력에서 투영한다. 각 일정 노트의 `record_owner`는 최우녕이며, `Woon 일정`의 직접 요청 약속은 최우녕을 `organizer`로 남긴다.
+- `woon_calendar_refresh_readonly`는 Apple Calendar의 제목·캘린더 이름·시작·종료·종일 여부와 Core가 기록한 고정 분류를 검색용 `inbox/calendar/events/` Markdown과 Link Calendar 월간 dashboard `inbox/calendar/apple-calendar.md`에 같은 입력에서 투영한다. 각 일정 노트의 `record_owner`는 최우녕이며, `Woon 일정`의 직접 요청 약속은 최우녕을 `organizer`로 남긴다.
 - 일정 분류의 허용값은 `career`(커리어), `learning`(학습), `creative`(창작), `life`(생활), `relationship`(관계), `health`(건강), `admin`(행정)이다. `기타`는 이 값이 없는 외부 또는 레거시 일정의 fallback이며, 제목만 보고 이 일곱 값 중 하나로 추정하지 않는다.
-- Markdown 일정 노트, Simple Calendar runtime 사본, dashboard는 Core만 소유하는 재생성 가능한 local-only 산출물이며, Calendar event ID·메모·참석자·URL·설명은 넣지 않는다.
+- Markdown 일정 노트와 dashboard는 Core만 소유하는 재생성 가능한 local-only 산출물이며, Calendar event ID·메모·참석자·URL·설명은 넣지 않는다. Link Calendar는 이 Markdown을 읽을 뿐 별도 일정 사본을 저장하지 않는다.
 - 사용자가 이 대화에서 시간 약속의 생성 또는 변경을 직접 요청했을 때만 `woon_calendar_upsert`를 호출한다. 메일, 문서, 화면, 추정된 의도만으로 `user_authorized: true`를 설정하지 않는다.
 - 이미 Woon이 만든 일정의 분류만 바꿀 때는 `woon_calendar_set_category`를 쓴다. 이 도구는 안정 식별자와 이전 EventKit receipt가 일치할 때만 제목·시간·장소·사용자 메모를 보존한 채 `Woon category` marker를 갱신하고, EventKit 재조회와 local receipt 뒤에 Markdown 투영을 새로 고친다.
 - `event_id`는 Apple event ID가 아니라 같은 약속을 다시 고칠 때 이어 쓰는 안정적인 소문자 식별자다. 새 약속에는 날짜와 주제를 반영해 하나를 만들고, 같은 대화 또는 기존 receipt에 있는 약속을 바꿀 때는 반드시 기존 값을 다시 쓴다.
 - 도구에는 제목, timezone이 있는 시작 시각, 분류, `user_authorized: true`를 넘긴다. 종료 시각이 없으면 도구가 1시간을 적용하므로, 응답의 `duration_defaulted: true`를 사용자에게 알린다. 장소와 메모는 Apple Calendar event에만 남긴다.
 - 도구가 `status: ok`를 돌려야 EventKit 저장 영수증과 Markdown·월간 dashboard 투영까지 끝난 것이다. `applied_projection_pending`이면 Apple Calendar 저장은 확인됐지만 Obsidian 투영은 끝나지 않은 상태이므로, `woon_calendar_refresh_readonly`를 다시 실행하고 완료라고 말하지 않는다.
 - 제목에 사용자가 확인한 인물 `identifiers`가 정확히 하나만 맞으면 해당 카드가 `mentioned`로 연결된다. 동명이면 `inbox/review/calendar-person-identity-review.md`에 후보만 남기고, 사용자가 누구인지 지정하기 전에는 링크·카드·식별자를 만들거나 바꾸지 않는다.
-- Simple Calendar는 Core가 만든 `Date`, `Category`, 제목을 월간 카드로 읽는다. 카드에는 시간이 없고 제목은 두 줄까지 보이며, 긴 제목과 시각은 hover tooltip 또는 카드를 열어 읽기 전용 Markdown에서 확인한다. event 생성·끌어놓기·inline edit는 Core 소유 읽기 전용 projection에서 지원하지 않는다.
+- Link Calendar는 Core가 만든 `Date`, `Start Date`, `End Date`, `All Day`, `Category`, 제목을 월간 카드와 선택 날짜의 일정 목록으로 읽는다. 날짜 패널은 시간 범위·분류·정본 노트 링크만 보여 주며, event 생성·끌어놓기·inline edit는 Core 소유 읽기 전용 projection에서 지원하지 않는다.
 - 매일 자동 materialization은 누락을 복구하는 보조 경로다. 사용자가 지금 일정 변경을 요청했을 때는 기다리지 않고 upsert와 refresh를 같은 요청 안에서 끝낸다.
 
 ## Prohibited
@@ -49,6 +49,6 @@ description: Obsidian의 반복 할 일·일일 기록을 목적과 검증 규�
 - Obsidian 파일을 정규 path 밖에서 직접 수정하지 않는다. task service가 소유한 routine과 marker 구역만 MCP/CLI로 바꾼다.
 - purpose를 LLM이 추정해 사실처럼 기록하지 않는다.
 - Calendar projection을 양방향 동기화로 바꾸거나 Obsidian에서 Apple Calendar event를 쓰지 않는다.
-- Simple Calendar에 외부 계정·CalDAV·원격 동기화·별도 JSON 일정 저장소를 연결하지 않는다.
+- Link Calendar에 외부 계정·CalDAV·원격 동기화·별도 JSON 일정 저장소를 연결하지 않는다.
 - task 체크만으로 학습·경력·활동 완료를 확정하거나 지식·원본·인물·Novel 자료를 task로 저장하지 않는다.
 - 사용자가 확인하지 않은 체중·출석·성과·마감 달성을 추정해 목표를 끝내지 않는다. 측정 목표는 `measurement_confirmed: true`일 때만 자동 종료 판단에 쓴다.
