@@ -11,7 +11,7 @@
 
 | ID | Source repository | Boundary |
 | --- | --- | --- |
-| `linked-graph` | `woonyong-kr/linked-graph` | exact `1.3.3` read-only current-note force graph build만 `install-local-build`와 receipt로 검증한다. edge-to-edge leaf, movable root, canonical parent navigation, moving labels, no static group captions, dot-only hover emphasis, hover-only outgoing 2-hop preview, measured collision, metadata dot colour, neutral text, readable solid direct edges와 secondary dashed preview edges를 실제 Obsidian에서 확인한다. `context-graph`는 이 설치가 검증된 뒤 backup retirement한다. |
+| `linked-graph` | `woonyong-kr/linked-graph` | exact `1.3.4` read-only current-note force graph build만 `install-local-build`와 receipt로 검증한다. edge-to-edge leaf, movable root, canonical parent navigation, moving labels, no static group captions, dot-only hover emphasis, no false root action outline, hover-only outgoing 2-hop preview, measured collision, metadata dot colour, neutral text, 1.5px solid direct edges와 1.2px dashed preview edges를 실제 Obsidian에서 확인한다. `context-graph`는 이 설치가 검증된 뒤 backup retirement한다. |
 | `link-calendar` | `woonyong-kr/link-calendar` | CI·release asset attestation을 통과한 exact `3.1.2` source build를 `install-local-build`와 receipt로 검증한다. 구형 `context-calendar`는 이 설치가 검증된 뒤 backup retirement한다. |
 
 두 mindmap plugin은 Markdown 원본을 읽는다. `light-mindmap`의 node 편집은 heading을 바꾸므로 source diff와 link를 재검증해야 하고, `markdown-mindmap`은 map block의 folder·`parent` relation을 다시 읽어 card를 그린다.
