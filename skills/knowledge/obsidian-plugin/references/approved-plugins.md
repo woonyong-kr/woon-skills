@@ -5,13 +5,13 @@
 | `light-mindmap` | Light Mindmap | `ninglg/light-mindmap` | 한 Markdown 문서의 heading을 학습·리허설·발표용 mindmap으로 렌더 |
 | `markdown-mindmap` | Markdown Mindmap | `kikocastro/markdown-mindmap` | frontmatter 관계를 읽어 여러 Markdown 문서를 프로젝트·키워드·질문 지도로 렌더 |
 | `link-calendar` | Link Calendar | `woonyong-kr/link-calendar` | 날짜가 있는 Markdown을 월간 보기와 날짜별 정본 링크로 탐색한다. Woon source만 Core 설정으로 읽기 전용이다 |
-| `linked-graph` | Linked Graph | `woonyong-kr/linked-graph` | 현재 Markdown의 outgoing link만 실제 1-hop force graph와 같은 링크 집합의 목차로 탐색하며 지식이나 UI 상태를 저장하지 않는다 |
+| `linked-graph` | Linked Graph | `woonyong-kr/linked-graph` | 현재 Markdown의 outgoing 1-hop을 기본 그래프와 목차로 탐색하고, hover·focus 동안만 실제 outgoing 2-hop을 미리 보며 지식이나 UI 상태를 저장하지 않는다 |
 
 ## Local development allowlist
 
 | ID | Source repository | Boundary |
 | --- | --- | --- |
-| `linked-graph` | `woonyong-kr/linked-graph` | exact `1.2.0` read-only current-note 1-hop force graph build만 `install-local-build`와 receipt로 검증한다. `context-graph`는 이 설치가 검증된 뒤 backup retirement한다. |
+| `linked-graph` | `woonyong-kr/linked-graph` | exact `1.3.1` read-only current-note force graph build만 `install-local-build`와 receipt로 검증한다. movable root, canonical parent navigation, hover-only outgoing 2-hop preview, measured collision, metadata dot colour와 neutral text를 실제 Obsidian에서 확인한다. `context-graph`는 이 설치가 검증된 뒤 backup retirement한다. |
 | `link-calendar` | `woonyong-kr/link-calendar` | CI·release asset attestation을 통과한 exact `3.1.2` source build를 `install-local-build`와 receipt로 검증한다. 구형 `context-calendar`는 이 설치가 검증된 뒤 backup retirement한다. |
 
 두 mindmap plugin은 Markdown 원본을 읽는다. `light-mindmap`의 node 편집은 heading을 바꾸므로 source diff와 link를 재검증해야 하고, `markdown-mindmap`은 map block의 folder·`parent` relation을 다시 읽어 card를 그린다.
