@@ -11,9 +11,9 @@
 
 | ID | Source repository | Boundary |
 | --- | --- | --- |
-| `linked-graph` | `woonyong-kr/linked-graph` | exact `1.0.1` read-only current-note build만 `install-local-build`와 receipt로 검증한다. `context-graph`는 이 설치가 검증된 뒤 backup retirement한다. |
-| `link-calendar` | `woonyong-kr/link-calendar` | CI·release asset attestation을 통과한 exact `3.0.1` source build를 `install-local-build`와 receipt로 검증한다. 구형 `context-calendar`는 이 설치가 검증된 뒤 backup retirement한다. |
+| `linked-graph` | `woonyong-kr/linked-graph` | exact `1.1.0` read-only current-note build만 `install-local-build`와 receipt로 검증한다. `context-graph`는 이 설치가 검증된 뒤 backup retirement한다. |
+| `link-calendar` | `woonyong-kr/link-calendar` | CI·release asset attestation을 통과한 exact `3.1.0` source build를 `install-local-build`와 receipt로 검증한다. 구형 `context-calendar`는 이 설치가 검증된 뒤 backup retirement한다. |
 
 두 mindmap plugin은 Markdown 원본을 읽는다. `light-mindmap`의 node 편집은 heading을 바꾸므로 source diff와 link를 재검증해야 하고, `markdown-mindmap`은 map block의 folder·`parent` relation을 다시 읽어 card를 그린다.
 
-`link-calendar`는 독립 사용 시 여러 folder profile, folder 안의 optional tag filter, 날짜·시간·하루 종일·제목·분류 mapping과 writable source를 지원한다. Tag만으로 Vault 전체를 색인하지 않는다. Woon의 `inbox/calendar/events/` profile만 `editable: false`로 고정한다. Obsidian reload 뒤 `ribbon`, `month-view`, `event-card`, `daily-agenda`, `direct-note-link`, `readonly-blocked`를 모두 직접 확인하고 `attest-link-calendar-runtime`으로 남긴 operator attestation이 현재 asset·settings·dashboard hash와 일치해야 교체를 완료한 것으로 본다. 구형 `context-calendar`, `woon-simple-calendar`, `notion-bases`, `full-calendar-remastered`는 새 설치 대상이 아니라 이 검증 후 migration backup 대상이다.
+`link-calendar`는 독립 사용 시 여러 folder profile, folder 안의 optional tag filter, 날짜·시간·하루 종일·제목·분류 mapping과 writable source를 지원한다. Tag만으로 Vault 전체를 색인하지 않는다. Woon의 `inbox/calendar/events/` profile만 `editable: false`로 고정한다. Obsidian reload 뒤 `ribbon`, `month-view`, `event-marker`, `daily-agenda`, `direct-note-link`, `readonly-blocked`를 모두 직접 확인하고 `attest-link-calendar-runtime`으로 남긴 operator attestation이 현재 asset·settings·dashboard hash와 일치해야 교체를 완료한 것으로 본다. 구형 `context-calendar`, `woon-simple-calendar`, `notion-bases`, `full-calendar-remastered`는 새 설치 대상이 아니라 이 검증 후 migration backup 대상이다.
