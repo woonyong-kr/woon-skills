@@ -12,9 +12,9 @@
 - 웹이면 canonical URL, 확인 시각, 원문 MIME
 - provenance, rights basis, access, publish scope
 - target 문서와 canonical asset 경로
-- `embedded`, `mermaid-preferred`, `link-only`, `external-private`, `placeholder`, `unreferenced` 중 하나의 판정과 이유
+- `embedded`, `mermaid-preferred`, `link-only`, `wiki-source`, `placeholder`, `unreferenced` 중 하나의 판정과 이유
 
-머신별 절대 경로는 commit하지 않는다. 출처가 local PDF라면 catalog의 stable source ID만 남기고 실제 경로는 Git-ignored local registry로 해석한다.
+머신별 절대 경로는 commit하지 않는다. 출처가 local PDF라면 원본은 `wiki/private/_sources/**` 안에 두고 catalog의 stable source ID와 Vault 상대 경로로만 연결한다. Git-ignored local-only bytes도 반드시 이 Wiki 소유 경계 안에 있어야 한다.
 
 ## 무엇을 본문에 보존하는가
 
