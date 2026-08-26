@@ -29,7 +29,7 @@ Community Plugin 등록 전에 사용자가 소유한 plugin을 실제 Vault에�
 
 Community plugin 설정상 활성화와 현재 실행 중인 Obsidian의 runtime load는 다르다. adapter는 저장하지 않은 문서를 잃을 수 있는 앱 재시작이나 UI 자동화를 하지 않는다. 설치 뒤 Obsidian을 안전하게 reload한 다음 `status` receipt와 실제 plugin 화면으로 rendered 동작을 확인한다.
 
-`linked-graph`는 현재 Markdown의 resolved outgoing wikilink만 작성 순서로 읽는 오른쪽 사이드바다. Markdown·Canvas·Map·관계·레이아웃·설정 파일을 쓰지 않는다. exact `1.0.0` local build와 receipt가 확인된 뒤에만 구형 `context-graph`를 `retire`로 backup 이동한다. 편집기의 fold 상태는 공개 API로 읽지 않고, 펼치기·검색은 세션 UI 상태로만 둔다.
+`linked-graph`는 현재 Markdown의 resolved outgoing wikilink만 작성 순서로 읽는 오른쪽 사이드바다. Markdown·Canvas·Map·관계·레이아웃·설정 파일을 쓰지 않는다. exact `1.0.1` local build와 receipt가 확인된 뒤에만 구형 `context-graph`를 `retire`로 backup 이동한다. 편집기의 fold 상태는 공개 API로 읽지 않고, 펼치기·검색은 세션 UI 상태로만 둔다.
 
 Apple Calendar projection은 독립 공개 plugin인 `link-calendar`의 한 read-only source profile로만 연결한다. 설정 전 `woon calendar refresh`로 Core가 `inbox/calendar/events/*.md`와 `inbox/calendar/apple-calendar.md`를 함께 재생성할 수 있는지 확인한 뒤, 검증된 local build를 `install-local-build`로 설치하고 `configure-link-calendar`로 `woon-apple-calendar` profile을 upsert한다. 이 profile은 `editable: false`이며 다른 사용자 profile과 plugin 설정을 보존한다.
 
