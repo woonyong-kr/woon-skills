@@ -1,6 +1,6 @@
 ---
 name: spring-test
-description: Spring Boot slice·integration test, MockMvc/WebTestClient, Testcontainers, context failure를 작성·진단할 때 사용한다.
+description: Spring Boot slice·integration test, MockMvc/WebTestClient, Testcontainers와 context failure를 작성·진단할 때 사용한다. SecurityFilterChain·object-level 권한 검증만이면 spring-sec를 사용한다.
 ---
 
 # Spring Test

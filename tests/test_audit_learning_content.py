@@ -65,6 +65,16 @@ class AuditLearningContentTest(unittest.TestCase):
     def test_accepts_current_quality_contract(self) -> None:
         self.assertEqual(audit_learning_content(self.make_root()), [])
 
+    def test_rejects_legacy_style_corpus_version(self) -> None:
+        root = self.make_root()
+        path = root / "standards/learning-style-corpus.yaml"
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("version: 2", "version: 1", 1),
+            encoding="utf-8",
+        )
+
+        self.assertTrue(any("version must be 2" in error for error in audit_learning_content(root)))
+
     def test_rejects_too_few_trials(self) -> None:
         root = self.make_root()
         path = root / "evals/quality/learning-content.yaml"

@@ -1,6 +1,6 @@
 ---
 name: tasks
-description: Obsidian의 반복 할 일·일일 기록을 목적과 검증 규칙으로 관리하고, 사용자가 직접 요청한 Apple Calendar 일정의 생성·변경을 EventKit MCP와 영수증·재조회로 처리할 때 사용한다. 지식·Novel 원고의 task 등록은 거부한다.
+description: Apple Calendar의 Obsidian 읽기 전용 새로고침, 반복 할 일·일일 기록, 사용자가 직접 요청한 일정 생성·변경을 EventKit MCP 영수증과 재조회로 처리할 때 사용한다. 지식·Novel 원고는 task로 등록하지 않는다.
 ---
 
 # Tasks

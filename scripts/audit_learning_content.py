@@ -94,8 +94,31 @@ def audit_learning_content(root: Path) -> list[str]:
     corpus_path = contract_targets.get("style_corpus")
     if corpus_path is not None:
         corpus = load_mapping(corpus_path)
-        if corpus.get("version") != 1:
-            errors.append(f"{corpus_path}: version must be 1")
+        if corpus.get("version") != 2:
+            errors.append(f"{corpus_path}: version must be 2")
+        collections = corpus.get("collections")
+        if not isinstance(collections, list) or len(collections) < 2:
+            errors.append(f"{corpus_path}: requires two or more source collections")
+        else:
+            for position, collection in enumerate(collections, start=1):
+                if not isinstance(collection, dict):
+                    errors.append(f"{corpus_path}: collection {position} must be a mapping")
+                    continue
+                digest = collection.get("sha256")
+                if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+                    errors.append(f"{corpus_path}: collection {position} has invalid sha256")
+                if not isinstance(collection.get("document_count"), int) or collection[
+                    "document_count"
+                ] < 1:
+                    errors.append(
+                        f"{corpus_path}: collection {position} has invalid document_count"
+                    )
+                if not isinstance(collection.get("page_count"), int) or collection[
+                    "page_count"
+                ] < 1:
+                    errors.append(f"{corpus_path}: collection {position} has invalid page_count")
+                if not isinstance(collection.get("role"), str) or not collection["role"].strip():
+                    errors.append(f"{corpus_path}: collection {position} requires role")
         samples = corpus.get("samples")
         if not isinstance(samples, list) or len(samples) < 4:
             errors.append(f"{corpus_path}: requires four or more samples")
