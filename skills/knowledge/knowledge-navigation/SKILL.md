@@ -14,6 +14,7 @@ description: Woon Wiki의 단일 계층형 키워드 트리, 하위 문서 색�
 3. `canonical_id`, title, aliases, keywords, 중심 질문을 함께 대조한다. 같은 질문이면 기존 문서의 section을 갱신하고, 독립된 중심 질문·고유 근거 또는 이력·둘 이상의 재사용 맥락 중 하나가 있을 때만 새 child를 만든다.
 4. 새 child는 `parent`, 대표 `keywords`, `central_question`, 생성 이유를 확정할 수 있을 때만 만든다. 부모가 모호하면 root에 임시로 붙이지 않고 Review로 보낸다.
 5. root는 직접 하위 키워드 wikilink만 보여 준다. hub의 작은 순수 분류 child는 일반 텍스트 불릿으로 두고 그 직접 child wikilink를 한 단계 들여써 평탄화한다. 프로젝트·인물처럼 direct child 자체가 실체인 hub는 `navigation_groups`에 주제 label과 direct child `canonical_id`를 명시해 같은 2단 불릿으로 보여 준다. 한 hub에서는 장르·목적·관계·진행 단계 중 하나의 분류 축만 사용하고, 포함 관계가 겹치는 label은 대표 label 하나로 합친다. 모든 direct child는 정확히 한 그룹에 있어야 하고 그룹당 링크가 20개를 넘으면 안 된다. 전체 subtree·최신 목록·summary·상태·개수는 펼치지 않는다. topic·entity의 하단 색인만 직접 하위 키워드와 필요한 최신 관련 문서의 wikilink를 보여 준다.
+   `wiki/concepts/README.md`는 분야 전체를 한 화면에 평탄화하는 유일한 예외다. 그 아래 개념 페이지는 direct child가 2개 이상이면 개수와 무관하게 선수 개념·작동 흐름·응용 같은 한 축의 `navigation_groups`를 반드시 명시한다. 단순 sequence만 둔 평면 링크 목록은 개념 학습 경로로 인정하지 않는다.
 6. `aliases`는 같은 정체성의 다른 이름, `related_to`는 비교·원인·사례·사용 같은 횡단 관계다. 둘 다 기본 부모를 대신하지 않는다.
 7. 순서는 탐색 의미다. root는 `개념 → 책 → 리소스 → 프로젝트 → 커리어 → 인물 → 생활` 순서를 사용하고, 기술 개념은 가까운 선수·응용 주제를 붙인다. 그룹 안에서는 선수 개념·작업 흐름·가나다순·날짜순 중 하나를 일관되게 적용한다. `sequence`와 `navigation_groups` 배열 순서를 명시하며 파일명 자동 정렬에 맡기지 않는다.
 
@@ -52,7 +53,7 @@ python3 "$(woon resolve repo://skills/skills/knowledge/knowledge-navigation/scri
 
 1. root에서 모든 활성 Wiki가 `parent`로 도달하고 cycle·고아 문서가 없다.
 2. title·aliases·keywords·중심 질문 기준의 의미상 중복과 병렬 Markdown Map이 없다.
-3. root의 직접 child 링크, hub의 직접 링크·작은 분류·명시적 `navigation_groups` 2단 불릿, topic·entity의 child·latest 링크가 실제 metadata와 일치하며 hub에 최신 subtree를 펼치거나 설명·날짜·개수를 반복하지 않는다.
+3. root의 직접 child 링크, hub의 직접 링크·작은 분류·명시적 `navigation_groups` 2단 불릿, topic·entity의 child·latest 링크가 실제 metadata와 일치하며 hub에 최신 subtree를 펼치거나 설명·날짜·개수를 반복하지 않는다. 개념 root 아래의 다중 자식 페이지는 모두 단계형 `navigation_groups`를 가진다.
 4. `콘텐츠` 분류가 없고 책 화면은 장르 텍스트→책 링크→목차 링크, 리소스는 분야 텍스트→원자료 링크이며, 프로젝트·인물 entity는 각각 project·topic-timeline 계약을 충족한다.
 5. Canvas target과 edge가 실존 Wiki 관계와 일치하고 수동 배치를 보존한다.
 6. Obsidian에서 root tree, entity tree, latest, Global Graph, Local Graph를 실제로 확인한다. UI 확인 전에는 정적 검증 완료로만 보고한다.
