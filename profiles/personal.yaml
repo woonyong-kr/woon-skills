@@ -1,6 +1,6 @@
 version: 1
 name: personal
-max_active: 13
+max_active: 15
 skills:
   - skills/common/safety
   - skills/docs/diagram
@@ -10,6 +10,8 @@ skills:
   - skills/knowledge/knowledge
   - skills/knowledge/knowledge-navigation
   - skills/knowledge/obsidian-plugin
+  - skills/learning/guided-learning
+  - skills/learning/kotlin-in-action-14-days
   - skills/knowledge/people
   - skills/productivity/tasks
   - skills/research/research

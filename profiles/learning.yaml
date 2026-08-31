@@ -1,7 +1,8 @@
 version: 1
 name: learning
-max_active: 3
+max_active: 4
 skills:
   - skills/docs/diagram
-  - skills/language/java/java
+  - skills/learning/guided-learning
+  - skills/learning/kotlin-in-action-14-days
   - skills/writing/tech

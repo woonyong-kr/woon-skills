@@ -38,6 +38,7 @@ woon skills doctor
 | private knowledge        | `knowledge`         | `$safety·$knowledge·$archive·$ingest·$compile-knowledge·$tech·$diagram` |
 | 논문·NotebookLM 지식화   | `research-library`  | knowledge +`$research·$research-library`                                 |
 | LLM Wiki maintenance     | `knowledge-compile` | `$safety·$knowledge·$compile-knowledge·$diagram·$tech`               |
+| AI 보조 학습             | `learning`          | `$guided-learning·$kotlin-in-action-14-days·$tech·$diagram`          |
 | 대화 기반 문제 해결 회고 | `insight`           | `$insight`                                                              |
 | private 소설 작업        | `novel`             | `$safety·$novel-handoff·$novel-merge`                                 |
 | 지식→사이트 공개 후보   | `site-promotion`    | `$safety·$verify·$knowledge·$site-promotion`                           |
@@ -52,6 +53,8 @@ woon skills doctor
 - `$lookup`: 현재 version의 외부 library/framework 공식 문서를 찾습니다.
 - `$adr`: 하나의 architecture 결정과 대안·결과를 기록합니다.
 - `$tech`: 근거와 한계가 있는 기술 글·학습 글을 씁니다.
+- `$guided-learning`: 학습자가 먼저 답하고 실행하도록 한 질문씩 인출·실습·전이·검증을 진행합니다.
+- `$kotlin-in-action-14-days`: 다섯 AI 학습 파트너와 책 16개 장을 14일 경로로 진행하고 실제 설명·실행·전이 증거로 진도를 판정합니다.
 - `$career`: 이력서·경력기술서·cover letter를 실제 개인 기여에 맞춥니다.
 - `$diagram`: Markdown 안의 Mermaid 관계도를 만듭니다.
 - `$knowledge`: private 정본과 read-only corpus를 검색·조회·감사합니다.

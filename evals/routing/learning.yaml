@@ -1,0 +1,58 @@
+version: 1
+cases:
+  - id: kotlin-fourteen-days-five-partners
+    prompt: "Kotlin in Action 전체를 2주 안에 공부하자. 다섯 명의 AI 학습 파트너를 세팅해서 알아서 시작해 줘"
+    profiles: [eval]
+    expect_primary: kotlin-in-action-14-days
+    allow_support: [guided-learning, knowledge]
+    reject: [java, tech, research, tasks]
+    max_selected: 3
+  - id: kotlin-fourteen-days-resume
+    prompt: "Kotlin in Action 14일 과정 어제 하던 Day부터 이어서 공부하자"
+    profiles: [eval]
+    expect_primary: kotlin-in-action-14-days
+    allow_support: [guided-learning, knowledge]
+    reject: [java, tech, research]
+    max_selected: 3
+  - id: guided-minimal-start
+    prompt: "Kotlin in Action 공부하자"
+    profiles: [eval]
+    expect_primary: guided-learning
+    allow_support: [knowledge]
+    reject: [kotlin-in-action-14-days, java, tech, research]
+    max_selected: 2
+  - id: guided-book-study
+    prompt: "Kotlin in Action 2장을 공부하려고 해. 내 현재 수준부터 확인하고 질문을 하나씩 내면서 코드로 이해할 때까지 도와줘"
+    profiles: [eval]
+    expect_primary: guided-learning
+    allow_support: [knowledge, tech]
+    reject: [java, interview, research]
+    max_selected: 2
+  - id: guided-certification-retrieval
+    prompt: "AICE 분류 문제를 정답부터 보여주지 말고 내가 기억에서 풀게 한 뒤 오답 원인과 변형 문제로 복습시켜 줘"
+    profiles: [eval]
+    expect_primary: guided-learning
+    allow_support: [knowledge, python]
+    reject: [kotlin-in-action-14-days, interview, tech, tasks]
+    max_selected: 2
+  - id: guided-auto-session-setup
+    prompt: "그 AI 독학 영상 방식으로 운영체제 공부 세션을 알아서 세팅하고 지금 진도에서 바로 시작해 줘"
+    profiles: [eval]
+    expect_primary: guided-learning
+    allow_support: [knowledge]
+    reject: [tech, research, tasks]
+    max_selected: 2
+  - id: learning-article-stays-tech
+    prompt: "초보자가 Coroutine을 순서대로 이해할 수 있는 실행 예제와 근거가 있는 학습 문서를 완성해 줘"
+    profiles: [eval]
+    expect_primary: tech
+    allow_support: [diagram]
+    reject: [guided-learning, interview]
+    max_selected: 2
+  - id: interview-stays-interview
+    prompt: "내 프로젝트를 근거로 기술 면접 질문을 하나씩 내고 답변을 평가해 줘"
+    profiles: [eval]
+    expect_primary: interview
+    allow_support: [career]
+    reject: [guided-learning, tech]
+    max_selected: 2

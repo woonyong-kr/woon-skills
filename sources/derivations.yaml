@@ -202,6 +202,12 @@ skills:
   skills/knowledge/people:
     native_for: Woon local-first person, source attribution and meeting-role indexing
     changed: created one role-aware person-card owner with implicit vault ownership, explicit-or-repeated card creation, local MCP verification, unresolved attribution and Novel exclusion
+  skills/learning/guided-learning:
+    native_for: Woon evidence-grounded interactive learning across books, courses, certification practice and executable projects
+    changed: uses the current Wiki learning canon instead of copying video claims, keeps the learner answering first, verifies retrieval with runnable or observable evidence and promotes only durable validated knowledge
+  skills/learning/kotlin-in-action-14-days:
+    native_for: Woon Kotlin in Action Second Edition fourteen-day learning track with five ALTER learning partners
+    changed: specializes guided-learning without copying book content, maps all sixteen chapters to fourteen evidence-gated Days, keeps one canonical checkpoint and separates durable Wiki concepts from runnable Kotlin exercises
   skills/writing/site-promotion:
     native_for: Woon private knowledge to public site promotion with human approval
     changed: created one review-queue owner for evidence-ledger transformation, distinct blog and portfolio genres, selected portfolio visibility, architecture media, exact source-write approval and separate commit, push and deploy authority

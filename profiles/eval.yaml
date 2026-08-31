@@ -1,7 +1,7 @@
 version: 1
 name: eval
 installable: false
-max_active: 77
+max_active: 79
 skills:
   - skills/ai/agent-audit
   - skills/architecture/domain
@@ -46,6 +46,8 @@ skills:
   - skills/knowledge/obsidian-plugin
   - skills/knowledge/people
   - skills/knowledge/publish
+  - skills/learning/guided-learning
+  - skills/learning/kotlin-in-action-14-days
   - skills/language/c/c
   - skills/language/cpp/cpp
   - skills/language/csharp/cs

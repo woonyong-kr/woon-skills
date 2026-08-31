@@ -1,0 +1,4 @@
+interface:
+  display_name: "Guided Learning"
+  short_description: "한 질문씩 인출·실습·전이하며 실제 이해를 검증합니다"
+  default_prompt: "$guided-learning으로 [학습 대상] 공부를 시작해 주세요."

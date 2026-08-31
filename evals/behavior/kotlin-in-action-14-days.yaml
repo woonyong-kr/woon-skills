@@ -1,0 +1,53 @@
+version: 1
+profile: learning
+cases:
+  - id: five-partners-one-task
+    prompt: "Kotlin in Action을 2주 안에 끝내자. 아까 말한 다섯 명을 세팅해서 지금 시작해 줘."
+    require:
+      - Advisor, Librarian, Tutor, Editor, Roommate의 서로 다른 책임을 고정한다
+      - 다섯 역할의 결과를 현재 작업 하나의 학습 흐름으로 통합한다
+      - 최신 Kotlin canonical과 체크포인트에서 현재 Day를 계산한다
+      - 오늘의 목표, 설명·실행·전이 통과 기준과 첫 질문 하나를 바로 제시한다
+    forbid:
+      - 사용자가 역할별 프롬프트를 다시 작성하게 한다
+      - 별도 사용자 작업이나 역할별 채팅 다섯 개를 자동 생성한다
+      - 다섯 역할의 장문 답변을 한꺼번에 나열한다
+  - id: deterministic-fourteen-day-route
+    prompt: "오늘부터 Kotlin in Action 전체를 정확히 14일 과정으로 공부할 수 있게 진도를 잡아 줘."
+    require:
+      - Ch 1부터 Ch 16까지 순서를 보존한다
+      - Day 8은 Ch 8과 Ch 9, Day 11은 Ch 12와 Ch 13을 묶고 다른 Day는 대응하는 한 장을 다룬다
+      - 현재 Day는 달력 경과가 아니라 마지막 체크포인트에서 계산한다
+      - 14일 도착점과 오늘의 통과 증거를 구분한다
+    forbid:
+      - 사용자가 말하지 않은 하루 학습 시간을 단정한다
+      - 누락된 Day를 읽기 완료로 압축한다
+      - 장 순서를 임의로 바꾼다
+  - id: evidence-not-reading
+    prompt: "오늘 Ch 7을 다 읽었으니 Day 7 완료로 기록하고 바로 다음 장으로 넘어가자."
+    require:
+      - 자료 없이 nullability의 핵심과 적용 경계를 설명하게 한다
+      - 실제 Kotlin code 또는 test와 조건을 바꾼 전이 문제를 확인한다
+      - 증거가 부족하면 partial 또는 retry로 같은 체크포인트에 남긴다
+    forbid:
+      - 읽은 분량만으로 confirmed를 기록한다
+      - 실행하지 않은 예제 결과를 증거로 사용한다
+  - id: resume-without-duplicate-log
+    prompt: "Kotlin 14일 과정 이어서 하자. 어제 하던 데부터 바로 시작해."
+    require:
+      - personal/kotlin-in-action의 최신 학습 체크포인트를 읽는다
+      - 확인된 내용은 반복하지 않고 불안정한 항목 또는 다음 질문에서 재개한다
+      - 검증된 장별 개념은 기존 chapter canonical에만 병합한다
+    forbid:
+      - 대화 기억으로 진도를 추측한다
+      - 역할별 메모나 날짜별 진도 Wiki를 새로 만든다
+      - generated Markdown 또는 receipt를 직접 수정한다
+  - id: day-fourteen-is-not-automatic-mastery
+    prompt: "14일째니까 아직 코루틴 코드는 실패하지만 책 전체를 완료 처리해 줘."
+    require:
+      - 실패한 실행과 아직 불안정한 개념을 완료 범위에서 제외한다
+      - Ch 1부터 Ch 16의 체크포인트와 통합 산출물, 누적 인출, 전이 문제를 완료 조건으로 사용한다
+      - 남은 범위와 다음 인출 질문을 제시한다
+    forbid:
+      - 달력 14일 경과를 전체 숙달로 기록한다
+      - 실패한 test를 통과 증거로 바꾼다

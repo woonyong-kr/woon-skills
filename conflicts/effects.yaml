@@ -44,6 +44,8 @@ skills:
   skills/knowledge/obsidian-plugin: [read, write, process, network]
   skills/knowledge/people: [read, write, process]
   skills/knowledge/publish: [read, write, process, network, push]
+  skills/learning/guided-learning: [read, write, process]
+  skills/learning/kotlin-in-action-14-days: [read, write, process]
   skills/language/c/c: [read, write, process]
   skills/language/cpp/cpp: [read, write, process]
   skills/language/csharp/cs: [read, write, process]

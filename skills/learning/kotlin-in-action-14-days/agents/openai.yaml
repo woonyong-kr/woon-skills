@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kotlin in Action 14 Days"
+  short_description: "다섯 AI 파트너와 Kotlin 책 전체를 14일간 학습합니다"
+  default_prompt: "$kotlin-in-action-14-days로 Kotlin in Action 14일 학습을 시작해 주세요."

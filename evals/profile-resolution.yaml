@@ -137,13 +137,15 @@ cases:
     reject_skills:
       - skills/knowledge/archive
       - skills/knowledge/publish
-  - id: learning-loads-only-content-language-and-diagram
+  - id: learning-loads-guidance-content-and-diagram
     profiles: [learning]
     expect_skills:
+      - skills/learning/guided-learning
+      - skills/learning/kotlin-in-action-14-days
       - skills/writing/tech
       - skills/docs/diagram
-      - skills/language/java/java
     reject_skills:
+      - skills/language/java/java
       - skills/writing/career
       - skills/docs/docs
       - skills/knowledge/archive
@@ -219,6 +221,8 @@ cases:
     expect_skills:
       - skills/common/safety
       - skills/knowledge/people
+      - skills/learning/guided-learning
+      - skills/learning/kotlin-in-action-14-days
       - skills/productivity/tasks
     reject_skills:
       - skills/knowledge/publish

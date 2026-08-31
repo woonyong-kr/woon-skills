@@ -169,6 +169,12 @@
       "description": "message broker, domain·integration event, outbox·inbox, at-least-once delivery, duplicate, ordering, partition, consumer retry·DLQ와 schema evolution을 설계·검토할 때 사용한다."
     },
     {
+      "name": "guided-learning",
+      "domain": "learning",
+      "path": "skills/learning/guided-learning",
+      "description": "책·강의·자격시험·코딩·개념을 AI와 공부할 때 현재 근거와 수준을 확인하고 한 질문씩 인출·실습·전이·검증을 진행한다. 완성된 학습 글 작성만에는 사용하지 않는다."
+    },
+    {
       "name": "hexagonal",
       "domain": "architecture",
       "path": "skills/architecture/hexagonal",
@@ -233,6 +239,12 @@
       "domain": "knowledge",
       "path": "skills/knowledge/knowledge-navigation",
       "description": "Woon Wiki의 단일 계층형 키워드 트리, 하위 문서 색인, 엔티티별 성장 구조와 Obsidian Graph·Canvas 파생 화면을 설계·검증할 때 사용한다. 고아 문서, 중복 키워드, 별도 Map, 모호한 부모를 진단하는 요청에 적용한다."
+    },
+    {
+      "name": "kotlin-in-action-14-days",
+      "domain": "learning",
+      "path": "skills/learning/kotlin-in-action-14-days",
+      "description": "Kotlin in Action, Second Edition 전체를 14일 안에 시작·재개할 때 다섯 AI 학습 파트너, Wiki 진도, Kotlin 실행 증거를 하나의 학습 과정으로 운영한다. 기한 없는 일반 Kotlin 질문에는 사용하지 않는다."
     },
     {
       "name": "lookup",
