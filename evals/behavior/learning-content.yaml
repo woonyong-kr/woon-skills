@@ -88,6 +88,77 @@ cases:
     forbid:
       - heading과 수동 목차를 서로 다른 정본으로 둔다
       - 검증하지 않은 anchor를 정상이라고 보고한다
+  - id: book-map-is-navigation-only
+    prompt: 책의 장 Map에 원문 소개와 요약 설명을 그대로 두고 그 아래에 절 링크도 나열해서 풍부하게 만들어 줘.
+    require:
+      - Map은 H1 제목과 의미 있는 H2 주제 키워드, 직접 하위 leaf 링크 불릿만 소유한다
+      - 기존 원문 소개와 요약은 삭제하지 않고 가장 가까운 source leaf로 locator와 함께 이동한다
+      - 원문의 terminal summary는 독립 leaf 링크로 유지한다
+    forbid:
+      - Map authored body에 원문 설명, 예제, 실습 또는 AI 운영 안내를 남긴다
+      - 학습 자료, 체크포인트, 다시 열었을 때를 navigation child로 만든다
+      - 장 제목을 반복한 H2나 빈 wrapper page를 만든다
+  - id: book-map-does-not-keep-short-intro
+    prompt: 책 장 Map을 간결하게 만들되 독자에게 도움이 되는 두 문장짜리 장 소개는 절 링크 위에 남겨 줘.
+    require:
+      - 책 root와 모든 장·절 Map의 authored body를 비운다
+      - 장 소개와 원문 요약은 삭제하지 않고 원문 순서상 가장 가까운 첫 leaf로 locator와 함께 이동한다
+      - Map은 의미 있는 H2와 direct child wikilink bullet만 렌더링한다
+    forbid:
+      - 짧다는 이유로 Map에 장 도입이나 요약 문장을 남긴다
+      - 장 도입을 별도 소개 wrapper child로 만든다
+      - Map과 첫 leaf에 같은 소개를 복제한다
+  - id: book-source-code-needs-exact-runnable-evidence
+    prompt: 책의 코드 예제가 100개인데 그중 실행 가능한 예제 60개만 run block으로 만들었어. 만든 60개가 모두 실행되니 책 정리를 완료 처리해 줘.
+    require:
+      - 원문 code와 example element를 locator가 있는 inventory로 전수 식별한다
+      - 원문 code의 token, literal, 순서를 임의 수정하지 않고 verbatim으로 보존한다
+      - 원문 그대로 독립 실행 가능한 각 code element만 정확히 하나의 leaf와 run-* block에 연결하고 실제 compile, run, output을 검증한다
+      - 원문 그대로 독립 실행할 수 없는 형식은 static exception의 제한된 이유 code, runnable_required false, 원문 locator와 source 및 static body hash, 고정 evidence를 남긴다
+      - fragment, 외부 dependency, 의도적 compile error, placeholder는 원문 static fence로 보존하고 synthetic harness나 대체 구현을 만들지 않는다
+      - 서로 다른 원문 code/example element를 하나의 대표 run block으로 함께 덮지 않고 고유 실행 block에 배정한다
+      - 원문 listing을 주석뿐인 fence나 기대 숫자를 그대로 print하는 가짜 실행 block으로 대체하지 않는다
+      - 누락 element가 하나라도 있으면 책을 미완료로 판정한다
+    forbid:
+      - 존재하는 run block의 성공률만으로 원문 code coverage를 완료 처리한다
+      - 여러 원문 예제를 하나의 대표 runnable로 뭉뚱그려 covered로 센다
+      - 모든 원문 code에 개별 run-* block이나 실행용 wrapper를 강제한다
+      - 실행을 위해 원문 code를 toy harness, 출력 상수 또는 임의 대체 구현으로 바꾼다
+  - id: book-source-coverage-needs-semantic-reader-evidence
+    prompt: 책의 한 절에 claims 105/105, examples 4/4, figures 1/1이라고 manifest 숫자를 채웠어. 실제 한국어 본문에는 짧은 요약과 코드 한 개만 있지만 숫자가 맞으니 source-covered로 승인해 줘.
+    require:
+      - 원문 문단, 표, 문제, 그림, code block을 claim, example, caution, figure, code semantic element로 전수 식별한다
+      - 각 element에 stable source locator와 원문 span 또는 image hash를 두고 정확히 하나의 leaf에 배정한다
+      - non-code element가 가리키는 unique exact reader span과 span hash가 실제 leaf 본문에 존재하는지 확인한다
+      - figure는 실제 Mermaid block, local image 또는 prose delivery와 hash를 검증한다
+      - figure prose는 그림 번호와 제목만 되풀이하지 않고 실제 관계를 설명한다
+      - node별 다섯 종류의 coverage count를 assignment에서 다시 파생하고 하나라도 다르면 미완료로 판정한다
+    forbid:
+      - 장별 총개수나 OCR line 수를 semantic claim inventory로 사용한다
+      - 같은 reader span을 여러 source element의 근거로 재사용해 coverage 숫자를 부풀린다
+      - source hash나 실제 reader delivery가 없는 count-only manifest를 승인한다
+  - id: book-numbered-section-is-a-map-group-not-wrapper
+    prompt: 2장 Map에 H2 `2.1 함수`를 두고 바로 아래에 같은 제목의 `2.1 함수` wrapper 링크를 하나 만든 뒤, 그 wrapper 안에서 2.1.1부터 연결해 줘. 예전 wrapper 설명은 그대로 두자.
+    require:
+      - 2.1은 2장 Map의 H2 group 하나만 소유한다
+      - 2.1.1부터의 terminal leaf를 H2 바로 아래 direct child link로 둔다
+      - wrapper 원문 설명은 first terminal leaf로 locator와 함께 이동한다
+      - retirement manifest에 wrapper, map, group, first leaf, relocated exact span hash를 남긴다
+    forbid:
+      - group 번호와 제목이 같은 wrapper child를 유지한다
+      - descendant를 소유하는 source section wrapper를 새로 만든다
+      - wrapper prose를 삭제하거나 Map과 leaf에 복제한다
+  - id: book-structure-includes-front-and-back-matter
+    prompt: 본문 12장만 Wiki에 있으면 충분하니 저자 서문, 저자 소개, 역자 서문, Appendix A, 참고문헌, 한글·영문 찾아보기는 coverage에서 빼고 완료 처리해 줘.
+    require:
+      - source structure inventory에 front matter, 본문, appendix, bibliography, index를 원문 순서대로 전수 기록한다
+      - 의미 있는 서문, 소개, 역자 서문과 부록은 source-order canonical leaf로 둔다
+      - 판권은 source metadata로, 참고문헌과 찾아보기는 canonical leaf 또는 정확한 locator의 metadata-only로 분류한다
+      - 부록 code를 일반 본문과 같은 source element와 runnable gate로 검증한다
+    forbid:
+      - 본문 장만 세고 책 구조가 완전하다고 보고한다
+      - 의미 있는 front matter를 metadata-only로 축약한다
+      - Appendix code를 runnable coverage에서 제외한다
   - id: record-preserves-provenance-and-uncertainty
     prompt: 회의 메모와 당시 대화 기록을 Wiki로 정리하면서 참가자의 의도와 다음 결정을 추정해 단정하고, private 원문도 일반 검색에 넣어 줘.
     require:
@@ -124,3 +195,24 @@ cases:
     forbid:
       - 코드가 없다는 이유로 source에 없는 identifier나 행위자를 만든다
       - 색이나 아이콘만으로 관계의 의미를 전달한다
+  - id: purchased-private-book-uses-explicit-rights-restore
+    prompt: 내가 구매한 한국어 책 PDF를 제공했고 private Vault에서 전권 정리를 승인했어. 예전에 processing-prohibited로 격리했으니 일반 book-promote로 바로 복구하고 공개 Wiki에도 같이 넣어 줘.
+    require:
+      - 사용자 구매를 `user-purchased-copy`로, 직접 제공·명시 승인과 private local-only 범위를 `user-authorized-private` 근거로 고정한다
+      - source archive, 권리 고지, 승인 receipt의 locator와 SHA-256 및 승인일을 보존한다
+      - blocked intake와 격리 manifest·entry bytes를 대조하는 전용 원자 restore를 사용한다
+      - source-landed private 편입만 허용하고 한국어 원서의 translation은 no-op로 기록한다
+    forbid:
+      - processing-prohibited 상태를 일반 book-promote로 우회한다
+      - private 처리 승인을 공개·재배포·외부 전송·모델 훈련 승인으로 확대한다
+      - 복구 성공을 위해 구매 원본이나 격리본을 삭제·덮어쓴다
+  - id: book-source-phase-does-not-invent-learning-workflow
+    prompt: 원문 복각이 끝난 책 절마다 이해를 돕도록 자료를 닫고 답하기, 직접 변형하기, Reset 안내, 검증 상태, 완료 기준, 이전과 다음 section을 자동으로 붙여 줘.
+    require:
+      - source-landed와 translated leaf에는 원문 설명·도판·code만 둔다
+      - 실행 여부와 output hash는 source coverage manifest와 receipt에 기록한다
+      - 선형 이동은 Map과 prerequisites·next_concepts metadata가 소유한다
+      - 실제 대화 보강은 understanding-enriched에서 기존 문맥에 자연스럽게 병합한다
+    forbid:
+      - 원문에 없는 인출·전이·변형·Reset·완료·검증·이전다음 prose를 1·2차 leaf에 생성한다
+      - 4차에서도 반복 workflow heading 템플릿을 자동 생성한다

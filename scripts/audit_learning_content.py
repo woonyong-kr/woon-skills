@@ -25,6 +25,9 @@ def non_empty_strings(value: object) -> bool:
 
 def audit_learning_content(root: Path) -> list[str]:
     errors: list[str] = []
+    standard_path = root / "standards/learning-content-quality.md"
+    compile_skill_path = root / "skills/knowledge/compile-knowledge/SKILL.md"
+    kotlin_plan_skill_path = root / "skills/learning/kotlin-in-action-14-days/SKILL.md"
     quality_path = root / "evals/quality/learning-content.yaml"
     behavior_path = root / "evals/behavior/learning-content.yaml"
     result_paths = sorted((root / "evals/results").glob("learning-content-*.yaml"))
@@ -34,6 +37,50 @@ def audit_learning_content(root: Path) -> list[str]:
         return [f"{behavior_path}: missing"]
     if not result_paths:
         return [f"{root / 'evals/results'}: learning-content result is missing"]
+
+    for path in (standard_path, compile_skill_path, kotlin_plan_skill_path):
+        if not path.exists():
+            errors.append(f"{path}: missing")
+    if standard_path.exists():
+        standard_text = standard_path.read_text(encoding="utf-8")
+        for required in (
+            "원문에 없는 인출·전이 문제",
+            "선형 이동은 Map과 `prerequisites`·`next_concepts` metadata가 소유한다",
+            "모든 원문 code를 verbatim으로 exact-once 보존한다",
+            "fragment·dependency·intentional-error·placeholder",
+            "synthetic wrapper·대체 code는 만들지 않는다",
+        ):
+            if required not in standard_text:
+                errors.append(f"{standard_path}: missing book source-only rule: {required}")
+        if "자료를 닫고 푸는 인출·전이 문제와 원문 목차의 바로 인접한 이전·다음 링크를 둔다" in standard_text:
+            errors.append(f"{standard_path}: legacy book workflow injection rule remains")
+        for legacy in (
+            "faithful static+harness",
+            "같은 static-exception harness",
+            "각 원문 예제는 독자가 개별 실행할 수 있는 고유 block을 가져야 한다",
+            "같은 leaf의 source-faithful runnable harness",
+        ):
+            if legacy in standard_text:
+                errors.append(f"{standard_path}: legacy runnable contract remains: {legacy}")
+    if compile_skill_path.exists():
+        compile_text = compile_skill_path.read_text(encoding="utf-8")
+        if "`source-landed`와 `translated` leaf authored body에는 원문에 없는" not in compile_text:
+            errors.append(f"{compile_skill_path}: missing source-only book leaf rule")
+        for required in (
+            "exact-once 배정하고 verbatim으로 보존한다",
+            "fragment|dependency|intentional-error|placeholder",
+            "synthetic wrapper·harness나 대체 code",
+        ):
+            if required not in compile_text:
+                errors.append(f"{compile_skill_path}: missing static-only rule: {required}")
+        if "실행 전 예측·실제 output·원인·한 가지 변형·Reset 가능 상태를 함께 검증한다" in compile_text:
+            errors.append(f"{compile_skill_path}: legacy runnable prose injection rule remains")
+    if kotlin_plan_skill_path.exists():
+        kotlin_plan_text = kotlin_plan_skill_path.read_text(encoding="utf-8")
+        if "personal/projects/kotlin-in-action-14-days" not in kotlin_plan_text:
+            errors.append(f"{kotlin_plan_skill_path}: project progress owner is missing")
+        if "책 leaf에 `직접 확인하기`" not in kotlin_plan_text:
+            errors.append(f"{kotlin_plan_skill_path}: book canonical write prohibition is missing")
 
     quality = load_mapping(quality_path)
     if quality.get("version") != 1:
@@ -279,6 +326,7 @@ def audit_learning_content(root: Path) -> list[str]:
             "decision-keeps-reversal-condition",
             "record-route-never-invents-execution",
             "general-diagram-keeps-stable-entities",
+            "book-source-phase-does-not-invent-learning-workflow",
         }
         missing_behavior_cases = required_behavior_cases - seen
         if missing_behavior_cases:
