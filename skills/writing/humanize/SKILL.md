@@ -24,7 +24,7 @@ description: 한국어 초안·Wiki·책 설명·공지·메일의 번역투, �
 
 기술 사실과 학습 전개는 `$tech`, 정본 저장은 `$archive`·`$compile-knowledge`가 소유한다. compiler가 만든 Markdown을 직접 고쳐 다음 생성에서 사라지는 수정을 만들지 않는다. source 원본은 보존하고 편집 가능한 claim·page 입력이나 승인된 책 reader를 고친다.
 
-책은 원문·번역·학습자 보강을 구분한다. 승인된 기존 한국어 reader의 문장을 다듬더라도 원문 의미, source element와 exact-once coverage를 보존한다. delivery span이 달라지면 해당 manifest와 receipt를 소유 경로에서 함께 갱신한다. 문장 교정 요청만으로 멈춘 번역·원자료 복구·책 전권 재작성을 재개하지 않는다.
+책의 교정 허용 범위는 [책의 공통 목차·원문 보존 계약](repo://skills/skills/knowledge/knowledge-navigation/SKILL.md#단일-트리-계약)를 먼저 따른다. 원문·번역·학습자 보강을 구분하고 허용된 문장 교정에서도 source element와 exact-once coverage를 보존한다. delivery span이 달라지면 해당 manifest와 receipt를 소유 경로에서 함께 갱신한다. 문장 교정 요청만으로 멈춘 번역·원자료 복구·책 전권 재작성을 재개하지 않는다.
 
 전수 요청은 현재 편집 대상의 경로·revision 목록을 고정한 뒤 각 문서를 읽고 `수정`·`유지`·`제외 사유`를 구분한다. 검사기의 일치 수나 표본 몇 개로 전체 문장을 검토했다고 보고하지 않는다. 목록은 최신 진행 상태 하나로 유지하고 원고 옆에 중복 보고서를 쌓지 않는다. 미완료 범위와 실제 반영·재생성 검증을 구분한다.
 
