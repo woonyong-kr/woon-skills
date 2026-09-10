@@ -57,7 +57,7 @@ read→판단→write가 하나의 원자적 compare 없이 분리되면 TOCTOU 
 
 ## crash window
 
-최소 다음 지점에서 process kill·exception·timeout을 주입한다.
+실제 write path에 존재하고 변경된 원자성·복구 계약을 검증하는 지점을 골라 process kill·exception·timeout을 주입한다.
 
 1. idempotency claim 전
 2. claim 뒤 업무 mutation 전

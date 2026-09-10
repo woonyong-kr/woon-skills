@@ -47,6 +47,6 @@ acronym을 한 단어처럼 `HttpServer`, `XmlParser`로 적는다. interface에
 - finalizer를 사용하지 않고 resource는 `try-with-resources`와 명시적 lifecycle로 닫는다.
 - public/protected API에는 caller가 알아야 할 invariant, side effect, nullability, exception을 Javadoc으로 적는다. type signature를 문장으로 반복하지 않는다.
 
-format → compile → static analysis → unit/integration test를 실행하고 reflection, serialization, annotation processor, JPA proxy가 member move나 visibility 변경에 의존하는지 확인한다.
+변경한 표기·compile·동작 경계에 맞는 저장소 검사를 선택하고 reflection, serialization, annotation processor, JPA proxy가 member move나 visibility 변경에 의존하는지 확인한다.
 
 이 문서는 [Google Java Style Guide](https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/javaguide.html)를 참고해 Woon의 domain ownership·좁은 visibility·점진 변경 기준으로 재작성했다.

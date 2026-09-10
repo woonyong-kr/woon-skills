@@ -13,7 +13,7 @@
 
 `nlm` is an audited third-party client over a private NotebookLM protocol, not a Google-supported service API. It can read an already logged-in browser profile and store Google session credentials, so it must never be installed as an unrestricted MCP server or given a whole-Vault directory.
 
-Use a manually approved `nlm artifact export` only for a selected research notebook. Keep generated Markdown in a local export directory and create `notebooklm-export.json` next to it:
+Use `nlm artifact export` only for the user-selected artifact and authorized download scope. Reuse an approved authenticated session; confirm authorization for new credential access only when it is actually required. Keep generated Markdown in a local export directory and create `notebooklm-export.json` next to it:
 
 ```json
 {

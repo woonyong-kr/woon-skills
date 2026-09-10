@@ -46,6 +46,6 @@ Codex와 Claude는 같은 파일을 설치하며 target별 문구를 별도 정�
 
 ## 승격과 퇴역
 
-신규·변경 스킬은 `$audit → $budget → $comply`와 사용자 승인을 통과하기 전 기본 profile에 넣지 않는다. `eval`처럼 `installable: false`인 profile은 catalog 검사에만 사용한다.
+정적 계약을 검사하고 routing·권한·행동에 영향을 준 변경만 해당 사례로 확인한다. 비용 비교는 비용을 바꾸거나 개선을 주장할 때 수행한다. 기존 요청이 허용한 스킬 수정·관리 설치 동기화는 승인 범위를 재사용하고, 새 활성 범위나 외부 효과의 권한이 없을 때만 구체적인 후보로 확인한다. `eval`처럼 `installable: false`인 profile은 catalog 검사에만 사용한다.
 
 퇴역 시 profile과 routing에서 먼저 제거하고 dependent reference와 clean install을 검증한다. 원본은 이유와 대체 스킬을 기록해 `archive/`에 보존한다. 관리하지 않는 Codex·Claude 설치 폴더는 삭제하지 않는다.

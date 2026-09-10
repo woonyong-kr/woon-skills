@@ -60,6 +60,13 @@ class AuditLearningContentTest(unittest.TestCase):
             ROOT / "skills/knowledge/ingest/SKILL.md",
             root / "skills/knowledge/ingest/SKILL.md",
         )
+        (root / "skills/knowledge/compile-knowledge").mkdir(parents=True)
+        (root / "skills/learning/kotlin-in-action-14-days").mkdir(parents=True)
+        for relative in (
+            "skills/knowledge/compile-knowledge/SKILL.md",
+            "skills/learning/kotlin-in-action-14-days/SKILL.md",
+        ):
+            shutil.copy(ROOT / relative, root / relative)
         return root
 
     def test_accepts_current_quality_contract(self) -> None:
@@ -75,11 +82,11 @@ class AuditLearningContentTest(unittest.TestCase):
 
         self.assertTrue(any("version must be 2" in error for error in audit_learning_content(root)))
 
-    def test_rejects_too_few_trials(self) -> None:
+    def test_rejects_zero_trials(self) -> None:
         root = self.make_root()
         path = root / "evals/quality/learning-content.yaml"
         path.write_text(
-            path.read_text(encoding="utf-8").replace("trials: 3", "trials: 1"),
+            path.read_text(encoding="utf-8").replace("trials: 1", "trials: 0"),
             encoding="utf-8",
         )
         self.assertTrue(

@@ -9,4 +9,4 @@ base image는 official source와 digest/version을 확인한다. dependency mani
 
 `.dockerignore`로 secret·VCS·build output을 제외하고 `COPY . .` 전 context를 검사한다. `latest`와 unverified curl pipe를 피한다. Compose는 service dependency와 readiness를 구분하고 host-specific absolute path를 commit하지 않는다.
 
-build, image history/size, non-root start, health와 실제 command를 검증한다.
+Dockerfile·build context가 바뀌면 build와 image history/size를, runtime 설정이 바뀌면 non-root start·health·실제 command를 확인한다.

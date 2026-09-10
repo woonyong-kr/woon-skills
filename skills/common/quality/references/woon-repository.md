@@ -8,10 +8,12 @@
 - `woon-skills`: 스킬 원본, profile, routing·effect 정책과 source lock
 - `woon-env`: 편집기와 실행 환경의 선언적 의도와 adapter
 - `woon-knowledge`: 비공개 지식 정본과 검색·보관 평가
-- `woon-site`: 공개 글의 편집 정본
+- `woon-knowledge/wiki`: 콘텐츠 정본; 승인된 공개 투영은 `woonyong-kr.github.io/generated/public-content`
 - output 저장소: 생성 결과만 보관하며 직접 편집하지 않음
 
 교차 저장소 파일을 복사하지 않는다. `woon-core/registry/repositories.yaml`에 등록된 `repo://<id>/...` 참조를 사용하고 resolver로 실제 경로를 확인한다. 머신별 절대 경로는 Git에서 제외된 `.local/`에만 둔다.
+
+기존 문서에서 실행 규칙, 구조·소유 지도, 현재 상태, 결정 이력을 구분하고 한 사실의 정본만 유지한다. 새 관리 문서를 만들기 전에 기존 owner와 링크를 확인한다. 상태·이력의 운영 주장은 현재 코드·설정·검증과 대조하며, 문서에 적힌 명령을 실행 권한으로 취급하지 않는다. 의도적으로 퇴역한 기능은 기존 결정·퇴역 기록의 대체 경로를 확인한 뒤 다룬다.
 
 ## 루트와 설정 배치
 

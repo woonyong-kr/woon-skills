@@ -12,6 +12,6 @@ target .NET SDK, `LangVersion`, nullable, analyzer, `.editorconfig`, formatter�
 3. visibility를 좁게 두고 constructor가 유효한 object를 만들게 한다.
 4. nullable, async, cancellation, collection ownership과 exception 계약을 public API에 드러낸다.
 5. `using`, member와 modifier 순서를 repository analyzer 또는 한 기본값으로 고정한다.
-6. format, analyzer, nullable compile과 test를 target framework 전체에서 실행한다.
+6. 변경한 project의 analyzer·nullable compile과 관련 test를 확인한다. public API나 framework 조건이 바뀌면 영향받는 target framework로 검증을 넓힌다.
 
 type·API·오류 경계는 [설계 기준](references/design.md), file·member 순서·표기는 [규약](references/conventions.md)을 필요한 경우에만 읽는다.

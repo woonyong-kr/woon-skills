@@ -34,6 +34,6 @@ library code의 `ConfigureAwait` 정책은 target framework와 repository 기준
 
 ## 검증
 
-`dotnet format --verify-no-changes`, `dotnet build` analyzer·nullable warning, unit/integration test를 target framework별로 실행한다. reflection, serializer, DI container와 source generator가 constructor·member visibility·name 변경에 의존하는지 확인한다.
+변경한 project의 format·analyzer·nullable·동작 계약에 필요한 검사와 target framework를 선택한다. reflection, serializer, DI container와 source generator가 constructor·member visibility·name 변경에 의존하는지 확인한다.
 
 이 문서는 [Google C# Style Guide](https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/csharp-style.md)를 참고하되 오래된 language-version 선택은 현재 SDK·analyzer 계약으로 대체했다.

@@ -1,0 +1,30 @@
+version: 1
+cases:
+  - id: korean-prose-rewrite
+    prompt: "이 공지의 번역투와 과장만 고쳐 줘. 날짜와 사실, 독자에게 하는 부탁은 그대로 두고 자연스럽게 써 줘."
+    profiles: [eval]
+    expect_primary: humanize
+    allow_support: []
+    reject: [tech, archive, publish]
+    max_selected: 1
+  - id: book-prose-keeps-canonical-owner
+    prompt: "이미 정리된 책 Wiki의 한국어 문장을 humanizer-kr 기준으로 고쳐서 정본에도 반영해 줘. 원문과 코드, 인용은 보존해."
+    profiles: [eval]
+    expect_primary: humanize
+    allow_support: [compile-knowledge, tech]
+    reject: [publish, ingest, guided-learning]
+    max_selected: 3
+  - id: new-technical-explanation-is-tech
+    prompt: "Kotlin의 예외 전파를 실행 결과와 공식 문서 근거로 설명하는 학습 글을 처음부터 작성해 줘."
+    profiles: [eval]
+    expect_primary: tech
+    allow_support: [humanize, diagram]
+    reject: [archive, publish, guided-learning]
+    max_selected: 3
+  - id: graph-orphans-are-navigation
+    prompt: "Wiki 그래프에 고아 파일이 많아. 필요한 문서는 상위 키워드에 연결하고 빈 중복 페이지는 정리해 줘. 문장 교정 요청은 아니야."
+    profiles: [eval]
+    expect_primary: knowledge-navigation
+    allow_support: [knowledge, safety]
+    reject: [humanize, tech, publish]
+    max_selected: 3

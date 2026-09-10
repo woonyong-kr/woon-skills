@@ -160,12 +160,22 @@ repositories:
   - id: affaan-ecc
     review_required: true
     upstream: https://github.com/affaan-m/ECC
-    checked_commit: 2d46e80e0925c7be0907f18c1812311ac212a6c5
-    checked_version: 2.2.0
+    checked_commit: 928c1dea72f5c330442fc1f595563398b8f389f7
+    checked_version: 2.2.1
     status: adopted-selectively
     license: MIT
-    improves: [skills/ai/agent-audit]
-    decision: audit all 284 canonical skills, adopt only the measured agent-wrapper diagnostic gap, retain Woon owners for equivalent behavior and reject always-on hooks, self-modifying memory and orchestration controllers
+    improves: [skills/ai/agent-audit, skills/common/quality, skills/research/research, skills/github/pr]
+    decision: compare all 291 canonical entries with the prior pin, merge current documentation and untrusted-input gaps into existing Woon owners, retire obsolete review names, and leave ECC native hooks, MCP and overlapping skills inactive
+  - id: dietrichgebert-ponytail
+    review_required: true
+    supply_chain_required: true
+    upstream: https://github.com/DietrichGebert/ponytail
+    checked_commit: 356918eba965ee1eac64bd3a7f0dd02108350de5
+    checked_version: 4.9.0
+    status: adopted-selectively
+    license: MIT
+    improves: [skills/common/quality, skills/common/quality/references/ponytail.md]
+    decision: install the official Codex plugin and require full mode for every coding task; retain Woon authorization, existing checks and canonical ownership, and distinguish trusted hooks from actual model-context delivery
   - id: mattpocock-skills
     review_required: true
     upstream: https://github.com/mattpocock/skills

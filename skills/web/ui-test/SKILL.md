@@ -5,9 +5,9 @@ description: 웹 UI의 실제 render, responsive layout, interaction, focus, ove
 
 # UI Test
 
-code와 build만 보지 말고 target route를 browser에서 연다. desktop/mobile viewport에서 first screen, content hierarchy, navigation, form states, overflow와 focus order를 확인한다.
+변경한 route·component를 target browser에서 열고 요청의 acceptance criteria에 해당하는 실제 동작을 확인한다. layout·responsive 변화는 관련 viewport, interaction 변화는 navigation·form state·focus, 공통 shell 변화는 영향받는 화면으로 범위를 넓힌다.
 
-변경 전후 screenshot은 같은 viewport·data·theme로 비교한다. 색상만으로 상태를 전달하지 않는지, text clipping과 keyboard trap이 없는지 확인한다. expected design이 있으면 spacing·type·layout 차이를 구체적으로 기록한다.
+시각 차이를 검증할 때 변경 전후 screenshot은 같은 viewport·data·theme로 비교한다. 색상만으로 상태를 전달하지 않는지, text clipping과 keyboard trap이 없는지 확인한다. expected design이 있으면 spacing·type·layout 차이를 구체적으로 기록한다.
 
 발견한 문제와 이미 수정한 문제를 구분하고 실제 click path를 함께 보고한다.
 

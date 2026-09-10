@@ -12,6 +12,6 @@ target standard, compiler, build graph, `.clang-format`, static analyzer, except
 3. value semantics를 우선하고 동적 소유권은 `std::unique_ptr`, 공유가 계약일 때만 `std::shared_ptr`로 표현한다.
 4. class는 invariant를 캡슐화하고 단순 data aggregate는 struct를 사용한다.
 5. access·declaration·definition 위치와 naming을 module 전체에서 일관되게 정리한다.
-6. format, compile warning, static analysis, sanitizer와 test를 실제 standard로 실행한다.
+6. 변경한 target의 compile·warning과 관련 test를 확인한다. ownership·lifetime·동시성 위험에는 해당 sanitizer를, 성능 주장에는 측정을 추가한다.
 
 type·ownership·API 경계는 [설계 기준](references/design.md), include·member 순서·표기는 [규약](references/conventions.md)을 필요한 경우에만 읽는다.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanize"
+  short_description: "원뜻을 보존하며 한국어 문장의 번역투와 반복을 고칩니다"
+  default_prompt: "$humanize로 다음 한국어 글을 다듬어 주세요: [본문과 독자]"

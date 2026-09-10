@@ -33,7 +33,7 @@
 ## 검증
 
 - latency distribution의 p50뿐 아니라 p95·p99와 deadline 초과를 측정한다.
-- dependency 100% failure, 부분 failure, slow response, connection reset과 recovery를 주입한다.
+- 변경된 실패 계약에 관련된 dependency 100% failure·부분 failure·slow response·connection reset·recovery를 선택해 주입한다.
 - retry 포함 실제 downstream call 수와 queue depth를 측정한다.
 - 한 tenant·dependency 장애가 다른 workload로 전파되지 않는지 확인한다.
 - breaker open·half-open·close 전이와 restart 후 상태를 확인한다.

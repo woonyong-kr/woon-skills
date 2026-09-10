@@ -19,6 +19,8 @@
 
 ## 테스트 계층
 
+검증할 resource와 실패 지점에 필요한 계층만 선택한다. 실제 DB 원자성·isolation 주장은 DB integration 근거가 필요하다.
+
 1. pure state-machine test로 모든 허용·금지 전이를 검사한다.
 2. 실제 DB integration test로 constraint, isolation과 rollback을 검사한다.
 3. 두 개 이상의 실제 connection·thread/process로 race를 만든다.
@@ -30,7 +32,7 @@ sleep에 기대지 말고 barrier, latch, advisory lock 또는 deterministic hoo
 
 ## mutation proof
 
-검증기가 실제 버그를 잡는지 최소 mutant를 실행한다.
+중요한 정합성 회귀가 기존 검증을 통과할 우려가 있을 때 관련 mutant 하나로 탐지력을 확인한다. 아래는 후보이며 매 변경의 필수 실행 목록이 아니다.
 
 - key를 retry마다 변경
 - key record와 mutation commit 분리
@@ -41,4 +43,4 @@ sleep에 기대지 말고 barrier, latch, advisory lock 또는 deterministic hoo
 - SDK retry를 켜서 service retry와 중첩
 - timeout을 failure로 확정
 
-각 mutant가 예상한 invariant violation으로 실패하고 원본만 통과해야 한다. 실행하지 않은 실제 DB·broker·production 장애는 `unverified`로 보고한다.
+실행한 mutant는 예상한 invariant violation으로 실패하고 원본은 통과해야 한다. 실행하지 않은 실제 DB·broker·production 장애는 `unverified`로 보고한다.

@@ -112,12 +112,10 @@ LLM은 아래 상태를 순서대로 검토하고, 선택한 route에 필요한 
 
 ### 문장과 문단
 
-- 한 문단은 독자가 수행하는 생각 하나를 끝낸다. 장면을 보고, 결과를 보고, 이유를 이해하는 흐름은 보통 두세 문장이지만 문장 수를 목표로 세지 않는다.
-- 같은 주체·같은 시점·직접 인과는 한 문장에 둔다. 예를 들어 “`b`가 가리키는 객체를 바꾸면 `a`도 같은 객체를 보고 있으므로 `a`의 출력도 함께 달라진다.”처럼 관찰과 이유가 한 호흡일 때가 그렇다.
-- 독자가 장면을 본 뒤 판단해야 하거나, 행위자·시간·증거가 바뀌면 문장을 나눈다. “`b`만 바꿨다고 생각했다. 그런데 실행 결과에서는 `a`도 바뀌었다.”처럼 예상과 실제를 분리할 때가 그렇다.
-- `-고`, `-며`, 쉼표로 원인·대조·조건을 감추지 않는다. 대등한 사실은 `-고`, 인과는 `그래서`·`-므로`, 대조는 `하지만`·`반면`, 조건은 `이때`·`-면`으로 드러낸다.
-- 주어는 기계적으로 반복하지 않지만, 책임 주체가 바뀌면 다시 쓴다. `사용자`, `브라우저`, `TLS`, `CA`처럼 누가 선택·검증·변경하는지 되짚지 않게 한다.
-- "정책적 의미를 부여한다", "신뢰를 수행한다"처럼 명사를 겹치지 않는다. "PintOS가 `struct thread`에 tid와 상태를 기록해 실행 단위로 다룬다"처럼 주체·동작·대상을 쓴다.
+말투·주체·인과·문장 호흡과 번역투 교정은 [공통 문장 교정](repo://skills/skills/writing/humanize/SKILL.md)을 따른다. 이 하네스는 학습자가 관찰하고 판단하는 순서를 소유하며 문장 수나 끝맺음을 따로 강제하지 않는다.
+
+- 관찰과 이유가 한 호흡이면 “`b`가 가리키는 객체를 바꾸면 `a`도 같은 객체를 보고 있으므로 `a`의 출력도 함께 달라진다.”처럼 연결한다.
+- 예상과 실행 결과를 대조해야 하면 “`b`만 바꿨다고 생각했다. 그런데 실행 결과에서는 `a`도 바뀌었다.”처럼 판단 사이에 멈출 자리를 둔다.
 
 ### 용어와 코드
 
@@ -142,36 +140,13 @@ LLM은 아래 상태를 순서대로 검토하고, 선택한 route에 필요한 
 | 경계 | non-goal or exception | 이번 결론의 적용 범위 | 새 핵심 개념을 갑자기 도입하지 않는다 |
 | 적용 | nearby next task | 다음 행동 또는 진단 질문 | 정답 암기가 아니라 확인 행동이다 |
 
-## LLM execution protocol
+## 작성과 확인
 
-LLM은 최종 Markdown을 바로 쓰지 않는다. 아래 산출물을 내부에서 만든 뒤, 각 gate를 통과할 때만 다음 단계로 이동한다.
+주제·독자·근거에 맞는 route를 선택하고 필요한 본문을 작성한다. 짧거나 근거가 이미 정리된 작업에 별도 plan·outline·단계별 로그를 만들지 않는다. 복잡한 설명이나 여러 source의 충돌이 있을 때만 독자 질문·source trace·구성을 먼저 정리한다.
 
-```yaml
-writer_state:
-  1_plan:
-    output: learning_brief + selected_route + candidate_sections
-    gate: central_question, evidence, observable, boundary가 비어 있지 않다
-  2_trace:
-    output: source identifier별 값·호출·상태 변화와 근거
-    gate: 설명할 경로가 source snapshot 또는 명시한 예상에 연결된다
-  3_outline:
-    output: section별 독자 질문, 사용하는 state, 필요한 block
-    gate: 고정 목차가 아니라 route에 필요한 section만 남았다
-  4_draft:
-    output: 한국어 본문, 필요한 근거 block, diagram
-    gate: 새 용어는 먼저 관찰됐고 각 근거 block의 역할이 다르다
-  5_reader_pass:
-    output: 문단 연결, 주어, 연결어, 중복을 고친 본문
-    gate: 소리 내어 읽어도 주체·원인·대상이 흐려지지 않는다
-  6_evidence_pass:
-    output: source, runtime status, identifier, scope를 대조한 기록
-    gate: quality gate의 hard fail이 없다
-  7_archive_pass:
-    output: source, claim, page spec, receipt와 visibility를 대조한 기록
-    gate: purpose와 재열람 질문이 남고, 사실·해석·미결정·공개 범위가 섞이지 않는다
-```
+완료 전에는 변경 범위에서 문장 연결, source identifier, 실제·예상 결과, 적용 조건과 품질 gate를 확인한다. 같은 입력·환경에서 통과한 검증을 반복하지 않는다. 정본 저장이 요청된 경우에만 source·claim·page spec·receipt와 visibility를 해당 소유 skill로 확인한다.
 
-`1_plan`에서 route를 고른 이유와 `3_outline`에서 생략한 state를 기록한다. 이 기록은 receipt나 작성 로그에는 남길 수 있지만, 독자용 본문에 기계적인 단계 목록으로 노출하지 않는다.
+route 선택이나 생략이 중요한 판단이면 필요한 이유만 receipt에 남기고, 단계별 내부 산출물이나 작성 절차를 독자용 본문에 노출하지 않는다.
 
 ## Reject rules
 

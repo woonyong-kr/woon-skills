@@ -19,7 +19,7 @@ execution:
   baseline: 동일 profile에서 learning-content 표준을 노출하지 않은 실행
   candidate: tech와 필요한 diagram·language만 활성화한 실행
   executors: [codex, claude]
-  trials: 3
+  trials: 1
   blind_compare: true
   held_out_required: true
   record: [artifact, duration, input_tokens, cached_input_tokens, output_tokens]

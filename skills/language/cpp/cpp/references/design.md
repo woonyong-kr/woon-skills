@@ -34,6 +34,6 @@ overload는 caller에게 같은 개념의 명확한 계약을 제공할 때만 �
 
 ## 검증
 
-format → target standard compile → warning/static analysis → unit/integration test → Address/Undefined/Thread sanitizer와 필요한 benchmark를 실행한다. header self-containment, ODR, symbol visibility와 ABI 변화를 별도로 확인한다.
+변경한 target standard로 compile·warning과 관련 동작을 검증한다. ownership·lifetime·동시성에는 해당 sanitizer, 성능 주장에는 benchmark를 선택한다. header·linkage·공개 경계를 바꿨다면 self-containment, ODR, symbol visibility와 ABI 영향을 확인한다.
 
 이 문서는 [Google C++ Style Guide](https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/cppguide.html)를 Woon의 repository-first·ownership·점진 변경 기준으로 재작성했다.

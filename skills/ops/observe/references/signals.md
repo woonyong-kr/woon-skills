@@ -33,4 +33,4 @@ payload, token, credential, full query와 개인정보는 기본적으로 기록
 - alert마다 owner, severity, runbook, silence·escalation과 복구 조건을 둔다.
 - instrumentation 실패가 service 성공으로 집계되지 않게 한다.
 - trace sampling이 오류·느린 요청과 rare unknown result를 잃지 않는지 확인한다.
-- dependency timeout, retry, queue redelivery와 partial outage를 주입해 signal이 실제 원인과 사용자 영향을 드러내는지 검증한다.
+- 변경된 signal이 설명해야 하는 dependency timeout·retry·queue redelivery·partial outage를 선택해 실제 원인과 사용자 영향을 구분하는지 검증한다.

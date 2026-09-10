@@ -13,6 +13,6 @@ JDK version, build tool, formatter/Checkstyle, package structure와 주변 type�
 4. visibility는 compile되는 가장 좁은 수준을 쓴다. 습관적으로 `public`을 붙이지 않는다.
 5. member order는 repository formatter를 따르고 관련 field·constructor·method를 가까이 둔다.
 6. checked/unchecked exception은 caller의 recovery contract로 결정한다.
-7. formatter, compiler, static analysis와 test를 실행한다.
+7. 변경한 package의 compile·정적 검사와 동작 검증에 필요한 test를 선택한다. reflection·serialization·proxy 경계가 바뀌면 해당 integration을 확인한다.
 
 상세 파일 배치와 type 선택은 [Java design](references/design.md), import·member 순서·modifier·표기는 [규약](references/conventions.md)을 필요한 경우에만 읽는다.

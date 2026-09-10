@@ -90,8 +90,4 @@ domain exception은 business failure를, adapter exception은 기술 failure를 
 
 ## Consistency repair
 
-1. current public API와 package consumers를 찾는다.
-2. characterization test 또는 compiler boundary를 확보한다.
-3. type/method 하나씩 move 또는 rename한다.
-4. package-private/public 변화와 serialization/reflection/JPA 영향을 확인한다.
-5. formatter, compile, static analysis, unit/integration test를 실행한다.
+public API와 package consumer를 기준으로 함께 검증할 변경 단위를 정한다. 기존 test·compiler 근거를 재사용하고, 중요한 동작이 포착되지 않을 때만 characterization test를 추가한다. move·rename 뒤 visibility, serialization·reflection·JPA 영향을 확인하고 그 경계를 검증하는 검사를 실행한다.

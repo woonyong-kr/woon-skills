@@ -10,6 +10,6 @@ description: backend의 traffic model, concurrency, queue, connection pool, rate
 1. arrival rate, service time distribution, concurrency, payload, tenant skew와 downstream quota를 측정한다.
 2. [용량 기준](references/load.md)으로 queue·pool·limit·backpressure와 overload contract를 정한다.
 3. retry·timeout은 `$resilience`, hot cache는 `$cache`, SLI는 `$observe`를 함께 적용한다.
-4. steady, burst, soak, dependency slowdown과 recovery를 같은 workload model로 검증한다.
+4. 바꾸는 limit·queue·scaling 동작에 맞는 steady, burst, soak, dependency slowdown·recovery 시나리오를 골라 같은 workload model로 비교한다.
 
 임의의 thread·connection·batch 숫자를 제안하지 않는다. 결과에는 가정, bottleneck, safe operating limit, rejection 정책, p50·p95·p99와 saturation·recovery 증거를 포함한다.

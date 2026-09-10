@@ -12,6 +12,6 @@ target C dialect, compiler, platform ABI, build flags, formatter와 sanitizer를
 3. pointer마다 nullability, length, mutability, ownership과 lifetime을 계약으로 드러낸다.
 4. allocation·resource 획득과 해제 owner를 하나로 정하고 부분 초기화 실패 경로를 검증한다.
 5. macro보다 typed function·enum·constant를 우선하고 여러 문장 macro를 새로 만들지 않는다.
-6. compiler warning, static analysis, sanitizer와 test를 실제 target dialect로 실행한다.
+6. 변경한 코드의 target dialect compile·warning을 확인한다. pointer·resource·동시성 변경에는 해당 sanitizer와 boundary test를 선택한다.
 
 파일·함수·struct 경계는 [설계 기준](references/design.md), include·선언 순서·표기는 [규약](references/conventions.md)을 필요한 경우에만 읽는다.

@@ -24,7 +24,4 @@
 
 ## 완료 조건
 
-1. lint·build와 computed style에서 cascade 결과를 확인한다.
-2. desktop·mobile, keyboard, 200% zoom, light·dark 및 지원 writing mode를 실제 render로 확인한다.
-3. 변경 전후 screenshot은 같은 viewport·content·theme에서 비교한다.
-4. 확인하지 못한 browser, assistive technology와 design 기준은 통과로 표현하지 않는다.
+변경한 cascade 결과를 computed style과 실제 render에서 확인한다. layout·type·interaction·theme·writing mode 중 영향받는 조건을 선택하고 필요한 저장소 검사로 보완한다. 시각 비교가 필요하면 같은 viewport·content·theme를 사용한다. 확인하지 못한 browser, assistive technology와 design 기준은 통과로 표현하지 않는다.

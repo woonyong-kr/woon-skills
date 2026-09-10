@@ -9,4 +9,4 @@ image, container, volume, host path를 구분한다. 실행 전 image digest, co
 
 workspace mount는 필요한 path만 최소 권한으로 연결하고 source를 덮는 anonymous volume을 주의한다. secret을 image layer나 command history에 넣지 않는다. non-root, read-only filesystem, capability drop, resource limit과 healthcheck를 workload에 맞게 적용한다.
 
-문제 진단은 inspect→logs→process→network→mount 순으로 증거를 모으고 container 삭제 전 data volume ownership을 확인한다.
+증상과 현재 증거에 따라 inspect·logs·process·network·mount 중 원인을 가를 정보를 확인한다. container 삭제 전 data volume ownership을 확인한다.

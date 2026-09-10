@@ -13,6 +13,6 @@ description: Python 파일·package 구조, class·Protocol·function 위치, na
 4. `Protocol`이나 ABC는 실제 대체 구현·외부 boundary·isolated test seam이 있을 때만 만든다.
 5. public import path를 바꾸면 compatibility export 또는 migration을 검토한다.
 6. visual consistency만을 위해 새 `InvoiceId` 같은 wrapper type이나 layer를 만들지 않는다.
-7. repository의 lint, type check, pytest를 실행한다.
+7. 변경한 module의 표기·typing·동작에 맞춰 저장소 검사를 선택하고, public import나 executable entrypoint가 바뀌면 실제 consumer 경계를 확인한다.
 
 파일 배치와 class/function 경계는 [Python design](references/design.md), import·선언 순서·표기에는 [규약](references/conventions.md)을 관련 작업에서만 읽는다.

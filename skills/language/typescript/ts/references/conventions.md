@@ -58,6 +58,6 @@ interface에 `I` prefix를 붙이지 않는다. acronym도 한 단어처럼 `Htt
 
 ## 주석과 검증
 
-JSDoc은 public 사용자가 알아야 할 계약, 일반 주석은 구현 이유를 설명한다. TypeScript가 이미 표현한 type을 `@param`·`@return`에 반복하지 않는다. format → lint/conformance → typecheck → unit/integration test → build를 저장소 script로 실행한다.
+JSDoc은 public 사용자가 알아야 할 계약, 일반 주석은 구현 이유를 설명한다. TypeScript가 이미 표현한 type을 `@param`·`@return`에 반복하지 않는다. 변경된 표기·type·runtime·package 계약을 확인하는 저장소 script를 선택한다.
 
 이 문서는 [Google TypeScript Style Guide](https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/tsguide.html)를 참고해 Woon의 저장소 우선·점진 변경·runtime 검증 기준으로 재작성했다. Google guide도 외부 환경에는 그대로 맞지 않을 수 있음을 명시한다.

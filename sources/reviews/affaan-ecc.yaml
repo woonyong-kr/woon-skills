@@ -1,58 +1,101 @@
 version: 1
 repository: affaan-m/ECC
 upstream: https://github.com/affaan-m/ECC
-checked_commit: 2d46e80e0925c7be0907f18c1812311ac212a6c5
-checked_version: 2.2.0
-checked_at: '2026-08-10'
+checked_commit: 928c1dea72f5c330442fc1f595563398b8f389f7
+checked_version: 2.2.1
+checked_at: '2026-09-11'
 license: MIT
 scope:
-  skill_files: 284
-  derived_skill_copies: 613
-  support_files: README, agents, commands, rules, hooks, installers, catalog validators and tests
+  skill_files: 291
+  support_files: canonical inventory, prior-to-current SKILL.md deltas and Codex manifest/hooks; unselected provider
+    implementations were not executed or certified
 decision: adopted-selectively
 evidence:
-  inventory:
-    repository_skill_files: 897
-    canonical_skills: 284
-    canonical_lines: 73900
-    median_lines: 186.5
-    p95_lines: 716
-    max_lines: 948
-    legacy_vendor_common: 178
-    legacy_vendor_identical: 7
-    legacy_vendor_changed: 171
-    new_since_legacy_vendor: 106
-  static_surface:
-    skills_with_external_urls: 90
-    external_urls: 255
-    skills_with_shell_examples: 107
-    shell_fences: 389
-    root_license: MIT
-    per_skill_license_fields: 18 present, 266 inherit root
-  upstream_validation:
-    npm_test: 3713/3713 passed twice at the pinned commit
-    production_dependency_audit: 0 vulnerabilities
-    development_dependency_audit: 2 high findings through markdownlint-cli -> js-yaml GHSA-5p4m-2wfm-xmqj
-  behavior_baseline:
-    contract_first: 3/3 passed without a new skill
-    bounded_performance: 3/3 passed without a new skill
-    accessibility: 3/3 passed without a new skill
-    agent_wrapper_diagnostics: 2/3 passed; one prompt-only plan failed to require code-first repair visibility
-  behavior_candidate:
-    agent_audit: 3/3 blocked prompt-only completion, separated raw and repaired outputs, semantic validity, hidden inference count and token cost
-    near_miss: 1/1 kept an ordinary Python ordering bug outside agent-audit
-  routing:
-    codex: 52 cases x 3, primary recall 1.0, forbidden 0, agreement 0.9615
-    claude: 52 cases x 3, primary recall 1.0, forbidden 0, agreement 0.9808
-  install:
-    codex: isolated ai profile installed 9 skills, second plan reported 9 unchanged
-    claude: isolated ai profile installed 9 skills, second plan reported 9 unchanged
-  context:
-    inventory_o200k_tokens: 2005 -> 2058
-    added_inventory_o200k_tokens: 53
-    agent_audit_main_o200k_tokens: 414
-    conditional_reference_o200k_tokens: 776
-    profile: isolated ai profile; not inherited by general development, Java, Python, TypeScript or Web profiles
+  previous_review:
+    checked_commit: 2d46e80e0925c7be0907f18c1812311ac212a6c5
+    checked_at: '2026-08-10'
+    scope:
+      skill_files: 284
+      derived_skill_copies: 613
+      support_files: README, agents, commands, rules, hooks, installers, catalog validators and tests
+    results:
+      inventory:
+        repository_skill_files: 897
+        canonical_skills: 284
+        canonical_lines: 73900
+        median_lines: 186.5
+        p95_lines: 716
+        max_lines: 948
+        legacy_vendor_common: 178
+        legacy_vendor_identical: 7
+        legacy_vendor_changed: 171
+        new_since_legacy_vendor: 106
+      static_surface:
+        skills_with_external_urls: 90
+        external_urls: 255
+        skills_with_shell_examples: 107
+        shell_fences: 389
+        root_license: MIT
+        per_skill_license_fields: 18 present, 266 inherit root
+      upstream_validation:
+        npm_test: 3713/3713 passed twice at the pinned commit
+        production_dependency_audit: 0 vulnerabilities
+        development_dependency_audit: 2 high findings through markdownlint-cli -> js-yaml GHSA-5p4m-2wfm-xmqj
+      behavior_baseline:
+        contract_first: 3/3 passed without a new skill
+        bounded_performance: 3/3 passed without a new skill
+        accessibility: 3/3 passed without a new skill
+        agent_wrapper_diagnostics: 2/3 passed; one prompt-only plan failed to require code-first repair visibility
+      behavior_candidate:
+        agent_audit: 3/3 blocked prompt-only completion, separated raw and repaired outputs, semantic validity,
+          hidden inference count and token cost
+        near_miss: 1/1 kept an ordinary Python ordering bug outside agent-audit
+      routing:
+        codex: 52 cases x 3, primary recall 1.0, forbidden 0, agreement 0.9615
+        claude: 52 cases x 3, primary recall 1.0, forbidden 0, agreement 0.9808
+      install:
+        codex: isolated ai profile installed 9 skills, second plan reported 9 unchanged
+        claude: isolated ai profile installed 9 skills, second plan reported 9 unchanged
+      context:
+        inventory_o200k_tokens: 2005 -> 2058
+        added_inventory_o200k_tokens: 53
+        agent_audit_main_o200k_tokens: 414
+        conditional_reference_o200k_tokens: 776
+        profile: isolated ai profile; not inherited by general development, Java, Python, TypeScript or Web profiles
+    revalidation: Historical checks retained with their original commit; not rerun or attributed to the new commit.
+  current_delta:
+    canonical_skills: 291
+    added: 12
+    removed: 5
+    changed: 179
+    unchanged: 100
+    comparison: All canonical paths and bytes compared; targeted instruction hunks reviewed against current Woon owners;
+      prior decisions reused where unchanged. Unselected scripts were not run or security-certified.
+  adoption:
+    owners:
+    - quality
+    - research
+    - pr
+    changes:
+    - existing documentation authority roles
+    - untrusted research source boundary
+    - untrusted repository feedback boundary
+    installation: Only managed Woon profile synchronization; ECC native plugin, Chrome MCP and autonomous hooks
+      not installed.
+  retirements:
+    removed_upstream_names:
+    - ito-basket-compare
+    - ito-data-atlas-agent
+    - ito-market-intelligence
+    - ito-trade-planner
+    - motion-ui
+    meaning: Remove obsolete names from the current upstream review inventory; none is a current Woon canonical/profile/installed
+      entry. Immutable legacy vendor snapshot is preserved.
+  verification:
+    static_contract: 84 skills metadata, links, source reviews, catalog and personal profile validation passed
+    semantic_executor: not run; no hidden agents or new tasks
+    humanize_routing: four current cases manually reviewed; prose, book ownership, new technical writing and graph
+      navigation retain distinct owners
 inventory:
 - accessibility
 - agent-architecture-audit
@@ -112,6 +155,8 @@ inventory:
 - cost-aware-llm-pipeline
 - cost-tracking
 - council
+- council-multi-model
+- counterparty-channel-discipline
 - cpp-coding-standards
 - cpp-testing
 - crosspost
@@ -128,6 +173,7 @@ inventory:
 - delivery-gate
 - deployment-patterns
 - design-system
+- dev-team
 - django-celery
 - django-patterns
 - django-security
@@ -146,6 +192,7 @@ inventory:
 - energy-procurement
 - enterprise-agent-ops
 - error-handling
+- esign-field-placement
 - eval-harness
 - evm-token-decimals
 - exa-search
@@ -189,12 +236,9 @@ inventory:
 - investor-outreach
 - ios-icon-gen
 - iterative-retrieval
-- ito-basket-compare
+- ito-baskets
 - ito-compute
-- ito-data-atlas-agent
 - ito-inference
-- ito-market-intelligence
-- ito-trade-planner
 - ito-training
 - java-coding-standards
 - jira-integration
@@ -214,6 +258,7 @@ inventory:
 - latency-critical-systems
 - lead-intelligence
 - liquid-glass-design
+- living-docs-governance
 - llm-trading-agent-security
 - logistics-exception-management
 - loop-design-check
@@ -222,6 +267,7 @@ inventory:
 - manim-video
 - market-research
 - marketing-campaign
+- master-agreement-generator
 - mcp-server-patterns
 - messages-ops
 - ml-adoption-playbook
@@ -229,9 +275,9 @@ inventory:
 - motion-advanced
 - motion-foundations
 - motion-patterns
-- motion-ui
 - mysql-patterns
 - nanoclaw-repl
+- nasiko-control-plane
 - nestjs-patterns
 - netmiko-ssh-automation
 - network-bgp-diagnostics
@@ -243,6 +289,7 @@ inventory:
 - nuxt4-patterns
 - openclaw-persona-forge
 - opensource-pipeline
+- operator-approval-loop
 - orch-add-feature
 - orch-build-mvp
 - orch-change-feature
@@ -317,6 +364,9 @@ inventory:
 - swift-protocol-di-testing
 - swiftui-patterns
 - taste
+- taste-application
+- taste-distillation
+- tasteforge-video
 - tdd-workflow
 - team-agent-orchestration
 - team-builder
@@ -343,9 +393,11 @@ groups:
   skills:
   - agent-architecture-audit
   purpose: trace wrapper-layer degradation before blaming the model or tuning persona prompts
-  overlap: no Woon owner covered prompt, memory, tool, hidden repair, renderer and persistence as one diagnostic chain
-  decision: adopt-as-new-skill
-  reason: fresh baseline failed one of three pressure cases; the 414-token candidate passed three of three and stays isolated in the ai profile
+  overlap: no Woon owner covered prompt, memory, tool, hidden repair, renderer and persistence as one diagnostic
+    chain
+  decision: retain-existing
+  reason: Keep the existing agent-audit owner; the measured adoption evidence belongs to the prior pinned review
+    and was not rerun for a description-only upstream change.
 - id: retain-woon-owners
   skills:
   - accessibility
@@ -419,7 +471,8 @@ groups:
   purpose: preserve capabilities already owned by focused Woon skills or executor-native controls
   overlap: quality, test, verify, safety, terminal, API, hexagonal, language, web, research and skill-system owners
   decision: retain-existing
-  reason: contract, performance and accessibility pressure trials all passed three of three; activating long ECC bodies would duplicate behavior and raise routing context
+  reason: contract, performance and accessibility pressure trials all passed three of three; activating long ECC
+    bodies would duplicate behavior and raise routing context
 - id: reject-always-on-runtime
   skills:
   - agent-sort
@@ -459,10 +512,13 @@ groups:
   - team-builder
   - unified-memory
   - workspace-surface-audit
-  purpose: avoid global hooks, self-modifying memory, fixed orchestration controllers and ECC-specific installation surfaces
-  overlap: Codex and Claude native execution, Woon registry profiles, private canonical knowledge and explicit safety ownership
+  purpose: avoid global hooks, self-modifying memory, fixed orchestration controllers and ECC-specific installation
+    surfaces
+  overlap: Codex and Claude native execution, Woon registry profiles, private canonical knowledge and explicit safety
+    ownership
   decision: reject-active-skill
-  reason: these surfaces add provider coupling, hidden state or mandatory gates and were not shown to outperform the existing on-demand model
+  reason: these surfaces add provider coupling, hidden state or mandatory gates and were not shown to outperform
+    the existing on-demand model
 - id: defer-specialized-catalog
   skills:
   - agent-payment-x402
@@ -539,12 +595,8 @@ groups:
   - investor-materials
   - investor-outreach
   - ios-icon-gen
-  - ito-basket-compare
   - ito-compute
-  - ito-data-atlas-agent
   - ito-inference
-  - ito-market-intelligence
-  - ito-trade-planner
   - ito-training
   - java-coding-standards
   - jira-integration
@@ -576,7 +628,6 @@ groups:
   - motion-advanced
   - motion-foundations
   - motion-patterns
-  - motion-ui
   - mysql-patterns
   - nestjs-patterns
   - netmiko-ssh-automation
@@ -643,7 +694,49 @@ groups:
   - vue-patterns
   - windows-desktop-e2e
   - x-api
-  purpose: keep discoverability for language, framework, business, research, infrastructure and external-service workflows without activating them globally
+  purpose: keep discoverability for language, framework, business, research, infrastructure and external-service
+    workflows without activating them globally
   overlap: some items are useful only when their stack, service, regulated domain or repository becomes active
   decision: evaluate-no-change
-  reason: metadata and static safety were screened, but no current Woon behavior gap justified runtime context; reconsider in the matching repository profile with fresh behavior and token evidence
+  reason: metadata and static safety were screened, but no current Woon behavior gap justified runtime context;
+    reconsider in the matching repository profile with fresh behavior and token evidence
+- id: merge-existing-document-authority
+  skills:
+  - living-docs-governance
+  purpose: keep rules, structure, live state and decisions with existing owners
+  overlap: quality Woon repository ownership reference
+  decision: merge-into-skill-system
+  reason: Add compact authority and live-evidence boundaries to the existing reference; no extra dashboard, history
+    corpus or new mandatory read sequence.
+- id: retain-outbound-owners
+  skills:
+  - counterparty-channel-discipline
+  - operator-approval-loop
+  purpose: scope counterparty participation and exact outbound approval
+  overlap: safety, tasks and registered transport adapters
+  decision: retain-existing
+  reason: Existing user authorization and receipt boundaries remain authoritative; do not add a second approval
+    engine, automatic supplier replies or a duplicate ledger.
+- id: reject-new-orchestration
+  skills:
+  - council-multi-model
+  - dev-team
+  - nasiko-control-plane
+  purpose: additional model opinions, parallel personas or another CLI lifecycle
+  overlap: existing visible task coordination and agent-audit
+  decision: reject-active-skill
+  reason: No current need for external model calls, hidden subagents or another control plane; keep current model,
+    visible owner and official Codex installer.
+- id: defer-provider-and-contract-workflows
+  skills:
+  - esign-field-placement
+  - ito-baskets
+  - master-agreement-generator
+  - taste-application
+  - taste-distillation
+  - tasteforge-video
+  purpose: provider-specific signing, market data, agreements and media pipelines
+  overlap: existing document/media tools and safety boundaries
+  decision: reject-active-skill
+  reason: Not required for the current Woon workflow; do not install commercial, signing, generation or provider
+    dependencies. These implementations were not executed or certified.

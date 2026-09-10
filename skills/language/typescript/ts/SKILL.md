@@ -13,6 +13,6 @@ description: TypeScript 코드의 모듈·파일 배치, type/interface, 함수�
 4. `unknown`을 경계에서 좁히고 `any`가 내부로 퍼지지 않게 한다.
 5. I/O와 async 실패를 이름과 반환 계약에서 숨기지 않는다.
 6. public import와 runtime behavior를 보존하며 한 모듈씩 이동하거나 이름을 바꾼다.
-7. 저장소에 실제로 있는 format→lint→type check→test→build 순으로 검증한다.
+7. 저장소 scripts 중 변경된 type·runtime·package 경계를 검증하는 검사를 선택한다. 의존성이 없는 검사를 고정 순서로 실행하거나 같은 통과 근거를 반복 생성하지 않는다.
 
 완료 전에 새 barrel export와 circular dependency가 없는지, type-only import가 runtime import로 남지 않았는지, 처리하지 않은 Promise와 조용한 fallback이 없는지 확인한다.

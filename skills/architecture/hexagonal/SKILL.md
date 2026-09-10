@@ -7,7 +7,7 @@ description: Hexagonal·Clean Architecture의 port·adapter, interface 소유권
 
 business policy가 framework, database, network에 직접 의존하거나 경계의 책임·효과·검증 방법이 불명확할 때 적용한다.
 
-## 작업 순서
+## 적용 기준
 
 1. 변경할 use case, 보존할 공개 동작, 외부 actor·system과 강제된 저장소 규칙을 확인한다.
 2. interface·port·adapter·DTO·composition·폴더 경계를 판단하거나 migration할 때 [references/boundaries.md](references/boundaries.md)를 읽는다.

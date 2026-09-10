@@ -11,4 +11,4 @@ cascade layer와 낮은 specificity로 override 경로를 예측 가능하게 �
 
 CSS는 semantic HTML이나 실제 state 전환을 대신하지 않는다. focus, keyboard, zoom, reduced motion, contrast와 loading·disabled·hidden 상태를 보존한다. global reset, generated content, visibility, responsive type 또는 interaction을 바꾸면 [품질 경계](references/quality.md)를 읽는다.
 
-문법·build만으로 끝내지 말고 target browser의 desktop·mobile, keyboard, 200% zoom과 필요한 writing mode에서 실제 render를 확인한다. 시각 회귀는 `$ui-test`, React component 경계는 `$react`를 함께 쓴다.
+변경한 CSS의 실제 render를 target browser에서 확인한다. layout·responsive type은 관련 viewport·200% zoom, interaction은 keyboard·focus, 방향성은 지원 writing mode로 범위를 정한다. 시각 회귀는 `$ui-test`, React component 경계는 `$react`를 함께 쓴다.

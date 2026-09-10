@@ -67,10 +67,6 @@ interface에 `I` 접두사를 붙이지 않는다. 이름의 단어 선택과 �
 
 ## 일관성 복구
 
-1. `tsconfig.json`, package exports, path alias와 모든 import 사용처를 기록한다.
-2. public type·function과 runtime side effect를 테스트로 고정한다.
-3. 공개 이름만 바꾸고 signature와 runtime contract가 같으면 명시적 export alias를 사용한다. parameter·return·오류 계약이 다르면 wrapper로 변환 지점을 드러낸다.
-4. 모듈 하나를 이동하거나 이름을 바꾼다.
-5. type-only와 runtime import, circular dependency와 package export를 확인한다.
-6. 저장소 scripts의 format, lint, type check, test와 build를 실행한다.
-7. 다음 책임 단위로 진행한다.
+변경한 public export·path alias의 consumer를 확인하고 함께 검증할 책임 단위를 정한다. 기존 type·runtime 검사를 재사용하며 중요한 side effect가 포착되지 않을 때만 test를 추가한다.
+
+공개 이름만 바꾸고 signature와 runtime contract가 같으면 명시적 export alias를 사용한다. parameter·return·오류 계약이 다르면 wrapper로 변환 지점을 드러낸다. 이동·rename 뒤 type-only/runtime import, circular dependency와 package export를 확인하고 변경한 경계에 맞는 저장소 검사를 실행한다.

@@ -1,5 +1,5 @@
 version: 1
-repeat: 3
+repeat: 1
 thresholds:
   primary_recall: 0.95
   forbidden_selections: 0

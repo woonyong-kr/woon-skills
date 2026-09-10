@@ -10,7 +10,7 @@ woon skills validate --profile core
 woon skills plan --profile core,python --target codex
 woon skills install --profile core,python --target codex
 woon skills install --profile core,python --target claude
-woon skills eval-routing --executor all --repeat 3
+woon skills eval-routing --executor codex --repeat 1
 woon skills doctor
 ```
 
@@ -47,12 +47,23 @@ woon skills doctor
 | 웹                       | `web`               | `$css·$react·$e2e·$ui-test`                                          |
 | 스킬 관리                | `skill-system`      | `$registry·$audit·$comply·$budget`                                   |
 
+## 스킬 작성과 실행 기준
+
+목적·적용 범위·필수 불변조건·완료 증거를 먼저 정합니다. 모델이 이미 수행할 수 있는 일반 설명, 역할놀이, 고정된 사고 단계와 같은 규칙의 복제를 줄이고, 실제 의존 순서나 복구 위험이 있는 절차만 순서를 고정합니다. 상세 예시·도구 명령은 필요한 reference에서 읽습니다.
+
+현재 사용자 지시와 대화에서 확보한 대상·권한을 재사용합니다. 맡긴 범위의 가역적 준비·수정·검증은 완료하고, 아직 권한이 없는 외부 효과나 되돌리기 어려운 행동만 구체적인 결과를 제시한 뒤 확인합니다. skill 때문에 중단하거나 승인이 필요하면 해당 파일·조항과 실제 적용 이유를 밝힙니다. 일반적인 우려만으로 새 승인 단계를 만들지 않습니다.
+
+검증 선택·동일 입력의 통과 근거 재사용·임시물 정리는 `repo://core/standards/code.yaml`을 따릅니다. 도구는 현재 사용 가능성과 실제 효과로 선택하고, 역할 이름을 여러 agent 생성 지시로 해석하지 않습니다. 결과와 변경 이유·검증·미확인 범위를 간결한 한국어로 보고하며 모든 요청에 고정 보고 양식을 적용하지 않습니다.
+
+이 기준은 [OpenAI의 모델 사용 지침](https://developers.openai.com/api/docs/guides/latest-model)과 [skill 작성 지침](https://learn.chatgpt.com/docs/build-skills)을 2026-09-09에 확인해 반영했습니다. 모델 설정이나 공급 skill을 바꾸는 계약은 아니며, 특정 모델 이름을 개별 skill에 반복하지 않습니다.
+
 ## 문서 스킬의 차이
 
 - `$docs`: 현재 저장소의 README, 설치법, API 설명, runbook을 실제 code/manifest/`--help`에 맞춥니다.
 - `$lookup`: 현재 version의 외부 library/framework 공식 문서를 찾습니다.
 - `$adr`: 하나의 architecture 결정과 대안·결과를 기록합니다.
 - `$tech`: 근거와 한계가 있는 기술 글·학습 글을 씁니다.
+- `$humanize`: `humanizer-kr`의 한국어 교정 기준으로 원뜻·말투·기술 용어를 보존하며 번역투와 반복을 다듬습니다. `personal` profile에 포함됩니다.
 - `$guided-learning`: 학습자가 먼저 답하고 실행하도록 한 질문씩 인출·실습·전이·검증을 진행합니다.
 - `$kotlin-in-action-14-days`: 다섯 AI 학습 파트너와 책 16개 장을 14일 경로로 진행하고 실제 설명·실행·전이 증거로 진도를 판정합니다.
 - `$career`: 이력서·경력기술서·cover letter를 실제 개인 기여에 맞춥니다.

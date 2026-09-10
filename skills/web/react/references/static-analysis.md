@@ -6,7 +6,7 @@
 
 1. 프로젝트가 고정한 도구와 version을 먼저 쓴다. 없으면 Woon이 마지막으로 검토한 정확 version만 임시 실행하고 `@latest`를 재현 가능한 검증에 쓰지 않는다.
 2. 첫 실행은 source와 config를 바꾸지 않는 report 모드로 제한한다. telemetry와 외부 supply-chain 조회는 기본으로 끄고, 필요하면 별도 목적과 network 범위를 확인한다.
-3. skill·hook·CI 설치, config 변경, 자동 수정은 사용자가 그 변경을 요청했을 때만 수행한다.
+3. skill·hook·CI 설치는 해당 운영 변경의 권한을 확인한다. 진단으로 확인된 코드·config 수정은 사용자가 맡긴 수정 범위 안에서 진행한다.
 
 현재 검토본의 offline 예시는 다음과 같다. 새 version을 승인하면 source review와 이 명령을 함께 갱신한다.
 
@@ -37,4 +37,4 @@ npx --yes react-doctor@0.9.11 . \
 | computed style·viewport·keyboard·screenshot | `$css`, `$ui-test` | backend authorization와 persistence |
 | 여러 화면과 service를 잇는 journey | `$e2e` | 모든 시각적 완성도와 production 상태 |
 
-한 층에서 실패하면 다른 층의 점수가 높아도 완료가 아니다. 원인 소유자에서 수정한 뒤 static → component/test → rendered UI → 필요한 E2E 순서로 다시 검증한다.
+요청의 완료 조건에 해당하는 층이 실패하면 다른 층의 점수로 대신하지 않는다. 원인 소유자에서 수정하고 영향받는 정적·component·rendered UI·E2E 검사를 선택해 검증한다.

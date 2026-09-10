@@ -13,6 +13,30 @@ standards:
       - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/productivity/teach
     changed: translated the useful prerequisite and grounding model into a provider-neutral section dependency contract, removed interactive article shaping and HTML defaults, and added adversarial insertion and cycle gates after a fresh-context baseline failed 2 of 3 cases
 skills:
+  skills/git/commit:
+    adapted_from:
+      - https://google.github.io/eng-practices/review/developer/cl-descriptions.html
+      - https://github.com/googleapis/release-please
+    changed: combines short imperative English summaries and useful rationale with release-please-compatible Conventional Commits; preserves the existing commit owner and scoped authorization without rewriting published history
+  skills/writing/humanize:
+    adapted_from:
+      - https://github.com/hjongc/humanizer-kr/tree/a1a7069a32f669afe4b10e35e9522ff504a13263/skills/humanizer-kr
+    license: MIT
+    license_path: skills/writing/humanize/LICENSE
+    changed: adapted the five Korean editing dimensions and advisory patterns into one Woon prose owner; preserved technical terms, uncertainty, source text and book coverage; added read-only Markdown masking; omitted plugin packaging, example gates and automatic findings-based failure
+  skills/github/pr:
+    adapted_from:
+      - https://github.com/affaan-m/ECC/tree/928c1dea72f5c330442fc1f595563398b8f389f7/skills/github-ops
+    changed: keep the existing PR owner and prevent repository feedback, branch labels or CI output from granting tool, credential or merge authority
+  skills/research/research:
+    adapted_from:
+      - https://github.com/affaan-m/ECC/tree/928c1dea72f5c330442fc1f595563398b8f389f7/skills/deep-research
+    changed: keep the existing research owner and distinguish source data from instructions or authorization; preserve claim-level verification and the existing adversarial behavior case
+  skills/github/issue:
+    adapted_from:
+      - https://cli.github.com/manual/gh_auth_refresh
+      - https://cli.github.com/manual/gh_project_item-edit
+    changed: retains the issue owner and uses official gh for approved Projects dates and additive OAuth scopes; binds exact existing item and field IDs, preserves account and scopes, and records before, mutation and requery without secrets or blind retries
   skills/architecture/domain:
     adapted_from:
       - https://learn.microsoft.com/en-us/azure/architecture/microservices/model/domain-analysis
@@ -99,15 +123,18 @@ skills:
     adapted_from:
       - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-shape
       - https://github.com/mattpocock/skills/tree/84fdeffd12f2ee307994d1eb6feb48173b6e0502/skills/in-progress/writing-beats
-    changed: made the shared learning standard an explicit user-approved acceptance gate at the invocation boundary so direct glossary-first, append-only and cyclic-order pressure cannot silently bypass it
+    changed: keeps technical evidence and learning progression; delegates general Korean prose to humanize and removes the duplicate formal-register mandate and generic sentence checklist; learning standards follow user-approved navigation instead of a fixed book depth
   skills/ai/agent-audit:
     adapted_from:
       - https://github.com/affaan-m/ECC/tree/2d46e80e0925c7be0907f18c1812311ac212a6c5/skills/agent-architecture-audit
     changed: shortened provider-neutral code-first trace contract, separated conditional layer reference, removed mandatory activation and ECC-specific tools, then admitted only after a fresh-context baseline failure
   skills/common/quality:
     adapted_from:
+      - https://github.com/DietrichGebert/ponytail/tree/356918eba965ee1eac64bd3a7f0dd02108350de5/skills/ponytail
+      - https://github.com/affaan-m/ECC/tree/928c1dea72f5c330442fc1f595563398b8f389f7/skills/living-docs-governance
       - https://github.com/multica-ai/andrej-karpathy-skills/tree/2c606141936f1eeef17fa3043a72095b4765b9c2/skills/karpathy-guidelines
     changed: retained one Woon quality owner, translated four compact execution principles, limited clarification to material ambiguity, preserved mandatory security and compatibility, included required propagation in narrow changes, and delegated tests, evidence and effects to their existing owners
+    integration: official Ponytail full is required for Codex coding; preserve Woon safety, complete requirements and existing focused tests, and keep document roles in their existing sources
   skills/common/terminal:
     adapted_from: vendor/ecc/terminal-ops
     changed: removed automatic commit and push behavior

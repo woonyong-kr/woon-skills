@@ -42,6 +42,6 @@ module마다 error convention 하나를 선택한다: status enum/int + out valu
 
 ## 검증
 
-target compiler의 높은 warning을 error로 실행하고 가능한 경우 static analyzer, AddressSanitizer, UndefinedBehaviorSanitizer, thread/memory sanitizer, fuzz와 boundary test를 적용한다. sanitizer 성공은 다른 target ABI와 production 최적화 동작을 대신하지 않는다.
+target compiler의 warning 정책을 따르고 변경한 메모리·정수·resource·동시성 경계에 맞는 analyzer, sanitizer 또는 boundary test를 선택한다. fuzz는 입력 공간의 위험이 이를 정당화할 때 사용한다. sanitizer 성공은 다른 target ABI와 production 최적화 동작을 대신하지 않는다.
 
 Google은 독립 C style guide를 제공하지 않는다. C 안전 계약은 [SEI CERT C](https://wiki.sei.cmu.edu/confluence/display/c/Introduction), 형식 선택 참고는 [GNU C standards](https://www.gnu.org/prep/standards/html_node/Writing-C.html)와 실제 저장소 formatter를 사용하며 이를 Google C 규칙으로 표시하지 않는다.

@@ -1,7 +1,7 @@
 version: 1
 cases:
   - id: commit-message
-    prompt: "현재 diff에 맞는 짧은 한국어 Git 커밋 메시지를 만들고 커밋해 줘"
+    prompt: "현재 diff에 맞는 짧은 영어 Git 커밋 메시지를 만들고 커밋해 줘"
     profiles: [eval]
     expect_primary: commit
     allow_support: []
@@ -41,6 +41,13 @@ cases:
     expect_primary: ci
     allow_support: [verify]
     reject: [release, notify]
+    max_selected: 2
+  - id: github-project-date
+    prompt: "승인한 GitHub Project의 기존 Issue 항목에서 날짜 필드를 수정하고 필요한 project 권한을 gh로 추가해 줘"
+    profiles: [eval]
+    expect_primary: issue
+    allow_support: [safety]
+    reject: [tasks, pr]
     max_selected: 2
   - id: github-release
     prompt: "현재 tag와 changelog를 확인해 draft GitHub Release note를 만들어 줘"

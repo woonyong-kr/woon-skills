@@ -35,7 +35,7 @@ port가 존재해도 별도의 `interface` 선언이 필요하지 않을 수 있
 
 ## 결정 순서
 
-다음 순서를 건너뛰고 폴더나 interface부터 만들지 않는다.
+다음 질문으로 경계의 필요성을 판단한다. 기존 코드와 요청에서 확인된 답은 재사용하고 구조 결정에 영향을 주는 미확정 항목만 보완한다.
 
 1. use case가 보장할 업무 결과와 실패를 한 문장으로 적는다.
 2. 대화에 참여하는 actor·system과 누가 상호작용을 시작하는지 적는다.
@@ -222,12 +222,12 @@ concrete adapter 선택과 생성은 composition root에서 수행한다.
 
 기존 시스템에 경계를 도입할 때 한 vertical slice씩 이동한다.
 
-1. 현재 public behavior와 외부 dependency 호출을 characterization test로 고정한다.
+1. 기존 test·실행 근거로 보존할 public behavior와 외부 dependency 호출을 확인하고, 중요한 검증 공백만 characterization test로 보완한다.
 2. controller·service·domain에 섞인 외부 타입과 effect를 표시한다.
 3. consumer가 실제로 사용하는 최소 capability를 추출한다.
 4. 기존 integration을 새 adapter 뒤로 옮기되 동작을 함께 바꾸지 않는다.
 5. composition root에서 새 경계를 연결한다.
-6. core unit test와 adapter integration test를 각각 실행한다.
+6. 변경된 core contract·adapter·composition 중 영향을 받은 경계를 검증한다.
 7. 기존 facade·wrapper·alias가 필요하면 제거 조건과 consumer migration을 기록한다.
 8. 한 slice가 검증된 뒤 다음 slice로 이동한다.
 
@@ -250,7 +250,7 @@ full rewrite, 전체 package 이동과 기술 교체를 한 변경에 결합하�
 
 ## 결정 결과와 완료 점검
 
-경계 설계 결과는 다음 형식으로 제시한다.
+결정한 경계·owner·trade-off와 검증 결과를 요청에 맞는 형태로 보고한다. 아래는 필요한 항목만 골라 쓰는 참고 양식이다.
 
 ```text
 use case:
@@ -267,7 +267,7 @@ runtime·integration 검증:
 미검증 위험:
 ```
 
-완료 전에 확인한다.
+선택한 경계 수준과 변경 범위에 관련된 항목을 완료 전에 확인한다.
 
 - port마다 실제 consumer와 목적 있는 대화를 말할 수 있다.
 - named interface마다 별도 선언이 필요한 이유가 있다.

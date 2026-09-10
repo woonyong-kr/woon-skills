@@ -31,7 +31,7 @@ skills:
   skills/git/commit: [read, write, process, commit]
   skills/git/history: [read, write, process, commit]
   skills/github/ci: [read, write, process, network]
-  skills/github/issue: [read, write, network]
+  skills/github/issue: [read, write, process, network]
   skills/github/notify: [read, write, network]
   skills/github/pr: [read, write, network, merge]
   skills/github/release: [read, write, network, release]
@@ -82,3 +82,4 @@ skills:
   skills/writing/interview: [read, write]
   skills/writing/site-promotion: [read, write, process, network]
   skills/writing/tech: [read, write, network]
+  skills/writing/humanize: [read, write, process, network]

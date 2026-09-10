@@ -220,6 +220,8 @@ cases:
     profiles: [personal]
     expect_skills:
       - skills/common/safety
+      - skills/git/commit
+      - skills/writing/humanize
       - skills/knowledge/people
       - skills/learning/guided-learning
       - skills/learning/kotlin-in-action-14-days

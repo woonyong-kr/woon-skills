@@ -20,7 +20,7 @@
 
 ## 검증 대상부터 분리하기
 
-각 test가 무엇을 증명하고 무엇을 증명하지 않는지 먼저 정한다.
+변경된 contract와 실패 위험에 필요한 검증 층을 선택하고 각 검증이 증명하는 범위를 정한다. 아래 계층·사례는 선택 기준이며 전체 실행 목록이 아니다.
 
 | 검증 층 | 주로 증명하는 것 | 증명하지 않는 것 |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ fake가 쉽게 만들어진다는 이유로 production port를 넓히지 않는�
 
 ## Port contract test
 
-port contract suite는 port consumer가 소유하며 같은 contract를 주장하는 모든 adapter에 반복 적용한다.
+port contract suite는 port consumer가 소유한다. 공통 port 계약 변경은 그 계약의 모든 adapter를, 특정 adapter 변경은 해당 구현을 검증한다.
 
 contract에 따라 다음을 포함한다.
 
@@ -154,7 +154,7 @@ fake와 실제 adapter가 다른 결과를 내면 test를 완화하지 말고 �
 - timeout 뒤 성공 여부 불명 상태와 reconciliation 경로를 확인한다.
 - cancellation이 하위로 전달되고 resource가 정리되는지 확인한다.
 - max in-flight, backpressure, 입력 순서와 첫 오류·부분 성공 정책을 확인한다.
-- optimistic conflict와 duplicate delivery를 병렬 fixture로 반복한다.
+- optimistic conflict와 duplicate delivery는 barrier·deterministic hook으로 경쟁 순서를 고정해 검증한다.
 
 시간 test는 실제 장시간 sleep보다 fake clock, controllable server와 bounded deadline을 사용한다. 실제 timeout integration은 별도로 소수 유지한다.
 
@@ -162,7 +162,7 @@ fake와 실제 adapter가 다른 결과를 내면 test를 완화하지 말고 �
 
 기존 code에 port와 adapter를 도입할 때 behavior 변경과 구조 변경을 분리한다.
 
-1. 기존 public behavior와 external calls를 characterization test로 고정한다.
+1. 기존 test·실행 근거로 public behavior와 external calls를 확인하고 중요한 검증 공백만 보완한다.
 2. 한 vertical slice의 old path와 new path에 같은 fixture를 적용한다.
 3. 필요한 경우 shadow read, dual-run 또는 recorded replay로 결과 차이를 비교한다.
 4. serialization, DB data, event와 public import compatibility를 확인한다.
@@ -186,7 +186,7 @@ fixture 자체가 application architecture를 위한 거대한 framework가 되�
 
 ## 완료 증거와 점검
 
-검증 결과는 다음 형식으로 보고한다.
+확인한 contract, 실행 근거와 미검증 경계를 간결하게 보고한다. 아래는 필요한 항목만 골라 쓰는 참고 양식이다.
 
 ```text
 검증한 contract:
@@ -202,11 +202,11 @@ migration parity·rollback:
 미실행 환경과 잔여 위험:
 ```
 
-완료 전에 확인한다.
+변경된 contract와 선택한 검증 범위에 관련된 항목을 완료 전에 확인한다.
 
 - 각 test가 증명하는 층과 증명하지 않는 층을 구분했다.
 - core test가 framework와 external infrastructure 없이 실행된다.
-- 모든 실제 adapter가 consumer-owned contract suite를 통과한다.
+- 변경의 영향을 받은 실제 adapter가 consumer-owned contract를 만족하는 근거가 있다.
 - fake 통과를 실제 adapter 증거로 대신하지 않는다.
 - schema, SDK, serialization과 기술 오류를 실제 integration에서 확인했다.
 - production composition과 resource scope를 smoke test했다.

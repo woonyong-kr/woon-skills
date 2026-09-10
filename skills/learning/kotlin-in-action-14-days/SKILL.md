@@ -11,13 +11,14 @@ description: Kotlin in Action, Second Edition 전체를 14일 안에 시작·재
 
 Woon을 사용할 수 있으면 `$knowledge`로 아래 정본을 먼저 읽는다.
 
-- 전체 경로와 최신 체크포인트: `personal/kotlin-in-action`
+- 학습 목표·Day·최신 체크포인트: `personal/projects/kotlin-in-action-14-days`
+- 책의 원문 기반 학습 경로: `personal/kotlin-in-action`
 - 현재 Day가 가리키는 `personal/kotlin-in-action/chapter-NN`
 - 공식 예제·정오표·질문 채널: `resources/programming-language`
 - 다섯 역할의 근거: `ai/ai-supported-self-directed-learning`
 - 인출·전이 판정: `ai/retrieval-practice-and-transfer`
 
-진도·현재 이해·오답 원인·다음 질문은 `personal/kotlin-in-action`의 학습 체크포인트 하나가 소유한다. 장별로 재사용할 수 있을 만큼 검증된 개념만 기존 chapter canonical에 병합한다. 대화 전문, 역할별 메모와 매일의 별도 진도 문서를 만들지 않는다.
+진도·현재 이해·오답 원인·다음 질문은 `personal/projects/kotlin-in-action-14-days`의 학습 체크포인트 하나가 소유한다. 장별로 재사용할 수 있을 만큼 검증된 개념만 기존 chapter canonical에 병합한다. 책 reader body에 `직접 확인하기`, `자료를 닫고 답하기`, `이전과 다음`, `완료 기준`, `검증 상태` 같은 진도·평가 section을 만들지 않는다. 대화 전문, 역할별 메모와 매일의 별도 진도 문서를 만들지 않는다.
 
 Kotlin 코드와 test는 기존 학습 저장소를 먼저 찾는다. 없으면 첫 실습이 필요한 Day에만 저장소 규칙과 현재 toolchain을 확인해 실행 가능한 최소 학습 저장소를 만든다. 빈 repository나 실행하지 않은 예제는 진도 증거가 아니다.
 
@@ -92,7 +93,7 @@ Day 8과 Day 11은 두 장을 묶으므로 작은 개념 목록을 먼저 나누
 
 하나라도 없으면 `부분 이해` 또는 `다시 연습`으로 남긴다. Day 14의 완료는 16개 장의 체크포인트, 실행 가능한 통합 산출물, 이전 오답을 섞은 누적 인출과 새로운 조건의 전이 문제를 모두 통과했을 때만 인정한다. 책을 끝까지 읽거나 AI 답을 다시 말한 사실은 완료 증거가 아니다.
 
-세션이 통과·중단되면 `$guided-learning`의 학습 체크포인트 계약을 사용해 `personal/kotlin-in-action` 하나만 갱신한다. writer·compiler·test가 실패하면 학습 결과와 영구 기록 실패를 분리해 보고한다.
+세션이 통과·중단되면 `$guided-learning`의 학습 체크포인트 계약을 사용해 `personal/projects/kotlin-in-action-14-days`만 갱신한다. writer·compiler·test가 실패하면 학습 결과와 영구 기록 실패를 분리해 보고한다.
 
 ## 범위 경계
 

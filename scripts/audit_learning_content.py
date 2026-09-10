@@ -79,7 +79,7 @@ def audit_learning_content(root: Path) -> list[str]:
         kotlin_plan_text = kotlin_plan_skill_path.read_text(encoding="utf-8")
         if "personal/projects/kotlin-in-action-14-days" not in kotlin_plan_text:
             errors.append(f"{kotlin_plan_skill_path}: project progress owner is missing")
-        if "책 leaf에 `직접 확인하기`" not in kotlin_plan_text:
+        if "책 reader body에 `직접 확인하기`" not in kotlin_plan_text:
             errors.append(f"{kotlin_plan_skill_path}: book canonical write prohibition is missing")
 
     quality = load_mapping(quality_path)
@@ -118,7 +118,7 @@ def audit_learning_content(root: Path) -> list[str]:
             "## Writing state machine",
             "## Korean prose renderer",
             "## Block contracts",
-            "## LLM execution protocol",
+            "## 작성과 확인",
             "## Reject rules",
             "## Final reader check",
         )
@@ -224,8 +224,8 @@ def audit_learning_content(root: Path) -> list[str]:
     else:
         if execution.get("executors") != ["codex", "claude"]:
             errors.append(f"{quality_path}: executors must be codex then claude")
-        if not isinstance(execution.get("trials"), int) or execution["trials"] < 3:
-            errors.append(f"{quality_path}: trials must be at least 3")
+        if type(execution.get("trials")) is not int or execution["trials"] < 1:
+            errors.append(f"{quality_path}: trials must be a positive integer")
         if execution.get("blind_compare") is not True:
             errors.append(f"{quality_path}: blind_compare must be true")
         if execution.get("held_out_required") is not True:

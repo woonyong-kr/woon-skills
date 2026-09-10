@@ -34,9 +34,9 @@ LLM이 문맥을 찾기 좋게 만드는 핵심은 어색하게 짧은 문장이
 
 ### Book-shaped learning material
 
-학습 책의 첫 페이지는 검증한 판본의 부·장 목차만 보여 준다. 모든 책 Map은 `# 페이지 제목 → ## 주제 키워드 → - [[직접 하위 학습 페이지]]` 형식을 사용한다. 책 root의 H2는 부·부록이고 그 아래에는 장·부록 링크만 둔다. 장 Map의 H2는 실제 절 번호와 제목이고 그 아래에는 세부 절 링크만 둔다. H2 주제 키워드는 별도 wrapper page나 링크가 아니며 같은 화면에 더 깊은 후손을 펼치지 않는다. 원문에서 하위 항이 없는 Summary 같은 terminal section도 독립 leaf 링크 하나로 두고 설명·예제·실습은 그 leaf가 소유한다. book·chapter·appendix Map의 authored body는 비우며, 기존 원문 설명·예제·그림은 삭제하지 않고 가장 가까운 leaf로 provenance와 함께 이동한다. 정본 계층은 보통 `책 → 장 → 세부 학습 페이지`의 2~4단계로 제한하고, 탐색만 위한 빈 절 wrapper를 만들지 않는다. 더 깊은 원문 heading은 독립 탐색 단위가 꼭 필요하지 않다면 가까운 leaf 본문과 coverage locator에 보존한다. 정보량과 재탐색 필요가 명확한 경우에만 4단계보다 깊은 예외를 허용한다. 원문서가 주어지면 같은 판본의 공식 한국어판 목차를 먼저 찾고, 없을 때만 번호와 계층을 유지해 자연스럽게 번역한다. `2주·1달·5달`, `학습 자료`, `체크포인트`, `다시 열었을 때`를 별도 탐색 노드로 만들지 않는다.
+학습 책의 화면 계층은 [책 탐색 정본](repo://skills/skills/knowledge/knowledge-navigation/SKILL.md)이 단독으로 소유한다. 사용자가 승인한 단일 목차에서는 책 root의 장·절 키워드 아래 실제 본문 reader를 하위 bullet으로 연결한다. 단계 수를 고정하거나 탐색만을 위한 빈 중간 page를 만들지 않는다. 실제 번호·제목·원문 순서와 각 reader unit의 exact-once 본문 소유권을 보존하며, 자체 학습 본문이 있는 기존 장은 별도의 구조 변경 범위 없이 퇴역시키지 않는다.
 
-하위 항을 가진 번호 section은 독립 wrapper page가 아니라 상위 Map의 H2 group이다. group 번호·제목과 같은 child, 또는 다시 descendant를 소유하는 section child를 두지 않는다. legacy wrapper의 reader prose는 첫 terminal leaf로 locator와 함께 이동하고 exact relocated span hash를 coverage manifest에 기록한 뒤 wrapper를 퇴역한다.
+현재 승인된 책·장·reader 구조를 임시 legacy로 취급하거나 조용히 삭제하지 않는다. source-owning 장 reader를 여러 N.M 절 page로 나눌 때는 full coverage replacement에서 immutable `source_elements`를 그대로 유지하고 각 assignment의 `owner_id`만 선언된 successor들로 exact-once 이동해야 한다. `retirement_content_relocations` preflight가 delivery evidence 변화·누락·중복·원문 element를 받지 못한 successor를 하나라도 찾으면 중단한다. source-free `toc-indexed` 장 wrapper는 content relocation을 주장하지 않고 exact structure/navigation replacement로만 퇴역한다. 원문서가 주어지면 같은 판본의 공식 한국어판 목차를 먼저 찾고, 없을 때만 번호와 계층을 유지해 자연스럽게 번역한다. `2주·1달·5달`, `학습 자료`, `체크포인트`, `다시 열었을 때`를 별도 탐색 노드로 만들지 않는다.
 
 책의 PDF·HTML·EPUB 원본은 `Wiki → 리소스 → 책 원본`의 private local-only archive가 소유한다. archive 파일명은 문서 내부에서 확인한 실제 책 제목과 판으로 정규화하고 원래 파일명·SHA-256·권리 상태를 catalog에서 역추적한다. embedded image는 원본 bytes와 hash를 그대로 보존하고, scan에서 잘라낸 image는 원본 page locator·crop box·render 조건을 provenance로 남긴다. source archive와 Wiki source record의 hash가 일치하지 않으면 편입하지 않는다. 원본 저장과 목차 생성은 학습 완료 증거가 아니다.
 

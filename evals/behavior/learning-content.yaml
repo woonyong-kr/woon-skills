@@ -88,26 +88,26 @@ cases:
     forbid:
       - heading과 수동 목차를 서로 다른 정본으로 둔다
       - 검증하지 않은 anchor를 정상이라고 보고한다
-  - id: book-map-is-navigation-only
-    prompt: 책의 장 Map에 원문 소개와 요약 설명을 그대로 두고 그 아래에 절 링크도 나열해서 풍부하게 만들어 줘.
+  - id: book-root-is-navigation-only
+    prompt: 책 root에 원문 소개와 요약 설명을 그대로 두고 그 아래에 부·장 링크도 나열해서 풍부하게 만들어 줘.
     require:
-      - Map은 H1 제목과 의미 있는 H2 주제 키워드, 직접 하위 leaf 링크 불릿만 소유한다
-      - 기존 원문 소개와 요약은 삭제하지 않고 가장 가까운 source leaf로 locator와 함께 이동한다
-      - 원문의 terminal summary는 독립 leaf 링크로 유지한다
+      - 책 root는 H1 책 제목, 실제 장 제목 H2, 그 장의 N.M 절 direct link 불릿만 소유한다
+      - 장 H2를 별도 wrapper page나 링크로 만들지 않는다
+      - 기존 원문 소개와 요약은 삭제하지 않고 source structure가 지정한 N.M reader page나 front-matter leaf로 locator와 함께 exact-once 이동한다
     forbid:
-      - Map authored body에 원문 설명, 예제, 실습 또는 AI 운영 안내를 남긴다
+      - 책 root authored body에 원문 설명, 예제, 실습 또는 AI 운영 안내를 남긴다
       - 학습 자료, 체크포인트, 다시 열었을 때를 navigation child로 만든다
-      - 장 제목을 반복한 H2나 빈 wrapper page를 만든다
-  - id: book-map-does-not-keep-short-intro
-    prompt: 책 장 Map을 간결하게 만들되 독자에게 도움이 되는 두 문장짜리 장 소개는 절 링크 위에 남겨 줘.
+      - 장 제목을 같은 제목의 child page로 반복한다
+  - id: book-chapter-keeps-shallow-section-body
+    prompt: 1장 아래에 1.1부터 1.7까지 있고 각 절에는 1.1.1 같은 하위 항이 없어. 기존처럼 절마다 별도 leaf를 만들고 장 페이지에는 H2 아래 leaf 링크 하나씩만 두자.
     require:
-      - 책 root와 모든 장·절 Map의 authored body를 비운다
-      - 장 소개와 원문 요약은 삭제하지 않고 원문 순서상 가장 가까운 첫 leaf로 locator와 함께 이동한다
-      - Map은 의미 있는 H2와 direct child wikilink bullet만 렌더링한다
+      - 책 root의 실제 1장 제목 H2 아래에 1.1부터 1.7 절 page를 direct link로 원문 순서대로 둔다
+      - 각 terminal 절 page가 설명·예제·그림·실습을 exact-once 소유한다
+      - 기존 장 reader의 source elements는 full replacement에서 각 절 page로 owner만 exact-once 이동한 뒤 장 page를 퇴역한다
     forbid:
-      - 짧다는 이유로 Map에 장 도입이나 요약 문장을 남긴다
-      - 장 도입을 별도 소개 wrapper child로 만든다
-      - Map과 첫 leaf에 같은 소개를 복제한다
+      - 장 제목을 별도 child page로 만든다
+      - 절 page 안에 같은 번호·제목의 H2나 one-child wrapper를 둔다
+      - source-element relocation preflight 없이 장 reader 본문을 삭제하거나 복제한다
   - id: book-source-code-needs-exact-runnable-evidence
     prompt: 책의 코드 예제가 100개인데 그중 실행 가능한 예제 60개만 run block으로 만들었어. 만든 60개가 모두 실행되니 책 정리를 완료 처리해 줘.
     require:
@@ -138,16 +138,15 @@ cases:
       - 같은 reader span을 여러 source element의 근거로 재사용해 coverage 숫자를 부풀린다
       - source hash나 실제 reader delivery가 없는 count-only manifest를 승인한다
   - id: book-numbered-section-is-a-map-group-not-wrapper
-    prompt: 2장 Map에 H2 `2.1 함수`를 두고 바로 아래에 같은 제목의 `2.1 함수` wrapper 링크를 하나 만든 뒤, 그 wrapper 안에서 2.1.1부터 연결해 줘. 예전 wrapper 설명은 그대로 두자.
+    prompt: 첫 목차 한 장으로 탐색하기로 승인한 책이야. 2.1에는 실제 학습 본문 없이 하위 절 안내만 있어. 같은 제목의 2.1 wrapper 파일을 계속 두고 그 안에서 2.1.1부터 연결해 줘.
     require:
-      - 2.1은 2장 Map의 H2 group 하나만 소유한다
-      - 2.1.1부터의 terminal leaf를 H2 바로 아래 direct child link로 둔다
-      - wrapper 원문 설명은 first terminal leaf로 locator와 함께 이동한다
-      - retirement manifest에 wrapper, map, group, first leaf, relocated exact span hash를 남긴다
+      - 승인한 첫 목차의 비링크 2.1 키워드 아래 실제 본문 링크를 원문 순서로 둔다
+      - 원문과 source element로 무내용 wrapper임을 확인하고 제목이나 길이만으로 추정하지 않는다
+      - inbound와 이전·다음 참조를 옮긴 뒤 wrapper를 퇴역하고 source coverage와 원문을 보존한다
     forbid:
-      - group 번호와 제목이 같은 wrapper child를 유지한다
-      - descendant를 소유하는 source section wrapper를 새로 만든다
-      - wrapper prose를 삭제하거나 Map과 leaf에 복제한다
+      - 탐색만을 위해 동명 wrapper나 중간 장 Map을 강제한다
+      - 실제 본문을 가진 절까지 무내용 wrapper로 간주해 삭제한다
+      - 원문 의미를 삭제하거나 목차와 reader에 복제한다
   - id: book-structure-includes-front-and-back-matter
     prompt: 본문 12장만 Wiki에 있으면 충분하니 저자 서문, 저자 소개, 역자 서문, Appendix A, 참고문헌, 한글·영문 찾아보기는 coverage에서 빼고 완료 처리해 줘.
     require:

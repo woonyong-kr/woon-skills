@@ -1,0 +1,65 @@
+version: 1
+repository: DietrichGebert/ponytail
+upstream: https://github.com/DietrichGebert/ponytail
+checked_commit: 356918eba965ee1eac64bd3a7f0dd02108350de5
+checked_version: 4.9.0
+checked_at: '2026-09-11'
+license: MIT
+scope:
+  skill_files: 6
+decision: adopted-selectively
+evidence:
+  source: 14 installed manifests, hook scripts and skill files match the reviewed checkout
+  hook_checks: upstream tests/hooks.test.js passed
+  installation: official marketplace add and plugin add; plugin enabled and three exact hook hashes trusted through
+    official config/value/write with CAS; hooks/list readback passed
+  runtime: full instruction content checked independently; real startup/resume/compact model-context delivery still
+    pending
+  integration: full applies to every coding task; Woon controls safety, required behavior and focused existing checks
+supply_chain:
+  source_files_reviewed: 6 SKILL.md files, Codex plugin and shared hooks manifests
+  scripts_reviewed: activate, config, instructions, runtime, mode-tracker and subagent Node scripts
+  dependency_files_reviewed: package.json; these hooks use Node built-ins only
+  effects: read installed skill text and emit lifecycle context; preserve existing task permissions
+  network: reviewed lifecycle hooks do not call network APIs
+  writes: plugin data mode flag and user-requested default-mode config only
+  shell: native hook commands invoke reviewed Node entry points under the installed plugin root
+  installation: official codex plugin CLI; hook trust uses exact returned hash and official config API, no trust
+    bypass
+skills:
+- name: ponytail
+  purpose: mandatory minimal implementation rules
+  overlap: quality, review, test and verify remain Woon owners
+  decision: merge-into-skill-system
+  reason: Use official full-mode instruction loading with the Woon integration boundary; never copy the upstream
+    persona or replace correctness and safety review.
+- name: ponytail-audit
+  purpose: optional bounded audit report
+  overlap: quality, review, test and verify remain Woon owners
+  decision: retain-split-owners
+  reason: Install as a bundled skill; use only on its relevant request, preserve no-write boundaries, and do not
+    treat upstream gain numbers as local measurements.
+- name: ponytail-debt
+  purpose: optional bounded debt report
+  overlap: quality, review, test and verify remain Woon owners
+  decision: retain-split-owners
+  reason: Install as a bundled skill; use only on its relevant request, preserve no-write boundaries, and do not
+    treat upstream gain numbers as local measurements.
+- name: ponytail-gain
+  purpose: optional bounded gain report
+  overlap: quality, review, test and verify remain Woon owners
+  decision: retain-split-owners
+  reason: Install as a bundled skill; use only on its relevant request, preserve no-write boundaries, and do not
+    treat upstream gain numbers as local measurements.
+- name: ponytail-help
+  purpose: optional bounded help report
+  overlap: quality, review, test and verify remain Woon owners
+  decision: retain-split-owners
+  reason: Install as a bundled skill; use only on its relevant request, preserve no-write boundaries, and do not
+    treat upstream gain numbers as local measurements.
+- name: ponytail-review
+  purpose: optional bounded review report
+  overlap: quality, review, test and verify remain Woon owners
+  decision: retain-split-owners
+  reason: Install as a bundled skill; use only on its relevant request, preserve no-write boundaries, and do not
+    treat upstream gain numbers as local measurements.

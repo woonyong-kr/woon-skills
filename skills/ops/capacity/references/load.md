@@ -28,7 +28,7 @@ Little's Law `L = λW`는 안정된 구간의 추정에만 쓰고 unbounded queu
 
 ## 검증
 
-- step·spike·soak·stress와 dependency slowdown을 분리해 실행한다.
+- 확인할 병목·지속시간·과부하 위험에 맞는 step·spike·soak·stress·dependency slowdown을 선택해 각각의 영향을 구분한다.
 - coordinated omission을 피하고 client-side end-to-end latency를 측정한다.
 - queue depth·age, utilization, saturation, rejected work와 downstream calls를 기록한다.
 - tenant 하나의 burst가 다른 tenant SLO에 미치는 영향을 측정한다.

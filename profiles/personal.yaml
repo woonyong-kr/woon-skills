@@ -1,8 +1,9 @@
 version: 1
 name: personal
-max_active: 15
+max_active: 17
 skills:
   - skills/common/safety
+  - skills/git/commit
   - skills/docs/diagram
   - skills/knowledge/archive
   - skills/knowledge/compile-knowledge
@@ -17,3 +18,4 @@ skills:
   - skills/research/research
   - skills/research/research-library
   - skills/writing/tech
+  - skills/writing/humanize

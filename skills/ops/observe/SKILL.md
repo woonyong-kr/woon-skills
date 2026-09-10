@@ -12,4 +12,4 @@ description: backend의 structured log, metric, distributed trace, correlation, 
 3. logical operation과 physical attempt, success와 accepted·pending·unknown을 구분한다.
 4. alert는 SLO 영향과 즉시 가능한 대응이 있을 때만 page로 만든다.
 
-debug log를 audit log로 대신하지 않는다. 결과에는 signal schema, SLI 계산식·window, trace boundary, alert condition·runbook과 failure injection에서 관측된 증거를 포함한다.
+debug log를 audit log로 대신하지 않는다. 결과에는 signal schema, SLI 계산식·window, trace boundary, alert condition·runbook과 변경된 signal이 사용자 영향·실패를 구분하는 검증 근거를 포함한다.

@@ -45,6 +45,6 @@ mutable object를 default argument로 두지 않는다. `None` sentinel이나 im
 
 ## 문서와 검증
 
-public module·class·function은 사용자가 알아야 할 목적, parameter 의미, return, side effect와 예외를 docstring으로 설명한다. 구현을 그대로 낭독하지 않는다. format → lint → type check → pytest를 실행하고 public import와 executable entrypoint를 함께 확인한다.
+public module·class·function은 사용자가 알아야 할 목적, parameter 의미, return, side effect와 예외를 docstring으로 설명한다. 구현을 그대로 낭독하지 않는다. 표기·typing·동작 변경에 필요한 저장소 검사를 선택하고 public import나 executable entrypoint가 바뀌면 해당 경계를 확인한다.
 
 이 문서는 [Google Python Style Guide](https://github.com/google/styleguide/blob/1809c769de31ba388c755ad15dd057a9ba8531fd/pyguide.md)를 참고해 Woon의 formatter 우선·public compatibility·domain ownership 기준으로 재작성했다.

@@ -12,4 +12,4 @@ cache는 성능 복사본이지 암묵적인 두 번째 정본이 아니다.
 3. correctness를 cache hit에 의존하지 않게 하고 miss·eviction·cache outage에서도 원본 계약을 보존한다.
 4. DB commit과 invalidation의 crash window는 `$tx`, tenant key 격리는 `$tenant`, 용량과 hot key는 `$capacity`를 함께 적용한다.
 
-TTL 숫자를 관행으로 복사하지 않는다. 결과에는 stale contract, key namespace, mutation 순서, failure mode, hit·miss·age·eviction metric과 cold/warm/concurrent 검증을 포함한다.
+TTL 숫자를 관행으로 복사하지 않는다. 결과에는 stale contract, key namespace, mutation 순서, failure mode, hit·miss·age·eviction metric과 변경된 miss·갱신·동시 refresh 경로의 검증 근거를 포함한다.

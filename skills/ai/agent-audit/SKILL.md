@@ -7,7 +7,7 @@ description: LLM·agent application의 prompt, context, memory, retrieval, tool,
 
 모델이나 persona를 바꾸기 전에 wrapper가 입력·행동·출력을 어떻게 바꾸는지 증명한다.
 
-1. 같은 입력과 model 설정으로 direct model 기준본과 실제 application replay를 비교한다.
+1. 기존 trace·설정·코드에서 증상을 일으킬 수 있는 층을 좁힌다. wrapper 영향이나 모델 차이를 확인해야 할 때만 같은 입력·model 설정의 direct 기준본과 application replay를 비교한다.
 2. 조립된 context의 출처·순서·digest, model 원문, tool 요청·결과, validation 실패, retry·repair, renderer 전후와 최종 응답을 하나의 trace로 연결한다. secret과 private payload는 redaction한다.
 3. 필수 tool·권한·인자·후조건은 prompt가 아니라 schema와 실행 코드에서 강제한다.
 4. structured output은 parse→schema→업무 의미 순으로 검증한다. deterministic repair만 먼저 적용하고 LLM 재호출은 새 inference로 기록하며 횟수·비용·변경 내용을 숨기지 않는다.

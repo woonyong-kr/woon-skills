@@ -74,11 +74,4 @@ exception은 caller가 구별해 처리해야 하는 failure meaning으로 나�
 
 ## Consistency repair
 
-잘못 배치된 기존 코드를 정리할 때 한 번에 구조를 재설계하지 않는다.
-
-1. 현재 public import와 test를 기록한다.
-2. 책임이 명확한 단위 하나를 move/rename한다.
-3. compatibility import가 필요한지 판단한다.
-4. caller와 tests를 수정한다.
-5. formatter, lint, type check, test를 실행한다.
-6. 다음 단위로 진행한다.
+현재 public import와 consumer를 확인하고 함께 되돌리고 검증할 책임 단위로 move·rename한다. 필요한 compatibility import와 caller를 함께 갱신한다. 변경한 import·typing·runtime 경계에 맞는 기존 검사를 선택하며, 같은 변경 묶음에 대해 도구 전체를 단위마다 반복 실행하지 않는다.
