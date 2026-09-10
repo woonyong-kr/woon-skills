@@ -94,6 +94,8 @@ def audit(text: str) -> list[dict[str, str | int]]:
 
 
 def main() -> int:
+    for stream in (sys.stdin, sys.stdout, sys.stderr):
+        stream.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("paths", nargs="*", type=Path, help="UTF-8 files; omit to read stdin")
     parser.add_argument("--json", action="store_true", help="Print review candidates as JSON")
